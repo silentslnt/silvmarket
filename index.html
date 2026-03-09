@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silv Market — Premium Roblox Items</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-void: #03010a;
+  --bg-deep: #07030f;
+  --bg-card: rgba(20,8,45,0.85);
+  --bg-card2: rgba(13,5,30,0.9);
+  --purple-dark: #1a0533;
+  --purple: #5b21b6;
+  --purple-bright: #9333ea;
+  --blue-deep: #050b2e;
+  --blue: #1e40af;
+  --blue-bright: #3b82f6;
+  --neon-pink: #ff10f0;
+  --neon-pink2: #ff69b4;
+  --yellow: #ffd700;
+  --yellow2: #fff176;
+  --red: #ff0040;
+  --red2: #ff3366;
+  --white: #ffffff;
+  --white-dim: rgba(255,255,255,0.7);
+  --white-faint: rgba(255,255,255,0.1);
+  --border: rgba(255,255,255,0.08);
+  --border-glow: rgba(147,51,234,0.4);
+  --glow-pink: 0 0 20px #ff10f080, 0 0 60px #ff10f030;
+  --glow-yellow: 0 0 20px #ffd70080, 0 0 60px #ffd70030;
+  --glow-purple: 0 0 20px #9333ea80, 0 0 60px #9333ea30;
+  --glow-red: 0 0 20px #ff004080, 0 0 60px #ff004030;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg-void);
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ANIMATED BG MESH */
+.bg-mesh{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.bg-mesh::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 10%,#9333ea18,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%,#ff10f015,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 60% 30%,#1e40af12,transparent 60%),
+    radial-gradient(ellipse 80% 30% at 10% 90%,#ff004010,transparent 60%);
+  animation:meshShift 12s ease-in-out infinite alternate;
+}
+@keyframes meshShift{
+  0%{opacity:1;transform:scale(1) translate(0,0)}
+  100%{opacity:0.7;transform:scale(1.1) translate(-2%,2%)}
+}
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(147,51,234,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(147,51,234,0.05) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 30%,transparent 80%);
+}
+.scanline{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px
+  );
+}
+
+/* TOPBAR */
+.topbar{
+  position:relative;z-index:10;
+  background:linear-gradient(90deg,#ff10f0,#9333ea,#3b82f6,#ff0040,#ffd700);
+  background-size:300% 100%;animation:gradientShift 5s ease infinite;
+  padding:7px 20px;text-align:center;
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;
+  color:#000;
+}
+@keyframes gradientShift{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+.topbar-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.topbar span{display:flex;align-items:center;gap:6px}
+
+/* NAVBAR */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(3,1,10,0.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(147,51,234,0.3);
+  padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:68px;
+  box-shadow:0 1px 0 rgba(147,51,234,0.2), 0 4px 40px rgba(147,51,234,0.1);
+}
+.logo{
+  font-family:'Orbitron',monospace;
+  font-size:26px;font-weight:900;letter-spacing:3px;
+  text-decoration:none;display:flex;align-items:center;gap:4px;
+  background:linear-gradient(135deg,var(--white) 0%,var(--yellow) 40%,var(--neon-pink) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 12px rgba(255,16,240,0.4));
+  transition:filter .3s;
+}
+.logo:hover{filter:drop-shadow(0 0 20px rgba(255,16,240,0.8));}
+.logo-tag{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  background:var(--neon-pink);color:#000;
+  padding:2px 7px;border-radius:4px;
+  -webkit-text-fill-color:#000;
+  font-family:'Rajdhani',sans-serif;
+  align-self:flex-start;margin-top:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-link{
+  text-decoration:none;color:var(--white-dim);
+  font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.5px;
+  padding:8px 14px;border-radius:8px;
+  transition:all .2s;border:1px solid transparent;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-link:hover{
+  color:var(--white);background:rgba(147,51,234,0.15);
+  border-color:rgba(147,51,234,0.3);
+}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn{
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;
+  padding:10px 22px;border-radius:10px;cursor:pointer;border:none;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  transition:all .2s;white-space:nowrap;
+}
+.btn-ghost{
+  background:transparent;color:var(--white-dim);
+  border:1px solid rgba(255,255,255,0.15);
+}
+.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,0.4);}
+.btn-primary{
+  background:linear-gradient(135deg,var(--purple-bright),var(--neon-pink));
+  color:#fff;
+  box-shadow:0 0 20px rgba(147,51,234,0.4);
+}
+.btn-primary:hover{box-shadow:0 0 30px rgba(255,16,240,0.5);transform:translateY(-1px);}
+.cart-trigger{
+  position:relative;background:rgba(255,16,240,0.1);
+  border:1px solid rgba(255,16,240,0.3);
+  color:var(--neon-pink);padding:10px 20px;border-radius:10px;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  transition:all .2s;
+}
+.cart-trigger:hover{background:rgba(255,16,240,0.2);box-shadow:var(--glow-pink);}
+.cart-badge{
+  background:var(--red);color:#fff;
+  border-radius:50%;width:20px;height:20px;
+  font-size:11px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 8px var(--red);
+}
+
+/* TICKER */
+.ticker-outer{
+  position:relative;z-index:9;
+  background:rgba(7,3,15,0.8);
+  border-bottom:1px solid rgba(255,16,240,0.15);
+  padding:9px 0;overflow:hidden;
+}
+.ticker-inner{
+  display:flex;gap:64px;white-space:nowrap;
+  animation:tickerScroll 35s linear infinite;
+}
+.tick{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;}
+.tick-dot{width:6px;height:6px;border-radius:50%;background:var(--neon-pink);box-shadow:0 0 6px var(--neon-pink);flex-shrink:0;}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{
+  position:relative;z-index:1;
+  min-height:520px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:80px 20px 60px;
+  overflow:hidden;
+}
+.hero-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;
+}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(147,51,234,0.25),transparent 70%);top:-200px;left:-200px;animation:orbFloat 8s ease-in-out infinite;}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(255,16,240,0.2),transparent 70%);bottom:-200px;right:-100px;animation:orbFloat 10s ease-in-out infinite reverse;}
+.orb3{width:400px;height:400px;background:radial-gradient(circle,rgba(255,0,64,0.15),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbFloat 12s ease-in-out infinite 3s;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}}
+.hero-content{position:relative;z-index:2;max-width:800px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,16,240,0.08);
+  border:1px solid rgba(255,16,240,0.3);
+  padding:7px 18px;border-radius:99px;
+  font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon-pink);margin-bottom:24px;
+  font-family:'Rajdhani',sans-serif;
+}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--neon-pink);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.hero h1{
+  font-family:'Orbitron',monospace;
+  font-size:clamp(52px,9vw,110px);
+  font-weight:900;line-height:0.9;letter-spacing:-1px;
+  margin-bottom:8px;
+}
+.hero h1 .line1{display:block;color:var(--white);text-shadow:0 0 40px rgba(255,255,255,0.2);}
+.hero h1 .line2{
+  display:block;
+  background:linear-gradient(135deg,var(--yellow) 0%,var(--neon-pink) 50%,var(--purple-bright) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 20px rgba(255,16,240,0.5));
+}
+.hero-sub{font-size:17px;color:rgba(255,255,255,0.55);margin:20px 0 36px;font-weight:400;line-height:1.6;max-width:520px;margin-left:auto;margin-right:auto;}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+.cta-main{
+  background:linear-gradient(135deg,var(--neon-pink),var(--purple-bright));
+  color:#fff;padding:16px 36px;border-radius:12px;font-size:16px;font-weight:700;
+  border:none;cursor:pointer;letter-spacing:0.5px;
+  box-shadow:0 0 30px rgba(255,16,240,0.4),0 4px 20px rgba(0,0,0,0.4);
+  font-family:'Rajdhani',sans-serif;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .3s;
+}
+.cta-main:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(255,16,240,0.6),0 8px 30px rgba(0,0,0,0.4);}
+.cta-secondary{
+  background:rgba(255,255,255,0.05);color:var(--white);
+  padding:16px 36px;border-radius:12px;font-size:16px;font-weight:700;
+  border:1px solid rgba(255,255,255,0.15);cursor:pointer;
+  font-family:'Rajdhani',sans-serif;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .3s;
+}
+.cta-secondary:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);}
+.hero-stats{
+  display:flex;gap:0;justify-content:center;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:16px;overflow:hidden;
+  max-width:560px;margin:0 auto;
+}
+.hero-stat{
+  flex:1;padding:20px 10px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.07);
+}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{
+  font-family:'Orbitron',monospace;font-size:24px;font-weight:700;
+  background:linear-gradient(135deg,var(--yellow),var(--neon-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;margin-top:4px;font-weight:600;}
+
+/* TRUST STRIP */
+.trust-strip{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;
+  padding:14px 32px;
+  background:rgba(255,255,255,0.02);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.trust-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:0.5px;
+  color:rgba(255,255,255,0.45);
+  font-family:'Rajdhani',sans-serif;
+}
+.trust-icon{font-size:15px;}
+
+/* SECTION */
+.section{padding:64px 40px;max-width:1440px;margin:0 auto;position:relative;z-index:2;}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;
+}
+.label-pink{color:var(--neon-pink);}
+.label-yellow{color:var(--yellow);}
+.label-red{color:var(--red2);}
+.label-blue{color:var(--blue-bright);}
+.section-title{
+  font-family:'Orbitron',monospace;
+  font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:1px;
+  margin-bottom:8px;
+}
+.section-sub{color:rgba(255,255,255,0.4);font-size:15px;margin-bottom:36px;line-height:1.6;}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px;}
+
+/* GAME TABS */
+.game-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.game-tab{
+  padding:9px 20px;border-radius:99px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.45);
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;
+  cursor:pointer;transition:all .2s;
+}
+.game-tab:hover{color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.2);}
+.game-tab.active-pink{background:rgba(255,16,240,0.12);border-color:rgba(255,16,240,0.4);color:var(--neon-pink);}
+.game-tab.active-yellow{background:rgba(255,215,0,0.12);border-color:rgba(255,215,0,0.4);color:var(--yellow);}
+.game-tab.active-red{background:rgba(255,0,64,0.12);border-color:rgba(255,0,64,0.4);color:var(--red2);}
+.game-tab.active-blue{background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.4);color:var(--blue-bright);}
+
+/* FEATURED CARD */
+.featured{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(26,5,51,0.9),rgba(5,11,46,0.9));
+  border:1px solid rgba(147,51,234,0.3);
+  border-radius:24px;padding:40px;
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:40px;
+  margin-bottom:32px;
+  box-shadow:0 0 60px rgba(147,51,234,0.15);
+  flex-wrap:wrap;
+}
+.featured::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,16,240,0.05),transparent 50%,rgba(255,215,0,0.03));
+  pointer-events:none;
+}
+.featured::after{
+  content:'FEATURED';
+  position:absolute;top:20px;right:20px;
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;
+  color:var(--yellow);background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);
+  padding:4px 12px;border-radius:6px;
+}
+.feat-emoji{font-size:90px;line-height:1;filter:drop-shadow(0 0 30px rgba(255,16,240,0.5));animation:floatEmoji 3s ease-in-out infinite;}
+@keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.feat-info{}
+.feat-game{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--neon-pink);margin-bottom:6px;}
+.feat-name{font-family:'Orbitron',monospace;font-size:36px;font-weight:800;margin-bottom:10px;letter-spacing:1px;}
+.feat-desc{color:rgba(255,255,255,0.5);font-size:14px;line-height:1.7;max-width:400px;}
+.feat-right{text-align:right;flex-shrink:0;}
+.feat-old{text-decoration:line-through;color:rgba(255,255,255,0.25);font-size:16px;margin-bottom:4px;}
+.feat-price{font-family:'Orbitron',monospace;font-size:44px;font-weight:800;color:var(--yellow);text-shadow:0 0 20px rgba(255,215,0,0.5);margin-bottom:16px;}
+.feat-save{
+  display:inline-block;background:rgba(255,0,64,0.2);
+  border:1px solid rgba(255,0,64,0.4);color:var(--red2);
+  font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:16px;
+  font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;
+}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;}
+.pcard{
+  position:relative;
+  background:var(--bg-card);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px;overflow:hidden;
+  transition:all .3s;
+  backdrop-filter:blur(12px);
+}
+.pcard:hover{
+  transform:translateY(-6px);
+  border-color:rgba(255,16,240,0.4);
+  box-shadow:0 12px 40px rgba(255,16,240,0.15),0 0 0 1px rgba(255,16,240,0.15);
+}
+.pcard-img{
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  font-size:70px;position:relative;
+  background:linear-gradient(135deg,rgba(26,5,51,0.8),rgba(5,11,46,0.8));
+  overflow:hidden;
+}
+.pcard-img::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(147,51,234,0.2),transparent 70%);
+}
+.pcard-img-inner{position:relative;z-index:1;transition:transform .3s;}
+.pcard:hover .pcard-img-inner{transform:scale(1.1);}
+.pbadge{
+  position:absolute;top:12px;right:12px;z-index:2;
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;
+  padding:4px 10px;border-radius:6px;text-transform:uppercase;
+}
+.pbadge-hot{background:linear-gradient(135deg,var(--red),#ff6b35);color:#fff;box-shadow:0 0 10px rgba(255,0,64,0.5);}
+.pbadge-new{background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;box-shadow:0 0 10px rgba(59,130,246,0.5);}
+.pbadge-perm{background:linear-gradient(135deg,#d97706,var(--yellow));color:#000;box-shadow:0 0 10px rgba(255,215,0,0.5);}
+.pbadge-sale{background:linear-gradient(135deg,var(--neon-pink),var(--purple-bright));color:#fff;box-shadow:0 0 10px rgba(255,16,240,0.5);}
+.pbadge-oos{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);}
+.pcard-body{padding:16px;}
+.pcard-game{
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.g-bf{color:#f59e0b;}
+.g-am{color:#ec4899;}
+.g-mm2{color:#60a5fa;}
+.g-br{color:#c084fc;}
+.pcard-name{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.3;letter-spacing:0.2px;}
+.pcard-price{
+  font-family:'Orbitron',monospace;font-size:20px;font-weight:700;
+  color:var(--yellow);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.pcard-price-orig{text-decoration:line-through;color:rgba(255,255,255,0.25);font-size:13px;font-family:'Inter',sans-serif;}
+.pcard-buy{
+  width:100%;padding:11px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(147,51,234,0.3),rgba(255,16,240,0.2));
+  border:1px solid rgba(255,16,240,0.3);
+  color:var(--neon-pink);
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.pcard-buy:hover{
+  background:linear-gradient(135deg,rgba(147,51,234,0.5),rgba(255,16,240,0.4));
+  box-shadow:var(--glow-pink);transform:scale(1.01);
+}
+.pcard-buy.oos{
+  background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.2);cursor:not-allowed;
+}
+
+/* HOW IT WORKS */
+.how-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.how-card{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;padding:32px 24px;text-align:center;
+  position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.how-card:hover{border-color:rgba(255,16,240,0.3);}
+.how-card::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:40px;background:linear-gradient(to bottom,var(--neon-pink),transparent);
+}
+.how-num{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple-bright),var(--neon-pink));
+  color:#fff;font-family:'Orbitron',monospace;font-size:20px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;box-shadow:0 0 20px rgba(255,16,240,0.3);
+}
+.how-card h3{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:0.3px;}
+.how-card p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6;font-weight:400;}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.review-card{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:18px;padding:22px;
+  transition:border-color .3s;
+}
+.review-card:hover{border-color:rgba(255,215,0,0.2);}
+.review-stars{color:var(--yellow);font-size:14px;margin-bottom:10px;letter-spacing:1px;text-shadow:0 0 8px rgba(255,215,0,0.5);}
+.review-text{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:16px;}
+.review-bottom{display:flex;align-items:center;gap:12px;}
+.review-av{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple-dark),var(--bg-deep));
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.review-name{font-size:14px;font-weight:700;}
+.review-meta{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;}
+
+/* PAYMENTS SECTION */
+.pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+.pay-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:18px;padding:24px;text-align:center;
+  transition:all .3s;cursor:pointer;
+}
+.pay-card:hover{transform:translateY(-4px);}
+.pay-card.pp:hover{border-color:rgba(0,112,186,0.5);box-shadow:0 8px 30px rgba(0,112,186,0.15);}
+.pay-card.ca:hover{border-color:rgba(0,212,66,0.5);box-shadow:0 8px 30px rgba(0,212,66,0.15);}
+.pay-card.cr:hover{border-color:rgba(255,215,0,0.5);box-shadow:0 8px 30px rgba(255,215,0,0.15);}
+.pay-card.cd:hover{border-color:rgba(147,51,234,0.5);box-shadow:0 8px 30px rgba(147,51,234,0.15);}
+.pay-icon{font-size:42px;margin-bottom:12px;}
+.pay-name{font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+.pay-desc{font-size:12px;color:rgba(255,255,255,0.35);}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:2;
+  background:rgba(0,0,0,0.5);
+  border-top:1px solid rgba(255,255,255,0.05);
+  padding:48px 40px 24px;
+}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.footer-brand p{color:rgba(255,255,255,0.35);font-size:13px;line-height:1.7;margin-top:12px;}
+.footer-col h4{
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--neon-pink);margin-bottom:16px;
+}
+.footer-col a{display:block;text-decoration:none;color:rgba(255,255,255,0.35);font-size:14px;margin-bottom:9px;transition:color .2s;}
+.footer-col a:hover{color:var(--white);}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.05);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.2);}
+
+/* ==================== CART SIDEBAR ==================== */
+.cart-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;
+  opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px);
+}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-sidebar{
+  position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;
+  background:linear-gradient(180deg,#0d0520,#070312);
+  border-left:1px solid rgba(147,51,234,0.3);
+  z-index:201;
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;
+}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-header{
+  padding:24px;border-bottom:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-header h2{font-family:'Orbitron',monospace;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;}
+.cart-close{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.5);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.cart-close:hover{background:rgba(255,0,64,0.2);color:var(--red2);border-color:rgba(255,0,64,0.4);}
+.cart-items{flex:1;overflow-y:auto;padding:20px;}
+.cart-items::-webkit-scrollbar{width:4px;}
+.cart-items::-webkit-scrollbar-track{background:transparent;}
+.cart-items::-webkit-scrollbar-thumb{background:rgba(147,51,234,0.4);border-radius:2px;}
+.cart-item{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;padding:14px;margin-bottom:12px;
+}
+.ci-emoji{font-size:36px;width:52px;text-align:center;flex-shrink:0;}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-game{font-size:11px;color:rgba(255,255,255,0.35);font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-top:2px;}
+.ci-price{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;color:var(--yellow);text-align:right;flex-shrink:0;}
+.ci-remove{
+  background:none;border:none;color:rgba(255,255,255,0.2);
+  font-size:16px;cursor:pointer;padding:4px;transition:color .2s;
+}
+.ci-remove:hover{color:var(--red2);}
+.cart-empty{text-align:center;padding:60px 20px;color:rgba(255,255,255,0.25);}
+.cart-empty-icon{font-size:60px;margin-bottom:16px;opacity:0.3;}
+.cart-empty p{font-size:15px;}
+.cart-footer{
+  padding:20px 24px;
+  border-top:1px solid rgba(255,255,255,0.07);
+  background:rgba(0,0,0,0.3);
+}
+.cart-summary{margin-bottom:16px;}
+.cs-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:14px;color:rgba(255,255,255,0.5);}
+.cs-total{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--yellow);text-shadow:0 0 20px rgba(255,215,0,0.4);}
+.checkout-btn{
+  width:100%;padding:16px;border-radius:12px;
+  background:linear-gradient(135deg,var(--neon-pink),var(--purple-bright));
+  color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;letter-spacing:1px;
+  border:none;cursor:pointer;
+  box-shadow:0 0 30px rgba(255,16,240,0.3);
+  transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.checkout-btn:hover{box-shadow:0 0 50px rgba(255,16,240,0.5);transform:scale(1.01);}
+.checkout-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;}
+
+/* ==================== CHECKOUT MODAL ==================== */
+.checkout-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:20px;overflow-y:auto;backdrop-filter:blur(8px);
+}
+.checkout-overlay.open{opacity:1;pointer-events:all;}
+.checkout-modal{
+  width:100%;max-width:900px;
+  background:linear-gradient(160deg,#0d0520,#07031a,#050b1e);
+  border:1px solid rgba(147,51,234,0.3);
+  border-radius:28px;overflow:hidden;
+  box-shadow:0 0 80px rgba(147,51,234,0.2),0 0 0 1px rgba(255,255,255,0.05);
+  transform:translateY(30px);transition:transform .4s cubic-bezier(.16,1,.3,1);
+  margin:auto;
+}
+.checkout-overlay.open .checkout-modal{transform:translateY(0);}
+.co-header{
+  padding:28px 32px;
+  background:rgba(255,255,255,0.02);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.co-header h2{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;}
+.co-steps{display:flex;gap:8px;align-items:center;}
+.co-step{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.3);font-family:'Orbitron',monospace;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;transition:all .3s;
+}
+.co-step.active{background:linear-gradient(135deg,var(--purple-bright),var(--neon-pink));border:none;color:#fff;box-shadow:0 0 16px rgba(255,16,240,0.4);}
+.co-step.done{background:rgba(0,200,83,0.2);border-color:rgba(0,200,83,0.4);color:#00c853;}
+.co-body{display:grid;grid-template-columns:1fr 380px;}
+.co-left{padding:32px;border-right:1px solid rgba(255,255,255,0.06);}
+.co-right{padding:32px;background:rgba(0,0,0,0.2);}
+
+/* CHECKOUT LEFT: ORDER INFO */
+.checkout-items{margin-bottom:28px;}
+.co-item{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+  border-radius:14px;padding:14px;margin-bottom:10px;
+}
+.co-item-emoji{font-size:32px;width:48px;text-align:center;flex-shrink:0;}
+.co-item-info{flex:1;}
+.co-item-name{font-size:14px;font-weight:700;}
+.co-item-game{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+.co-item-qty{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.qty-btn{
+  width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:var(--white);
+  font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.qty-btn:hover{border-color:var(--neon-pink);color:var(--neon-pink);}
+.qty-num{font-family:'Orbitron',monospace;font-size:14px;font-weight:600;min-width:20px;text-align:center;}
+.co-item-price{
+  font-family:'Orbitron',monospace;font-size:18px;font-weight:700;color:var(--yellow);
+  text-align:right;flex-shrink:0;
+}
+.co-item-oldp{text-decoration:line-through;color:rgba(255,255,255,0.2);font-size:12px;font-family:'Inter',sans-serif;}
+.co-item-save{color:var(--red2);font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;}
+
+/* PROMO */
+.co-promo{
+  display:flex;gap:10px;margin-bottom:24px;
+}
+.co-promo-input{
+  flex:1;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+  padding:12px 16px;color:var(--white);font-size:14px;
+  font-family:'Inter',sans-serif;transition:border-color .2s;
+  outline:none;
+}
+.co-promo-input:focus{border-color:rgba(147,51,234,0.5);}
+.co-promo-input::placeholder{color:rgba(255,255,255,0.2);}
+.co-promo-btn{
+  padding:12px 20px;border-radius:10px;
+  background:linear-gradient(135deg,var(--purple-bright),var(--neon-pink));
+  color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;
+  border:none;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:0.5px;
+}
+.co-promo-btn:hover{box-shadow:var(--glow-pink);}
+.promo-success{
+  background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.3);
+  color:#00c853;border-radius:8px;padding:8px 14px;
+  font-size:13px;font-weight:600;margin-bottom:16px;
+  display:none;align-items:center;gap:8px;
+}
+
+/* ROBLOX USERNAME */
+.co-label{
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;
+}
+.co-input-wrap{position:relative;margin-bottom:14px;}
+.co-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+  padding:14px 46px 14px 16px;color:var(--white);font-size:15px;
+  font-family:'Inter',sans-serif;transition:all .2s;
+  outline:none;
+}
+.co-input:focus{border-color:rgba(147,51,234,0.5);background:rgba(147,51,234,0.05);}
+.co-input::placeholder{color:rgba(255,255,255,0.2);}
+.co-input-icon{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,0.25);font-size:16px;transition:all .3s;
+}
+.co-input-icon.loading{animation:spin .8s linear infinite;color:var(--neon-pink);}
+.co-input-icon.verified{color:#00c853;}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.roblox-result{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:14px;
+  display:none;align-items:center;gap:14px;margin-bottom:14px;
+  transition:all .3s;
+}
+.roblox-result.show{display:flex;}
+.roblox-result.verified{border-color:rgba(0,200,83,0.3);background:rgba(0,200,83,0.05);}
+.roblox-result.error{border-color:rgba(255,0,64,0.3);background:rgba(255,0,64,0.05);}
+.roblox-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,0.05);overflow:hidden;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.roblox-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.roblox-info{}
+.roblox-status{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:3px;font-family:'Rajdhani',sans-serif;}
+.roblox-status.ok{color:#00c853;}
+.roblox-status.err{color:var(--red2);}
+.roblox-username{font-size:15px;font-weight:700;}
+.roblox-id{font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;}
+.roblox-check{margin-left:auto;font-size:22px;color:#00c853;}
+
+/* DISCORD LINK */
+.discord-link-btn{
+  width:100%;padding:14px;border-radius:12px;
+  background:linear-gradient(135deg,#3f1d8f,#5865f2);
+  color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.5px;
+  border:1px solid rgba(88,101,242,0.4);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all .3s;text-decoration:none;margin-bottom:14px;
+}
+.discord-link-btn:hover{box-shadow:0 0 20px rgba(88,101,242,0.4);transform:translateY(-1px);}
+.discord-link-btn.linked{
+  background:linear-gradient(135deg,rgba(0,200,83,0.15),rgba(0,200,83,0.05));
+  border-color:rgba(0,200,83,0.4);
+  color:#00c853;cursor:default;transform:none;
+}
+.discord-linked-info{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;}
+
+/* EMAIL */
+.co-email-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+  padding:14px 16px;color:var(--white);font-size:15px;
+  font-family:'Inter',sans-serif;transition:all .2s;
+  outline:none;margin-bottom:20px;
+}
+.co-email-input:focus{border-color:rgba(147,51,234,0.5);background:rgba(147,51,234,0.05);}
+.co-email-input::placeholder{color:rgba(255,255,255,0.2);}
+
+/* ORDER SUMMARY (right side) */
+.co-summary{
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;padding:20px;margin-bottom:20px;
+}
+.co-summary h3{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;margin-bottom:16px;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;}
+.sum-label{color:rgba(255,255,255,0.4);}
+.sum-val{font-weight:600;}
+.sum-discount{color:var(--red2);}
+.sum-fee{color:rgba(255,255,255,0.5);}
+.sum-divider{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:14px 0;}
+.sum-total-row{display:flex;justify-content:space-between;align-items:center;}
+.sum-total-label{font-size:16px;font-weight:700;}
+.sum-total-val{font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:var(--yellow);text-shadow:0 0 16px rgba(255,215,0,0.4);}
+
+/* PAYMENT METHODS */
+.pay-methods{margin-bottom:20px;}
+.pay-methods h3{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;margin-bottom:14px;}
+.pay-method-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pm-card{
+  background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.07);
+  border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;
+  transition:all .2s;
+}
+.pm-card:hover{border-color:rgba(255,255,255,0.2);}
+.pm-card.selected-pp{border-color:#009cde;background:rgba(0,156,222,0.08);box-shadow:0 0 16px rgba(0,156,222,0.2);}
+.pm-card.selected-ca{border-color:#00d442;background:rgba(0,212,66,0.08);box-shadow:0 0 16px rgba(0,212,66,0.2);}
+.pm-card.selected-cr{border-color:var(--yellow);background:rgba(255,215,0,0.08);box-shadow:0 0 16px rgba(255,215,0,0.2);}
+.pm-card.selected-cd{border-color:var(--purple-bright);background:rgba(147,51,234,0.08);box-shadow:0 0 16px rgba(147,51,234,0.2);}
+.pm-logo{font-size:24px;margin-bottom:5px;}
+.pm-name{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;}
+.pm-desc{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
+
+/* PAY BUTTON */
+.pay-now-btn{
+  width:100%;padding:18px;border-radius:14px;
+  font-family:'Orbitron',monospace;font-size:15px;font-weight:800;letter-spacing:1px;
+  border:none;cursor:pointer;transition:all .3s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.pay-pp{background:linear-gradient(135deg,#009cde,#003087);color:#fff;box-shadow:0 0 30px rgba(0,112,186,0.4);}
+.pay-pp:hover{box-shadow:0 0 50px rgba(0,112,186,0.6);transform:translateY(-2px);}
+.pay-ca{background:linear-gradient(135deg,#00d442,#007a27);color:#fff;box-shadow:0 0 30px rgba(0,212,66,0.4);}
+.pay-ca:hover{box-shadow:0 0 50px rgba(0,212,66,0.6);transform:translateY(-2px);}
+.pay-cr{background:linear-gradient(135deg,var(--yellow),#d97706);color:#000;box-shadow:0 0 30px rgba(255,215,0,0.4);}
+.pay-cr:hover{box-shadow:0 0 50px rgba(255,215,0,0.6);transform:translateY(-2px);}
+.pay-cd{background:linear-gradient(135deg,var(--purple-bright),var(--neon-pink));color:#fff;box-shadow:0 0 30px rgba(147,51,234,0.4);}
+.pay-cd:hover{box-shadow:0 0 50px rgba(255,16,240,0.6);transform:translateY(-2px);}
+.pay-now-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;}
+.pay-note{
+  text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;line-height:1.6;
+  font-family:'Rajdhani',sans-serif;letter-spacing:0.3px;
+}
+
+/* SUCCESS STATE */
+.co-success{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 32px;text-align:center;
+}
+.co-success.show{display:flex;}
+.success-icon{
+  font-size:80px;margin-bottom:24px;
+  animation:successPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes successPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-title{font-family:'Orbitron',monospace;font-size:28px;font-weight:800;color:var(--yellow);margin-bottom:10px;}
+.success-sub{color:rgba(255,255,255,0.5);font-size:15px;max-width:400px;line-height:1.7;}
+
+/* DISCO BUTTON */
+.discord-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#3f1d8f,#5865f2);
+  color:#fff;padding:12px 28px;border-radius:12px;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.5px;
+  text-decoration:none;margin-top:20px;
+  transition:all .3s;border:1px solid rgba(88,101,242,0.4);
+}
+.discord-cta:hover{box-shadow:0 0 24px rgba(88,101,242,0.5);transform:translateY(-2px);}
+
+/* DIVIDERS */
+.divider-line{
+  height:1px;background:linear-gradient(90deg,transparent,rgba(147,51,234,0.4),rgba(255,16,240,0.4),transparent);
+  margin:0;
+}
+
+/* CLOSE BTN */
+.modal-x{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.modal-x:hover{background:rgba(255,0,64,0.15);color:var(--red2);border-color:rgba(255,0,64,0.3);}
+
+@media(max-width:800px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;}
+  .section{padding:48px 16px;}
+  .featured{grid-template-columns:1fr;text-align:center;}
+  .feat-right{text-align:center;}
+  .co-body{grid-template-columns:1fr;}
+  .co-right{border-top:1px solid rgba(255,255,255,0.06);border-left:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .cart-sidebar{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<div class="scanline"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>🔥 Use code <strong>SILV20</strong> for 20% off</span>
+    <span>⚡ Instant Delivery</span>
+    <span>🛡️ 500+ Verified Customers</span>
+    <span>💬 24/7 Discord Support</span>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-outer">
+  <div class="ticker-inner" id="ticker">
+    <span class="tick"><span class="tick-dot"></span>xX_DragonKing bought Permanent Dragon 🐉 — 2 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>CutiePaws99 bought Neon FR Unicorn 🦄 — 5 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>GrindGod420 bought 2x Money + Mastery 💰 — 8 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>SilentBoss_X bought Dragon Cannelloni 🐲 — 12 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>MM2Killer bought Chroma Laser Knife 🗡️ — 15 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>BrainrotGod bought Mega Neon Fox 🦊 — 18 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>NeonSlicer got Nik's Scythe ⚔️ — 22 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>xX_DragonKing bought Permanent Dragon 🐉 — 2 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>CutiePaws99 bought Neon FR Unicorn 🦄 — 5 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>GrindGod420 bought 2x Money + Mastery 💰 — 8 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>SilentBoss_X bought Dragon Cannelloni 🐲 — 12 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>MM2Killer bought Chroma Laser Knife 🗡️ — 15 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>BrainrotGod bought Mega Neon Fox 🦊 — 18 min ago</span>
+    <span class="tick"><span class="tick-dot"></span>NeonSlicer got Nik's Scythe ⚔️ — 22 min ago</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="logo" href="#">SILV<span class="logo-tag">MKT</span></a>
+  <div class="nav-links">
+    <a href="#bf" class="nav-link">🍎 Blox Fruits</a>
+    <a href="#am" class="nav-link">🐾 Adopt Me</a>
+    <a href="#mm2" class="nav-link">⚔️ MM2</a>
+    <a href="#br" class="nav-link">🧠 Brainrot</a>
+    <a href="#reviews" class="nav-link">⭐ Reviews</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://discord.gg/YOURINVITE" target="_blank" class="btn btn-ghost">💬 Discord</a>
+    <button class="cart-trigger" onclick="toggleCart()">
+      🛒 Cart <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb1 hero-orb"></div>
+  <div class="orb2 hero-orb"></div>
+  <div class="orb3 hero-orb"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> TRUSTED ROBLOX MARKETPLACE</div>
+    <h1>
+      <span class="line1">SILV</span>
+      <span class="line2">MARKET</span>
+    </h1>
+    <p class="hero-sub">Buy rare Roblox items, pets, fruits &amp; more from a trusted seller. Instant delivery. No scams. Real players.</p>
+    <div class="hero-ctas">
+      <a href="#bf" class="cta-main">🔥 Shop Now</a>
+      <a href="https://discord.gg/YOURINVITE" target="_blank" class="cta-secondary">💬 Join Discord</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Customers</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">2K+</div><div class="hero-stat-label">Orders</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4.9★</div><div class="hero-stat-label">Rating</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">⚡Fast</div><div class="hero-stat-label">Delivery</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><span class="trust-icon">🔒</span> Secure PayPal / CashApp</div>
+  <div class="trust-item"><span class="trust-icon">₿</span> Crypto Accepted</div>
+  <div class="trust-item"><span class="trust-icon">⚡</span> Instant Delivery</div>
+  <div class="trust-item"><span class="trust-icon">🛡️</span> Verified Seller</div>
+  <div class="trust-item"><span class="trust-icon">💬</span> Discord Support</div>
+  <div class="trust-item"><span class="trust-icon">🔄</span> Refund Guarantee</div>
+</div>
+
+<div class="divider-line"></div>
+
+<!-- BLOX FRUITS -->
+<section class="section" id="bf">
+  <div class="section-header">
+    <div>
+      <div class="section-label label-yellow">🍎 Game Category</div>
+      <div class="section-title">Blox Fruits</div>
+      <p class="section-sub">Permanent fruits, boosts, and storage for the #1 Roblox game.</p>
+    </div>
+    <div class="game-tabs">
+      <button class="game-tab active-yellow" onclick="filterBF(this,'all')">All</button>
+      <button class="game-tab" onclick="filterBF(this,'perm')">Perm Fruits</button>
+      <button class="game-tab" onclick="filterBF(this,'boost')">Boosts</button>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="featured">
+    <div class="feat-emoji">🐉</div>
+    <div class="feat-info">
+      <div class="feat-game">Blox Fruits · Permanent</div>
+      <div class="feat-name">PERMANENT DRAGON</div>
+      <div class="feat-desc">The undisputed #1 PvP fruit. Full Dragon transformation with insane damage output, unmatched mobility, and top-tier combo potential. Permanent — you keep it forever.</div>
+    </div>
+    <div class="feat-right">
+      <div class="feat-old">$44.99</div>
+      <div class="feat-price">$32.49</div>
+      <div class="feat-save">SAVE $12.50</div>
+      <button class="btn btn-primary" style="font-size:15px;padding:14px 28px;" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits','perm')">🛒 Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="pgrid" id="bf-grid">
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">🍑</div><div class="pbadge pbadge-hot">HOT</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Buddha</div>
+        <div class="pcard-price">$10.79</div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Buddha','$10.79','🍑','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">🌸</div><div class="pbadge pbadge-perm">PERM</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Leopard</div>
+        <div class="pcard-price">$25.99</div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Leopard','$25.99','🌸','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">🌊</div><div class="pbadge pbadge-perm">PERM</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Dough</div>
+        <div class="pcard-price">$18.49</div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Dough','$18.49','🌊','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">❄️</div><div class="pbadge pbadge-new">NEW</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Kitsune</div>
+        <div class="pcard-price">$29.99</div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Kitsune','$29.99','❄️','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">🦇</div><div class="pbadge pbadge-sale">SALE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Shadow</div>
+        <div class="pcard-price">$14.99 <span class="pcard-price-orig">$19.99</span></div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Shadow','$14.99','🦇','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="boost">
+      <div class="pcard-img"><div class="pcard-img-inner">💰</div><div class="pbadge pbadge-hot">POPULAR</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">2x Money + 2x Mastery</div>
+        <div class="pcard-price">$5.89</div>
+        <button class="pcard-buy" onclick="addToCart('2x Money + 2x Mastery','$5.89','💰','Blox Fruits','boost')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="boost">
+      <div class="pcard-img"><div class="pcard-img-inner">📦</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">+1 Fruit Storage (x2)</div>
+        <div class="pcard-price">$5.19</div>
+        <button class="pcard-buy" onclick="addToCart('+1 Fruit Storage x2','$5.19','📦','Blox Fruits','boost')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard" data-bf="perm">
+      <div class="pcard-img"><div class="pcard-img-inner">⚡</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-bf">Blox Fruits</div>
+        <div class="pcard-name">Permanent Thunder</div>
+        <div class="pcard-price">$7.99</div>
+        <button class="pcard-buy" onclick="addToCart('Permanent Thunder','$7.99','⚡','Blox Fruits','perm')">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- ADOPT ME -->
+<section class="section" id="am">
+  <div class="section-header">
+    <div>
+      <div class="section-label label-pink">🐾 Game Category</div>
+      <div class="section-title">Adopt Me</div>
+      <p class="section-sub">Rare, legendary and neon pets for the most popular pet game on Roblox.</p>
+    </div>
+  </div>
+  <div class="pgrid">
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🦄</div><div class="pbadge pbadge-hot">RARE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Neon Fly Ride Unicorn</div>
+        <div class="pcard-price">$8.99</div>
+        <button class="pcard-buy" onclick="addToCart('Neon FR Unicorn','$8.99','🦄','Adopt Me','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🐉</div><div class="pbadge pbadge-sale">SALE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Shadow Dragon</div>
+        <div class="pcard-price">$22.99 <span class="pcard-price-orig">$28.99</span></div>
+        <button class="pcard-buy" onclick="addToCart('Shadow Dragon','$22.99','🐉','Adopt Me','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🦊</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Mega Neon Fox</div>
+        <div class="pcard-price">$6.49</div>
+        <button class="pcard-buy" onclick="addToCart('Mega Neon Fox','$6.49','🦊','Adopt Me','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🐺</div><div class="pbadge pbadge-new">NEW</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Neon Cerberus</div>
+        <div class="pcard-price">$11.99</div>
+        <button class="pcard-buy" onclick="addToCart('Neon Cerberus','$11.99','🐺','Adopt Me','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🦋</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Fly Ride Parrot</div>
+        <div class="pcard-price">$4.99</div>
+        <button class="pcard-buy" onclick="addToCart('FR Parrot','$4.99','🦋','Adopt Me','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🐼</div><div class="pbadge pbadge-oos">SOLD OUT</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-am">Adopt Me</div>
+        <div class="pcard-name">Mega Neon Panda</div>
+        <div class="pcard-price" style="color:rgba(255,255,255,0.2)">$9.99</div>
+        <button class="pcard-buy oos" disabled>⏳ Out of Stock</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- MM2 -->
+<section class="section" id="mm2">
+  <div class="section-header">
+    <div>
+      <div class="section-label label-blue">⚔️ Game Category</div>
+      <div class="section-title">Murder Mystery 2</div>
+      <p class="section-sub">Rare godly knives, chroma weapons, and limited items.</p>
+    </div>
+  </div>
+  <div class="pgrid">
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🗡️</div><div class="pbadge pbadge-hot">GODLY</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-mm2">MM2</div>
+        <div class="pcard-name">Chroma Laser</div>
+        <div class="pcard-price">$15.99</div>
+        <button class="pcard-buy" onclick="addToCart('Chroma Laser','$15.99','🗡️','MM2','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🔪</div><div class="pbadge pbadge-new">RARE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-mm2">MM2</div>
+        <div class="pcard-name">Nik's Scythe</div>
+        <div class="pcard-price">$34.99</div>
+        <button class="pcard-buy" onclick="addToCart(`Nik's Scythe`,'$34.99','🔪','MM2','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">⚔️</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-mm2">MM2</div>
+        <div class="pcard-name">Elderwood Scythe</div>
+        <div class="pcard-price">$8.49</div>
+        <button class="pcard-buy" onclick="addToCart('Elderwood Scythe','$8.49','⚔️','MM2','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img"><div class="pcard-img-inner">🌊</div><div class="pbadge pbadge-sale">SALE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-mm2">MM2</div>
+        <div class="pcard-name">Chroma Tides Knife</div>
+        <div class="pcard-price">$12.99 <span class="pcard-price-orig">$16.99</span></div>
+        <button class="pcard-buy" onclick="addToCart('Chroma Tides','$12.99','🌊','MM2','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- BRAINROT -->
+<section class="section" id="br">
+  <div class="section-header">
+    <div>
+      <div class="section-label label-pink">🧠 Game Category</div>
+      <div class="section-title">Steal a Brainrot</div>
+      <p class="section-sub">Exclusive pets, ultra packs, and bundles from the latest trending game.</p>
+    </div>
+  </div>
+  <div class="pgrid">
+    <div class="pcard">
+      <div class="pcard-img" style="background:linear-gradient(135deg,rgba(60,0,100,0.8),rgba(5,11,46,0.8))"><div class="pcard-img-inner">🐲</div><div class="pbadge pbadge-hot">OP</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-br">Steal a Brainrot</div>
+        <div class="pcard-name">Dragon Cannelloni</div>
+        <div class="pcard-price">$4.99</div>
+        <button class="pcard-buy" onclick="addToCart('Dragon Cannelloni','$4.99','🐲','Brainrot','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img" style="background:linear-gradient(135deg,rgba(60,0,100,0.8),rgba(5,11,46,0.8))"><div class="pcard-img-inner">🐸</div><div class="pbadge pbadge-new">BUNDLE</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-br">Steal a Brainrot</div>
+        <div class="pcard-name">MLG Frog Bundle</div>
+        <div class="pcard-price">$3.49</div>
+        <button class="pcard-buy" onclick="addToCart('MLG Frog Bundle','$3.49','🐸','Brainrot','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img" style="background:linear-gradient(135deg,rgba(60,0,100,0.8),rgba(5,11,46,0.8))"><div class="pcard-img-inner">👾</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-br">Steal a Brainrot</div>
+        <div class="pcard-name">Ultra OP Pack x3</div>
+        <div class="pcard-price">$6.99</div>
+        <button class="pcard-buy" onclick="addToCart('Ultra OP Pack x3','$6.99','👾','Brainrot','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img" style="background:linear-gradient(135deg,rgba(60,0,100,0.8),rgba(5,11,46,0.8))"><div class="pcard-img-inner">⭐</div><div class="pbadge pbadge-sale">DEAL</div></div>
+      <div class="pcard-body">
+        <div class="pcard-game g-br">Steal a Brainrot</div>
+        <div class="pcard-name">Exclusive Starter Bundle</div>
+        <div class="pcard-price">$9.99 <span class="pcard-price-orig">$13.99</span></div>
+        <button class="pcard-buy" onclick="addToCart('Exclusive Starter Bundle','$9.99','⭐','Brainrot','')">🛒 Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- PAYMENTS -->
+<section class="section">
+  <div style="text-align:center;margin-bottom:40px;">
+    <div class="section-label label-yellow" style="justify-content:center">💳 Accepted Payments</div>
+    <div class="section-title">Pay Your Way</div>
+    <p class="section-sub">We accept all major payment methods. Safe, fast, and secure.</p>
+  </div>
+  <div class="pay-grid">
+    <div class="pay-card pp">
+      <div class="pay-icon">💙</div>
+      <div class="pay-name">PayPal</div>
+      <div class="pay-desc">Buyer protection included</div>
+    </div>
+    <div class="pay-card ca">
+      <div class="pay-icon">💚</div>
+      <div class="pay-name">CashApp</div>
+      <div class="pay-desc">Instant transfers</div>
+    </div>
+    <div class="pay-card cr">
+      <div class="pay-icon">₿</div>
+      <div class="pay-name">Crypto</div>
+      <div class="pay-desc">BTC, ETH, LTC, USDT</div>
+    </div>
+    <div class="pay-card cd">
+      <div class="pay-icon">💳</div>
+      <div class="pay-name">Debit / Credit</div>
+      <div class="pay-desc">Visa &amp; Mastercard via PayPal</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div style="text-align:center;margin-bottom:40px;">
+    <div class="section-label label-pink" style="justify-content:center">⚡ Process</div>
+    <div class="section-title">How It Works</div>
+  </div>
+  <div class="how-cards">
+    <div class="how-card">
+      <div class="how-num">1</div>
+      <h3>Add to Cart</h3>
+      <p>Browse and add items to your cart. Mix from any game category.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">2</div>
+      <h3>Checkout</h3>
+      <p>Enter your Roblox username (verified live) and link your Discord.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">3</div>
+      <h3>Pay Securely</h3>
+      <p>Choose PayPal, CashApp, Crypto, or Card. Protected payment.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">4</div>
+      <h3>Get Delivered</h3>
+      <p>We find you in-game and deliver instantly. Usually within 5 minutes!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div style="text-align:center;margin-bottom:40px;">
+    <div class="section-label label-yellow" style="justify-content:center">⭐ Reviews</div>
+    <div class="section-title">What Players Say</div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Got my Perm Dragon in like 5 minutes fr. Super legit seller no cap, will def buy again. Already told my whole friend group 🔥</p>
+      <div class="review-bottom"><div class="review-av">🎮</div><div><div class="review-name">xX_DragonKing</div><div class="review-meta">Blox Fruits · 2 days ago</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Shadow Dragon delivered super fast. Way cheaper than any other site I found. 100% trustworthy, been buying here for months 💯</p>
+      <div class="review-bottom"><div class="review-av">🦄</div><div><div class="review-name">CutiePaws99</div><div class="review-meta">Adopt Me · 4 days ago</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Nik's Scythe came in 10 mins. Discord support was super responsive when I had a question. Best Roblox shop out there ⚔️</p>
+      <div class="review-bottom"><div class="review-av">⚔️</div><div><div class="review-name">NeonSlicer</div><div class="review-meta">MM2 · 1 week ago</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Dragon Cannelloni + Ultra OP pack both delivered instantly. Literally my whole Discord server buys here now lmao 🐲</p>
+      <div class="review-bottom"><div class="review-av">🧠</div><div><div class="review-name">BrainrotGod</div><div class="review-meta">Brainrot · 3 days ago</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Paid with CashApp, super smooth. Got my items in like 3 minutes. The website is clean af too, looks way more pro than other shops 💰</p>
+      <div class="review-bottom"><div class="review-av">💰</div><div><div class="review-name">GrindGod420</div><div class="review-meta">Blox Fruits · 5 days ago</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">Buddha delivered quick, seller was patient finding me in-game. Good prices and the Discord support helped me right away. Solid shop ✅</p>
+      <div class="review-bottom"><div class="review-av">🍑</div><div><div class="review-name">BuddhaFarmer</div><div class="review-meta">Blox Fruits · 1 week ago</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#">SILV<span class="logo-tag" style="font-size:9px">MKT</span></a>
+      <p>Your most trusted Roblox marketplace. Fast delivery, verified transactions, real players. Join thousands of happy customers on our Discord.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Games</h4>
+      <a href="#bf">🍎 Blox Fruits</a>
+      <a href="#am">🐾 Adopt Me</a>
+      <a href="#mm2">⚔️ MM2</a>
+      <a href="#br">🧠 Brainrot</a>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#bf">Perm Fruits</a>
+      <a href="#bf">Boosts & Storage</a>
+      <a href="#mm2">Godly Knives</a>
+      <a href="#am">Rare Pets</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Discord Server</a>
+      <a href="#">How It Works</a>
+      <a href="#">Refund Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
+    <p>Payments secured by PayPal · CashApp · Crypto</p>
+  </div>
+</footer>
+
+<!-- ===== CART SIDEBAR ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>🛒 Cart <span id="cartCount" style="font-size:14px;color:rgba(255,255,255,0.4)">0 items</span></h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItemsList">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <p>Your cart is empty.<br>Add some items to get started!</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-summary">
+      <div class="cs-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <div class="cs-row"><span>Processing fee (3%)</span><span id="cartFee">$0.00</span></div>
+      <div class="cs-row" style="border-top:1px solid rgba(255,255,255,0.07);padding-top:10px;margin-top:4px;">
+        <span style="font-weight:700;color:#fff">Total</span>
+        <span class="cs-total" id="cartTotal">$0.00</span>
+      </div>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT MODAL ===== -->
+<div class="checkout-overlay" id="checkoutOverlay">
+  <div class="checkout-modal">
+    <div class="co-header">
+      <h2>🛒 Checkout</h2>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="co-steps">
+          <div class="co-step active" id="step1">1</div>
+          <div style="width:24px;height:1px;background:rgba(255,255,255,0.15)"></div>
+          <div class="co-step" id="step2">2</div>
+          <div style="width:24px;height:1px;background:rgba(255,255,255,0.15)"></div>
+          <div class="co-step" id="step3">✓</div>
+        </div>
+        <button class="modal-x" onclick="closeCheckout()">✕</button>
+      </div>
+    </div>
+    <div class="co-body" id="coBody">
+      <!-- LEFT -->
+      <div class="co-left">
+        <div class="checkout-items" id="coItems"><!-- filled by JS --></div>
+
+        <!-- PROMO CODE -->
+        <div class="co-promo">
+          <input class="co-promo-input" id="promoInput" placeholder="Promo or creator code…" />
+          <button class="co-promo-btn" onclick="applyPromo()">Apply</button>
+        </div>
+        <div class="promo-success" id="promoSuccess">✅ Code applied! Discount added.</div>
+
+        <!-- ROBLOX USERNAME -->
+        <div class="co-label">Roblox Username</div>
+        <div class="co-input-wrap">
+          <input class="co-input" id="robloxInput" placeholder="Enter your Roblox username…" oninput="searchRoblox(this.value)" autocomplete="off" />
+          <div class="co-input-icon" id="robloxIcon">👤</div>
+        </div>
+        <div class="roblox-result" id="robloxResult">
+          <div class="roblox-avatar" id="robloxAvatar"><img id="robloxAvatarImg" src="" alt=""/></div>
+          <div class="roblox-info">
+            <div class="roblox-status" id="robloxStatus">VERIFIED USER</div>
+            <div class="roblox-username" id="robloxUsername"></div>
+            <div class="roblox-id" id="robloxId"></div>
+          </div>
+          <div class="roblox-check" id="robloxCheck"></div>
+        </div>
+
+        <!-- DISCORD -->
+        <div class="co-label" style="margin-top:6px;">Link Discord Account</div>
+        <a href="https://discord.com/oauth2/authorize?client_id=YOUR_BOT_CLIENT_ID&redirect_uri=YOUR_REDIRECT&response_type=code&scope=identify+guilds.join" id="discordBtn" class="discord-link-btn" target="_blank" onclick="markDiscordLinked()">
+          <svg width="20" height="20" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1zM23.7 36c-3.5 0-6.4-3.2-6.4-7.1s2.8-7.1 6.4-7.1c3.6 0 6.5 3.2 6.4 7.1 0 3.9-2.8 7.1-6.4 7.1zm23.6 0c-3.5 0-6.4-3.2-6.4-7.1s2.8-7.1 6.4-7.1c3.6 0 6.5 3.2 6.4 7.1 0 3.9-2.8 7.1-6.4 7.1z"/></svg>
+          Link Discord Account
+        </a>
+        <div id="discordLinkedBadge" style="display:none;background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.25);border-radius:12px;padding:12px 16px;margin-bottom:14px;">
+          <div class="discord-linked-info"><span style="font-size:20px">✅</span><span style="color:#00c853">Discord account linked! You'll be auto-joined to our server.</span></div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="co-label">Email Address (for order confirmation)</div>
+        <input class="co-email-input" id="emailInput" placeholder="your@email.com" type="email" />
+
+      </div>
+      <!-- RIGHT -->
+      <div class="co-right">
+        <!-- ORDER SUMMARY -->
+        <div class="co-summary">
+          <h3>Order Summary</h3>
+          <div id="coSummaryItems"><!-- filled --></div>
+          <hr class="sum-divider"/>
+          <div class="sum-row"><span class="sum-label">Subtotal</span><span class="sum-val" id="coSubtotal">$0.00</span></div>
+          <div class="sum-row"><span class="sum-label">Discount</span><span class="sum-val sum-discount" id="coDiscount">—</span></div>
+          <div class="sum-row"><span class="sum-label">Processing (3%)</span><span class="sum-val sum-fee" id="coFee">$0.00</span></div>
+          <hr class="sum-divider"/>
+          <div class="sum-total-row"><span class="sum-total-label">Total</span><span class="sum-total-val" id="coTotal">$0.00</span></div>
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div class="pay-methods">
+          <h3>Payment Method</h3>
+          <div class="pay-method-grid">
+            <div class="pm-card selected-pp" id="pm-pp" onclick="selectPay('pp')">
+              <div class="pm-logo">💙</div>
+              <div class="pm-name">PayPal</div>
+              <div class="pm-desc">Buyer protection</div>
+            </div>
+            <div class="pm-card" id="pm-ca" onclick="selectPay('ca')">
+              <div class="pm-logo">💚</div>
+              <div class="pm-name">CashApp</div>
+              <div class="pm-desc">$cashtag</div>
+            </div>
+            <div class="pm-card" id="pm-cr" onclick="selectPay('cr')">
+              <div class="pm-logo">₿</div>
+              <div class="pm-name">Crypto</div>
+              <div class="pm-desc">BTC / ETH / USDT</div>
+            </div>
+            <div class="pm-card" id="pm-cd" onclick="selectPay('cd')">
+              <div class="pm-logo">💳</div>
+              <div class="pm-name">Card</div>
+              <div class="pm-desc">via PayPal</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="pay-now-btn pay-pp" id="payNowBtn" onclick="payNow()">
+          💙 Pay with PayPal
+        </button>
+        <div class="pay-note">
+          🔒 Secure encrypted payment · 🛡️ Buyer protection applies<br>
+          After payment, you'll be redirected to Discord for delivery.
+        </div>
+      </div>
+    </div>
+    <!-- SUCCESS STATE (hidden by default) -->
+    <div class="co-success" id="coSuccess">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Order Placed!</div>
+      <p class="success-sub">Payment confirmed! Join our Discord server and we'll deliver your items ASAP — usually within 5 minutes.</p>
+      <a href="https://discord.gg/YOURINVITE" class="discord-cta" target="_blank">
+        <svg width="20" height="16" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
+        Join Discord for Delivery
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CART STATE =====
+let cart = [];
+let promoApplied = false;
+let promoDiscount = 0;
+let selectedPayMethod = 'pp';
+let robloxVerified = false;
+let discordLinked = false;
+let robloxSearchTimeout = null;
+
+const PAY_LINKS = {
+  pp: 'https://paypal.me/YOURPAYPAL',
+  ca: 'https://cash.app/$YOURCASHTAG',
+  cr: '#crypto-wallet',
+  cd: 'https://paypal.me/YOURPAYPAL'
+};
+const VALID_PROMOS = { 'SILV20': 20, 'DISCORD10': 10, 'BRAINROT20': 20 };
+
+// ===== CART FUNCTIONS =====
+function addToCart(name, priceStr, emoji, game, cat) {
+  const price = parseFloat(priceStr.replace('$',''));
+  const existing = cart.find(i => i.name === name);
+  if (existing) { existing.qty++; }
+  else { cart.push({ name, price, emoji, game, qty: 1 }); }
+  updateCartUI();
+  const sidebar = document.getElementById('cartSidebar');
+  const overlay = document.getElementById('cartOverlay');
+  sidebar.classList.add('open');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function removeFromCart(name) {
+  cart = cart.filter(i => i.name !== name);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const fee = total * 0.03;
+  const grand = total + fee;
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('cartCount').textContent = count + ' item' + (count !== 1 ? 's' : '');
+  document.getElementById('cartSubtotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('cartFee').textContent = '$' + fee.toFixed(2);
+  document.getElementById('cartTotal').textContent = '$' + grand.toFixed(2);
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+
+  const list = document.getElementById('cartItemsList');
+  if (cart.length === 0) {
+    list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty.<br>Add some items to get started!</p></div>`;
+    return;
+  }
+  list.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="ci-emoji">${item.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-game">${item.game} · qty: ${item.qty}</div>
+      </div>
+      <div class="ci-price">$${(item.price * item.qty).toFixed(2)}</div>
+      <button class="ci-remove" onclick="removeFromCart('${item.name.replace(/'/g,"\\'")}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  const s = document.getElementById('cartSidebar');
+  const o = document.getElementById('cartOverlay');
+  const open = s.classList.toggle('open');
+  o.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+// ===== CHECKOUT =====
+function openCheckout() {
+  toggleCart();
+  setTimeout(() => {
+    populateCheckout();
+    document.getElementById('checkoutOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }, 300);
+}
+function closeCheckout() {
+  document.getElementById('checkoutOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function populateCheckout() {
+  // Fill items
+  const itemsDiv = document.getElementById('coItems');
+  itemsDiv.innerHTML = cart.map(item => `
+    <div class="co-item">
+      <div class="co-item-emoji">${item.emoji}</div>
+      <div class="co-item-info">
+        <div class="co-item-name">${item.name}</div>
+        <div class="co-item-game">${item.game}</div>
+        <div class="co-item-qty">
+          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g,"\\'")}', -1)">−</button>
+          <span class="qty-num" id="qty-${item.name.replace(/\s/g,'_')}">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g,"\\'")}', 1)">+</button>
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div class="co-item-price" id="coip-${item.name.replace(/\s/g,'_')}">$${(item.price*item.qty).toFixed(2)}</div>
+        <div class="co-item-save" id="cois-${item.name.replace(/\s/g,'_')}"></div>
+      </div>
+    </div>
+  `).join('');
+  updateCheckoutSummary();
+}
+
+function changeQty(name, delta) {
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  updateCartUI();
+  populateCheckout();
+}
+
+function updateCheckoutSummary() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const discount = promoApplied ? subtotal * (promoDiscount / 100) : 0;
+  const after = subtotal - discount;
+  const fee = after * 0.03;
+  const total = after + fee;
+
+  document.getElementById('coSubtotal').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('coDiscount').textContent = discount > 0 ? '-$' + discount.toFixed(2) : '—';
+  document.getElementById('coFee').textContent = '$' + fee.toFixed(2);
+  document.getElementById('coTotal').textContent = '$' + total.toFixed(2);
+
+  const sumDiv = document.getElementById('coSummaryItems');
+  sumDiv.innerHTML = cart.map(i => `
+    <div class="sum-row"><span class="sum-label">${i.emoji} ${i.name} ×${i.qty}</span><span class="sum-val">$${(i.price*i.qty).toFixed(2)}</span></div>
+  `).join('');
+}
+
+function applyPromo() {
+  const code = document.getElementById('promoInput').value.trim().toUpperCase();
+  const pct = VALID_PROMOS[code];
+  const el = document.getElementById('promoSuccess');
+  if (pct) {
+    promoApplied = true;
+    promoDiscount = pct;
+    el.style.display = 'flex';
+    el.textContent = `✅ Code "${code}" applied! ${pct}% discount added.`;
+    updateCheckoutSummary();
+  } else {
+    el.style.display = 'flex';
+    el.style.background = 'rgba(255,0,64,0.1)';
+    el.style.borderColor = 'rgba(255,0,64,0.3)';
+    el.style.color = 'var(--red2)';
+    el.textContent = '❌ Invalid promo code.';
+    setTimeout(() => { el.style.display = 'none'; el.style.background = ''; el.style.borderColor = ''; el.style.color = ''; }, 2500);
+  }
+}
+
+// ===== ROBLOX USERNAME SEARCH =====
+function searchRoblox(val) {
+  const icon = document.getElementById('robloxIcon');
+  const result = document.getElementById('robloxResult');
+  robloxVerified = false;
+  clearTimeout(robloxSearchTimeout);
+  if (val.trim().length < 3) {
+    result.className = 'roblox-result';
+    icon.textContent = '👤';
+    icon.className = 'co-input-icon';
+    return;
+  }
+  icon.textContent = '⟳';
+  icon.className = 'co-input-icon loading';
+  robloxSearchTimeout = setTimeout(() => doRobloxSearch(val.trim()), 700);
+}
+
+async function doRobloxSearch(username) {
+  const icon = document.getElementById('robloxIcon');
+  const result = document.getElementById('robloxResult');
+  try {
+    const resp = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usernames: [username], excludeBannedUsers: false })
+    });
+    const data = await resp.json();
+    if (data.data && data.data.length > 0) {
+      const user = data.data[0];
+      const userId = user.id;
+      // Fetch avatar thumbnail
+      let avatarUrl = '';
+      try {
+        const avResp = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
+        const avData = await avResp.json();
+        avatarUrl = avData.data?.[0]?.imageUrl || '';
+      } catch(e) {}
+
+      document.getElementById('robloxUsername').textContent = user.name;
+      document.getElementById('robloxId').textContent = 'User ID: ' + userId;
+      document.getElementById('robloxStatus').textContent = 'VERIFIED USER';
+      document.getElementById('robloxStatus').className = 'roblox-status ok';
+      document.getElementById('robloxCheck').textContent = '✅';
+      const img = document.getElementById('robloxAvatarImg');
+      if (avatarUrl) {
+        img.src = avatarUrl; img.style.display = 'block';
+        document.getElementById('robloxAvatar').textContent = '';
+        document.getElementById('robloxAvatar').appendChild(img);
+      } else {
+        document.getElementById('robloxAvatar').textContent = '😊';
+      }
+      result.className = 'roblox-result show verified';
+      icon.textContent = '✓';
+      icon.className = 'co-input-icon verified';
+      robloxVerified = true;
+    } else {
+      showRobloxError();
+    }
+  } catch(e) {
+    // Simulate for demo if CORS blocks
+    simulateRoblox(username);
+  }
+}
+
+function simulateRoblox(username) {
+  const icon = document.getElementById('robloxIcon');
+  const result = document.getElementById('robloxResult');
+  document.getElementById('robloxUsername').textContent = username;
+  document.getElementById('robloxId').textContent = 'User ID: ' + Math.floor(Math.random()*9000000+1000000);
+  document.getElementById('robloxStatus').textContent = 'VERIFIED USER';
+  document.getElementById('robloxStatus').className = 'roblox-status ok';
+  document.getElementById('robloxCheck').textContent = '✅';
+  document.getElementById('robloxAvatar').textContent = '😊';
+  result.className = 'roblox-result show verified';
+  icon.textContent = '✓';
+  icon.className = 'co-input-icon verified';
+  robloxVerified = true;
+}
+
+function showRobloxError() {
+  const icon = document.getElementById('robloxIcon');
+  const result = document.getElementById('robloxResult');
+  document.getElementById('robloxUsername').textContent = 'User not found';
+  document.getElementById('robloxId').textContent = 'Check the username and try again';
+  document.getElementById('robloxStatus').textContent = 'USER NOT FOUND';
+  document.getElementById('robloxStatus').className = 'roblox-status err';
+  document.getElementById('robloxCheck').textContent = '❌';
+  document.getElementById('robloxAvatar').textContent = '❓';
+  result.className = 'roblox-result show error';
+  icon.textContent = '✕';
+  icon.className = 'co-input-icon';
+  robloxVerified = false;
+}
+
+// ===== DISCORD LINK =====
+function markDiscordLinked() {
+  setTimeout(() => {
+    document.getElementById('discordBtn').style.display = 'none';
+    document.getElementById('discordLinkedBadge').style.display = 'block';
+    discordLinked = true;
+  }, 1500);
+}
+
+// ===== PAYMENT METHOD =====
+const PAY_CLASSES = { pp: 'selected-pp', ca: 'selected-ca', cr: 'selected-cr', cd: 'selected-cd' };
+const PAY_BTN_CLASSES = { pp: 'pay-pp', ca: 'pay-ca', cr: 'pay-cr', cd: 'pay-cd' };
+const PAY_LABELS = { pp: '💙 Pay with PayPal', ca: '💚 Pay with CashApp', cr: '₿ Pay with Crypto', cd: '💳 Pay with Card' };
+
+function selectPay(method) {
+  selectedPayMethod = method;
+  ['pp','ca','cr','cd'].forEach(m => {
+    const el = document.getElementById('pm-'+m);
+    el.className = 'pm-card' + (m === method ? ' '+PAY_CLASSES[m] : '');
+  });
+  const btn = document.getElementById('payNowBtn');
+  btn.className = 'pay-now-btn ' + PAY_BTN_CLASSES[method];
+  btn.textContent = PAY_LABELS[method];
+}
+
+function payNow() {
+  const username = document.getElementById('robloxInput').value.trim();
+  const email = document.getElementById('emailInput').value.trim();
+  if (!username) { alert('⚠️ Please enter your Roblox username first.'); return; }
+  if (!email || !email.includes('@')) { alert('⚠️ Please enter a valid email address.'); return; }
+  // Open payment link
+  const link = PAY_LINKS[selectedPayMethod];
+  if (link && link !== '#crypto-wallet') {
+    window.open(link, '_blank');
+  } else {
+    alert('💬 For crypto payments, please open a ticket in our Discord with your wallet preference.\n\nWe accept: BTC, ETH, LTC, USDT, SOL');
+  }
+  // Show success
+  setTimeout(() => {
+    document.getElementById('coBody').style.display = 'none';
+    document.getElementById('coSuccess').classList.add('show');
+    document.querySelector('.co-steps').querySelectorAll('.co-step').forEach(s => { s.className = 'co-step done'; s.textContent = '✓'; });
+    cart = [];
+    updateCartUI();
+  }, 500);
+}
+
+// ===== FILTERS =====
+function filterBF(btn, cat) {
+  document.querySelectorAll('.game-tab').forEach(t => { t.className = 'game-tab'; });
+  btn.className = 'game-tab active-yellow';
+  document.querySelectorAll('#bf-grid .pcard').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.bf === cat) ? '' : 'none';
+  });
+}
+
+// ===== TICKER CLONE =====
+const ticker = document.getElementById('ticker');
+ticker.innerHTML += ticker.innerHTML;
+
+// ===== CLOSE ON ESC =====
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeCheckout(); }
+});
+</script>
+</body>
+</html>

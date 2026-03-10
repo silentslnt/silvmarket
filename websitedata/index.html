@@ -545,6 +545,72 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   .game-bar{padding:0 12px}
   .game-bar-label{display:none}
 }
+
+/* ── GAME SELECTOR ─────────────────────────────────────── */
+.gs-wrap{position:relative;flex-shrink:0}
+.gs-btn{display:flex;align-items:center;gap:9px;
+  background:rgba(147,51,234,.18);border:1.5px solid rgba(147,51,234,.45);
+  border-radius:10px;padding:7px 13px;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;color:#fff;transition:all .2s;
+  min-width:155px;white-space:nowrap}
+.gs-btn:hover,.gs-btn.open{background:rgba(147,51,234,.28);border-color:rgba(255,16,240,.6);
+  box-shadow:0 0 18px rgba(147,51,234,.3)}
+.gs-text{display:flex;flex-direction:column;line-height:1.1}
+.gs-label-top{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase}
+.gs-name{font-size:14px;font-weight:800}
+.gs-arrow{font-size:10px;opacity:.55;transition:transform .2s;margin-left:auto}
+.gs-btn.open .gs-arrow,.sort-btn.open .gs-arrow{transform:rotate(180deg)}
+.gs-drop{position:absolute;top:calc(100% + 8px);left:0;min-width:210px;
+  background:rgba(6,2,18,.97);border:1px solid rgba(147,51,234,.35);
+  border-radius:12px;padding:5px;z-index:300;
+  box-shadow:0 12px 40px rgba(0,0,0,.7);
+  display:none;flex-direction:column;gap:1px}
+.gs-drop.open{display:flex}
+.gd-item{display:flex;align-items:center;gap:11px;padding:9px 12px;
+  border-radius:8px;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;
+  color:rgba(255,255,255,.7);transition:background .15s;user-select:none}
+.gd-item:hover{background:rgba(147,51,234,.2);color:#fff}
+.gd-item.gd-active{background:rgba(147,51,234,.22);color:#fff}
+.gd-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.gd-img{width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.gd-label{flex:1}
+.gd-dot{width:7px;height:7px;border-radius:50%;background:var(--green);
+  flex-shrink:0;opacity:0;transition:opacity .15s}
+.gd-item.gd-active .gd-dot{opacity:1}
+.gs-divider{width:1px;height:26px;background:rgba(147,51,234,.3);flex-shrink:0;margin:0 8px}
+
+/* ── SUB SCROLL (sub-filters in gamebar) ────────────────── */
+.gs-sub-scroll{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
+  align-items:center;flex:1;min-width:0}
+.gs-sub-scroll::-webkit-scrollbar{display:none}
+.sf-btn{padding:5px 13px;border-radius:7px;font-family:'Rajdhani',sans-serif;
+  font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.45);transition:all .15s}
+.sf-btn:hover{color:#fff;background:rgba(255,16,240,.1);border-color:rgba(255,16,240,.3)}
+.sf-btn.sf-active{background:rgba(255,16,240,.16);border-color:var(--pink);color:var(--pink)}
+
+/* ── SORT ───────────────────────────────────────────────── */
+.sort-wrap{position:relative;flex-shrink:0;margin-left:6px}
+.sort-btn{display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:9px;padding:7px 13px;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
+  color:rgba(255,255,255,.55);transition:all .2s;white-space:nowrap}
+.sort-btn:hover,.sort-btn.open{color:#fff;border-color:rgba(147,51,234,.5);
+  background:rgba(147,51,234,.1)}
+.sort-drop{left:auto;right:0;min-width:180px}
+
+/* ── SUB BAR (below gamebar, slides open) ───────────────── */
+.sub-bar{position:sticky;top:calc(var(--nav-h) + var(--gamebar-h));z-index:96;
+  background:rgba(3,1,10,.96);border-bottom:1px solid rgba(255,16,240,.1);
+  max-height:0;overflow:hidden;transition:max-height .25s ease;
+  display:flex;align-items:center;padding:0 20px;gap:6px;
+  white-space:nowrap}
+.sub-bar.open{max-height:46px}
+.sub-bar::-webkit-scrollbar{display:none}
+
 </style>
 </head>
 <body>
@@ -577,13 +643,13 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <!-- MAIN NAV -->
 <nav>
-  <a class="logo" href="#">SILV<span class="logo-tag">MKT</span></a>
+  <a class="logo" href="#" id="navLogo"><img id="navLogoImg" style="display:none;height:36px;border-radius:6px;vertical-align:middle" alt="logo"/> <span id="navLogoText">SILV<span class="logo-tag">MKT</span></span></a>
   <div class="nav-search">
     <input type="text" id="searchInput" placeholder="🔍 Search products…" oninput="doSearch(this.value)" autocomplete="off" />
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="nav-right">
-    <a href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank">
+    <a id="discNavLink" href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank">
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       Discord
     </a>
@@ -593,26 +659,75 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <!-- STICKY GAME CATEGORY BAR -->
 <div class="game-bar" id="gameBar">
-  <span class="game-bar-label">JUMP TO:</span>
-  <div class="game-bar-scroll">
-    <a class="gb-btn active" href="#bestsellers" onclick="setActive(this)">🏆 Best Sellers</a>
-    <div class="gb-sep"></div>
-    <a class="gb-btn" href="#robux" onclick="setActive(this)">💎 Robux</a>
-    <a class="gb-btn" href="#bf" onclick="setActive(this)">
-      <img class="gb-img" src="https://static.wikia.nocookie.net/bloxfruits/images/b/b6/Dragon_Fruit_Icon.png" onerror="this.style.display='none'" alt=""/>
-      Blox Fruits
-    </a>
-    <a class="gb-btn" href="#gag" onclick="setActive(this)">🌱 Grow a Garden</a>
-    <a class="gb-btn" href="#am" onclick="setActive(this)">🐾 Adopt Me</a>
-    <a class="gb-btn" href="#mm2" onclick="setActive(this)">⚔️ MM2</a>
-    <a class="gb-btn" href="#brainrot" onclick="setActive(this)">🧠 Brainrot</a>
-    <a class="gb-btn" href="#rivals" onclick="setActive(this)">🥊 Rivals</a>
-    <a class="gb-btn" href="#nights" onclick="setActive(this)">🌙 99 Nights</a>
-    <a class="gb-btn" href="#tsunami" onclick="setActive(this)">🌊 Escape Tsunami</a>
-    <div class="gb-sep"></div>
-    <a class="gb-btn" href="#reviews" onclick="setActive(this)">⭐ Reviews</a>
+
+  <!-- GAME SELECTOR -->
+  <div class="gs-wrap" id="gsWrap">
+    <button class="gs-btn" id="gsBtn" onclick="toggleGS()">
+      <span id="gsIcon" style="font-size:18px">🛒</span>
+      <span class="gs-text">
+        <span class="gs-label-top">SHOPPING</span>
+        <span class="gs-name" id="gsName">All Games</span>
+      </span>
+      <span class="gs-arrow" id="gsArrow">▼</span>
+    </button>
+    <div class="gs-drop" id="gsDrop">
+      <div class="gd-item gd-active" onclick="selectGame(this,'All Games','🛒','all')" data-key="all">
+        <span class="gd-icon">🏆</span><span class="gd-label">All Games</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Robux','💎','robux')" data-key="robux">
+        <span class="gd-icon">💎</span><span class="gd-label">Robux</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Blox Fruits','🍎','bf')" data-key="bf">
+        <img src="https://static.wikia.nocookie.net/bloxfruits/images/b/b6/Dragon_Fruit_Icon.png" class="gd-img" onerror="this.style.display='none'"/>
+        <span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Grow a Garden','🌱','gag')" data-key="gag">
+        <span class="gd-icon">🌱</span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Adopt Me','🐾','am')" data-key="am">
+        <span class="gd-icon">🐾</span><span class="gd-label">Adopt Me</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Murder Mystery 2','⚔️','mm2')" data-key="mm2">
+        <span class="gd-icon">⚔️</span><span class="gd-label">Murder Mystery 2</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Steal a Brainrot','🧠','brainrot')" data-key="brainrot">
+        <span class="gd-icon">🧠</span><span class="gd-label">Steal a Brainrot</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Rivals','🥊','rivals')" data-key="rivals">
+        <span class="gd-icon">🥊</span><span class="gd-label">Rivals</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'99 Nights','🌙','nights')" data-key="nights">
+        <span class="gd-icon">🌙</span><span class="gd-label">99 Nights</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Escape Tsunami','🌊','tsunami')" data-key="tsunami">
+        <span class="gd-icon">🌊</span><span class="gd-label">Escape Tsunami</span><span class="gd-dot"></span>
+      </div>
+    </div>
   </div>
+
+  <span class="gs-divider"></span>
+
+  <!-- SUB FILTER BUTTONS (shown per game) -->
+  <div class="gs-sub-scroll" id="gsSubScroll"></div>
+
+  <!-- SORT DROPDOWN -->
+  <div class="sort-wrap" id="sortWrap">
+    <button class="sort-btn" id="sortBtn" onclick="toggleSort()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+      <span id="sortLabel">Sort</span>
+      <span class="gs-arrow" id="sortArrow">▼</span>
+    </button>
+    <div class="gs-drop sort-drop" id="sortDrop">
+      <div class="gd-item gd-active" onclick="applySort(this,'default')" data-sort="default">Default Order</div>
+      <div class="gd-item" onclick="applySort(this,'low')" data-sort="low">Price: Low → High</div>
+      <div class="gd-item" onclick="applySort(this,'high')" data-sort="high">Price: High → Low</div>
+    </div>
+  </div>
+
 </div>
+
+<!-- SUB-FILTER BAR (slides in below gamebar) -->
+<div class="sub-bar" id="subBar"></div>
 
 <div class="content">
 
@@ -899,7 +1014,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <a class="logo" href="#">SILV<span class="logo-tag" style="font-size:8px">MKT</span></a>
       <p>Your most trusted Roblox marketplace. Instant delivery, zero scams. Serving hundreds of happy players daily.</p>
       <br>
-      <a href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
+      <a id="discNavLink" href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
     </div>
     <div class="fc">
       <h4>Our Shop</h4>
@@ -1021,18 +1136,53 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="succ-ic">🎉</div>
       <div class="succ-t">Order Placed!</div>
       <p class="succ-s">Payment confirmed! Join our Discord and we'll deliver your items within minutes.</p>
-      <a href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="margin-top:18px;font-size:14px;padding:12px 26px">💬 Join Discord for Delivery</a>
+      <a id="discNavLink" href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="margin-top:18px;font-size:14px;padding:12px 26px">💬 Join Discord for Delivery</a>
     </div>
   </div>
 </div>
 
 <script>
+// ================================================================
+// ✏️  SILV MARKET — EASY EDIT ZONE
+// ✏️  ONLY EDIT THIS SECTION. Everything else — leave alone.
+// ================================================================
+
+// 🌐 SITE IDENTITY
+// Upload images to the /images/ folder in your repo, then use 'images/filename.png'
+// OR paste a full URL like 'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/logo.png'
+const SITE_LOGO_URL  = 'images/logo.png';     // ← your logo file in /images/ folder
+const SITE_FAVICON   = 'images/logo.png';     // ← browser tab icon (same or different image)
+const SITE_NAME      = 'SILV MARKET';
+
+// 🔗 LINKS
+const DISCORD_INVITE = 'https://discord.gg/YOURINVITE';  // ← your Discord invite
+
+// 💳 PAYMENT LINKS
+const PAY_LINKS = {
+  pp: 'https://paypal.me/YOURPAYPAL',   // ← PayPal.me link
+  ca: 'https://cash.app/$YOURCASHTAG',  // ← CashApp $tag
+  cr: '#crypto',                         // leave
+  cd: 'https://paypal.me/YOURPAYPAL',   // ← card fallback
+};
+
+// 🎟️ PROMO CODES  (number = % off)
+const PROMOS = {
+  SILV20:20,      // 20% off
+  BRAINROT20:20,  // 20% off
+  DISCORD10:10,   // 10% off
+  GAG15:15,       // 15% off
+  MM2SAVE:15,     // 15% off
+  // ADD MORE:  MYCODE:25   means 25% off
+};
+
+// ================================================================
+// ✏️  END EASY EDIT ZONE
+// ================================================================
+
 // ============================================================
-// ✏️  EDIT ZONE — CHANGE PRICES, LINKS, ITEMS HERE
-// ✏️  Everything below this block you can ignore
-// ============================================================
-// ============================================================
-// WIKI IMAGE URLS - real Blox Fruits images
+// 🖼️ PRODUCT IMAGES — Edit these to change card images
+// Use 'images/filename.png' for files in your /images/ folder
+// OR use a full URL from wikia/imgur etc
 // ============================================================
 const WIKI = 'https://static.wikia.nocookie.net/bloxfruits/images/';
 const IMGS = {
@@ -1070,13 +1220,11 @@ const IMGS = {
 // ============================================================
 // DATA
 // ============================================================
-// 💎 ROBUX PACKAGES  |  a=amount  p=price in dollars
 const ROBUX = [
   {a:1000,p:6},{a:2000,p:12},{a:3000,p:18},
   {a:5000,p:30,best:true},{a:10000,p:60},{a:20000,p:120},
 ];
 
-// 🍎 BLOX FRUITS  |  norm=normal price  perm=perm price  stock=how many you have
 // Only listing relevant / valuable fruits (no rocket/spin/chop/bomb/spring/spike/blade)
 const FRUITS = [
   // MYTHICAL
@@ -1128,7 +1276,6 @@ const BF_GP = [
   {n:'Gamepass Bundle',       em:'🎮',type:'Gamepass',rar:'leg', norm:12.99,perm:null,badge:'sale',stock:99,cat:'gamepass'},
 ];
 
-// 🌱 GROW A GARDEN  |  p=price  stock=how many you have
 const GAG = [
   {n:'Godly Seed Pack',    em:'🌟',cat:'seeds', p:8.99,  rar:'legendary',badge:'leg', stock:4, bg:'r-legendary'},
   {n:'Dragon Fruit Seed',  em:'🐉',cat:'seeds', p:12.99, rar:'mythical', badge:'myth',stock:2, bg:'r-mythical'},
@@ -1152,7 +1299,6 @@ const GAG = [
   {n:'Token Doubler 24hr', em:'✨',cat:'tokens',p:4.99,  rar:'rare',     badge:'',    stock:99,bg:'r-rare'},
 ];
 
-// 🐾 ADOPT ME  |  p=price  stock=how many you have
 const AM = [
   {n:'Neon FR Unicorn',  em:'🦄',p:8.99,  oldP:null, badge:'hot', rar:'leg',  sub:'neon',      bg:'r-pink',   stock:6},
   {n:'Shadow Dragon',    em:'🐉',p:22.99, oldP:28.99,badge:'sale',rar:'myth', sub:'legendary', bg:'r-mythical',stock:3},
@@ -1168,7 +1314,6 @@ const AM = [
   {n:'Mega Neon Panda',  em:'🐼',p:9.99,  oldP:null, badge:'oos', rar:'leg',  sub:'mega',      bg:'r-green',  stock:0,oos:true},
 ];
 
-// ⚔️ MM2  |  p=price  stock=how many you have
 const MM2 = [
   {n:'Chroma Laser',  em:'🗡️',p:15.99,oldP:null, badge:'hot', sub:'chroma',type:'knife', stock:5, bg:'r-rare'},
   {n:"Nik's Scythe",  em:'🔪',p:34.99,oldP:null, badge:'rare',sub:'godly', type:'scythe',stock:2, bg:'r-mythical'},
@@ -1183,7 +1328,6 @@ const MM2 = [
   {n:'Godly Pack x5', em:'🎁',p:29.99,oldP:null, badge:'best',sub:'bundle',type:'bundle',stock:99,bg:'r-mythical'},
 ];
 
-// 🧠 STEAL A BRAINROT  |  p=price  stock=how many you have
 const BRAINROT = [
   {n:'Dragon Cannelloni',  em:'🐲',p:4.99, sub:'pets',    badge:'hot', stock:8, bg:'r-mythical'},
   {n:'MLG Frog Bundle',    em:'🐸',p:3.49, sub:'bundles', badge:'bundle',stock:12,bg:'r-pink'},
@@ -1197,7 +1341,6 @@ const BRAINROT = [
   {n:'NPC Pet',            em:'🤖',p:3.99, sub:'pets',    badge:'new', stock:11,bg:'r-dark'},
 ];
 
-// 🥊 RIVALS  |  p=price  stock=how many you have
 const RIVALS = [
   {n:'Ranked Boost x10',      em:'🏆',p:7.99, sub:'boost',    badge:'hot', stock:99,bg:'r-rare'},
   {n:'Exclusive Char Skin',   em:'🎭',p:12.99,sub:'skin',     badge:'rare',stock:4, bg:'r-legendary'},
@@ -1209,7 +1352,6 @@ const RIVALS = [
   {n:'Win Streak Pack',       em:'🔥',p:11.99,sub:'bundle',   badge:'hot', stock:7, bg:'r-rare'},
 ];
 
-// 🌙 99 NIGHTS  |  p=price  stock=how many you have
 const NIGHTS = [
   {n:'Night Guardian Pet',em:'🌙',p:6.99, sub:'pets',    badge:'rare',stock:5, bg:'r-mythical'},
   {n:'99 Nights Bundle',  em:'⭐',p:14.99,sub:'bundles', badge:'best',stock:3, bg:'r-legendary'},
@@ -1221,7 +1363,6 @@ const NIGHTS = [
   {n:'Dark Crystal Egg',  em:'🥚',p:5.99, sub:'pets',    badge:'new', stock:8, bg:'r-rare'},
 ];
 
-// 🌊 ESCAPE TSUNAMI  |  p=price  stock=how many you have
 const TSUNAMI = [
   {n:'Tsunami Bundle',   em:'🌊',p:5.99, sub:'bundles', badge:'new', stock:10,bg:'r-blue'},
   {n:'Surfboard Pet',    em:'🏄',p:3.49, sub:'pets',    badge:'',    stock:15,bg:'r-blue'},
@@ -1231,37 +1372,12 @@ const TSUNAMI = [
   {n:'Tsunami Coins 5k', em:'🪙',p:4.99, sub:'currency',badge:'',    stock:99,bg:'r-uncommon'},
 ];
 
-// ================================================================
-// ✏️  END OF EDIT ZONE — don't touch anything below unless you know what you're doing
-// ================================================================
-
 // ============================================================
 // STATE
 // ============================================================
 let cart = [], selPM='pp', promoApplied=false, promoPct=0;
 let rblxVerified=false, discLinked=false, rblxTimer=null;
 let fruitModes = {};
-const PROMOS = {
-  SILV20:20,      // 20% off
-  BRAINROT20:20,  // 20% off
-  DISCORD10:10,   // 10% off
-  GAG15:15,       // 15% off
-  MM2SAVE:15,     // 15% off
-  // Add more: NEWCODE:25  (means 25% off)
-};
-// ================================================================
-// ✏️  QUICK EDIT — Change these to update your site
-// ================================================================
-
-// 💳 PAYMENT LINKS
-const PAY_LINKS = {
-  pp: 'https://paypal.me/YOURPAYPAL',   // ← your PayPal.me link
-  ca: 'https://cash.app/$YOURCASHTAG',  // ← your CashApp tag
-  cr: '#crypto',                         // leave as-is
-  cd: 'https://paypal.me/YOURPAYPAL',   // ← card fallback link
-};
-
-// 🎟️ PROMO CODES & DISCOUNTS (number = % off)
 const PAY_LABELS = {pp:'💙 Pay with PayPal',ca:'💚 Pay with CashApp',cr:'₿ Pay with Crypto',cd:'💳 Pay with Card'};
 const PAY_CLS = {pp:'p-pp',ca:'p-ca',cr:'p-cr',cd:'p-cd'};
 const PM_SEL = {pp:'spp',ca:'sca',cr:'scr',cd:'scd'};
@@ -1421,7 +1537,6 @@ function setJtActive(btn){
 // ============================================================
 // BEST SELLERS
 // ============================================================
-// 🏆 BEST SELLERS  |  p=price with $ sign e.g '$9.99'  game=game name label
 const BESTSELLERS = [
   {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical'},
   {n:"Nik's Scythe",      em:'🔪',p:'$34.99',game:'MM2',        badge:'hot', stock:2, bg:'r-mythical'},
@@ -1622,7 +1737,7 @@ async function lookupRblx(u){
       try{const ar=await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${user.id}&size=150x150&format=Png`);const ad=await ar.json();av=ad.data?.[0]?.imageUrl||'';}catch{}
       showRblxOk(user.name,user.id,av);
     } else showRblxErr();
-  } catch{simRblx(u);}
+  } catch{ showRblxErr(); }
 }
 function showRblxOk(name,id,av){
   const ico=document.getElementById('rblxIco'),res=document.getElementById('rblxRes');
@@ -1632,7 +1747,6 @@ function showRblxOk(name,id,av){
   const av_el=document.getElementById('rblxAv');av_el.innerHTML=av?`<img src="${av}" alt="av"/>`:'😊';
   res.className='rblx show ok';ico.textContent='✓';ico.className='co-ico ok';rblxVerified=true;
 }
-function simRblx(u){showRblxOk(u,Math.floor(Math.random()*9e6+1e6),'');}
 function showRblxErr(){
   const ico=document.getElementById('rblxIco'),res=document.getElementById('rblxRes');
   document.getElementById('rblxStat').textContent='NOT FOUND';document.getElementById('rblxStat').className='rblx-stat err';
@@ -1689,6 +1803,146 @@ function init(){
 init();
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCO();});
+
+// ── APPLY LOGO/FAVICON FROM EDIT ZONE ───────────────────────
+(function applyBranding(){
+  if(SITE_FAVICON){
+    let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');
+    lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);
+  }
+  if(SITE_LOGO_URL){
+    const img=document.getElementById('navLogoImg');
+    const txt=document.getElementById('navLogoText');
+    img.src=SITE_LOGO_URL;img.style.display='inline-block';
+    if(txt) txt.style.display='none';
+  }
+  document.getElementById('discNavLink').href=DISCORD_INVITE;
+  // update checkout discord button too
+  const discBtn=document.getElementById('discBtn');
+  if(discBtn) discBtn.href=DISCORD_INVITE;
+})();
+
+// ── GAME SELECTOR ────────────────────────────────────────────
+const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','reviews'];
+const GAME_SUBS={
+  robux:    [],
+  bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
+  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🌾 Seeds',fn:'filterGAG',val:'seeds'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'🛠️ Tools',fn:'filterGAG',val:'tools'},{label:'🪙 Tokens',fn:'filterGAG',val:'tokens'}],
+  am:       [{label:'🐾 All',fn:'filterAM2',val:'all'},{label:'👑 Legendary',fn:'filterAM2',val:'legendary'},{label:'✨ Neon',fn:'filterAM2',val:'neon'},{label:'🌈 Mega Neon',fn:'filterAM2',val:'mega'}],
+  mm2:      [{label:'⚔️ All',fn:'filterMM2',val:'all'},{label:'💀 Godly',fn:'filterMM2',val:'godly'},{label:'🔮 Chroma',fn:'filterMM2',val:'chroma'},{label:'🎁 Bundles',fn:'filterMM2',val:'bundle'}],
+  brainrot: [{label:'🧠 All',fn:'filterBR',val:'all'},{label:'🐾 Pets',fn:'filterBR',val:'pets'},{label:'📦 Bundles',fn:'filterBR',val:'bundles'},{label:'🎒 Packs',fn:'filterBR',val:'packs'}],
+  rivals:   [{label:'🥊 All',fn:'filterRIV',val:'all'},{label:'🏆 Boosts',fn:'filterRIV',val:'boost'},{label:'🎭 Skins',fn:'filterRIV',val:'skin'},{label:'💎 Bundles',fn:'filterRIV',val:'bundle'},{label:'🪙 Currency',fn:'filterRIV',val:'currency'}],
+  nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
+  tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
+};
+let currentGame='all', currentSort='default';
+
+function filterAM2(btn,val){
+  setJtActive(btn);
+  filterGrid('amGrid','sub',val);
+  if(val==='all') document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');
+}
+
+function toggleGS(){
+  const btn=document.getElementById('gsBtn');
+  const drop=document.getElementById('gsDrop');
+  btn.classList.toggle('open');
+  drop.classList.toggle('open');
+}
+function toggleSort(){
+  const btn=document.getElementById('sortBtn');
+  const drop=document.getElementById('sortDrop');
+  btn.classList.toggle('open');
+  drop.classList.toggle('open');
+}
+
+function selectGame(el,name,icon,key){
+  currentGame=key;
+  // Update button
+  document.getElementById('gsName').textContent=name;
+  document.getElementById('gsIcon').textContent=icon;
+  // Mark active
+  document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));
+  el.classList.add('gd-active');
+  // Close dropdown
+  document.getElementById('gsBtn').classList.remove('open');
+  document.getElementById('gsDrop').classList.remove('open');
+
+  // Show/hide sections
+  const content=document.querySelector('.content');
+  if(key==='all'){
+    ALL_SECTION_IDS.forEach(id=>{
+      const sec=document.getElementById(id);
+      if(sec){sec.style.display=''; const dl=sec.nextElementSibling; if(dl&&dl.classList.contains('div-line')) dl.style.display='';}
+    });
+  } else {
+    ALL_SECTION_IDS.forEach(id=>{
+      const sec=document.getElementById(id);
+      if(!sec) return;
+      const show=(id===key)||(key==='robux'&&id==='robux')||(key==='reviews'&&id==='reviews');
+      sec.style.display=show?'':'none';
+      const dl=sec.nextElementSibling;
+      if(dl&&dl.classList.contains('div-line')) dl.style.display=show?'':'none';
+    });
+  }
+
+  // Sub filter bar
+  const bar=document.getElementById('subBar');
+  const scroll=document.getElementById('gsSubScroll');
+  const subs=GAME_SUBS[key]||[];
+  if(subs.length){
+    scroll.innerHTML=subs.map((s,i)=>
+      `<button class="sf-btn${i===0?' sf-active':''}" onclick="${s.fn}(this,'${s.val}')">${s.label}</button>`
+    ).join('');
+    bar.classList.add('open');
+  } else {
+    scroll.innerHTML='';
+    bar.classList.remove('open');
+  }
+
+  // Scroll to section
+  if(key!=='all'){
+    const sec=document.getElementById(key);
+    if(sec) setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }
+}
+
+function applySort(el,type){
+  currentSort=type;
+  document.getElementById('sortLabel').textContent={default:'Sort',low:'Low → High',high:'High → Low'}[type];
+  document.querySelectorAll('.sort-drop .gd-item').forEach(i=>i.classList.remove('gd-active'));
+  el.classList.add('gd-active');
+  document.getElementById('sortBtn').classList.remove('open');
+  document.getElementById('sortDrop').classList.remove('open');
+  // Sort all visible grids
+  const grids=['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid'];
+  grids.forEach(gid=>{
+    const grid=document.getElementById(gid);
+    if(!grid) return;
+    const cards=[...grid.children];
+    cards.sort((a,b)=>{
+      const pa=parseFloat((a.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
+      const pb=parseFloat((b.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
+      if(type==='low') return pa-pb;
+      if(type==='high') return pb-pa;
+      return 0;
+    });
+    cards.forEach(c=>grid.appendChild(c));
+  });
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click',function(e){
+  if(!document.getElementById('gsWrap').contains(e.target)){
+    document.getElementById('gsBtn').classList.remove('open');
+    document.getElementById('gsDrop').classList.remove('open');
+  }
+  if(!document.getElementById('sortWrap').contains(e.target)){
+    document.getElementById('sortBtn').classList.remove('open');
+    document.getElementById('sortDrop').classList.remove('open');
+  }
+});
+
 </script>
 </body>
 </html>

@@ -612,70 +612,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .sub-bar::-webkit-scrollbar{display:none}
 
 </style>
-<!--── ROBLOX CARD STYLES (for user profile display) ─────────────────────────────── -->
-<!-- Add this CSS inside your existing <head> block -->
-<style>
-/* Roblox Card Styles */
-#robloxCard {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 20px;
-  margin-top: 20px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ff6ec4, #7873f5);
-  box-shadow: 0 0 15px rgba(255,110,196,0.5);
-  transition: 0.3s;
-  width: fit-content;
-}
-
-#robloxCard:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255,110,196,0.7);
-}
-
-#robloxCard img {
-  width: 100px;
-  height: 100px;
-  border-radius: 15px;
-  border: 2px solid white;
-}
-
-#robloxCard div {
-  display: flex;
-  flex-direction: column;
-}
-
-#robloxUsername {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-#robloxDisplayName {
-  color: rgba(255,255,255,0.8);
-  font-size: 16px;
-}
-
-/* Optional: Style for input and button */
-#usernameInput, button {
-  padding: 10px;
-  margin: 5px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
-}
-
-button {
-  background: linear-gradient(90deg, #8e2de2, #4a00e0);
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-</style>
 </head>
 <body>
 <div class="bg"></div>
@@ -1156,18 +1092,6 @@ button:hover {
           <input class="co-inp" id="rblxIn" placeholder="Your Roblox username…" oninput="doRblx(this.value)" autocomplete="off"/>
           <div class="co-ico" id="rblxIco">👤</div>
         </div>
-        <!-- Add this HTML inside your existing <body> where you want the Roblox card to appear -->
-<h2>Roblox Lookup</h2>
-<input type="text" id="usernameInput" placeholder="Enter Roblox username">
-<button onclick="lookupRblx(document.getElementById('usernameInput').value)">Lookup</button>
-
-<div id="robloxCard" style="display:none;">
-  <img id="robloxAvatar" src="" alt="Avatar">
-  <div>
-    <div id="robloxUsername"></div>
-    <div id="robloxDisplayName"></div>
-  </div>
-</div>
         <div class="rblx" id="rblxRes">
           <div class="rblx-av" id="rblxAv">😊</div>
           <div>
@@ -2137,41 +2061,6 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 </div>
-<!-- Add this JS at the bottom of <body>, BEFORE your existing </body> -->
-<script>
-async function lookupRblx(username) {
-    try {
-        const userRes = await fetch(`https://users.roblox.com/v1/users/get-by-username?username=${username}`);
-        if (!userRes.ok) throw new Error("User not found");
-        const userData = await userRes.json();
-        const userId = userData.id;
 
-        const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
-        if (!thumbRes.ok) throw new Error("Thumbnail not found");
-        const thumbData = await thumbRes.json();
-        const avatarUrl = thumbData.data[0].imageUrl;
-
-        showRblxOK({
-            id: userId,
-            username: userData.name,
-            displayName: userData.displayName,
-            avatarUrl: avatarUrl
-        });
-    } catch (err) {
-        showRblxErr(err);
-    }
-}
-
-function showRblxOK(user) {
-    document.getElementById("robloxAvatar").src = user.avatarUrl;
-    document.getElementById("robloxUsername").textContent = user.username;
-    document.getElementById("robloxDisplayName").textContent = user.displayName;
-    document.getElementById("robloxCard").style.display = "flex";
-}
-
-function showRblxErr(error) {
-    alert("Error: " + error.message);
-}
-</script>
 </body>
 </html>

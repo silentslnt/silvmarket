@@ -1028,6 +1028,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <script>
 // ============================================================
+// ✏️  EDIT ZONE — CHANGE PRICES, LINKS, ITEMS HERE
+// ✏️  Everything below this block you can ignore
+// ============================================================
+// ============================================================
 // WIKI IMAGE URLS - real Blox Fruits images
 // ============================================================
 const WIKI = 'https://static.wikia.nocookie.net/bloxfruits/images/';
@@ -1066,11 +1070,13 @@ const IMGS = {
 // ============================================================
 // DATA
 // ============================================================
+// 💎 ROBUX PACKAGES  |  a=amount  p=price in dollars
 const ROBUX = [
   {a:1000,p:6},{a:2000,p:12},{a:3000,p:18},
   {a:5000,p:30,best:true},{a:10000,p:60},{a:20000,p:120},
 ];
 
+// 🍎 BLOX FRUITS  |  norm=normal price  perm=perm price  stock=how many you have
 // Only listing relevant / valuable fruits (no rocket/spin/chop/bomb/spring/spike/blade)
 const FRUITS = [
   // MYTHICAL
@@ -1122,6 +1128,7 @@ const BF_GP = [
   {n:'Gamepass Bundle',       em:'🎮',type:'Gamepass',rar:'leg', norm:12.99,perm:null,badge:'sale',stock:99,cat:'gamepass'},
 ];
 
+// 🌱 GROW A GARDEN  |  p=price  stock=how many you have
 const GAG = [
   {n:'Godly Seed Pack',    em:'🌟',cat:'seeds', p:8.99,  rar:'legendary',badge:'leg', stock:4, bg:'r-legendary'},
   {n:'Dragon Fruit Seed',  em:'🐉',cat:'seeds', p:12.99, rar:'mythical', badge:'myth',stock:2, bg:'r-mythical'},
@@ -1145,6 +1152,7 @@ const GAG = [
   {n:'Token Doubler 24hr', em:'✨',cat:'tokens',p:4.99,  rar:'rare',     badge:'',    stock:99,bg:'r-rare'},
 ];
 
+// 🐾 ADOPT ME  |  p=price  stock=how many you have
 const AM = [
   {n:'Neon FR Unicorn',  em:'🦄',p:8.99,  oldP:null, badge:'hot', rar:'leg',  sub:'neon',      bg:'r-pink',   stock:6},
   {n:'Shadow Dragon',    em:'🐉',p:22.99, oldP:28.99,badge:'sale',rar:'myth', sub:'legendary', bg:'r-mythical',stock:3},
@@ -1160,6 +1168,7 @@ const AM = [
   {n:'Mega Neon Panda',  em:'🐼',p:9.99,  oldP:null, badge:'oos', rar:'leg',  sub:'mega',      bg:'r-green',  stock:0,oos:true},
 ];
 
+// ⚔️ MM2  |  p=price  stock=how many you have
 const MM2 = [
   {n:'Chroma Laser',  em:'🗡️',p:15.99,oldP:null, badge:'hot', sub:'chroma',type:'knife', stock:5, bg:'r-rare'},
   {n:"Nik's Scythe",  em:'🔪',p:34.99,oldP:null, badge:'rare',sub:'godly', type:'scythe',stock:2, bg:'r-mythical'},
@@ -1174,6 +1183,7 @@ const MM2 = [
   {n:'Godly Pack x5', em:'🎁',p:29.99,oldP:null, badge:'best',sub:'bundle',type:'bundle',stock:99,bg:'r-mythical'},
 ];
 
+// 🧠 STEAL A BRAINROT  |  p=price  stock=how many you have
 const BRAINROT = [
   {n:'Dragon Cannelloni',  em:'🐲',p:4.99, sub:'pets',    badge:'hot', stock:8, bg:'r-mythical'},
   {n:'MLG Frog Bundle',    em:'🐸',p:3.49, sub:'bundles', badge:'bundle',stock:12,bg:'r-pink'},
@@ -1187,6 +1197,7 @@ const BRAINROT = [
   {n:'NPC Pet',            em:'🤖',p:3.99, sub:'pets',    badge:'new', stock:11,bg:'r-dark'},
 ];
 
+// 🥊 RIVALS  |  p=price  stock=how many you have
 const RIVALS = [
   {n:'Ranked Boost x10',      em:'🏆',p:7.99, sub:'boost',    badge:'hot', stock:99,bg:'r-rare'},
   {n:'Exclusive Char Skin',   em:'🎭',p:12.99,sub:'skin',     badge:'rare',stock:4, bg:'r-legendary'},
@@ -1198,6 +1209,7 @@ const RIVALS = [
   {n:'Win Streak Pack',       em:'🔥',p:11.99,sub:'bundle',   badge:'hot', stock:7, bg:'r-rare'},
 ];
 
+// 🌙 99 NIGHTS  |  p=price  stock=how many you have
 const NIGHTS = [
   {n:'Night Guardian Pet',em:'🌙',p:6.99, sub:'pets',    badge:'rare',stock:5, bg:'r-mythical'},
   {n:'99 Nights Bundle',  em:'⭐',p:14.99,sub:'bundles', badge:'best',stock:3, bg:'r-legendary'},
@@ -1209,6 +1221,7 @@ const NIGHTS = [
   {n:'Dark Crystal Egg',  em:'🥚',p:5.99, sub:'pets',    badge:'new', stock:8, bg:'r-rare'},
 ];
 
+// 🌊 ESCAPE TSUNAMI  |  p=price  stock=how many you have
 const TSUNAMI = [
   {n:'Tsunami Bundle',   em:'🌊',p:5.99, sub:'bundles', badge:'new', stock:10,bg:'r-blue'},
   {n:'Surfboard Pet',    em:'🏄',p:3.49, sub:'pets',    badge:'',    stock:15,bg:'r-blue'},
@@ -1218,14 +1231,37 @@ const TSUNAMI = [
   {n:'Tsunami Coins 5k', em:'🪙',p:4.99, sub:'currency',badge:'',    stock:99,bg:'r-uncommon'},
 ];
 
+// ================================================================
+// ✏️  END OF EDIT ZONE — don't touch anything below unless you know what you're doing
+// ================================================================
+
 // ============================================================
 // STATE
 // ============================================================
 let cart = [], selPM='pp', promoApplied=false, promoPct=0;
 let rblxVerified=false, discLinked=false, rblxTimer=null;
 let fruitModes = {};
-const PROMOS = {SILV20:20,BRAINROT20:20,DISCORD10:10,GAG15:15,MM2SAVE:15};
-const PAY_LINKS = {pp:'https://paypal.me/YOURPAYPAL',ca:'https://cash.app/$YOURCASHTAG',cr:'#crypto',cd:'https://paypal.me/YOURPAYPAL'};
+const PROMOS = {
+  SILV20:20,      // 20% off
+  BRAINROT20:20,  // 20% off
+  DISCORD10:10,   // 10% off
+  GAG15:15,       // 15% off
+  MM2SAVE:15,     // 15% off
+  // Add more: NEWCODE:25  (means 25% off)
+};
+// ================================================================
+// ✏️  QUICK EDIT — Change these to update your site
+// ================================================================
+
+// 💳 PAYMENT LINKS
+const PAY_LINKS = {
+  pp: 'https://paypal.me/YOURPAYPAL',   // ← your PayPal.me link
+  ca: 'https://cash.app/$YOURCASHTAG',  // ← your CashApp tag
+  cr: '#crypto',                         // leave as-is
+  cd: 'https://paypal.me/YOURPAYPAL',   // ← card fallback link
+};
+
+// 🎟️ PROMO CODES & DISCOUNTS (number = % off)
 const PAY_LABELS = {pp:'💙 Pay with PayPal',ca:'💚 Pay with CashApp',cr:'₿ Pay with Crypto',cd:'💳 Pay with Card'};
 const PAY_CLS = {pp:'p-pp',ca:'p-ca',cr:'p-cr',cd:'p-cd'};
 const PM_SEL = {pp:'spp',ca:'sca',cr:'scr',cd:'scd'};
@@ -1385,6 +1421,7 @@ function setJtActive(btn){
 // ============================================================
 // BEST SELLERS
 // ============================================================
+// 🏆 BEST SELLERS  |  p=price with $ sign e.g '$9.99'  game=game name label
 const BESTSELLERS = [
   {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical'},
   {n:"Nik's Scythe",      em:'🔪',p:'$34.99',game:'MM2',        badge:'hot', stock:2, bg:'r-mythical'},
@@ -1614,75 +1651,18 @@ function selPay(m){
   ['pp','ca','cr','cd'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
   const btn=document.getElementById('payNow');btn.className='pay-btn '+PAY_CLS[m];btn.textContent=PAY_LABELS[m];
 }
-// ── Bot webhook config ─────────────────────────────────────
-// After setting up the bot, replace these two values:
-const WEBHOOK_URL = 'http://YOUR_SERVER_IP:3000/order';
-const WEBHOOK_SECRET = 'sltnslntslntslnt'; // set this same secret in your bot config for basic request authentication
-
-async function payNow(){
-  const u=document.getElementById('rblxIn').value.trim();
-  const e=document.getElementById('emailIn').value.trim();
+function payNow(){
+  const u=document.getElementById('rblxIn').value.trim(),e=document.getElementById('emailIn').value.trim();
   if(!u){alert('⚠️ Enter your Roblox username first.');return;}
   if(!e||!e.includes('@')){alert('⚠️ Enter a valid email address.');return;}
-
-  const btn=document.getElementById('payNow');
-  btn.disabled=true; btn.textContent='⏳ Processing…';
-
-  // Open payment window first
   const lnk=PAY_LINKS[selPM];
   if(lnk&&lnk!=='#crypto') window.open(lnk,'_blank');
   else alert('💬 For crypto: open a Discord ticket.\n\nAccepted: BTC · ETH · SOL · USDT · LTC');
-
-  // Notify bot & get claim key
-  let orderId='', claimKey='';
-  if(WEBHOOK_URL){
-    try{
-      const resp = await fetch(WEBHOOK_URL,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','x-silv-secret':WEBHOOK_SECRET},
-        body: JSON.stringify({
-          items: cart.map(i=>({name:i.name,price:i.price,qty:i.qty})),
-          robloxUser: u,
-          email: e,
-          payMethod: {pp:'PayPal',ca:'CashApp',cr:'Crypto',cd:'Card'}[selPM]||selPM,
-        })
-      });
-      const data = await resp.json();
-      if(data.orderId)  orderId  = data.orderId;
-      if(data.claimKey) claimKey = data.claimKey;
-    } catch(err){ console.warn('Bot webhook failed (orders still go through):',err); }
-  }
-
-  // Show success screen
   setTimeout(()=>{
     document.getElementById('coBody').style.display='none';
-    const succ=document.getElementById('coSucc');
-    succ.classList.add('show');
-
-    // Add claim key info if we got one
-    if(claimKey){
-      succ.innerHTML=`
-        <div class="succ-ic">🎉</div>
-        <div class="succ-t">Order Placed!</div>
-        <p class="succ-s">Payment window opened! After paying, claim your items using your Claim Key below.</p>
-        <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.3);border-radius:14px;padding:20px;margin:18px 0;text-align:center;width:100%;max-width:420px">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:6px">YOUR CLAIM KEY — KEEP THIS PRIVATE</div>
-          <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--yellow);letter-spacing:2px;word-break:break-all;cursor:pointer" onclick="navigator.clipboard.writeText('${claimKey}').then(()=>alert('✅ Copied!'))" title="Click to copy">${claimKey}</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:6px">📋 Click to copy · Order ID: <strong>${orderId}</strong></div>
-        </div>
-        <p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px">Join Discord → click <strong>"Claim My Order"</strong> → paste your key → get your items!</p>
-        <a href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="display:inline-flex;font-size:14px;padding:12px 26px">💬 Join Discord to Claim</a>`;
-    } else {
-      succ.innerHTML=`
-        <div class="succ-ic">🎉</div>
-        <div class="succ-t">Order Placed!</div>
-        <p class="succ-s">Payment window opened! Join our Discord and open a ticket — we'll deliver your items within minutes.</p>
-        <a href="https://discord.gg/YOURINVITE" class="disc-link" target="_blank" style="display:inline-flex;margin-top:18px;font-size:14px;padding:12px 26px">💬 Join Discord for Delivery</a>`;
-    }
-
+    document.getElementById('coSucc').classList.add('show');
     ['cs1','cs2','cs3'].forEach(s=>{const el=document.getElementById(s);el.className='co-s don';el.textContent='✓';});
     cart=[];updateCartUI();
-    btn.disabled=false;
   },600);
 }
 

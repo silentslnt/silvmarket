@@ -1148,21 +1148,28 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 // ================================================================
 
 // 🌐 SITE IDENTITY
-// Upload images to the /images/ folder in your repo, then use 'images/filename.png'
-// OR paste a full URL like 'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/logo.png'
-const SITE_LOGO_URL  = 'images/logo.png';     // ← your logo file in /images/ folder
-const SITE_FAVICON   = 'images/logo.png';     // ← browser tab icon (same or different image)
+const SITE_LOGO_URL  = 'logo.png';          // Paste image URL here for nav logo (leave '' to use text)
+const SITE_FAVICON   = '';          // Paste image URL here for browser tab icon (leave '' for none)
 const SITE_NAME      = 'SILV MARKET';
 
 // 🔗 LINKS
 const DISCORD_INVITE = 'https://discord.gg/YOURINVITE';  // ← your Discord invite
 
+// ₿ CRYPTO WALLETS — add whichever you accept (leave blank '' to hide)
+const CRYPTO_WALLETS = {
+  BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',   // ← paste your Bitcoin address
+  ETH:  '0x967E3480014cb8f1008fB8b72236d358c6C58bDD',   // ← paste your Ethereum address
+  SOL:  'HnjpMmfooCSzNecbbRmQsFRJWSZLryGJH2HswKzPCggH',   // ← paste your Solana address
+  USDT: '0x416934936d3F5186759E1AC2feA7DA6D89279d52',   // ← paste your USDT (TRC20 or ERC20) address
+  LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',   // ← paste your Litecoin address
+};
+
 // 💳 PAYMENT LINKS
 const PAY_LINKS = {
-  pp: 'https://paypal.me/YOURPAYPAL',   // ← PayPal.me link
-  ca: 'https://cash.app/$YOURCASHTAG',  // ← CashApp $tag
+  pp: 'https://www.paypal.me/Tariqjordg',   // ← PayPal.me link
+  ca: 'https://cash.app/$antitjay',  // ← CashApp $tag
   cr: '#crypto',                         // leave
-  cd: 'https://paypal.me/YOURPAYPAL',   // ← card fallback
+  cd: 'https://paypal.me/Tariqjordg',   // ← card fallback
 };
 
 // 🎟️ PROMO CODES  (number = % off)
@@ -1180,9 +1187,7 @@ const PROMOS = {
 // ================================================================
 
 // ============================================================
-// 🖼️ PRODUCT IMAGES — Edit these to change card images
-// Use 'images/filename.png' for files in your /images/ folder
-// OR use a full URL from wikia/imgur etc
+// WIKI IMAGE URLS - real Blox Fruits images
 // ============================================================
 const WIKI = 'https://static.wikia.nocookie.net/bloxfruits/images/';
 const IMGS = {
@@ -1770,8 +1775,8 @@ function payNow(){
   if(!u){alert('⚠️ Enter your Roblox username first.');return;}
   if(!e||!e.includes('@')){alert('⚠️ Enter a valid email address.');return;}
   const lnk=PAY_LINKS[selPM];
-  if(lnk&&lnk!=='#crypto') window.open(lnk,'_blank');
-  else alert('💬 For crypto: open a Discord ticket.\n\nAccepted: BTC · ETH · SOL · USDT · LTC');
+  if(selPM==='cr'){openCryptoModal();return;}
+  if(lnk) window.open(lnk,'_blank');
   setTimeout(()=>{
     document.getElementById('coBody').style.display='none';
     document.getElementById('coSucc').classList.add('show');
@@ -1942,7 +1947,120 @@ document.addEventListener('click',function(e){
     document.getElementById('sortDrop').classList.remove('open');
   }
 });
+// ── CRYPTO MODAL ─────────────────────────────────────────────
+let _cryptoCurrent = '';
+
+function openCryptoModal(){
+  const modal = document.getElementById('cryptoModal');
+  modal.style.display = 'flex';
+  buildCryptoTabs();
+}
+function closeCryptoModal(){
+  document.getElementById('cryptoModal').style.display = 'none';
+}
+function buildCryptoTabs(){
+  const tabs = document.getElementById('cryptoTabs');
+  const coins = Object.keys(CRYPTO_WALLETS).filter(k => CRYPTO_WALLETS[k]);
+  if(!coins.length){
+    tabs.innerHTML = '<div style="font-family:Rajdhani,sans-serif;color:rgba(255,255,255,.4);font-size:13px;text-align:center">No wallet addresses configured yet.<br>Add them in the EDIT ZONE at top of the script.</div>';
+    return;
+  }
+  tabs.innerHTML = coins.map((c,i) =>
+    `<button class="crypto-tab${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)"
+      style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;
+      font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);
+      background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};
+      color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`
+  ).join('');
+  if(coins.length) selectCoin(coins[0], tabs.children[0]);
+}
+function selectCoin(coin, btn){
+  _cryptoCurrent = CRYPTO_WALLETS[coin] || '';
+  document.querySelectorAll('.crypto-tab').forEach(b=>{
+    b.style.background='rgba(255,255,255,.05)';b.style.color='rgba(255,255,255,.5)';
+  });
+  btn.style.background='rgba(147,51,234,.3)';btn.style.color='#fff';
+  document.getElementById('cryptoCoinLabel').textContent = coin + ' ADDRESS';
+  document.getElementById('cryptoAddr').textContent = _cryptoCurrent || 'No address set';
+  drawQR(_cryptoCurrent);
+}
+function copyCryptoAddr(){
+  if(!_cryptoCurrent) return;
+  navigator.clipboard.writeText(_cryptoCurrent).then(()=>{
+    const btn = document.getElementById('cryptoCopyBtn');
+    btn.textContent = '\u2705 Copied!';
+    btn.style.background = 'rgba(0,200,100,.25)';
+    setTimeout(()=>{btn.textContent='\ud83d\udccb Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
+  });
+}
+function drawQR(address){
+  const qr = document.getElementById('cryptoQR');
+  if(!address){ qr.innerHTML=''; return; }
+  const url='https://api.qrserver.com/v1/create-qr-code/?size=148x148&data='+encodeURIComponent(address)+'&bgcolor=ffffff&color=000000&margin=4';
+  qr.innerHTML='<img src="'+url+'" width="148" height="148" style="border-radius:6px" alt="QR"/>';
+}
+document.addEventListener('DOMContentLoaded',function(){
+  const m=document.getElementById('cryptoModal');
+  if(m) m.addEventListener('click',function(e){ if(e.target===this) closeCryptoModal(); });
+});
+
 
 </script>
+
+<!-- CRYPTO MODAL -->
+<div id="cryptoModal" style="display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center">
+  <div style="background:rgba(8,3,22,.98);border:1px solid rgba(147,51,234,.4);
+    border-radius:16px;padding:28px;max-width:420px;width:90%;
+    box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative">
+    <button onclick="closeCryptoModal()" style="position:absolute;top:14px;right:14px;
+      background:rgba(255,255,255,.07);border:none;color:#fff;width:30px;height:30px;
+      border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;
+      justify-content:center">✕</button>
+    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;
+      color:#fff;margin-bottom:4px">₿ Pay with Crypto</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;
+      color:rgba(255,255,255,.4);margin-bottom:20px;letter-spacing:1px">
+      SEND EXACT AMOUNT · DM ON DISCORD AFTER PAYING</div>
+
+    <!-- coin tabs -->
+    <div id="cryptoTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px"></div>
+
+    <!-- address area -->
+    <div id="cryptoAddrWrap">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
+        letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:8px"
+        id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
+      <!-- QR -->
+      <div id="cryptoQR" style="width:160px;height:160px;margin:0 auto 14px;
+        background:#fff;border-radius:10px;display:flex;align-items:center;
+        justify-content:center;font-size:11px;color:#555;padding:6px">
+        <canvas id="qrCanvas" width="148" height="148"></canvas>
+      </div>
+      <!-- address -->
+      <div style="display:flex;gap:8px;align-items:center">
+        <div id="cryptoAddr" style="flex:1;background:rgba(255,255,255,.05);
+          border:1px solid rgba(255,255,255,.1);border-radius:8px;
+          padding:10px 12px;font-family:monospace;font-size:11px;
+          color:rgba(255,255,255,.7);word-break:break-all;min-height:38px;
+          letter-spacing:.5px">Select a coin to see address</div>
+        <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" style="padding:10px 14px;
+          background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);
+          border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;
+          font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s">
+          📋 Copy</button>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:10px;background:rgba(255,160,0,.07);
+      border:1px solid rgba(255,160,0,.2);border-radius:8px;
+      font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,200,80,.8);
+      text-align:center">
+      ⚠️ After sending, DM us on Discord with proof of payment
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

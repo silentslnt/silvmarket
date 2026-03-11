@@ -365,7 +365,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   border-radius:15px;padding:20px;text-align:center;transition:all .3s;cursor:pointer}
 .pay-c:hover{transform:translateY(-3px)}
 .pay-c.pp:hover{border-color:rgba(0,112,186,.5);box-shadow:0 6px 22px rgba(0,112,186,.1)}
-.pay-c.ca:hover{border-color:rgba(0,212,66,.5);box-shadow:0 6px 22px rgba(0,212,66,.1)}
 .pay-c.cr:hover{border-color:rgba(255,215,0,.5);box-shadow:0 6px 22px rgba(255,215,0,.1)}
 .pay-c.cd:hover{border-color:rgba(147,51,234,.5);box-shadow:0 6px 22px rgba(147,51,234,.1)}
 .pay-ico{font-size:36px;margin-bottom:9px}
@@ -967,7 +966,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
   <div class="pay-grid">
     <div class="pay-c pp"><div class="pay-ico">💙</div><div class="pay-nm">PayPal</div><div class="pay-ds">Buyer protection</div></div>
-    <div class="pay-c ca"><div class="pay-ico">💚</div><div class="pay-nm">CashApp</div><div class="pay-ds">Instant transfer</div></div>
     <div class="pay-c cr"><div class="pay-ico">₿</div><div class="pay-nm">Crypto</div><div class="pay-ds">BTC · ETH · SOL · USDT</div></div>
     <div class="pay-c cd"><div class="pay-ico">💳</div><div class="pay-nm">Debit / Credit</div><div class="pay-ds">Visa & MC via PayPal</div></div>
   </div>
@@ -984,7 +982,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="how-grid">
     <div class="hc"><div class="hc-n">1</div><h3>Add to Cart</h3><p>Browse any game, toggle Normal/Perm, add to cart.</p></div>
     <div class="hc"><div class="hc-n">2</div><h3>Checkout</h3><p>Enter your verified Roblox username and link Discord.</p></div>
-    <div class="hc"><div class="hc-n">3</div><h3>Pay</h3><p>PayPal · CashApp · Crypto · Card — all protected.</p></div>
+    <div class="hc"><div class="hc-n">3</div><h3>Pay</h3><p>PayPal · Crypto · Card — all protected.</p></div>
     <div class="hc"><div class="hc-n">4</div><h3>Delivered!</h3><p>We meet you in-game within minutes of payment. ⚡</p></div>
   </div>
 </section>
@@ -1037,7 +1035,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
   <div class="fbot">
     <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
-    <p>PayPal · CashApp · Crypto · Card</p>
+    <p>PayPal · Crypto · Card</p>
   </div>
 </footer>
 
@@ -1124,7 +1122,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:11px">Payment Method</div>
         <div class="pm-grid">
           <div class="pm spp" id="pm-pp" onclick="selPay('pp')"><div class="pm-ico">💙</div><div class="pm-nm">PayPal</div></div>
-          <div class="pm" id="pm-ca" onclick="selPay('ca')"><div class="pm-ico">💚</div><div class="pm-nm">CashApp</div></div>
           <div class="pm" id="pm-cr" onclick="selPay('cr')"><div class="pm-ico">₿</div><div class="pm-nm">Crypto</div></div>
           <div class="pm" id="pm-cd" onclick="selPay('cd')"><div class="pm-ico">💳</div><div class="pm-nm">Card</div></div>
         </div>
@@ -1153,7 +1150,7 @@ const SITE_FAVICON   = 'https://silvmarket.shop/images/logo.png';          // Pa
 const SITE_NAME      = 'SILV MARKET';
 
 // 🔗 LINKS
-const DISCORD_INVITE = 'https://discord.com/oauth2/authorize?client_id=1481122330041258141&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=107219&prompt=none';  // ← your Discord invite
+const DISCORD_INVITE = 'https://discord.com/brianrots';  // ← your Discord invite
 
 // ₿ CRYPTO WALLETS — add whichever you accept (leave blank '' to hide)
 const CRYPTO_WALLETS = {
@@ -1167,7 +1164,6 @@ const CRYPTO_WALLETS = {
 // 💳 PAYMENT LINKS
 const PAY_LINKS = {
   pp: 'https://www.paypal.me/Tariqjordg',   // ← PayPal.me link
-  ca: 'https://cash.app/$antitjay',  // ← CashApp $tag
   cr: '#crypto',                         // leave
   cd: 'https://paypal.me/Tariqjordg',   // ← card fallback
 };
@@ -1383,9 +1379,9 @@ const TSUNAMI = [
 let cart = [], selPM='pp', promoApplied=false, promoPct=0;
 let rblxVerified=false, discLinked=false, rblxTimer=null;
 let fruitModes = {};
-const PAY_LABELS = {pp:'💙 Pay with PayPal',ca:'💚 Pay with CashApp',cr:'₿ Pay with Crypto',cd:'💳 Pay with Card'};
-const PAY_CLS = {pp:'p-pp',ca:'p-ca',cr:'p-cr',cd:'p-cd'};
-const PM_SEL = {pp:'spp',ca:'sca',cr:'scr',cd:'scd'};
+const PAY_LABELS = {pp:'💙 Pay with PayPal',cr:'₿ Pay with Crypto',cd:'💳 Pay with Card'};
+const PAY_CLS = {pp:'p-pp',cr:'p-cr',cd:'p-cd'};
+const PM_SEL = {pp:'spp',cr:'scr',cd:'scd'};
 
 // ============================================================
 // BADGE HELPERS
@@ -1733,7 +1729,7 @@ function markDisc(){
 }
 function selPay(m){
   selPM=m;
-  ['pp','ca','cr','cd'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
+  ['pp','cr','cd'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
   const btn=document.getElementById('payNow');btn.className='pay-btn '+PAY_CLS[m];btn.textContent=PAY_LABELS[m];
 }
 function payNow(){

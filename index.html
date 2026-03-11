@@ -1725,40 +1725,6 @@ function applyPromo(){
     setTimeout(()=>el.style.display='none',2500);
   }
 }
-// Roblox lookup
-function doRblx(val){
-  clearTimeout(rblxTimer);rblxVerified=false;
-  const ico=document.getElementById('rblxIco'),res=document.getElementById('rblxRes');
-  if(val.trim().length<3){res.className='rblx';ico.textContent='👤';ico.className='co-ico';return;}
-  ico.textContent='⟳';ico.className='co-ico sp';
-  rblxTimer=setTimeout(()=>lookupRblx(val.trim()),700);
-}
-async function lookupRblx(u){
-  try{
-    const r=await fetch('https://users.roblox.com/v1/usernames/users',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({usernames:[u],excludeBannedUsers:false})});
-    const d=await r.json();
-    if(d.data&&d.data.length>0){
-      const user=d.data[0];let av='';
-      try{const ar=await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${user.id}&size=150x150&format=Png`);const ad=await ar.json();av=ad.data?.[0]?.imageUrl||'';}catch{}
-      showRblxOk(user.name,user.id,av);
-    } else showRblxErr();
-  } catch{ showRblxErr(); }
-}
-function showRblxOk(name,id,av){
-  const ico=document.getElementById('rblxIco'),res=document.getElementById('rblxRes');
-  document.getElementById('rblxStat').textContent='VERIFIED USER';document.getElementById('rblxStat').className='rblx-stat ok';
-  document.getElementById('rblxUn').textContent=name;document.getElementById('rblxId').textContent='ID: '+id;
-  document.getElementById('rblxChk').textContent='✅';
-  const av_el=document.getElementById('rblxAv');av_el.innerHTML=av?`<img src="${av}" alt="av"/>`:'😊';
-  res.className='rblx show ok';ico.textContent='✓';ico.className='co-ico ok';rblxVerified=true;
-}
-function showRblxErr(){
-  const ico=document.getElementById('rblxIco'),res=document.getElementById('rblxRes');
-  document.getElementById('rblxStat').textContent='NOT FOUND';document.getElementById('rblxStat').className='rblx-stat err';
-  document.getElementById('rblxUn').textContent='User not found';document.getElementById('rblxId').textContent='Check spelling';
-  document.getElementById('rblxChk').textContent='❌';document.getElementById('rblxAv').innerHTML='❓';
-  res.className='rblx show err';ico.textContent='✕';ico.className='co-ico';rblxVerified=false;
-}
 function markDisc(){
   setTimeout(()=>{
     document.getElementById('discBtn').style.display='none';

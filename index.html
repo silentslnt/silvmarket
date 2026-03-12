@@ -1150,12 +1150,13 @@ const SITE_FAVICON   = 'https://silvmarket.shop/images/logo.png';
 const SITE_NAME      = 'SILV MARKET';
 const DISCORD_INVITE = 'https://discord.gg/brianrots';
 
-// Vaultcord OAuth URL — used for Discord linking
-const VAULTCORD_AUTH_URL = 'https://discord.com/oauth2/authorize?client_id=1481122330041258141&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify+guilds.join&state=107219&prompt=none';
+// Vaultcord client_id — redirect_uri is built dynamically at runtime
+// pointing to /auth-callback.html on this domain
+const VAULTCORD_CLIENT_ID = '1481122330041258141';
 
 // Bot webhook — POST /order when purchase complete
-const BOT_WEBHOOK_URL = 'silvreview-production.up.railway.app'; // ← replace with your bot.js server URL
-const BOT_WEBHOOK_SECRET = 'sltnslntslnt'; // ← replace with your .env WEBHOOK_SECRET
+const BOT_WEBHOOK_URL = 'https://YOUR-BOT-SERVER.com/order'; // ← replace with your bot.js server URL
+const BOT_WEBHOOK_SECRET = 'YOUR_WEBHOOK_SECRET'; // ← replace with your .env WEBHOOK_SECRET
 
 const CRYPTO_WALLETS = {
   BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',
@@ -1607,121 +1608,270 @@ function doRblx(val){
 }
 
 // ── DISCORD OAUTH (VAULTCORD) ─────────────────────────────────
-function startDiscordAuth(e){
-  e.preventDefault();
-  const btn=document.getElementById('discAuthBtn');
-  btn.classList.add('verifying');
-  btn.textContent='⏳ Waiting for Discord...';
+// HOW THIS WORKS:
+// 1. User clicks "Link Discord" → popup opens to Vaultcord auth URL
+// 2. Vaultcord redirects to silvmarket.shop/auth-callback.html after auth
+// 3. auth-callback.html writes user data to localStorage key "silv_discord_auth"
+// 4. This page polls localStorage every 600ms while popup is open
+// 5. On data found → setDiscordLinked() fires, button unlocks, popup closes
+// ──────────────────────────────────────────────────────────────
 
-  // Open Vaultcord auth popup
-  const w=500,h=700;
-  const left=(window.screen.width-w)/2;
-  const top=(window.screen.height-h)/2;
-  _authWindow=window.open(VAULTCORD_AUTH_URL,'VaultcordAuth',`width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
-
-  // Poll for message from popup or for window close
-  _authCheckInterval=setInterval(()=>{
-    if(_authWindow&&_authWindow.closed){
-      clearInterval(_authCheckInterval);
-      // If window closed without linking, reset button
-      if(!discordLinked){
-        btn.classList.remove('verifying');
-        btn.innerHTML='<svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg> Link Discord Account';
-      }
-    }
-  },500);
+// Build the auth URL so redirect_uri points to OUR callback page
+function buildVaultcordURL(){
+  const base = 'https://discord.com/oauth2/authorize';
+  const redirectUri = encodeURIComponent(window.location.origin + '/auth-callback.html');
+  return `${base}?client_id=1481122330041258141&redirect_uri=${redirectUri}&response_type=code&scope=identify+guilds.join&state=107219&prompt=none`;
 }
 
-// Listen for Vaultcord postMessage callback
-window.addEventListener('message',function(event){
-  // Accept messages from vaultcord or discord
-  if(!event.origin.includes('discord')&&!event.origin.includes('vaultcord')&&event.origin!==window.location.origin) return;
+function startDiscordAuth(e){
+  e.preventDefault();
 
-  const data=event.data;
-  if(data&&(data.type==='DISCORD_AUTH'||data.discord_id||data.id)){
+  // Clear any stale auth data from previous attempts
+  try{
+    localStorage.removeItem('silv_discord_auth');
+    localStorage.removeItem('silv_discord_verified');
+  }catch(ex){}
+
+  const btn = document.getElementById('discAuthBtn');
+  btn.classList.add('verifying');
+  btn.innerHTML = '<span style="animation:spin .7s linear infinite;display:inline-block">⏳</span>&nbsp; Waiting for Discord…';
+
+  // Open the auth popup
+  const w=500, h=720;
+  const left = Math.max(0, (window.screen.width  - w) / 2);
+  const top  = Math.max(0, (window.screen.height - h) / 2);
+  const authURL = buildVaultcordURL();
+
+  _authWindow = window.open(
+    authURL, 'SilvDiscordAuth',
+    `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,menubar=no`
+  );
+
+  if(!_authWindow){
+    // Popup was blocked — show a fallback link
+    btn.classList.remove('verifying');
+    btn.innerHTML = '🔗 Click here to link Discord (popup blocked)';
+    btn.href = authURL;
+    btn.target = '_blank';
+    // Start polling anyway in case they come back to this tab
+    startLocalStoragePolling(btn, null);
+    return;
+  }
+
+  startLocalStoragePolling(btn, _authWindow);
+}
+
+function startLocalStoragePolling(btn, popup){
+  if(_authCheckInterval) clearInterval(_authCheckInterval);
+
+  _authCheckInterval = setInterval(()=>{
+
+    // ── 1. Check postMessage (same-origin popup → this page) ──
+    // handled separately via window.addEventListener below
+
+    // ── 2. Poll localStorage ──────────────────────────────────
+    let stored = null;
+    try{ stored = localStorage.getItem('silv_discord_auth'); }catch(ex){}
+
+    if(stored){
+      try{
+        const data = JSON.parse(stored);
+        const age  = Date.now() - (data.timestamp || 0);
+
+        // Only accept data written in the last 5 minutes
+        if(age < 300000 && data.verified === true){
+          clearInterval(_authCheckInterval);
+          try{ localStorage.removeItem('silv_discord_auth'); localStorage.removeItem('silv_discord_verified'); }catch(ex){}
+          if(popup && !popup.closed){ try{ popup.close(); }catch(ex){} }
+          setDiscordLinked(data);
+          return;
+        }
+
+        // "awaitingConfirm" — user completed Vaultcord flow but no params returned
+        if(age < 300000 && data.awaitingConfirm){
+          clearInterval(_authCheckInterval);
+          if(popup && !popup.closed){ try{ popup.close(); }catch(ex){} }
+          // Show a "Did you complete Discord auth?" prompt in the verify box
+          showVerifyConfirmPrompt(btn);
+          return;
+        }
+      }catch(ex){}
+    }
+
+    // ── 3. If popup closed without us detecting auth ──────────
+    if(popup && popup.closed){
+      clearInterval(_authCheckInterval);
+      if(!discordLinked){
+        // Give it one more moment in case localStorage was written right before close
+        setTimeout(()=>{
+          if(!discordLinked){
+            let stored2 = null;
+            try{ stored2 = localStorage.getItem('silv_discord_auth'); }catch(ex){}
+            if(stored2){
+              try{
+                const d2 = JSON.parse(stored2);
+                if(d2.verified) { setDiscordLinked(d2); return; }
+                if(d2.awaitingConfirm) { showVerifyConfirmPrompt(btn); return; }
+              }catch(ex){}
+            }
+            // Truly nothing — reset the button
+            resetAuthBtn(btn);
+          }
+        }, 800);
+      }
+    }
+
+  }, 600);
+}
+
+function showVerifyConfirmPrompt(btn){
+  // Popup closed, Vaultcord ran, but no user data params — show inline confirm
+  resetAuthBtn(btn);
+  const inner = document.getElementById('discVerifyBox').querySelector('.disc-verify-inner');
+  // Remove any existing confirm prompt
+  const old = inner.querySelector('.inline-confirm');
+  if(old) old.remove();
+  const el = document.createElement('div');
+  el.className = 'inline-confirm';
+  el.style.cssText = 'background:rgba(88,101,242,.09);border:1px solid rgba(88,101,242,.3);border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:13px;font-family:Rajdhani,sans-serif;font-weight:700;color:rgba(255,255,255,.7)';
+  el.innerHTML = `
+    Did you complete Discord auth?
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button onclick="manualDiscordConfirm()" style="flex:1;padding:9px;background:linear-gradient(135deg,#3f1d8f,#5865f2);color:#fff;border:none;border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer">✅ Yes, I verified</button>
+      <button onclick="this.closest('.inline-confirm').remove()" style="padding:9px 14px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:12px;cursor:pointer">Try again</button>
+    </div>`;
+  inner.insertBefore(el, inner.firstChild);
+}
+
+function manualDiscordConfirm(){
+  document.querySelector('.inline-confirm')?.remove();
+  setDiscordLinked({id:'',username:'Discord User',discriminator:'0',avatar:'',verified:true,manualConfirm:true});
+}
+
+function resetAuthBtn(btn){
+  if(!btn) btn = document.getElementById('discAuthBtn');
+  btn.classList.remove('verifying');
+  const discSVG = '<svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>';
+  btn.innerHTML = discSVG + ' Link Discord Account';
+  btn.removeAttribute('target');
+}
+
+// ── postMessage listener (same-origin: auth-callback.html → this page) ──
+window.addEventListener('message', function(event){
+  // Accept from our own origin (auth-callback.html is same domain)
+  if(event.origin !== window.location.origin &&
+     !event.origin.includes('vaultcord') &&
+     !event.origin.includes('discord.com')) return;
+
+  const data = event.data;
+  if(data && (data.type === 'DISCORD_AUTH' || data.verified)){
     clearInterval(_authCheckInterval);
-    if(_authWindow&&!_authWindow.closed) _authWindow.close();
-
-    const userId = data.discord_id||data.id||'';
-    const username = data.username||data.discord_username||'Discord User';
-    const discriminator = data.discriminator||'0';
-    const avatar = data.avatar_url||data.avatar||'';
-    setDiscordLinked({id:userId,username,discriminator,avatar});
+    if(_authWindow && !_authWindow.closed){ try{ _authWindow.close(); }catch(ex){} }
+    setDiscordLinked({
+      id:            data.id            || data.discord_id || '',
+      username:      data.username      || data.discord_username || 'Discord User',
+      discriminator: data.discriminator || '0',
+      avatar:        data.avatar        || data.avatar_url || '',
+      verified:      true,
+    });
   }
 });
 
-// Also check URL hash for redirect callback (in case Vaultcord redirects back)
-(function checkAuthCallback(){
-  const hash=window.location.hash;
-  const params=new URLSearchParams(window.location.search);
-  // Vaultcord may pass data via query param
-  const discordData=params.get('discord');
-  if(discordData){
-    try{
-      const d=JSON.parse(atob(discordData));
-      setDiscordLinked(d);
-    }catch(e){}
-  }
+// ── On page load: restore any existing linked session ──────────
+(function restoreDiscordSession(){
+  try{
+    const saved = sessionStorage.getItem('silv_discord_session');
+    if(saved){
+      const d = JSON.parse(saved);
+      if(d && d.verified && (Date.now() - d.timestamp < 7200000)){ // 2hr session
+        setDiscordLinked(d);
+      }
+    }
+  }catch(e){}
 })();
 
 function setDiscordLinked(user){
-  discordLinked=true;
-  discordUser=user;
+  discordLinked = true;
+  discordUser   = user;
 
-  // Update UI
-  document.getElementById('dvsDot').className='dvs-dot linked';
-  document.getElementById('dvsText').textContent='✅ Discord linked — you\'re in our server!';
+  // Save to session storage so it survives page re-open during checkout
+  try{
+    sessionStorage.setItem('silv_discord_session', JSON.stringify({...user, timestamp: Date.now()}));
+  }catch(e){}
 
-  const card=document.getElementById('discUserCard');
+  // Update dot + text
+  document.getElementById('dvsDot').className   = 'dvs-dot linked';
+  document.getElementById('dvsText').textContent = '✅ Discord linked — payment unlocked!';
+
+  // Show user card
+  const card = document.getElementById('discUserCard');
   card.classList.add('show');
 
-  const avImg=document.getElementById('ducAvImg');
-  if(user.avatar){
-    avImg.src=user.avatar;
-    avImg.onerror=()=>{avImg.src='';avImg.parentElement.textContent='👤';};
+  const avImg = document.getElementById('ducAvImg');
+  if(user.avatar && user.avatar.startsWith('http')){
+    avImg.src     = user.avatar;
+    avImg.onerror = ()=>{ avImg.parentElement.textContent = '👤'; };
   } else {
-    document.getElementById('discUserCard').querySelector('.duc-av').textContent='👤';
+    avImg.parentElement.textContent = '👤';
   }
-  document.getElementById('ducName').textContent=user.username+(user.discriminator&&user.discriminator!=='0'?'#'+user.discriminator:'');
-  document.getElementById('ducId').textContent=user.id?'ID: '+user.id:'Discord Linked ✓';
 
-  // Hide auth button, show linked state
-  document.getElementById('discAuthBtn').style.display='none';
-  document.getElementById('discVerifyBox').style.background='rgba(0,200,83,.06)';
-  document.getElementById('discVerifyBox').style.borderColor='rgba(0,200,83,.3)';
-  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').textContent='✅ DISCORD VERIFIED — PAYMENT UNLOCKED';
-  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').style.color='#00c853';
+  const displayName = user.username || 'Discord User';
+  const disc = user.discriminator && user.discriminator !== '0' ? '#' + user.discriminator : '';
+  document.getElementById('ducName').textContent = displayName + disc;
+  document.getElementById('ducId').textContent   = user.id ? 'ID: ' + user.id : 'Verified ✓';
 
-  // UNLOCK PAYMENT BUTTON
+  // Update verify box to green / verified
+  const box = document.getElementById('discVerifyBox');
+  const hdr = box.querySelector('.disc-verify-header');
+  box.style.background   = 'rgba(0,200,83,.06)';
+  box.style.borderColor  = 'rgba(0,200,83,.32)';
+  hdr.textContent        = '✅ DISCORD VERIFIED — PAYMENT UNLOCKED';
+  hdr.style.color        = '#00c853';
+
+  // Hide auth button
+  document.getElementById('discAuthBtn').style.display = 'none';
+
+  // Remove any inline confirm prompt if present
+  document.querySelector('.inline-confirm')?.remove();
+
   updatePayBtn();
 }
 
 function unlinkDiscord(){
-  discordLinked=false;
-  discordUser={};
-  document.getElementById('dvsDot').className='dvs-dot';
-  document.getElementById('dvsText').textContent='Link your Discord to receive your items & create your ticket';
+  discordLinked = false;
+  discordUser   = {};
+  try{ sessionStorage.removeItem('silv_discord_session'); }catch(e){}
+
+  document.getElementById('dvsDot').className    = 'dvs-dot';
+  document.getElementById('dvsText').textContent = 'Link your Discord to receive your items & create your ticket';
   document.getElementById('discUserCard').classList.remove('show');
-  document.getElementById('discAuthBtn').style.display='flex';
-  document.getElementById('discVerifyBox').style.background='';
-  document.getElementById('discVerifyBox').style.borderColor='';
-  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').textContent='🔒 VERIFY YOUR DISCORD TO UNLOCK PAYMENT';
-  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').style.color='';
+
+  const btn = document.getElementById('discAuthBtn');
+  resetAuthBtn(btn);
+  btn.style.display = 'flex';
+
+  const box = document.getElementById('discVerifyBox');
+  const hdr = box.querySelector('.disc-verify-header');
+  box.style.background  = '';
+  box.style.borderColor = '';
+  hdr.textContent       = '🔒 VERIFY YOUR DISCORD TO UNLOCK PAYMENT';
+  hdr.style.color       = '';
+
   updatePayBtn();
 }
 
 function updatePayBtn(){
-  const btn=document.getElementById('payNow');
-  const msg=document.getElementById('payLockedMsg');
+  const btn = document.getElementById('payNow');
+  const msg = document.getElementById('payLockedMsg');
   if(discordLinked){
-    btn.disabled=false;
-    btn.className='pay-btn '+PAY_CLS[selectedPayMethod];
-    btn.textContent=PAY_LABELS[selectedPayMethod];
+    btn.disabled      = false;
+    btn.className     = 'pay-btn ' + PAY_CLS[selectedPayMethod];
+    btn.textContent   = PAY_LABELS[selectedPayMethod];
     msg.classList.remove('show');
   } else {
-    btn.disabled=true;
-    btn.className='pay-btn p-pp';
-    btn.textContent='🔒 Link Discord First';
+    btn.disabled    = true;
+    btn.className   = 'pay-btn p-pp';
+    btn.textContent = '🔒 Link Discord First';
     msg.classList.add('show');
   }
 }
@@ -2025,7 +2175,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryp
   if(SITE_FAVICON){let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);}
   if(SITE_LOGO_URL){const img=document.getElementById('navLogoImg');const txt=document.getElementById('navLogoText');img.src=SITE_LOGO_URL;img.style.display='inline-block';if(txt)txt.style.display='none';}
   document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
-  document.getElementById('discAuthBtn').setAttribute('data-realurl',VAULTCORD_AUTH_URL);
 })();
 </script>
 </body>

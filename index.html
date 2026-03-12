@@ -26,11 +26,9 @@
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x:hidden;min-height:100vh}
 
-/* BG */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bg::before{content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 70% 50% at 15% 10%,rgba(147,51,234,.18),transparent 60%),
+  background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(147,51,234,.18),transparent 60%),
     radial-gradient(ellipse 55% 40% at 85% 80%,rgba(255,16,240,.12),transparent 60%),
     radial-gradient(ellipse 50% 60% at 60% 40%,rgba(29,78,216,.1),transparent 60%);
   animation:bgani 14s ease-in-out infinite alternate}
@@ -42,14 +40,12 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
 .scan{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px)}
 
-/* TOPBAR */
 .topbar{position:relative;z-index:20;
   background:linear-gradient(90deg,#ff10f0,#9333ea,#3b82f6,#ff0040,#ffd700);
   background-size:400%;animation:topMove 7s linear infinite;
   padding:6px;text-align:center;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#000}
 @keyframes topMove{0%{background-position:0%}100%{background-position:100%}}
 
-/* TICKER */
 .ticker-wrap{position:relative;z-index:19;background:rgba(5,2,12,.92);
   border-bottom:1px solid rgba(255,16,240,.12);padding:7px 0;overflow:hidden}
 .ticker-inner{display:flex;gap:56px;white-space:nowrap;animation:tkr 40s linear infinite}
@@ -58,7 +54,6 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
 .td{width:5px;height:5px;border-radius:50%;background:var(--pink);box-shadow:0 0 5px var(--pink);flex-shrink:0}
 @keyframes tkr{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* MAIN NAV */
 nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   background:rgba(3,1,10,.96);backdrop-filter:blur(22px);
   border-bottom:1px solid rgba(147,51,234,.22);
@@ -74,7 +69,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   color:#000;padding:2px 5px;border-radius:3px;-webkit-text-fill-color:#000;
   font-family:'Rajdhani',sans-serif;align-self:flex-start;margin-top:4px}
 
-/* SEARCH BAR in nav */
 .nav-search{position:relative;flex:1;max-width:400px;margin:0 20px}
 .nav-search input{width:100%;background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);border-radius:10px;
@@ -113,7 +107,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;
   box-shadow:0 0 7px var(--red)}
 
-/* GAME CATEGORY STICKY BAR */
 .game-bar{position:sticky;top:var(--nav-h);z-index:98;
   background:rgba(4,1,14,.97);backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(147,51,234,.18);
@@ -135,13 +128,10 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .gb-btn:hover{color:#fff;background:rgba(255,16,240,.1);border-color:rgba(255,16,240,.3)}
 .gb-btn.active{background:rgba(255,16,240,.14);border-color:rgba(255,16,240,.4);color:var(--pink);
   box-shadow:0 0 12px rgba(255,16,240,.15)}
-.gb-img{width:20px;height:20px;border-radius:4px;object-fit:cover}
 .gb-sep{width:1px;height:24px;background:rgba(255,255,255,.08);flex-shrink:0;margin:0 4px}
 
-/* CONTENT AREA */
 .content{position:relative;z-index:2}
 
-/* SECTION */
 .S{padding:52px 32px;max-width:1440px;margin:0 auto}
 .sec-ey{display:inline-flex;align-items:center;gap:7px;
   font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
@@ -156,7 +146,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .view-all:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,51,102,.3)}
 
-/* JUMP TABS (per section) */
 .jump-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px;
   background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
   border-radius:12px;padding:10px 14px}
@@ -173,10 +162,8 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .jt.jtd{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.35);color:var(--green)}
 .jt.jte{background:rgba(255,0,64,.1);border-color:rgba(255,0,64,.25);color:var(--red2)}
 
-/* DIVIDER */
 .div-line{height:1px;background:linear-gradient(90deg,transparent,rgba(147,51,234,.35),rgba(255,16,240,.3),transparent)}
 
-/* FEATURED STRIP */
 .feat{position:relative;overflow:hidden;
   background:linear-gradient(135deg,rgba(26,5,51,.92),rgba(5,11,46,.92));
   border:1px solid rgba(147,51,234,.28);border-radius:20px;padding:32px;
@@ -208,16 +195,13 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   filter:drop-shadow(0 0 20px rgba(255,16,240,.4));animation:fe 3s ease-in-out infinite}
 @keyframes fe{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-/* PRODUCT GRID */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:15px}
 
-/* PRODUCT CARD */
 .pc{position:relative;background:var(--card);border:1px solid rgba(255,255,255,.07);
   border-radius:17px;overflow:hidden;transition:all .3s;cursor:pointer}
 .pc:hover{transform:translateY(-5px);border-color:rgba(255,16,240,.32);
   box-shadow:0 10px 36px rgba(255,16,240,.12),0 0 0 1px rgba(255,16,240,.12)}
 
-/* Card image area */
 .pc-img{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden}
 .pc-img img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;
@@ -228,7 +212,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38%;
   background:linear-gradient(to top,rgba(16,6,38,.9),transparent)}
 
-/* Rarity backgrounds */
 .r-common{background:linear-gradient(150deg,#111a11,#0a0f0a)}
 .r-uncommon{background:linear-gradient(150deg,#132208,#0c1a04)}
 .r-rare{background:linear-gradient(150deg,#05143a,#020c28)}
@@ -240,7 +223,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .r-blue{background:linear-gradient(150deg,#001530,#000d1e)}
 .r-dark{background:linear-gradient(150deg,#0a0a0a,#050505)}
 
-/* BADGES */
 .pbadge{position:absolute;top:9px;right:9px;z-index:3;
   font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;
   padding:3px 8px;border-radius:5px;text-transform:uppercase}
@@ -254,7 +236,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .b-oos{background:rgba(255,255,255,.08);color:rgba(255,255,255,.25)}
 .b-rare{background:linear-gradient(135deg,#1d4ed8,#60a5fa);color:#fff}
 
-/* STOCK BADGE */
 .stock-badge{position:absolute;top:9px;left:9px;z-index:3;
   font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;
   padding:3px 8px;border-radius:5px;text-transform:uppercase;
@@ -263,7 +244,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .stock-low{color:var(--red2);border-color:rgba(255,51,102,.3)}
 .stock-ok{color:var(--green);border-color:rgba(0,230,118,.3)}
 
-/* TYPE PILL */
 .type-pill{position:absolute;bottom:10px;left:9px;z-index:3;
   font-family:'Rajdhani',sans-serif;font-size:8px;font-weight:700;letter-spacing:1px;
   padding:2px 6px;border-radius:4px;text-transform:uppercase;
@@ -272,7 +252,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .t-log{color:#7dd3fc;border-color:rgba(125,211,252,.25)}
 .t-bst{color:#fca5a5;border-color:rgba(252,165,165,.25)}
 
-/* CARD BODY */
 .pc-body{padding:13px}
 .pc-g{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;margin-bottom:3px}
@@ -282,7 +261,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-rar{font-size:10px;font-weight:600;margin-bottom:7px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .rc-common{color:rgba(255,255,255,.3)}.rc-uncommon{color:#86efac}.rc-rare{color:#60a5fa}
 .rc-legendary{color:#fbbf24}.rc-mythical{color:#f0abfc}
-/* fruit toggle */
 .fruit-tog{display:flex;gap:5px;margin-bottom:8px}
 .tog{flex:1;padding:5px;border-radius:7px;font-size:10px;font-weight:700;
   font-family:'Rajdhani',sans-serif;letter-spacing:.5px;cursor:pointer;
@@ -290,11 +268,9 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   color:rgba(255,255,255,.38);transition:all .2s}
 .tog.sn{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.38);color:var(--blue)}
 .tog.sp{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.32);color:var(--yellow)}
-/* price */
 .pc-price{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;color:var(--yellow);
   margin-bottom:9px;display:flex;align-items:center;gap:6px}
 .pc-old{text-decoration:line-through;color:rgba(255,255,255,.2);font-size:11px;font-family:'Inter',sans-serif}
-/* buy btn */
 .pc-btn{width:100%;padding:9px;border-radius:9px;
   background:linear-gradient(135deg,rgba(147,51,234,.22),rgba(255,16,240,.14));
   border:1px solid rgba(255,16,240,.22);color:var(--pink);
@@ -305,7 +281,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-btn.oos{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);
   color:rgba(255,255,255,.18);cursor:not-allowed}
 
-/* ROBUX GRID */
 .rob-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
 .rp{position:relative;border-radius:16px;overflow:hidden;
   border:1px solid rgba(255,215,0,.18);
@@ -330,10 +305,8 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   border:none;cursor:pointer;transition:all .2s}
 .rp-btn:hover{box-shadow:0 0 14px rgba(255,215,0,.35);transform:scale(1.02)}
 
-/* BEST SELLERS CAROUSEL HINT */
 .bs-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:15px}
 
-/* HOW */
 .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .hc{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
   border-radius:16px;padding:26px 18px;text-align:center;transition:border-color .3s}
@@ -346,7 +319,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .hc h3{font-size:14px;font-weight:700;margin-bottom:6px}
 .hc p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6}
 
-/* REVIEWS */
 .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
 .rv{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
   border-radius:15px;padding:18px;transition:border-color .3s}
@@ -359,19 +331,16 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .rv-name{font-size:13px;font-weight:700}
 .rv-meta{font-size:10px;color:rgba(255,255,255,.26);margin-top:1px;font-family:'Rajdhani',sans-serif}
 
-/* PAYMENTS */
 .pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
 .pay-c{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
   border-radius:15px;padding:20px;text-align:center;transition:all .3s;cursor:pointer}
 .pay-c:hover{transform:translateY(-3px)}
 .pay-c.pp:hover{border-color:rgba(0,112,186,.5);box-shadow:0 6px 22px rgba(0,112,186,.1)}
 .pay-c.cr:hover{border-color:rgba(255,215,0,.5);box-shadow:0 6px 22px rgba(255,215,0,.1)}
-.pay-c.cd:hover{border-color:rgba(147,51,234,.5);box-shadow:0 6px 22px rgba(147,51,234,.1)}
 .pay-ico{font-size:36px;margin-bottom:9px}
 .pay-nm{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .pay-ds{font-size:11px;color:rgba(255,255,255,.28);margin-top:3px}
 
-/* FOOTER */
 footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   border-top:1px solid rgba(255,255,255,.05);padding:44px 32px 22px}
 .fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:34px}
@@ -384,7 +353,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .fbot p{font-size:11px;color:rgba(255,255,255,.18)}
 
-/* CART SIDEBAR */
 .cart-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;
   opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
 .cart-ov.open{opacity:1;pointer-events:all}
@@ -486,13 +454,47 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;white-space:nowrap}
 .promo-ok{background:rgba(0,200,83,.07);border:1px solid rgba(0,200,83,.22);color:#00c853;
   border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;display:none;align-items:center;gap:6px}
-.disc-lnk{width:100%;padding:12px;border-radius:10px;
+
+/* Discord verification box */
+.disc-verify-box{border-radius:14px;overflow:hidden;margin-bottom:14px;
+  background:rgba(88,101,242,.06);border:1px solid rgba(88,101,242,.3)}
+.disc-verify-header{padding:13px 15px;font-family:'Rajdhani',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.5);
+  text-transform:uppercase;border-bottom:1px solid rgba(88,101,242,.2)}
+.disc-verify-inner{padding:14px 15px}
+.disc-verify-status{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.dvs-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0;transition:all .3s}
+.dvs-dot.linked{background:#00c853;box-shadow:0 0 8px rgba(0,200,83,.6)}
+.dvs-dot.verifying{background:var(--yellow);box-shadow:0 0 8px rgba(255,215,0,.6);animation:blink .8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.dvs-text{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700}
+.disc-user-card{display:flex;align-items:center;gap:11px;
+  background:rgba(0,0,0,.3);border-radius:10px;padding:10px 12px;margin-bottom:10px;
+  border:1px solid rgba(88,101,242,.25);display:none}
+.disc-user-card.show{display:flex}
+.duc-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.05);
+  overflow:hidden;flex-shrink:0;border:2px solid rgba(88,101,242,.4)}
+.duc-av img{width:100%;height:100%;object-fit:cover}
+.duc-info{flex:1}
+.duc-name{font-size:13px;font-weight:700}
+.duc-id{font-size:10px;color:rgba(255,255,255,.32);margin-top:1px;font-family:'Rajdhani',sans-serif}
+.duc-check{color:#00c853;font-size:18px;margin-left:auto}
+.disc-link-btn{width:100%;padding:11px;border-radius:10px;
   background:linear-gradient(135deg,#3f1d8f,#5865f2);color:#fff;
   font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;
   border:1px solid rgba(88,101,242,.32);cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:all .3s;text-decoration:none;margin-bottom:11px}
-.disc-lnk:hover{box-shadow:0 0 16px rgba(88,101,242,.32)}
+  transition:all .3s;text-decoration:none}
+.disc-link-btn:hover{box-shadow:0 0 16px rgba(88,101,242,.32)}
+.disc-link-btn.verifying{opacity:.7;pointer-events:none}
+
+/* Payment locked state */
+.pay-locked-msg{background:rgba(255,0,64,.07);border:1px solid rgba(255,0,64,.22);
+  border-radius:10px;padding:12px 14px;margin-bottom:12px;
+  font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;
+  color:rgba(255,100,120,.9);display:flex;align-items:center;gap:8px;display:none}
+.pay-locked-msg.show{display:flex}
+
 .sum-box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
   border-radius:13px;padding:16px;margin-bottom:16px}
 .sum-box h3{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:12px}
@@ -506,19 +508,16 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
 .pm:hover{border-color:rgba(255,255,255,.17)}
 .pm.spp{border-color:#009cde;background:rgba(0,156,222,.08)}
-.pm.sca{border-color:#00d442;background:rgba(0,212,66,.08)}
 .pm.scr{border-color:var(--yellow);background:rgba(255,215,0,.08)}
-.pm.scd{border-color:var(--purple);background:rgba(147,51,234,.08)}
 .pm-ico{font-size:20px;margin-bottom:3px}
 .pm-nm{font-size:10px;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .pay-btn{width:100%;padding:14px;border-radius:11px;font-family:'Orbitron',monospace;
   font-size:13px;font-weight:800;letter-spacing:.5px;border:none;cursor:pointer;
   transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px}
 .p-pp{background:linear-gradient(135deg,#009cde,#003087);color:#fff;box-shadow:0 0 22px rgba(0,112,186,.28)}
-.p-ca{background:linear-gradient(135deg,#00d442,#006e1e);color:#fff;box-shadow:0 0 22px rgba(0,212,66,.28)}
 .p-cr{background:linear-gradient(135deg,var(--yellow),#a16207);color:#000;box-shadow:0 0 22px rgba(255,215,0,.28)}
-.p-cd{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;box-shadow:0 0 22px rgba(147,51,234,.28)}
 .pay-btn:hover{transform:translateY(-2px)}
+.pay-btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
 .pay-note{text-align:center;font-size:10px;color:rgba(255,255,255,.2);margin-top:7px;line-height:1.5;font-family:'Rajdhani',sans-serif}
 .em-inp{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
   border-radius:10px;padding:12px 14px;color:#fff;font-size:13px;font-family:'Inter',sans-serif;
@@ -532,20 +531,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .succ-t{font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:var(--yellow);margin-bottom:7px}
 .succ-s{color:rgba(255,255,255,.42);font-size:13px;max-width:360px;line-height:1.7}
 
-@media(max-width:900px){
-  nav{padding:0 14px}
-  .nav-search{max-width:200px}
-  .S{padding:40px 14px}
-  .feat{flex-direction:column;text-align:center}.feat-r{text-align:center;margin:0}
-  .co-body{grid-template-columns:1fr}
-  .co-r{border-top:1px solid rgba(255,255,255,.06)}
-  .fg{grid-template-columns:1fr 1fr}
-  .cart-sb{width:100%}
-  .game-bar{padding:0 12px}
-  .game-bar-label{display:none}
-}
-
-/* ── GAME SELECTOR ─────────────────────────────────────── */
+/* GAME SELECTOR */
 .gs-wrap{position:relative;flex-shrink:0}
 .gs-btn{display:flex;align-items:center;gap:9px;
   background:rgba(147,51,234,.18);border:1.5px solid rgba(147,51,234,.45);
@@ -579,7 +565,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .gd-item.gd-active .gd-dot{opacity:1}
 .gs-divider{width:1px;height:26px;background:rgba(147,51,234,.3);flex-shrink:0;margin:0 8px}
 
-/* ── SUB SCROLL (sub-filters in gamebar) ────────────────── */
 .gs-sub-scroll{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
   align-items:center;flex:1;min-width:0}
 .gs-sub-scroll::-webkit-scrollbar{display:none}
@@ -590,7 +575,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .sf-btn:hover{color:#fff;background:rgba(255,16,240,.1);border-color:rgba(255,16,240,.3)}
 .sf-btn.sf-active{background:rgba(255,16,240,.16);border-color:var(--pink);color:var(--pink)}
 
-/* ── SORT ───────────────────────────────────────────────── */
 .sort-wrap{position:relative;flex-shrink:0;margin-left:6px}
 .sort-btn{display:flex;align-items:center;gap:7px;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
@@ -601,7 +585,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   background:rgba(147,51,234,.1)}
 .sort-drop{left:auto;right:0;min-width:180px}
 
-/* ── SUB BAR (below gamebar, slides open) ───────────────── */
 .sub-bar{position:sticky;top:calc(var(--nav-h) + var(--gamebar-h));z-index:96;
   background:rgba(3,1,10,.96);border-bottom:1px solid rgba(255,16,240,.1);
   max-height:0;overflow:hidden;transition:max-height .25s ease;
@@ -610,6 +593,18 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .sub-bar.open{max-height:46px}
 .sub-bar::-webkit-scrollbar{display:none}
 
+@media(max-width:900px){
+  nav{padding:0 14px}
+  .nav-search{max-width:200px}
+  .S{padding:40px 14px}
+  .feat{flex-direction:column;text-align:center}.feat-r{text-align:center;margin:0}
+  .co-body{grid-template-columns:1fr}
+  .co-r{border-top:1px solid rgba(255,255,255,.06)}
+  .fg{grid-template-columns:1fr 1fr}
+  .cart-sb{width:100%}
+  .game-bar{padding:0 12px}
+  .game-bar-label{display:none}
+}
 </style>
 </head>
 <body>
@@ -617,10 +612,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <div class="bg-grid"></div>
 <div class="scan"></div>
 
-<!-- TOPBAR -->
 <div class="topbar">🔥 Code <strong>SILV20</strong> = 20% OFF · ⚡ Instant Delivery · 🛡️ 500+ Verified Customers · 💬 24/7 Discord Support</div>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner" id="ticker">
     <span class="ti"><span class="td"></span>xX_DragonKing bought Perm Dragon 🐉 — 2m ago</span>
@@ -635,12 +628,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <span class="ti"><span class="td"></span>CutiePaws bought Neon FR Unicorn 🦄 — 4m ago</span>
     <span class="ti"><span class="td"></span>GrindGod bought 5,000 Robux 💎 — 7m ago</span>
     <span class="ti"><span class="td"></span>SilentBoss bought Dragon Cannelloni 🐲 — 10m ago</span>
-    <span class="ti"><span class="td"></span>MM2Pro bought Chroma Laser 🗡️ — 13m ago</span>
-    <span class="ti"><span class="td"></span>GardenKing bought Godly Watering Can 🌿 — 17m ago</span>
   </div>
 </div>
 
-<!-- MAIN NAV -->
 <nav>
   <a class="logo" href="#" id="navLogo"><img id="navLogoImg" style="display:none;height:36px;border-radius:6px;vertical-align:middle" alt="logo"/> <span id="navLogoText">SILV<span class="logo-tag">MKT</span></span></a>
   <div class="nav-search">
@@ -656,10 +646,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
 </nav>
 
-<!-- STICKY GAME CATEGORY BAR -->
 <div class="game-bar" id="gameBar">
-
-  <!-- GAME SELECTOR -->
   <div class="gs-wrap" id="gsWrap">
     <button class="gs-btn" id="gsBtn" onclick="toggleGS()">
       <span id="gsIcon" style="font-size:18px">🛒</span>
@@ -677,8 +664,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         <span class="gd-icon">💎</span><span class="gd-label">Robux</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Blox Fruits','🍎','bf')" data-key="bf">
-        <img src="https://static.wikia.nocookie.net/bloxfruits/images/b/b6/Dragon_Fruit_Icon.png" class="gd-img" onerror="this.style.display='none'"/>
-        <span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
+        <span class="gd-icon">🍎</span><span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Grow a Garden','🌱','gag')" data-key="gag">
         <span class="gd-icon">🌱</span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
@@ -703,13 +689,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
     </div>
   </div>
-
   <span class="gs-divider"></span>
-
-  <!-- SUB FILTER BUTTONS (shown per game) -->
   <div class="gs-sub-scroll" id="gsSubScroll"></div>
-
-  <!-- SORT DROPDOWN -->
   <div class="sort-wrap" id="sortWrap">
     <button class="sort-btn" id="sortBtn" onclick="toggleSort()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
@@ -722,15 +703,12 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="gd-item" onclick="applySort(this,'high')" data-sort="high">Price: High → Low</div>
     </div>
   </div>
-
 </div>
 
-<!-- SUB-FILTER BAR (slides in below gamebar) -->
 <div class="sub-bar" id="subBar"></div>
 
 <div class="content">
 
-<!-- ===== BEST SELLERS ===== -->
 <section class="S" id="bestsellers">
   <div class="sec-hd">
     <div>
@@ -745,7 +723,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== ROBUX ===== -->
 <section class="S" id="robux">
   <div class="sec-hd">
     <div>
@@ -759,7 +736,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== BLOX FRUITS ===== -->
 <section class="S" id="bf">
   <div class="sec-hd">
     <div>
@@ -768,8 +744,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <p class="sec-sub">All top-tier fruits with Normal / ⭐ Permanent toggle · Skins · Gamepasses</p>
     </div>
   </div>
-
-  <!-- JUMP TO SUB-CATS -->
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt jtb" onclick="filterBF(this,'all')">🍎 All Fruits</button>
@@ -781,8 +755,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterBF(this,'skin')">🎨 Skins</button>
     <button class="jt" onclick="filterBF(this,'gamepass')">🎮 Gamepasses</button>
   </div>
-
-  <!-- FEATURED -->
   <div class="feat">
     <div class="feat-badge">BEST SELLER</div>
     <div class="feat-em">🐉</div>
@@ -798,13 +770,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits')">🛒 Add to Cart</button>
     </div>
   </div>
-
   <div class="pgrid" id="bfGrid"></div>
 </section>
 
 <div class="div-line"></div>
 
-<!-- ===== GROW A GARDEN ===== -->
 <section class="S" id="gag">
   <div class="sec-hd">
     <div>
@@ -826,7 +796,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== ADOPT ME ===== -->
 <section class="S" id="am">
   <div class="sec-hd">
     <div>
@@ -848,7 +817,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== MM2 ===== -->
 <section class="S" id="mm2">
   <div class="sec-hd">
     <div>
@@ -872,7 +840,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== BRAINROT ===== -->
 <section class="S" id="brainrot">
   <div class="sec-hd">
     <div>
@@ -893,7 +860,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== RIVALS ===== -->
 <section class="S" id="rivals">
   <div class="sec-hd">
     <div>
@@ -915,7 +881,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== 99 NIGHTS ===== -->
 <section class="S" id="nights">
   <div class="sec-hd">
     <div>
@@ -936,7 +901,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- ===== ESCAPE TSUNAMI ===== -->
 <section class="S" id="tsunami">
   <div class="sec-hd">
     <div>
@@ -957,7 +921,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<!-- PAYMENTS -->
 <section class="S">
   <div style="text-align:center;margin-bottom:32px">
     <div class="sec-ey" style="color:var(--yellow);justify-content:center">💳 Accepted</div>
@@ -967,13 +930,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="pay-grid">
     <div class="pay-c pp"><div class="pay-ico">💙</div><div class="pay-nm">PayPal</div><div class="pay-ds">Buyer protection</div></div>
     <div class="pay-c cr"><div class="pay-ico">₿</div><div class="pay-nm">Crypto</div><div class="pay-ds">BTC · ETH · SOL · USDT</div></div>
-    <div class="pay-c cd"><div class="pay-ico">💳</div><div class="pay-nm">Debit / Credit</div><div class="pay-ds">Visa & MC via PayPal</div></div>
   </div>
 </section>
 
 <div class="div-line"></div>
 
-<!-- HOW IT WORKS -->
 <section class="S">
   <div style="text-align:center;margin-bottom:32px">
     <div class="sec-ey" style="color:var(--pink);justify-content:center">⚡ Process</div>
@@ -981,15 +942,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
   <div class="how-grid">
     <div class="hc"><div class="hc-n">1</div><h3>Add to Cart</h3><p>Browse any game, toggle Normal/Perm, add to cart.</p></div>
-    <div class="hc"><div class="hc-n">2</div><h3>Checkout</h3><p>Enter your verified Roblox username and link Discord.</p></div>
-    <div class="hc"><div class="hc-n">3</div><h3>Pay</h3><p>PayPal · Crypto · Card — all protected.</p></div>
+    <div class="hc"><div class="hc-n">2</div><h3>Checkout</h3><p>Enter your Roblox username and link your Discord.</p></div>
+    <div class="hc"><div class="hc-n">3</div><h3>Pay</h3><p>PayPal or Crypto — all protected.</p></div>
     <div class="hc"><div class="hc-n">4</div><h3>Delivered!</h3><p>We meet you in-game within minutes of payment. ⚡</p></div>
   </div>
 </section>
 
 <div class="div-line"></div>
 
-<!-- REVIEWS -->
 <section class="S" id="reviews">
   <div style="text-align:center;margin-bottom:32px">
     <div class="sec-ey" style="color:var(--yellow);justify-content:center">⭐ Reviews</div>
@@ -1005,41 +965,25 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="fg">
     <div class="fb">
       <a class="logo" href="#">SILV<span class="logo-tag" style="font-size:8px">MKT</span></a>
       <p>Your most trusted Roblox marketplace. Instant delivery, zero scams. Serving hundreds of happy players daily.</p>
       <br>
-      <a id="discNavLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
+      <a id="discFootLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
     </div>
-    <div class="fc">
-      <h4>Our Shop</h4>
-      <a href="#">About Us</a>
-      <a href="#">How it Works</a>
-      <a href="#">FAQ</a>
-    </div>
-    <div class="fc">
-      <h4>Help</h4>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Refund Policy</a>
-    </div>
-    <div class="fc">
-      <h4>Affiliates</h4>
-      <a href="#">Become an Affiliate</a>
-      <a href="#">Affiliate Login</a>
-      <a href="#">Affiliate Dashboard</a>
-    </div>
+    <div class="fc"><h4>Our Shop</h4><a href="#">About Us</a><a href="#">How it Works</a><a href="#">FAQ</a></div>
+    <div class="fc"><h4>Help</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Refund Policy</a></div>
+    <div class="fc"><h4>Affiliates</h4><a href="#">Become an Affiliate</a><a href="#">Affiliate Login</a><a href="#">Affiliate Dashboard</a></div>
   </div>
   <div class="fbot">
     <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
-    <p>PayPal · Crypto · Card</p>
+    <p>PayPal · Crypto</p>
   </div>
 </footer>
 
-</div><!-- /content -->
+</div>
 
 <!-- CART SIDEBAR -->
 <div class="cart-ov" id="cartOv" onclick="toggleCart()"></div>
@@ -1079,12 +1023,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div class="co-body" id="coBody">
       <div class="co-l">
         <div id="coItems"></div>
+
         <div class="co-lbl">Promo / Creator Code</div>
         <div class="promo-row">
           <input class="promo-inp" id="promoIn" placeholder="Enter code…"/>
           <button class="promo-go" onclick="applyPromo()">Apply</button>
         </div>
         <div class="promo-ok" id="promoOk"></div>
+
         <div class="co-lbl">Roblox Username</div>
         <div class="co-inp-w">
           <input class="co-inp" id="rblxIn" placeholder="Your Roblox username…" oninput="doRblx(this.value)" autocomplete="off"/>
@@ -1095,19 +1041,41 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <div>
             <div class="rblx-stat" id="rblxStat">VERIFIED USER</div>
             <div class="rblx-un" id="rblxUn"></div>
-            <div class="rblx-id" id="rblxId"></div>
+            <div class="rblx-id" id="rblxId">We will deliver to this account</div>
           </div>
           <div id="rblxChk" style="margin-left:auto;font-size:19px"></div>
         </div>
-        <div class="co-lbl">Discord Account</div>
-        <a href="https://discord.com/oauth2/authorize?client_id=YOUR_BOT_CLIENT_ID&redirect_uri=YOUR_REDIRECT&response_type=code&scope=identify+guilds.join" id="discBtn" class="disc-lnk" target="_blank" onclick="markDisc()">
-          <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
-          Link Discord Account
-        </a>
-        <div id="discDone" style="display:none;background:rgba(0,200,83,.07);border:1px solid rgba(0,200,83,.2);border-radius:10px;padding:10px 13px;margin-bottom:11px;font-size:12px;font-weight:600;color:#00c853;align-items:center;gap:7px">✅ Discord linked — you'll be auto-added to our server!</div>
+
+        <!-- DISCORD VERIFICATION -->
+        <div class="co-lbl" style="margin-top:4px">Discord Account <span style="color:var(--red2);margin-left:4px">* Required</span></div>
+        <div class="disc-verify-box" id="discVerifyBox">
+          <div class="disc-verify-header">🔒 VERIFY YOUR DISCORD TO UNLOCK PAYMENT</div>
+          <div class="disc-verify-inner">
+            <div class="disc-verify-status">
+              <div class="dvs-dot" id="dvsDot"></div>
+              <div class="dvs-text" id="dvsText">Link your Discord to receive your items &amp; create your ticket</div>
+            </div>
+            <!-- Linked user card (shown after auth) -->
+            <div class="disc-user-card" id="discUserCard">
+              <div class="duc-av"><img id="ducAvImg" src="" alt=""/></div>
+              <div class="duc-info">
+                <div class="duc-name" id="ducName">—</div>
+                <div class="duc-id" id="ducId">Discord Linked</div>
+              </div>
+              <div class="duc-check">✅</div>
+              <button onclick="unlinkDiscord()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:11px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;padding:4px 8px;border:1px solid rgba(255,255,255,.1);border-radius:6px;margin-left:6px">Unlink</button>
+            </div>
+            <a href="#" id="discAuthBtn" class="disc-link-btn" onclick="startDiscordAuth(event)">
+              <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
+              Link Discord Account
+            </a>
+          </div>
+        </div>
+
         <div class="co-lbl">Email (order confirmation)</div>
         <input class="em-inp" id="emailIn" placeholder="your@email.com" type="email"/>
       </div>
+
       <div class="co-r">
         <div class="sum-box">
           <h3>Order Summary</h3>
@@ -1119,21 +1087,55 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <hr class="sum-hr"/>
           <div class="sum-r"><span style="font-size:14px;font-weight:700">Total</span><span class="sum-tot" id="coTot">$0.00</span></div>
         </div>
+
+        <!-- Payment locked message -->
+        <div class="pay-locked-msg" id="payLockedMsg">
+          🔒 Link your Discord above to unlock payment
+        </div>
+
         <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:11px">Payment Method</div>
         <div class="pm-grid">
-          <div class="pm spp" id="pm-pp" onclick="selPay('pp')"><div class="pm-ico">💙</div><div class="pm-nm">PayPal</div></div>
-          <div class="pm" id="pm-cr" onclick="selPay('cr')"><div class="pm-ico">₿</div><div class="pm-nm">Crypto</div></div>
-          <div class="pm" id="pm-cd" onclick="selPay('cd')"><div class="pm-ico">💳</div><div class="pm-nm">Card</div></div>
+          <div class="pm spp" id="pm-pp" onclick="selPayMethod('pp')"><div class="pm-ico">💙</div><div class="pm-nm">PayPal</div></div>
+          <div class="pm" id="pm-cr" onclick="selPayMethod('cr')"><div class="pm-ico">₿</div><div class="pm-nm">Crypto</div></div>
         </div>
-        <button class="pay-btn p-pp" id="payNow" onclick="payNow()">💙 Pay with PayPal</button>
+        <button class="pay-btn p-pp" id="payNow" onclick="payNow()" disabled>🔒 Link Discord First</button>
         <div class="pay-note">🔒 Secure encrypted payment · 🛡️ Buyer protection · ⚡ Instant delivery</div>
       </div>
     </div>
+
     <div class="co-succ" id="coSucc">
       <div class="succ-ic">🎉</div>
       <div class="succ-t">Order Placed!</div>
-      <p class="succ-s">Payment confirmed! Join our Discord and we'll deliver your items within minutes.</p>
-      <a id="discNavLink" href="https://discord.com/oauth2/authorize?client_id=1481122330041258141&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify%20guilds.join&state=107219&prompt=none" class="disc-link" target="_blank" style="margin-top:18px;font-size:14px;padding:12px 26px">💬 Join Discord for Delivery</a>
+      <p class="succ-s">Payment confirmed! A ticket has been created in Discord — check your server for delivery!</p>
+      <a id="succDiscBtn" href="https://discord.gg/brianrots" class="disc-link" target="_blank" style="margin-top:18px;font-size:14px;padding:12px 26px">💬 Go to Discord for Delivery</a>
+    </div>
+  </div>
+</div>
+
+<!-- CRYPTO MODAL -->
+<div id="cryptoModal" style="display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center">
+  <div style="background:rgba(8,3,22,.98);border:1px solid rgba(147,51,234,.4);
+    border-radius:16px;padding:28px;max-width:420px;width:90%;
+    box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative">
+    <button onclick="closeCryptoModal()" style="position:absolute;top:14px;right:14px;
+      background:rgba(255,255,255,.07);border:none;color:#fff;width:30px;height:30px;
+      border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;
+      justify-content:center">✕</button>
+    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff;margin-bottom:4px">₿ Pay with Crypto</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;letter-spacing:1px">SEND EXACT AMOUNT · DM ON DISCORD WITH PROOF AFTER PAYING</div>
+    <div id="cryptoTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px"></div>
+    <div id="cryptoAddrWrap">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:8px" id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
+      <div id="cryptoQR" style="width:160px;height:160px;margin:0 auto 14px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px"></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div id="cryptoAddr" style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);word-break:break-all;min-height:38px;letter-spacing:.5px">Select a coin to see address</div>
+        <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s">📋 Copy</button>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:10px;background:rgba(255,160,0,.07);border:1px solid rgba(255,160,0,.2);border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,200,80,.8);text-align:center">
+      ⚠️ After sending, DM us on Discord with proof of payment
     </div>
   </div>
 </div>
@@ -1141,94 +1143,87 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <script>
 // ================================================================
 // ✏️  SILV MARKET — EASY EDIT ZONE
-// ✏️  ONLY EDIT THIS SECTION. Everything else — leave alone.
 // ================================================================
 
-// 🌐 SITE IDENTITY
-const SITE_LOGO_URL  = 'https://silvmarket.shop/images/logo.png';          // Paste image URL here for nav logo (leave '' to use text)
-const SITE_FAVICON   = 'https://silvmarket.shop/images/logo.png';          // Paste image URL here for browser tab icon (leave '' for none)
+const SITE_LOGO_URL  = 'https://silvmarket.shop/images/logo.png';
+const SITE_FAVICON   = 'https://silvmarket.shop/images/logo.png';
 const SITE_NAME      = 'SILV MARKET';
+const DISCORD_INVITE = 'https://discord.gg/brianrots';
 
-// 🔗 LINKS
-const DISCORD_INVITE = 'https://discord.com/brianrots';  // ← your Discord invite
+// Vaultcord OAuth URL — used for Discord linking
+const VAULTCORD_AUTH_URL = 'https://discord.com/oauth2/authorize?client_id=1481122330041258141&redirect_uri=https://vaultcord.win/auth&response_type=code&scope=identify+guilds.join&state=107219&prompt=none';
 
-// ₿ CRYPTO WALLETS — add whichever you accept (leave blank '' to hide)
+// Bot webhook — POST /order when purchase complete
+const BOT_WEBHOOK_URL = 'https://YOUR-BOT-SERVER.com/order'; // ← replace with your bot.js server URL
+const BOT_WEBHOOK_SECRET = 'YOUR_WEBHOOK_SECRET'; // ← replace with your .env WEBHOOK_SECRET
+
 const CRYPTO_WALLETS = {
-  BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',   // ← paste your Bitcoin address
-  ETH:  '0x967E3480014cb8f1008fB8b72236d358c6C58bDD',   // ← paste your Ethereum address
-  SOL:  'HnjpMmfooCSzNecbbRmQsFRJWSZLryGJH2HswKzPCggH',   // ← paste your Solana address
-  USDT: '0x416934936d3F5186759E1AC2feA7DA6D89279d52',   // ← paste your USDT (TRC20 or ERC20) address
-  LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',   // ← paste your Litecoin address
+  BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',
+  ETH:  '0x967E3480014cb8f1008fB8b72236d358c6C58bDD',
+  SOL:  'HnjpMmfooCSzNecbbRmQsFRJWSZLryGJH2HswKzPCggH',
+  USDT: '0x416934936d3F5186759E1AC2feA7DA6D89279d52',
+  LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',
 };
 
-// 💳 PAYMENT LINKS
 const PAY_LINKS = {
-  pp: 'https://www.paypal.me/Tariqjordg',   // ← PayPal.me link
-  cr: '#crypto',                         // leave
-  cd: 'https://paypal.me/Tariqjordg',   // ← card fallback
+  pp: 'https://www.paypal.me/Tariqjordg',
+  cr: '#crypto',
 };
 
-// 🎟️ PROMO CODES  (number = % off)
 const PROMOS = {
-  SILV20:20,      // 20% off
-  BRAINROT20:20,  // 20% off
-  DISCORD10:10,   // 10% off
-  GAG15:15,       // 15% off
-  MM2SAVE:15,     // 15% off
-  // ADD MORE:  MYCODE:25   means 25% off
+  SILV20:20,
+  BRAINROT20:20,
+  DISCORD10:10,
+  GAG15:15,
+  MM2SAVE:15,
 };
 
 // ================================================================
 // ✏️  END EASY EDIT ZONE
 // ================================================================
 
-// ============================================================
-// WIKI IMAGE URLS - real Blox Fruits images
-// ============================================================
-const WIKI = 'https://static.wikia.nocookie.net/bloxfruits/images/';
+// ── GAME IMAGE URLS ──────────────────────────────────────────
+// Using Fandom CDN for Blox Fruits
+const BF_CDN = 'https://blox-fruits.fandom.com/wiki/Special:FilePath/';
 const IMGS = {
-  'Dragon':         WIKI+'b/b6/Dragon_Fruit_Icon.png',
-  'Kitsune':        WIKI+'4/4a/Kitsune_Fruit_Icon.png',
-  'Leopard':        WIKI+'d/d4/Leopard_Fruit_Icon.png',
-  'Spirit':         WIKI+'3/31/Spirit_Fruit_Icon.png',
-  'Control':        WIKI+'8/82/Control_Fruit_Icon.png',
-  'Venom':          WIKI+'a/a0/Venom_Fruit_Icon.png',
-  'Gravity':        WIKI+'2/2c/Gravity_Fruit_Icon.png',
-  'Dough':          WIKI+'5/5d/Dough_Fruit_Icon.png',
-  'Shadow':         WIKI+'2/21/Shadow_Fruit_Icon.png',
-  'Blizzard':       WIKI+'0/01/Blizzard_Fruit_Icon.png',
-  'Portal':         WIKI+'8/82/Portal_Fruit_Icon.png',
-  'Buddha':         WIKI+'8/86/Buddha_Fruit_Icon.png',
-  'Quake':          WIKI+'f/f5/Quake_Fruit_Icon.png',
-  'Mammoth':        WIKI+'9/9b/Mammoth_Fruit_Icon.png',
-  'Phoenix':        WIKI+'f/f3/Phoenix_Fruit_Icon.png',
-  'Light':          WIKI+'9/91/Light_Fruit_Icon.png',
-  'Magma':          WIKI+'3/37/Magma_Fruit_Icon.png',
-  'Ice':            WIKI+'7/79/Ice_Fruit_Icon.png',
-  'Sand':           WIKI+'7/7b/Sand_Fruit_Icon.png',
-  'Dark':           WIKI+'9/9f/Dark_Fruit_Icon.png',
-  'Gas':            WIKI+'8/83/Gas_Fruit_Icon.png',
-  'Flame':          WIKI+'4/45/Flame_Fruit_Icon.png',
-  'Rubber':         WIKI+'9/90/Rubber_Fruit_Icon.png',
-  'Diamond':        WIKI+'b/be/Diamond_Fruit_Icon.png',
-  'Pain':           WIKI+'7/71/Pain_Fruit_Icon.png',
-  'Eagle':          WIKI+'5/51/Eagle_Fruit_Icon.png',
-  'T-Rex':          WIKI+'5/57/T-Rex_Fruit_Icon.png',
-  'Yeti':           WIKI+'6/62/Yeti_Fruit_Icon.png',
-  'Creation':       WIKI+'0/02/Creation_Fruit_Icon.png',
+  'Dragon':   BF_CDN+'Dragon_Fruit_Icon.png',
+  'Kitsune':  BF_CDN+'Kitsune_Fruit_Icon.png',
+  'Leopard':  BF_CDN+'Leopard_Fruit_Icon.png',
+  'Spirit':   BF_CDN+'Spirit_Fruit_Icon.png',
+  'Control':  BF_CDN+'Control_Fruit_Icon.png',
+  'Venom':    BF_CDN+'Venom_Fruit_Icon.png',
+  'Gravity':  BF_CDN+'Gravity_Fruit_Icon.png',
+  'Dough':    BF_CDN+'Dough_Fruit_Icon.png',
+  'Shadow':   BF_CDN+'Shadow_Fruit_Icon.png',
+  'Blizzard': BF_CDN+'Blizzard_Fruit_Icon.png',
+  'Portal':   BF_CDN+'Portal_Fruit_Icon.png',
+  'Buddha':   BF_CDN+'Buddha_Fruit_Icon.png',
+  'Quake':    BF_CDN+'Quake_Fruit_Icon.png',
+  'Mammoth':  BF_CDN+'Mammoth_Fruit_Icon.png',
+  'Phoenix':  BF_CDN+'Phoenix_Fruit_Icon.png',
+  'Light':    BF_CDN+'Light_Fruit_Icon.png',
+  'Magma':    BF_CDN+'Magma_Fruit_Icon.png',
+  'Ice':      BF_CDN+'Ice_Fruit_Icon.png',
+  'Sand':     BF_CDN+'Sand_Fruit_Icon.png',
+  'Dark':     BF_CDN+'Dark_Fruit_Icon.png',
+  'Gas':      BF_CDN+'Gas_Fruit_Icon.png',
+  'Flame':    BF_CDN+'Flame_Fruit_Icon.png',
+  'Rubber':   BF_CDN+'Rubber_Fruit_Icon.png',
+  'Diamond':  BF_CDN+'Diamond_Fruit_Icon.png',
+  'Pain':     BF_CDN+'Pain_Fruit_Icon.png',
+  'Eagle':    BF_CDN+'Eagle_Fruit_Icon.png',
+  'T-Rex':    BF_CDN+'T-Rex_Fruit_Icon.png',
+  'Yeti':     BF_CDN+'Yeti_Fruit_Icon.png',
+  'Creation': BF_CDN+'Creation_Fruit_Icon.png',
 };
 
-// ============================================================
-// DATA
-// ============================================================
+// ── DATA ─────────────────────────────────────────────────────
 const ROBUX = [
   {a:1000,p:6},{a:2000,p:12},{a:3000,p:18},
   {a:5000,p:30,best:true},{a:10000,p:60},{a:20000,p:120},
 ];
 
-// Only listing relevant / valuable fruits (no rocket/spin/chop/bomb/spring/spike/blade)
 const FRUITS = [
-  // MYTHICAL
   {n:'Dragon',  em:'🐉',type:'Beast',  rar:'mythical', norm:18.99,perm:32.49,badge:'myth',stock:3,cat:'beast'},
   {n:'Kitsune', em:'🦊',type:'Beast',  rar:'mythical', norm:22.99,perm:39.99,badge:'myth',stock:2,cat:'beast'},
   {n:'Leopard', em:'🐆',type:'Beast',  rar:'mythical', norm:16.99,perm:29.99,badge:'myth',stock:5,cat:'beast'},
@@ -1236,7 +1231,6 @@ const FRUITS = [
   {n:'Gravity', em:'⚛️',type:'Natural',rar:'mythical', norm:10.99,perm:22.49,badge:'myth',stock:8,cat:'mythical'},
   {n:'Control', em:'🌀',type:'Natural',rar:'mythical', norm:12.99,perm:23.99,badge:'myth',stock:3,cat:'mythical'},
   {n:'Venom',   em:'☠️',type:'Natural',rar:'mythical', norm:11.49,perm:21.99,badge:'myth',stock:6,cat:'mythical'},
-  // LEGENDARY
   {n:'Dough',   em:'🍞',type:'Natural',rar:'legendary',norm:9.99, perm:18.49,badge:'hot',stock:11,cat:'legendary'},
   {n:'Shadow',  em:'🦇',type:'Natural',rar:'legendary',norm:7.99, perm:14.99,badge:'leg',stock:7, cat:'legendary'},
   {n:'Blizzard',em:'❄️',type:'Logia',  rar:'legendary',norm:8.49, perm:15.99,badge:'leg',stock:9, cat:'legendary'},
@@ -1250,7 +1244,6 @@ const FRUITS = [
   {n:'Pain',    em:'💜',type:'Natural',rar:'legendary',norm:8.49, perm:15.99,badge:'new',stock:7, cat:'legendary'},
   {n:'Eagle',   em:'🦅',type:'Beast',  rar:'legendary',norm:6.49, perm:12.99,badge:'new',stock:9, cat:'beast'},
   {n:'Creation',em:'🛡️',type:'Natural',rar:'legendary',norm:5.49, perm:10.49,badge:'leg',stock:16,cat:'legendary'},
-  // RARE / LOGIA
   {n:'Light',   em:'✨',type:'Logia',  rar:'rare',norm:3.99,perm:7.49,badge:'rare',stock:25,cat:'logia'},
   {n:'Magma',   em:'🌋',type:'Logia',  rar:'rare',norm:3.49,perm:6.99,badge:'rare',stock:22,cat:'logia'},
   {n:'Ice',     em:'🧊',type:'Logia',  rar:'rare',norm:2.99,perm:5.99,badge:'rare',stock:30,cat:'logia'},
@@ -1263,18 +1256,18 @@ const FRUITS = [
 ];
 
 const FRUIT_SKINS = [
-  {n:'Dragon Skin - Crimson', em:'🔴',type:'Skin',rar:'legendary',norm:9.99, perm:null,badge:'leg',stock:3,cat:'skin'},
-  {n:'Dragon Skin - Void',    em:'⚫',type:'Skin',rar:'legendary',norm:11.99,perm:null,badge:'leg',stock:2,cat:'skin'},
-  {n:'Buddha Skin - Golden',  em:'🌟',type:'Skin',rar:'rare',     norm:5.99, perm:null,badge:'rare',stock:8,cat:'skin'},
-  {n:'Dough Skin - Dark',     em:'🍫',type:'Skin',rar:'rare',     norm:6.99, perm:null,badge:'rare',stock:5,cat:'skin'},
-  {n:'Leopard Skin - White',  em:'🤍',type:'Skin',rar:'legendary',norm:10.99,perm:null,badge:'leg',stock:3,cat:'skin'},
+  {n:'Dragon Skin - Crimson',em:'🔴',type:'Skin',rar:'legendary',norm:9.99,perm:null,badge:'leg',stock:3,cat:'skin'},
+  {n:'Dragon Skin - Void',   em:'⚫',type:'Skin',rar:'legendary',norm:11.99,perm:null,badge:'leg',stock:2,cat:'skin'},
+  {n:'Buddha Skin - Golden', em:'🌟',type:'Skin',rar:'rare',     norm:5.99, perm:null,badge:'rare',stock:8,cat:'skin'},
+  {n:'Dough Skin - Dark',    em:'🍫',type:'Skin',rar:'rare',     norm:6.99, perm:null,badge:'rare',stock:5,cat:'skin'},
+  {n:'Leopard Skin - White', em:'🤍',type:'Skin',rar:'legendary',norm:10.99,perm:null,badge:'leg',stock:3,cat:'skin'},
 ];
 
 const BF_GP = [
   {n:'2x Money + 2x Mastery',em:'💰',type:'Gamepass',rar:'rare',norm:5.89,perm:null,badge:'hot',stock:99,cat:'gamepass'},
-  {n:'+1 Fruit Storage (x2)', em:'📦',type:'Gamepass',rar:'rare',norm:5.19,perm:null,badge:'',  stock:99,cat:'gamepass'},
-  {n:'Premium Ship',          em:'⛵',type:'Gamepass',rar:'rare',norm:4.99,perm:null,badge:'',  stock:99,cat:'gamepass'},
-  {n:'Gamepass Bundle',       em:'🎮',type:'Gamepass',rar:'leg', norm:12.99,perm:null,badge:'sale',stock:99,cat:'gamepass'},
+  {n:'+1 Fruit Storage (x2)',em:'📦',type:'Gamepass',rar:'rare',norm:5.19,perm:null,badge:'',  stock:99,cat:'gamepass'},
+  {n:'Premium Ship',         em:'⛵',type:'Gamepass',rar:'rare',norm:4.99,perm:null,badge:'',  stock:99,cat:'gamepass'},
+  {n:'Gamepass Bundle',      em:'🎮',type:'Gamepass',rar:'legendary',norm:12.99,perm:null,badge:'sale',stock:99,cat:'gamepass'},
 ];
 
 const GAG = [
@@ -1301,56 +1294,56 @@ const GAG = [
 ];
 
 const AM = [
-  {n:'Neon FR Unicorn',  em:'🦄',p:8.99,  oldP:null, badge:'hot', rar:'leg',  sub:'neon',      bg:'r-pink',   stock:6},
+  {n:'Neon FR Unicorn',  em:'🦄',p:8.99,  oldP:null, badge:'hot', rar:'leg',  sub:'neon',      bg:'r-pink',    stock:6},
   {n:'Shadow Dragon',    em:'🐉',p:22.99, oldP:28.99,badge:'sale',rar:'myth', sub:'legendary', bg:'r-mythical',stock:3},
-  {n:'Bat Dragon',       em:'🦇',p:18.99, oldP:null, badge:'rare',rar:'myth', sub:'legendary', bg:'r-dark',   stock:4},
-  {n:'Frost Dragon',     em:'❄️',p:16.99, oldP:null, badge:'rare',rar:'myth', sub:'legendary', bg:'r-rare',   stock:5},
+  {n:'Bat Dragon',       em:'🦇',p:18.99, oldP:null, badge:'rare',rar:'myth', sub:'legendary', bg:'r-dark',    stock:4},
+  {n:'Frost Dragon',     em:'❄️',p:16.99, oldP:null, badge:'rare',rar:'myth', sub:'legendary', bg:'r-rare',    stock:5},
   {n:'Mega Neon Fox',    em:'🦊',p:6.49,  oldP:null, badge:'',    rar:'leg',  sub:'mega',      bg:'r-legendary',stock:9},
-  {n:'Neon Cerberus',    em:'🐺',p:11.99, oldP:null, badge:'new', rar:'leg',  sub:'neon',      bg:'r-rare',   stock:7},
-  {n:'FR Parrot',        em:'🦜',p:4.99,  oldP:null, badge:'',    rar:'leg',  sub:'legendary', bg:'r-green',  stock:12},
+  {n:'Neon Cerberus',    em:'🐺',p:11.99, oldP:null, badge:'new', rar:'leg',  sub:'neon',      bg:'r-rare',    stock:7},
+  {n:'FR Parrot',        em:'🦜',p:4.99,  oldP:null, badge:'',    rar:'leg',  sub:'legendary', bg:'r-green',   stock:12},
   {n:'Golden Dragon',    em:'✨',p:28.99, oldP:null, badge:'hot', rar:'myth', sub:'legendary', bg:'r-legendary',stock:2},
   {n:'Neon Giraffe',     em:'🦒',p:7.99,  oldP:null, badge:'',    rar:'leg',  sub:'neon',      bg:'r-legendary',stock:10},
-  {n:'Neon Axolotl',     em:'🦎',p:5.99,  oldP:null, badge:'new', rar:'leg',  sub:'neon',      bg:'r-pink',   stock:8},
+  {n:'Neon Axolotl',     em:'🦎',p:5.99,  oldP:null, badge:'new', rar:'leg',  sub:'neon',      bg:'r-pink',    stock:8},
   {n:'Mega Neon Cat',    em:'🐱',p:4.49,  oldP:null, badge:'',    rar:'leg',  sub:'mega',      bg:'r-uncommon',stock:11},
-  {n:'Mega Neon Panda',  em:'🐼',p:9.99,  oldP:null, badge:'oos', rar:'leg',  sub:'mega',      bg:'r-green',  stock:0,oos:true},
+  {n:'Mega Neon Panda',  em:'🐼',p:9.99,  oldP:null, badge:'oos', rar:'leg',  sub:'mega',      bg:'r-green',   stock:0,oos:true},
 ];
 
 const MM2 = [
-  {n:'Chroma Laser',  em:'🗡️',p:15.99,oldP:null, badge:'hot', sub:'chroma',type:'knife', stock:5, bg:'r-rare'},
-  {n:"Nik's Scythe",  em:'🔪',p:34.99,oldP:null, badge:'rare',sub:'godly', type:'scythe',stock:2, bg:'r-mythical'},
-  {n:'Elderwood Scythe',em:'⚔️',p:8.49,oldP:null,badge:'',    sub:'godly', type:'scythe',stock:8, bg:'r-legendary'},
-  {n:'Chroma Tides',  em:'🌊',p:12.99,oldP:16.99,badge:'sale',sub:'chroma',type:'knife', stock:6, bg:'r-rare'},
-  {n:'Corrupt',       em:'💜',p:22.99,oldP:null, badge:'hot', sub:'godly', type:'knife', stock:3, bg:'r-mythical'},
-  {n:'Chroma Saw',    em:'🩸',p:18.99,oldP:null, badge:'rare',sub:'chroma',type:'knife', stock:4, bg:'r-rare'},
-  {n:'Eternal',       em:'⚡',p:19.99,oldP:null, badge:'rare',sub:'godly', type:'knife', stock:5, bg:'r-legendary'},
-  {n:'Hallows Blade', em:'🎃',p:11.99,oldP:null, badge:'',    sub:'godly', type:'knife', stock:7, bg:'r-rare'},
-  {n:'Chroma Luger',  em:'🔫',p:9.99, oldP:null, badge:'',    sub:'chroma',type:'gun',   stock:9, bg:'r-rare'},
-  {n:'Icewing',       em:'❄️',p:7.99, oldP:null, badge:'',    sub:'godly', type:'knife', stock:11,bg:'r-rare'},
-  {n:'Godly Pack x5', em:'🎁',p:29.99,oldP:null, badge:'best',sub:'bundle',type:'bundle',stock:99,bg:'r-mythical'},
+  {n:'Chroma Laser',     em:'🗡️',p:15.99,oldP:null, badge:'hot', sub:'chroma',type:'knife', stock:5, bg:'r-rare'},
+  {n:"Nik's Scythe",     em:'🔪',p:34.99,oldP:null, badge:'rare',sub:'godly', type:'scythe',stock:2, bg:'r-mythical'},
+  {n:'Elderwood Scythe', em:'⚔️',p:8.49, oldP:null, badge:'',    sub:'godly', type:'scythe',stock:8, bg:'r-legendary'},
+  {n:'Chroma Tides',     em:'🌊',p:12.99,oldP:16.99,badge:'sale',sub:'chroma',type:'knife', stock:6, bg:'r-rare'},
+  {n:'Corrupt',          em:'💜',p:22.99,oldP:null, badge:'hot', sub:'godly', type:'knife', stock:3, bg:'r-mythical'},
+  {n:'Chroma Saw',       em:'🩸',p:18.99,oldP:null, badge:'rare',sub:'chroma',type:'knife', stock:4, bg:'r-rare'},
+  {n:'Eternal',          em:'⚡',p:19.99,oldP:null, badge:'rare',sub:'godly', type:'knife', stock:5, bg:'r-legendary'},
+  {n:'Hallows Blade',    em:'🎃',p:11.99,oldP:null, badge:'',    sub:'godly', type:'knife', stock:7, bg:'r-rare'},
+  {n:'Chroma Luger',     em:'🔫',p:9.99, oldP:null, badge:'',    sub:'chroma',type:'gun',   stock:9, bg:'r-rare'},
+  {n:'Icewing',          em:'❄️',p:7.99, oldP:null, badge:'',    sub:'godly', type:'knife', stock:11,bg:'r-rare'},
+  {n:'Godly Pack x5',    em:'🎁',p:29.99,oldP:null, badge:'best',sub:'bundle',type:'bundle',stock:99,bg:'r-mythical'},
 ];
 
 const BRAINROT = [
-  {n:'Dragon Cannelloni',  em:'🐲',p:4.99, sub:'pets',    badge:'hot', stock:8, bg:'r-mythical'},
-  {n:'MLG Frog Bundle',    em:'🐸',p:3.49, sub:'bundles', badge:'bundle',stock:12,bg:'r-pink'},
-  {n:'Ultra OP Pack x3',   em:'👾',p:6.99, sub:'packs',   badge:'',    stock:15,bg:'r-mythical'},
-  {n:'Exclusive Starter',  em:'⭐',p:9.99, oldP:13.99,sub:'bundles',badge:'sale',stock:7,bg:'r-dark'},
-  {n:'Skibidi Toilet Pet', em:'🚽',p:2.99, sub:'pets',    badge:'new', stock:20,bg:'r-mythical'},
-  {n:'Sigma Pet Bundle',   em:'💪',p:5.99, sub:'bundles', badge:'hot', stock:10,bg:'r-purple'},
-  {n:'Rizz Dragon',        em:'😏',p:7.99, sub:'pets',    badge:'rare',stock:5, bg:'r-mythical'},
-  {n:'Gyatt Bunny',        em:'🐇',p:3.99, sub:'pets',    badge:'new', stock:14,bg:'r-pink'},
-  {n:'Mewing Cat',         em:'😤',p:2.49, sub:'pets',    badge:'',    stock:18,bg:'r-mythical'},
-  {n:'NPC Pet',            em:'🤖',p:3.99, sub:'pets',    badge:'new', stock:11,bg:'r-dark'},
+  {n:'Dragon Cannelloni', em:'🐲',p:4.99, sub:'pets',    badge:'hot',   stock:8, bg:'r-mythical'},
+  {n:'MLG Frog Bundle',   em:'🐸',p:3.49, sub:'bundles', badge:'bundle',stock:12,bg:'r-pink'},
+  {n:'Ultra OP Pack x3',  em:'👾',p:6.99, sub:'packs',   badge:'',      stock:15,bg:'r-mythical'},
+  {n:'Exclusive Starter', em:'⭐',p:9.99, oldP:13.99,sub:'bundles',badge:'sale',stock:7,bg:'r-dark'},
+  {n:'Skibidi Toilet Pet',em:'🚽',p:2.99, sub:'pets',    badge:'new',   stock:20,bg:'r-mythical'},
+  {n:'Sigma Pet Bundle',  em:'💪',p:5.99, sub:'bundles', badge:'hot',   stock:10,bg:'r-rare'},
+  {n:'Rizz Dragon',       em:'😏',p:7.99, sub:'pets',    badge:'rare',  stock:5, bg:'r-mythical'},
+  {n:'Gyatt Bunny',       em:'🐇',p:3.99, sub:'pets',    badge:'new',   stock:14,bg:'r-pink'},
+  {n:'Mewing Cat',        em:'😤',p:2.49, sub:'pets',    badge:'',      stock:18,bg:'r-mythical'},
+  {n:'NPC Pet',           em:'🤖',p:3.99, sub:'pets',    badge:'new',   stock:11,bg:'r-dark'},
 ];
 
 const RIVALS = [
-  {n:'Ranked Boost x10',      em:'🏆',p:7.99, sub:'boost',    badge:'hot', stock:99,bg:'r-rare'},
-  {n:'Exclusive Char Skin',   em:'🎭',p:12.99,sub:'skin',     badge:'rare',stock:4, bg:'r-legendary'},
-  {n:'Rivals Ultimate Pack',  em:'💎',p:19.99,sub:'bundle',   badge:'best',stock:3, bg:'r-mythical'},
-  {n:'XP Boost 24hr',         em:'⚡',p:4.99, sub:'boost',    badge:'',    stock:99,bg:'r-rare'},
-  {n:'Custom Title',          em:'🏅',p:3.99, sub:'skin',     badge:'new', stock:99,bg:'r-uncommon'},
-  {n:'Character Bundle',      em:'🥊',p:14.99,sub:'bundle',   badge:'sale',stock:5, bg:'r-legendary'},
-  {n:'Rivals Coins 5k',       em:'🪙',p:9.99, sub:'currency', badge:'hot', stock:99,bg:'r-legendary'},
-  {n:'Win Streak Pack',       em:'🔥',p:11.99,sub:'bundle',   badge:'hot', stock:7, bg:'r-rare'},
+  {n:'Ranked Boost x10',    em:'🏆',p:7.99, sub:'boost',    badge:'hot', stock:99,bg:'r-rare'},
+  {n:'Exclusive Char Skin', em:'🎭',p:12.99,sub:'skin',     badge:'rare',stock:4, bg:'r-legendary'},
+  {n:'Rivals Ultimate Pack',em:'💎',p:19.99,sub:'bundle',   badge:'best',stock:3, bg:'r-mythical'},
+  {n:'XP Boost 24hr',       em:'⚡',p:4.99, sub:'boost',    badge:'',    stock:99,bg:'r-rare'},
+  {n:'Custom Title',        em:'🏅',p:3.99, sub:'skin',     badge:'new', stock:99,bg:'r-uncommon'},
+  {n:'Character Bundle',    em:'🥊',p:14.99,sub:'bundle',   badge:'sale',stock:5, bg:'r-legendary'},
+  {n:'Rivals Coins 5k',     em:'🪙',p:9.99, sub:'currency', badge:'hot', stock:99,bg:'r-legendary'},
+  {n:'Win Streak Pack',     em:'🔥',p:11.99,sub:'bundle',   badge:'hot', stock:7, bg:'r-rare'},
 ];
 
 const NIGHTS = [
@@ -1373,19 +1366,18 @@ const TSUNAMI = [
   {n:'Tsunami Coins 5k', em:'🪙',p:4.99, sub:'currency',badge:'',    stock:99,bg:'r-uncommon'},
 ];
 
-// ============================================================
-// STATE
-// ============================================================
-let cart = [], selPM='pp', promoApplied=false, promoPct=0;
-let rblxVerified=false, discLinked=false, rblxTimer=null;
-let fruitModes = {};
-const PAY_LABELS = {pp:'💙 Pay with PayPal',cr:'₿ Pay with Crypto',cd:'💳 Pay with Card'};
-const PAY_CLS = {pp:'p-pp',cr:'p-cr',cd:'p-cd'};
-const PM_SEL = {pp:'spp',cr:'scr',cd:'scd'};
+// ── STATE ────────────────────────────────────────────────────
+let cart = [], selectedPayMethod='pp', promoApplied=false, promoPct=0;
+let rblxVerified=false, fruitModes={};
+let discordLinked=false;
+let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
+let _authWindow = null;
+let _authCheckInterval = null;
+const PAY_LABELS = {pp:'💙 Pay with PayPal',cr:'₿ Pay with Crypto'};
+const PAY_CLS = {pp:'p-pp',cr:'p-cr'};
+const PM_SEL = {pp:'spp',cr:'scr'};
 
-// ============================================================
-// BADGE HELPERS
-// ============================================================
+// ── BADGE HELPERS ─────────────────────────────────────────────
 const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sale',best:'b-best',oos:'b-oos',rare:'b-rare',perm:'b-perm',bundle:'b-new',popular:'b-hot'};
 const BADGE_LBL = {hot:'🔥 HOT',new:'✨ NEW',myth:'MYTHICAL',leg:'LEGENDARY',sale:'SALE',best:'BEST',oos:'SOLD OUT',rare:'RARE',perm:'PERM',bundle:'BUNDLE',popular:'POPULAR'};
 function bdg(b){return b&&BADGE_CLS[b]?`<div class="pbadge ${BADGE_CLS[b]}">${BADGE_LBL[b]||b.toUpperCase()}</div>`:''}
@@ -1395,19 +1387,17 @@ function stk(s){
   if(s<=5) return `<div class="stock-badge stock-low">⚠️ ${s} LEFT</div>`;
   return `<div class="stock-badge stock-ok">✅ ${s} LEFT</div>`;
 }
-const RAR_BG = {common:'r-common',uncommon:'r-uncommon',rare:'r-rare',legendary:'r-legendary',mythical:'r-mythical'};
-const RAR_COL = {common:'rc-common',uncommon:'rc-uncommon',rare:'rc-rare',legendary:'rc-legendary',mythical:'rc-mythical'};
-const RAR_LBL = {common:'Common',uncommon:'Uncommon',rare:'Rare',legendary:'Legendary',mythical:'Mythical'};
-const TYPE_CLS = {Natural:'t-nat',Logia:'t-log',Beast:'t-bst'};
+const RAR_BG={common:'r-common',uncommon:'r-uncommon',rare:'r-rare',legendary:'r-legendary',mythical:'r-mythical'};
+const RAR_COL={common:'rc-common',uncommon:'rc-uncommon',rare:'rc-rare',legendary:'rc-legendary',mythical:'rc-mythical'};
+const RAR_LBL={common:'Common',uncommon:'Uncommon',rare:'Rare',legendary:'Legendary',mythical:'Mythical'};
+const TYPE_CLS={Natural:'t-nat',Logia:'t-log',Beast:'t-bst'};
 
 function mkImgEl(name,em,img){
-  if(img) return `<img src="${img}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${em}</span>`;
+  if(img) return `<img src="${img}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='block')"/><span class="em" style="display:none">${em}</span>`;
   return `<span class="em">${em}</span>`;
 }
 
-// ============================================================
-// RENDER ROBUX
-// ============================================================
+// ── RENDER ROBUX ──────────────────────────────────────────────
 function renderRobux(){
   document.getElementById('robuxGrid').innerHTML=ROBUX.map(r=>`
     <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} Robux','$${r.p}','💎','Robux')">
@@ -1419,11 +1409,9 @@ function renderRobux(){
     </div>`).join('');
 }
 
-// ============================================================
-// RENDER BLOX FRUITS
-// ============================================================
+// ── RENDER BLOX FRUITS ────────────────────────────────────────
 function renderBF(filter='all'){
-  const allItems = [...FRUITS,...FRUIT_SKINS,...BF_GP];
+  const allItems=[...FRUITS,...FRUIT_SKINS,...BF_GP];
   let items;
   if(filter==='all') items=allItems;
   else if(filter==='logia') items=FRUITS.filter(f=>f.type==='Logia');
@@ -1462,10 +1450,8 @@ function renderBF(filter='all'){
 
 function setFM(name,mode){
   fruitModes[name]=mode;
-  const cur=window._bfFilter||'all';
-  renderBF(cur);
+  renderBF(window._bfFilter||'all');
 }
-
 function filterBF(btn,cat){
   window._bfFilter=cat;
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
@@ -1473,13 +1459,11 @@ function filterBF(btn,cat){
   renderBF(cat);
 }
 
-// ============================================================
-// GENERIC CARD
-// ============================================================
+// ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
   const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
-  const gameLbl=i.game||{gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami'}[game]||game;
   return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}">
     <div class="pc-img ${bg}">
@@ -1504,7 +1488,6 @@ function filterGrid(gridId,attr,val){
     c.style.display=(val==='all'||c.dataset[attr]===val)?'':'none';
   });
 }
-
 function filterAM(btn,sub){
   setJtActive(btn);
   if(sub==='all'||sub==='oos'){
@@ -1518,26 +1501,15 @@ function filterAM(btn,sub){
     });
   }
 }
-function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all') document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
-function filterGAG(btn,cat){
-  setJtActive(btn);
-  document.querySelectorAll('#gagGrid .pc').forEach(c=>{
-    c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';
-  });
-}
-function filterBR(btn,sub){setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all') document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
-function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all') document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
-function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all') document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
-function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all') document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
+function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
+function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
+function filterBR(btn,sub){setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
+function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
+function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
+function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all')document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
+function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');btn.className=btn.className+' jtb';}
 
-function setJtActive(btn){
-  btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
-  btn.className=btn.className+' jtb';
-}
-
-// ============================================================
-// BEST SELLERS
-// ============================================================
+// ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
   {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical'},
   {n:"Nik's Scythe",      em:'🔪',p:'$34.99',game:'MM2',        badge:'hot', stock:2, bg:'r-mythical'},
@@ -1565,33 +1537,20 @@ function renderBS(){
     </div>`).join('');
 }
 
-// ============================================================
-// SEARCH
-// ============================================================
-const ALL_PRODUCTS = [];
+// ── SEARCH ────────────────────────────────────────────────────
+const ALL_PRODUCTS=[];
 function buildSearchIndex(){
-  const push=(items,game,gcls)=>items.forEach(i=>ALL_PRODUCTS.push({n:i.n,em:i.em,p:i.p||i.price||i.norm||0,game,gcls}));
-  ROBUX.forEach(r=>ALL_PRODUCTS.push({n:`${r.a.toLocaleString()} Robux`,em:'💎',p:r.p,game:'Robux',gcls:'g-rob'}));
-  push(FRUITS,'Blox Fruits','g-bf');
-  push(FRUIT_SKINS,'Blox Fruits','g-bf');
-  push(BF_GP,'Blox Fruits','g-bf');
-  push(GAG,'Grow a Garden','g-gag');
-  push(AM,'Adopt Me','g-am');
-  push(MM2,'MM2','g-mm2');
-  push(BRAINROT,'Steal a Brainrot','g-br');
-  push(RIVALS,'Rivals','g-riv');
-  push(NIGHTS,'99 Nights','g-99');
-  push(TSUNAMI,'Escape Tsunami','g-tsn');
+  const push=(items,game)=>items.forEach(i=>ALL_PRODUCTS.push({n:i.n,em:i.em,p:i.p||i.norm||0,game}));
+  ROBUX.forEach(r=>ALL_PRODUCTS.push({n:`${r.a.toLocaleString()} Robux`,em:'💎',p:r.p,game:'Robux'}));
+  push(FRUITS,'Blox Fruits');push(FRUIT_SKINS,'Blox Fruits');push(BF_GP,'Blox Fruits');
+  push(GAG,'Grow a Garden');push(AM,'Adopt Me');push(MM2,'MM2');
+  push(BRAINROT,'Steal a Brainrot');push(RIVALS,'Rivals');push(NIGHTS,'99 Nights');push(TSUNAMI,'Escape Tsunami');
 }
-
 function doSearch(q){
   const el=document.getElementById('searchResults');
   if(!q||q.trim().length<2){el.classList.remove('open');return;}
   const matches=ALL_PRODUCTS.filter(p=>p.n.toLowerCase().includes(q.toLowerCase())).slice(0,12);
-  if(!matches.length){
-    el.innerHTML=`<div class="sr-none">No results for "${q}"</div>`;
-    el.classList.add('open');return;
-  }
+  if(!matches.length){el.innerHTML=`<div class="sr-none">No results for "${q}"</div>`;el.classList.add('open');return;}
   el.innerHTML=matches.map(p=>`
     <div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\\'")}','$${Number(p.p).toFixed(2)}','${p.em}','${p.game}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
       <div class="sr-em">${p.em}</div>
@@ -1600,36 +1559,174 @@ function doSearch(q){
     </div>`).join('');
   el.classList.add('open');
 }
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.nav-search')) document.getElementById('searchResults').classList.remove('open');
-});
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
 
-// ============================================================
-// GAME BAR ACTIVE STATE (scroll spy)
-// ============================================================
-function setActive(el){
-  document.querySelectorAll('.gb-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
+// ── ROBLOX USERNAME VALIDATION ────────────────────────────────
+let _rblxTimer=null;
+function doRblx(val){
+  clearTimeout(_rblxTimer);
+  const ico=document.getElementById('rblxIco');
+  const res=document.getElementById('rblxRes');
+  const stat=document.getElementById('rblxStat');
+  const un=document.getElementById('rblxUn');
+  const id=document.getElementById('rblxId');
+  const chk=document.getElementById('rblxChk');
+  const av=document.getElementById('rblxAv');
+
+  if(!val||val.trim().length<3){
+    res.className='rblx';ico.textContent='👤';rblxVerified=false;return;
+  }
+  ico.textContent='⏳';ico.className='co-ico sp';
+
+  _rblxTimer=setTimeout(()=>{
+    // Validate format: 3-20 chars, letters/numbers/underscore
+    const valid=/^[a-zA-Z0-9_]{3,20}$/.test(val.trim());
+    ico.className='co-ico';
+    if(valid){
+      ico.textContent='✅';
+      res.className='rblx show ok';
+      stat.className='rblx-stat ok';
+      stat.textContent='✅ USERNAME ENTERED';
+      un.textContent=val.trim();
+      id.textContent='We will deliver to this account';
+      chk.textContent='✅';
+      av.textContent='😊';
+      rblxVerified=true;
+    } else {
+      ico.textContent='❌';
+      res.className='rblx show err';
+      stat.className='rblx-stat err';
+      stat.textContent='❌ INVALID FORMAT';
+      un.textContent='Use letters, numbers, underscore (3-20 chars)';
+      id.textContent='';
+      chk.textContent='❌';
+      av.textContent='🚫';
+      rblxVerified=false;
+    }
+  },600);
 }
 
-const sections=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','reviews'];
-const barBtns=[...document.querySelectorAll('.gb-btn')];
-window.addEventListener('scroll',()=>{
-  const scrollY=window.scrollY+120;
-  let current='bestsellers';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&el.offsetTop<=scrollY) current=id;
-  });
-  barBtns.forEach(b=>{
-    const href=b.getAttribute('href');
-    b.classList.toggle('active',href==='#'+current);
-  });
-},{passive:true});
+// ── DISCORD OAUTH (VAULTCORD) ─────────────────────────────────
+function startDiscordAuth(e){
+  e.preventDefault();
+  const btn=document.getElementById('discAuthBtn');
+  btn.classList.add('verifying');
+  btn.textContent='⏳ Waiting for Discord...';
 
-// ============================================================
-// CART
-// ============================================================
+  // Open Vaultcord auth popup
+  const w=500,h=700;
+  const left=(window.screen.width-w)/2;
+  const top=(window.screen.height-h)/2;
+  _authWindow=window.open(VAULTCORD_AUTH_URL,'VaultcordAuth',`width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+
+  // Poll for message from popup or for window close
+  _authCheckInterval=setInterval(()=>{
+    if(_authWindow&&_authWindow.closed){
+      clearInterval(_authCheckInterval);
+      // If window closed without linking, reset button
+      if(!discordLinked){
+        btn.classList.remove('verifying');
+        btn.innerHTML='<svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg> Link Discord Account';
+      }
+    }
+  },500);
+}
+
+// Listen for Vaultcord postMessage callback
+window.addEventListener('message',function(event){
+  // Accept messages from vaultcord or discord
+  if(!event.origin.includes('discord')&&!event.origin.includes('vaultcord')&&event.origin!==window.location.origin) return;
+
+  const data=event.data;
+  if(data&&(data.type==='DISCORD_AUTH'||data.discord_id||data.id)){
+    clearInterval(_authCheckInterval);
+    if(_authWindow&&!_authWindow.closed) _authWindow.close();
+
+    const userId = data.discord_id||data.id||'';
+    const username = data.username||data.discord_username||'Discord User';
+    const discriminator = data.discriminator||'0';
+    const avatar = data.avatar_url||data.avatar||'';
+    setDiscordLinked({id:userId,username,discriminator,avatar});
+  }
+});
+
+// Also check URL hash for redirect callback (in case Vaultcord redirects back)
+(function checkAuthCallback(){
+  const hash=window.location.hash;
+  const params=new URLSearchParams(window.location.search);
+  // Vaultcord may pass data via query param
+  const discordData=params.get('discord');
+  if(discordData){
+    try{
+      const d=JSON.parse(atob(discordData));
+      setDiscordLinked(d);
+    }catch(e){}
+  }
+})();
+
+function setDiscordLinked(user){
+  discordLinked=true;
+  discordUser=user;
+
+  // Update UI
+  document.getElementById('dvsDot').className='dvs-dot linked';
+  document.getElementById('dvsText').textContent='✅ Discord linked — you\'re in our server!';
+
+  const card=document.getElementById('discUserCard');
+  card.classList.add('show');
+
+  const avImg=document.getElementById('ducAvImg');
+  if(user.avatar){
+    avImg.src=user.avatar;
+    avImg.onerror=()=>{avImg.src='';avImg.parentElement.textContent='👤';};
+  } else {
+    document.getElementById('discUserCard').querySelector('.duc-av').textContent='👤';
+  }
+  document.getElementById('ducName').textContent=user.username+(user.discriminator&&user.discriminator!=='0'?'#'+user.discriminator:'');
+  document.getElementById('ducId').textContent=user.id?'ID: '+user.id:'Discord Linked ✓';
+
+  // Hide auth button, show linked state
+  document.getElementById('discAuthBtn').style.display='none';
+  document.getElementById('discVerifyBox').style.background='rgba(0,200,83,.06)';
+  document.getElementById('discVerifyBox').style.borderColor='rgba(0,200,83,.3)';
+  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').textContent='✅ DISCORD VERIFIED — PAYMENT UNLOCKED';
+  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').style.color='#00c853';
+
+  // UNLOCK PAYMENT BUTTON
+  updatePayBtn();
+}
+
+function unlinkDiscord(){
+  discordLinked=false;
+  discordUser={};
+  document.getElementById('dvsDot').className='dvs-dot';
+  document.getElementById('dvsText').textContent='Link your Discord to receive your items & create your ticket';
+  document.getElementById('discUserCard').classList.remove('show');
+  document.getElementById('discAuthBtn').style.display='flex';
+  document.getElementById('discVerifyBox').style.background='';
+  document.getElementById('discVerifyBox').style.borderColor='';
+  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').textContent='🔒 VERIFY YOUR DISCORD TO UNLOCK PAYMENT';
+  document.getElementById('discVerifyBox').querySelector('.disc-verify-header').style.color='';
+  updatePayBtn();
+}
+
+function updatePayBtn(){
+  const btn=document.getElementById('payNow');
+  const msg=document.getElementById('payLockedMsg');
+  if(discordLinked){
+    btn.disabled=false;
+    btn.className='pay-btn '+PAY_CLS[selectedPayMethod];
+    btn.textContent=PAY_LABELS[selectedPayMethod];
+    msg.classList.remove('show');
+  } else {
+    btn.disabled=true;
+    btn.className='pay-btn p-pp';
+    btn.textContent='🔒 Link Discord First';
+    msg.classList.add('show');
+  }
+}
+
+// ── CART ──────────────────────────────────────────────────────
 function addToCart(name,priceStr,em,game){
   const price=parseFloat(priceStr.replace('$',''));
   if(isNaN(price)) return;
@@ -1660,21 +1757,10 @@ function updateCartUI(){
       <button class="ci-rm" onclick="removeFromCart('${i.name.replace(/'/g,"\\'")}')">✕</button>
     </div>`).join('');
 }
-function openCartSB(){
-  document.getElementById('cartSb').classList.add('open');
-  document.getElementById('cartOv').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function toggleCart(){
-  const sb=document.getElementById('cartSb'),ov=document.getElementById('cartOv');
-  const o=sb.classList.toggle('open');
-  ov.classList.toggle('open',o);
-  document.body.style.overflow=o?'hidden':'';
-}
+function openCartSB(){document.getElementById('cartSb').classList.add('open');document.getElementById('cartOv').classList.add('open');document.body.style.overflow='hidden';}
+function toggleCart(){const sb=document.getElementById('cartSb'),ov=document.getElementById('cartOv');const o=sb.classList.toggle('open');ov.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
 
-// ============================================================
-// CHECKOUT
-// ============================================================
+// ── CHECKOUT ──────────────────────────────────────────────────
 function openCO(){
   toggleCart();
   setTimeout(()=>{
@@ -1684,6 +1770,7 @@ function openCO(){
   },300);
 }
 function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';}
+
 function populateCO(){
   document.getElementById('coBody').style.display='';
   document.getElementById('coSucc').classList.remove('show');
@@ -1694,7 +1781,9 @@ function populateCO(){
       <div style="font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--yellow)">$${(i.price*i.qty).toFixed(2)}</div>
     </div>`).join('');
   updateCOSum();
+  updatePayBtn();
 }
+
 function updateCOSum(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const disc=promoApplied?sub*(promoPct/100):0;
@@ -1705,7 +1794,9 @@ function updateCOSum(){
   document.getElementById('coTot').textContent='$'+tot.toFixed(2);
   document.getElementById('coSumItems').innerHTML=cart.map(i=>`
     <div class="sum-r"><span class="sum-lbl">${i.em} ${i.name} ×${i.qty}</span><span class="sum-val">$${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
+  return tot;
 }
+
 function applyPromo(){
   const code=document.getElementById('promoIn').value.trim().toUpperCase();
   const el=document.getElementById('promoOk');
@@ -1721,24 +1812,44 @@ function applyPromo(){
     setTimeout(()=>el.style.display='none',2500);
   }
 }
-function markDisc(){
-  setTimeout(()=>{
-    document.getElementById('discBtn').style.display='none';
-    const d=document.getElementById('discDone');d.style.display='flex';discLinked=true;
-  },1200);
+
+function selPayMethod(m){
+  selectedPayMethod=m;
+  ['pp','cr'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
+  if(discordLinked){
+    const btn=document.getElementById('payNow');
+    btn.className='pay-btn '+PAY_CLS[m];
+    btn.textContent=PAY_LABELS[m];
+  }
 }
-function selPay(m){
-  selPM=m;
-  ['pp','cr','cd'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
-  const btn=document.getElementById('payNow');btn.className='pay-btn '+PAY_CLS[m];btn.textContent=PAY_LABELS[m];
-}
+
+// ── PAY NOW ───────────────────────────────────────────────────
 function payNow(){
-  const u=document.getElementById('rblxIn').value.trim(),e=document.getElementById('emailIn').value.trim();
+  if(!discordLinked){
+    alert('⚠️ Please link your Discord account first!');
+    return;
+  }
+  const u=document.getElementById('rblxIn').value.trim();
+  const e=document.getElementById('emailIn').value.trim();
   if(!u){alert('⚠️ Enter your Roblox username first.');return;}
   if(!e||!e.includes('@')){alert('⚠️ Enter a valid email address.');return;}
-  const lnk=PAY_LINKS[selPM];
-  if(selPM==='cr'){openCryptoModal();return;}
-  if(lnk) window.open(lnk,'_blank');
+
+  if(selectedPayMethod==='cr'){
+    openCryptoModal();
+    return;
+  }
+
+  // PayPal with dynamic total
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const disc=promoApplied?sub*(promoPct/100):0;
+  const after=sub-disc, fee=after*.03, tot=Number((after+fee).toFixed(2));
+  const ppUrl=`${PAY_LINKS.pp}/${tot}USD`;
+  window.open(ppUrl,'_blank');
+
+  // Fire webhook to bot
+  fireOrderWebhook({robloxUsername:u,email:e,total:tot,paymentMethod:'paypal',items:cart,discordUser});
+
+  // Show success
   setTimeout(()=>{
     document.getElementById('coBody').style.display='none';
     document.getElementById('coSucc').classList.add('show');
@@ -1747,49 +1858,30 @@ function payNow(){
   },600);
 }
 
-// ============================================================
-// INIT
-// ============================================================
-function init(){
-  renderRobux();
-  renderBF();
-  renderBS();
-  document.getElementById('gagGrid').innerHTML=GAG.map(i=>{
-    const c={...i,sub:i.cat};return mkCard(c,'gag','g-gag');
-  }).join('');
-  document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');
-  document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');
-  document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');
-  document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');
-  document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');
-  document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
-  buildSearchIndex();
-  // Duplicate ticker
-  const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
+// ── BOT WEBHOOK ───────────────────────────────────────────────
+async function fireOrderWebhook(orderData){
+  try{
+    const payload={
+      robloxUsername: orderData.robloxUsername,
+      email: orderData.email,
+      total: orderData.total,
+      paymentMethod: orderData.paymentMethod,
+      items: orderData.items.map(i=>({name:i.name,game:i.game,qty:i.qty,price:i.price})),
+      discordId: orderData.discordUser&&orderData.discordUser.id ? orderData.discordUser.id : null,
+      discordUsername: orderData.discordUser&&orderData.discordUser.username ? orderData.discordUser.username : null,
+      timestamp: new Date().toISOString(),
+    };
+    await fetch(BOT_WEBHOOK_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-webhook-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify(payload),
+    });
+  }catch(err){
+    console.warn('Bot webhook failed (check BOT_WEBHOOK_URL in edit zone):', err);
+  }
 }
-init();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape') closeCO();});
-
-// ── APPLY LOGO/FAVICON FROM EDIT ZONE ───────────────────────
-(function applyBranding(){
-  if(SITE_FAVICON){
-    let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');
-    lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);
-  }
-  if(SITE_LOGO_URL){
-    const img=document.getElementById('navLogoImg');
-    const txt=document.getElementById('navLogoText');
-    img.src=SITE_LOGO_URL;img.style.display='inline-block';
-    if(txt) txt.style.display='none';
-  }
-  document.getElementById('discNavLink').href=DISCORD_INVITE;
-  // update checkout discord button too
-  const discBtn=document.getElementById('discBtn');
-  if(discBtn) discBtn.href=DISCORD_INVITE;
-})();
-
-// ── GAME SELECTOR ────────────────────────────────────────────
+// ── GAME SELECTOR ─────────────────────────────────────────────
 const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','reviews'];
 const GAME_SUBS={
   robux:    [],
@@ -1802,227 +1894,139 @@ const GAME_SUBS={
   nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
 };
-let currentGame='all', currentSort='default';
 
-function filterAM2(btn,val){
-  setJtActive(btn);
-  filterGrid('amGrid','sub',val);
-  if(val==='all') document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');
-}
+function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
 
-function toggleGS(){
-  const btn=document.getElementById('gsBtn');
-  const drop=document.getElementById('gsDrop');
-  btn.classList.toggle('open');
-  drop.classList.toggle('open');
-}
-function toggleSort(){
-  const btn=document.getElementById('sortBtn');
-  const drop=document.getElementById('sortDrop');
-  btn.classList.toggle('open');
-  drop.classList.toggle('open');
-}
+function toggleGS(){document.getElementById('gsBtn').classList.toggle('open');document.getElementById('gsDrop').classList.toggle('open');}
+function toggleSort(){document.getElementById('sortBtn').classList.toggle('open');document.getElementById('sortDrop').classList.toggle('open');}
 
 function selectGame(el,name,icon,key){
-  currentGame=key;
-  // Update button
   document.getElementById('gsName').textContent=name;
   document.getElementById('gsIcon').textContent=icon;
-  // Mark active
   document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));
   el.classList.add('gd-active');
-  // Close dropdown
   document.getElementById('gsBtn').classList.remove('open');
   document.getElementById('gsDrop').classList.remove('open');
 
-  // Show/hide sections
-  const content=document.querySelector('.content');
   if(key==='all'){
-    ALL_SECTION_IDS.forEach(id=>{
-      const sec=document.getElementById(id);
-      if(sec){sec.style.display=''; const dl=sec.nextElementSibling; if(dl&&dl.classList.contains('div-line')) dl.style.display='';}
-    });
+    ALL_SECTION_IDS.forEach(id=>{const sec=document.getElementById(id);if(sec){sec.style.display='';const dl=sec.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display='';}});
   } else {
-    ALL_SECTION_IDS.forEach(id=>{
-      const sec=document.getElementById(id);
-      if(!sec) return;
-      const show=(id===key)||(key==='robux'&&id==='robux')||(key==='reviews'&&id==='reviews');
-      sec.style.display=show?'':'none';
-      const dl=sec.nextElementSibling;
-      if(dl&&dl.classList.contains('div-line')) dl.style.display=show?'':'none';
-    });
+    ALL_SECTION_IDS.forEach(id=>{const sec=document.getElementById(id);if(!sec)return;const show=id===key;sec.style.display=show?'':'none';const dl=sec.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
   }
 
-  // Sub filter bar
-  const bar=document.getElementById('subBar');
   const scroll=document.getElementById('gsSubScroll');
+  const bar=document.getElementById('subBar');
   const subs=GAME_SUBS[key]||[];
   if(subs.length){
-    scroll.innerHTML=subs.map((s,i)=>
-      `<button class="sf-btn${i===0?' sf-active':''}" onclick="${s.fn}(this,'${s.val}')">${s.label}</button>`
-    ).join('');
+    scroll.innerHTML=subs.map((s,i)=>`<button class="sf-btn${i===0?' sf-active':''}" onclick="${s.fn}(this,'${s.val}')">${s.label}</button>`).join('');
     bar.classList.add('open');
   } else {
-    scroll.innerHTML='';
-    bar.classList.remove('open');
+    scroll.innerHTML='';bar.classList.remove('open');
   }
-
-  // Scroll to section
-  if(key!=='all'){
-    const sec=document.getElementById(key);
-    if(sec) setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
-  }
+  if(key!=='all'){const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);}
 }
 
 function applySort(el,type){
-  currentSort=type;
   document.getElementById('sortLabel').textContent={default:'Sort',low:'Low → High',high:'High → Low'}[type];
   document.querySelectorAll('.sort-drop .gd-item').forEach(i=>i.classList.remove('gd-active'));
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  // Sort all visible grids
-  const grids=['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid'];
-  grids.forEach(gid=>{
-    const grid=document.getElementById(gid);
-    if(!grid) return;
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid'].forEach(gid=>{
+    const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
       const pa=parseFloat((a.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
       const pb=parseFloat((b.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
-      if(type==='low') return pa-pb;
-      if(type==='high') return pb-pa;
-      return 0;
+      return type==='low'?pa-pb:type==='high'?pb-pa:0;
     });
     cards.forEach(c=>grid.appendChild(c));
   });
 }
 
-// Close dropdowns on outside click
 document.addEventListener('click',function(e){
-  if(!document.getElementById('gsWrap').contains(e.target)){
-    document.getElementById('gsBtn').classList.remove('open');
-    document.getElementById('gsDrop').classList.remove('open');
-  }
-  if(!document.getElementById('sortWrap').contains(e.target)){
-    document.getElementById('sortBtn').classList.remove('open');
-    document.getElementById('sortDrop').classList.remove('open');
-  }
+  if(!document.getElementById('gsWrap').contains(e.target)){document.getElementById('gsBtn').classList.remove('open');document.getElementById('gsDrop').classList.remove('open');}
+  if(!document.getElementById('sortWrap').contains(e.target)){document.getElementById('sortBtn').classList.remove('open');document.getElementById('sortDrop').classList.remove('open');}
 });
-// ── CRYPTO MODAL ─────────────────────────────────────────────
-let _cryptoCurrent = '';
 
+// ── CRYPTO MODAL ──────────────────────────────────────────────
+let _cryptoCurrent='';
 function openCryptoModal(){
-  const modal = document.getElementById('cryptoModal');
-  modal.style.display = 'flex';
+  document.getElementById('cryptoModal').style.display='flex';
   buildCryptoTabs();
 }
-function closeCryptoModal(){
-  document.getElementById('cryptoModal').style.display = 'none';
-}
+function closeCryptoModal(){document.getElementById('cryptoModal').style.display='none';}
 function buildCryptoTabs(){
-  const tabs = document.getElementById('cryptoTabs');
-  const coins = Object.keys(CRYPTO_WALLETS).filter(k => CRYPTO_WALLETS[k]);
-  if(!coins.length){
-    tabs.innerHTML = '<div style="font-family:Rajdhani,sans-serif;color:rgba(255,255,255,.4);font-size:13px;text-align:center">No wallet addresses configured yet.<br>Add them in the EDIT ZONE at top of the script.</div>';
-    return;
-  }
-  tabs.innerHTML = coins.map((c,i) =>
-    `<button class="crypto-tab${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)"
-      style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;
-      font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);
-      background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};
-      color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`
-  ).join('');
-  if(coins.length) selectCoin(coins[0], tabs.children[0]);
+  const tabs=document.getElementById('cryptoTabs');
+  const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
+  if(!coins.length){tabs.innerHTML='<div style="font-family:Rajdhani,sans-serif;color:rgba(255,255,255,.4);font-size:13px;text-align:center">No wallet addresses configured yet.</div>';return;}
+  tabs.innerHTML=coins.map((c,i)=>`<button class="crypto-tab${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)" style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`).join('');
+  if(coins.length) selectCoin(coins[0],tabs.children[0]);
 }
-function selectCoin(coin, btn){
-  _cryptoCurrent = CRYPTO_WALLETS[coin] || '';
-  document.querySelectorAll('.crypto-tab').forEach(b=>{
-    b.style.background='rgba(255,255,255,.05)';b.style.color='rgba(255,255,255,.5)';
-  });
+function selectCoin(coin,btn){
+  _cryptoCurrent=CRYPTO_WALLETS[coin]||'';
+  document.querySelectorAll('.crypto-tab').forEach(b=>{b.style.background='rgba(255,255,255,.05)';b.style.color='rgba(255,255,255,.5)';});
   btn.style.background='rgba(147,51,234,.3)';btn.style.color='#fff';
-  document.getElementById('cryptoCoinLabel').textContent = coin + ' ADDRESS';
-  document.getElementById('cryptoAddr').textContent = _cryptoCurrent || 'No address set';
+  document.getElementById('cryptoCoinLabel').textContent=coin+' ADDRESS';
+  document.getElementById('cryptoAddr').textContent=_cryptoCurrent||'No address set';
   drawQR(_cryptoCurrent);
 }
 function copyCryptoAddr(){
   if(!_cryptoCurrent) return;
   navigator.clipboard.writeText(_cryptoCurrent).then(()=>{
-    const btn = document.getElementById('cryptoCopyBtn');
-    btn.textContent = '\u2705 Copied!';
-    btn.style.background = 'rgba(0,200,100,.25)';
-    setTimeout(()=>{btn.textContent='\ud83d\udccb Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
+    const btn=document.getElementById('cryptoCopyBtn');
+    btn.textContent='✅ Copied!';btn.style.background='rgba(0,200,100,.25)';
+    setTimeout(()=>{btn.textContent='📋 Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
   });
 }
 function drawQR(address){
-  const qr = document.getElementById('cryptoQR');
-  if(!address){ qr.innerHTML=''; return; }
+  const qr=document.getElementById('cryptoQR');
+  if(!address){qr.innerHTML='';return;}
   const url='https://api.qrserver.com/v1/create-qr-code/?size=148x148&data='+encodeURIComponent(address)+'&bgcolor=ffffff&color=000000&margin=4';
   qr.innerHTML='<img src="'+url+'" width="148" height="148" style="border-radius:6px" alt="QR"/>';
 }
-document.addEventListener('DOMContentLoaded',function(){
-  const m=document.getElementById('cryptoModal');
-  if(m) m.addEventListener('click',function(e){ if(e.target===this) closeCryptoModal(); });
-});
+document.getElementById('cryptoModal').addEventListener('click',function(e){if(e.target===this)closeCryptoModal();});
 
+// Crypto pay flow — after user shows proof
+window._cryptoPaidHandler = function(){
+  if(!discordLinked){alert('⚠️ Please link your Discord first!');return;}
+  const u=document.getElementById('rblxIn').value.trim();
+  const e=document.getElementById('emailIn').value.trim();
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const disc=promoApplied?sub*(promoPct/100):0;
+  const after=sub-disc,fee=after*.03,tot=Number((after+fee).toFixed(2));
+  fireOrderWebhook({robloxUsername:u,email:e,total:tot,paymentMethod:'crypto',items:cart,discordUser});
+  closeCryptoModal();
+  document.getElementById('coBody').style.display='none';
+  document.getElementById('coSucc').classList.add('show');
+  ['cs1','cs2','cs3'].forEach(s=>{const el=document.getElementById(s);el.className='co-s don';el.textContent='✓';});
+  cart=[];updateCartUI();
+};
 
+// ── INIT ──────────────────────────────────────────────────────
+function init(){
+  renderRobux();renderBF();renderBS();
+  document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard({...i,sub:i.cat},'gag','g-gag')).join('');
+  document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');
+  document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');
+  document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');
+  document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');
+  document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');
+  document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
+  buildSearchIndex();
+  const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
+}
+init();
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();}});
+
+// ── BRANDING ──────────────────────────────────────────────────
+(function applyBranding(){
+  if(SITE_FAVICON){let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);}
+  if(SITE_LOGO_URL){const img=document.getElementById('navLogoImg');const txt=document.getElementById('navLogoText');img.src=SITE_LOGO_URL;img.style.display='inline-block';if(txt)txt.style.display='none';}
+  document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
+  document.getElementById('discAuthBtn').setAttribute('data-realurl',VAULTCORD_AUTH_URL);
+})();
 </script>
-
-<!-- CRYPTO MODAL -->
-<div id="cryptoModal" style="display:none;position:fixed;inset:0;z-index:2000;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
-  align-items:center;justify-content:center">
-  <div style="background:rgba(8,3,22,.98);border:1px solid rgba(147,51,234,.4);
-    border-radius:16px;padding:28px;max-width:420px;width:90%;
-    box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative">
-    <button onclick="closeCryptoModal()" style="position:absolute;top:14px;right:14px;
-      background:rgba(255,255,255,.07);border:none;color:#fff;width:30px;height:30px;
-      border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;
-      justify-content:center">✕</button>
-    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;
-      color:#fff;margin-bottom:4px">₿ Pay with Crypto</div>
-    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;
-      color:rgba(255,255,255,.4);margin-bottom:20px;letter-spacing:1px">
-      SEND EXACT AMOUNT · CREATE A TICKET IN ORDERS IN OUR DISCORD AND SEND YOUR ORDER KEY AFTER PAYING</div>
-
-    <!-- coin tabs -->
-    <div id="cryptoTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px"></div>
-
-    <!-- address area -->
-    <div id="cryptoAddrWrap">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
-        letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:8px"
-        id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
-      <!-- QR -->
-      <div id="cryptoQR" style="width:160px;height:160px;margin:0 auto 14px;
-        background:#fff;border-radius:10px;display:flex;align-items:center;
-        justify-content:center;font-size:11px;color:#555;padding:6px">
-        <canvas id="qrCanvas" width="148" height="148"></canvas>
-      </div>
-      <!-- address -->
-      <div style="display:flex;gap:8px;align-items:center">
-        <div id="cryptoAddr" style="flex:1;background:rgba(255,255,255,.05);
-          border:1px solid rgba(255,255,255,.1);border-radius:8px;
-          padding:10px 12px;font-family:monospace;font-size:11px;
-          color:rgba(255,255,255,.7);word-break:break-all;min-height:38px;
-          letter-spacing:.5px">Select a coin to see address</div>
-        <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" style="padding:10px 14px;
-          background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);
-          border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;
-          font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s">
-          📋 Copy</button>
-      </div>
-    </div>
-
-    <div style="margin-top:16px;padding:10px;background:rgba(255,160,0,.07);
-      border:1px solid rgba(255,160,0,.2);border-radius:8px;
-      font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,200,80,.8);
-      text-align:center">
-      ⚠️ After sending, DM us on Discord with proof of payment
-    </div>
-  </div>
-</div>
-
 </body>
 </html>

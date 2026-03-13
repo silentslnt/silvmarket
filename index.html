@@ -516,6 +516,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px}
 .p-pp{background:linear-gradient(135deg,#009cde,#003087);color:#fff;box-shadow:0 0 22px rgba(0,112,186,.28)}
 .p-cr{background:linear-gradient(135deg,var(--yellow),#a16207);color:#000;box-shadow:0 0 22px rgba(255,215,0,.28)}
+.p-dc{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 22px rgba(255,255,255,.08)}
 .pay-btn:hover{transform:translateY(-2px)}
 .pay-btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
 .pay-note{text-align:center;font-size:10px;color:rgba(255,255,255,.2);margin-top:7px;line-height:1.5;font-family:'Rajdhani',sans-serif}
@@ -1094,8 +1095,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         </div>
 
         <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:11px">Payment Method</div>
-        <div class="pm-grid">
+        <div class="pm-grid" style="grid-template-columns:1fr 1fr 1fr">
           <div class="pm spp" id="pm-pp" onclick="selPayMethod('pp')"><div class="pm-ico">💙</div><div class="pm-nm">PayPal</div></div>
+          <div class="pm" id="pm-dc" onclick="selPayMethod('dc')"><div class="pm-ico">💳</div><div class="pm-nm">Debit Card</div></div>
           <div class="pm" id="pm-cr" onclick="selPayMethod('cr')"><div class="pm-ico">₿</div><div class="pm-nm">Crypto</div></div>
         </div>
         <button class="pay-btn p-pp" id="payNow" onclick="payNow()" disabled>🔒 Link Discord First</button>
@@ -1198,9 +1200,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <button onclick="copyOrderId()" id="copyOrderIdBtn" style="padding:8px 18px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.3);border-radius:8px;color:#ffd700;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px">📋 Copy ID</button>
     </div>
 
-    <div style="background:rgba(88,101,242,.07);border:1px solid rgba(88,101,242,.2);border-radius:10px;padding:12px;margin-bottom:18px;font-size:12px;color:rgba(255,255,255,.45);font-family:'Rajdhani',sans-serif;line-height:1.6">
+    <div style="background:rgba(88,101,242,.07);border:1px solid rgba(88,101,242,.2);border-radius:10px;padding:12px;margin-bottom:18px;font-size:12px;color:rgba(255,255,255,.45);font-family:'Rajdhani',sans-serif;line-height:1.6" id="successConfirmedNote">
       📧 A receipt has been emailed to you<br>
       💬 A ticket has been opened in Discord — check your server!
+    </div>
+    <div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.25);border-radius:10px;padding:12px;margin-bottom:18px;font-size:12px;color:rgba(255,200,100,.7);font-family:'Rajdhani',sans-serif;line-height:1.6;display:none" id="successPendingNote">
+      ⏳ <strong style="color:#ffd700">Payment pending staff verification.</strong><br>
+      Staff will confirm your payment and open your delivery ticket shortly.<br>
+      Save your Order ID above as proof — you'll need it in Discord.
     </div>
 
     <a id="succDiscLink" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;
@@ -1244,7 +1251,11 @@ const CRYPTO_WALLETS = {
 };
 
 const PAY_LINKS = {
-  pp: 'https://www.paypal.me/Tariqjordg',
+  // ✏️ PayPal: your business email — buyers send to this address
+  // Format: paypal.com/pay?email=YOUR_EMAIL&amount=TOTAL&currencyCode=USD
+  pp: 'andreaskk112@gmail.com',  // ← replace with your PayPal business email
+  // ✏️ Debit: paste your Stripe payment link here (one-time setup at stripe.com)
+  dc: 'https://buy.stripe.com/YOUR_STRIPE_LINK', // ← replace with your Stripe link
   cr: '#crypto',
 };
 
@@ -1451,9 +1462,9 @@ let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
 let _authWindow = null;
 let _authCheckInterval = null;
-const PAY_LABELS = {pp:'💙 Pay with PayPal',cr:'₿ Pay with Crypto'};
-const PAY_CLS = {pp:'p-pp',cr:'p-cr'};
-const PM_SEL = {pp:'spp',cr:'scr'};
+const PAY_LABELS = {pp:'💙 Pay with PayPal',dc:'💳 Pay with Debit Card',cr:'₿ Pay with Crypto'};
+const PAY_CLS    = {pp:'p-pp',dc:'p-dc',cr:'p-cr'};
+const PM_SEL     = {pp:'spp',dc:'sdc',cr:'scr'};
 
 // ── BADGE HELPERS ─────────────────────────────────────────────
 const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sale',best:'b-best',oos:'b-oos',rare:'b-rare',perm:'b-perm',bundle:'b-new',popular:'b-hot'};
@@ -2064,7 +2075,7 @@ function applyPromo(){
 
 function selPayMethod(m){
   selectedPayMethod=m;
-  ['pp','cr'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
+  ['pp','dc','cr'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
   if(discordLinked){
     const btn=document.getElementById('payNow');
     btn.className='pay-btn '+PAY_CLS[m];
@@ -2107,53 +2118,72 @@ function payNow(){
     return;
   }
 
-  // PayPal — open with exact total, then show "I've paid" confirmation
   const tot=calcTotal();
-  const ppUrl=`${PAY_LINKS.pp}/${tot}USD`;
-  window.open(ppUrl,'_blank');
-  showPayPalConfirm(u, e, tot);
+
+  if(selectedPayMethod==='pp'){
+    // PayPal — build send money link using business email
+    const email=PAY_LINKS.pp;
+    const ppUrl=`https://www.paypal.com/pay?email=${encodeURIComponent(email)}&amount=${tot}&currencyCode=USD`;
+    window.open(ppUrl,'_blank');
+    showManualConfirm(u, e, tot, 'PayPal', ppUrl);
+    return;
+  }
+
+  if(selectedPayMethod==='dc'){
+    // Debit card via Stripe — open Stripe link, staff verifies
+    const stripeUrl = PAY_LINKS.dc;
+    window.open(stripeUrl,'_blank');
+    showManualConfirm(u, e, tot, 'Debit Card', stripeUrl);
+    return;
+  }
 }
 
-function showPayPalConfirm(rblxUser, email, tot){
-  // Replace pay button with a "I've sent the PayPal payment" confirmation
+// ── MANUAL CONFIRM (PayPal + Debit — staff verifies) ─────────
+function showManualConfirm(rblxUser, email, tot, method, payUrl){
   const btn=document.getElementById('payNow');
-  btn.innerHTML='⏳ Waiting for your PayPal payment…';
+  btn.innerHTML=`⏳ Waiting for ${method} payment…`;
   btn.disabled=true;
 
-  // Add a confirm button below
   const existing=document.getElementById('ppConfirmBtn');
   if(existing) existing.remove();
+  const existNote=document.getElementById('ppConfirmNote');
+  if(existNote) existNote.remove();
+
   const conf=document.createElement('button');
   conf.id='ppConfirmBtn';
-  conf.className='pay-btn p-pp';
+  conf.className=`pay-btn ${method==='PayPal'?'p-pp':'p-dc'}`;
   conf.style.marginTop='8px';
-  conf.innerHTML='✅ I\'ve Sent the PayPal Payment';
-  conf.onclick=()=>completePayPalOrder(rblxUser, email, tot);
+  conf.innerHTML=`✅ I've Sent the ${method} Payment`;
+  conf.onclick=()=>submitPendingOrder(rblxUser, email, tot, method);
   btn.parentNode.insertBefore(conf, btn.nextSibling);
 
   const note=document.createElement('div');
-  note.style.cssText='font-size:10px;color:rgba(255,255,255,.22);text-align:center;margin-top:6px;font-family:Rajdhani,sans-serif;line-height:1.5';
-  note.textContent='After paying on PayPal, click above. Your order ID and ticket will be created instantly.';
+  note.id='ppConfirmNote';
+  note.style.cssText='font-size:10px;color:rgba(255,255,255,.22);text-align:center;margin-top:6px;font-family:Rajdhani,sans-serif;line-height:1.6';
+  note.innerHTML=`After paying, click above. Staff will verify your payment and deliver within minutes.<br>Total to send: <strong style="color:#ffd700">$${tot}</strong>`;
   conf.parentNode.insertBefore(note, conf.nextSibling);
 }
 
-async function completePayPalOrder(rblxUser, email, tot){
+// ── PENDING ORDER (PayPal/Debit — queued for staff verification)
+async function submitPendingOrder(rblxUser, email, tot, method){
   const orderId=genOrderId();
   const claimKey=genClaimKey();
 
-  // Fire to bot
+  // Fire to bot — bot posts to #pending-verification channel for staff to confirm
   const botResp=await fireOrderWebhook({
     robloxUsername:rblxUser, email, total:tot,
-    paymentMethod:'PayPal', items:cart, discordUser,
-    orderId, claimKey, promoCode: promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
+    paymentMethod:method,
+    paymentStatus:'pending_verification', // ← staff must confirm
+    items:cart, discordUser,
+    orderId, claimKey,
+    promoCode: promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
   });
 
-  // Use orderId from bot if returned, else use local
-  const finalOrderId = (botResp&&botResp.orderId) ? botResp.orderId : orderId;
-  const finalClaimKey = (botResp&&botResp.claimKey) ? botResp.claimKey : claimKey;
+  const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
+  const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
 
   closeCO();
-  showOrderSuccess(finalOrderId, finalClaimKey);
+  showOrderSuccess(finalOrderId, finalClaimKey, /*pending=*/true);
   cart=[]; updateCartUI();
 }
 
@@ -2171,6 +2201,7 @@ async function fireOrderWebhook(orderData){
       orderId:        orderData.orderId || null,
       claimKey:       orderData.claimKey || null,
       promoCode:      orderData.promoCode || null,
+      paymentStatus:  orderData.paymentStatus || 'completed',
       timestamp:      new Date().toISOString(),
     };
     const resp=await fetch(BOT_WEBHOOK_URL,{
@@ -2186,9 +2217,21 @@ async function fireOrderWebhook(orderData){
 }
 
 // ── ORDER SUCCESS OVERLAY ─────────────────────────────────────
-function showOrderSuccess(orderId, claimKey){
+function showOrderSuccess(orderId, claimKey, pending){
   document.getElementById('successOrderId').textContent = orderId + ' · ' + claimKey;
   document.getElementById('succDiscLink').href = DISCORD_INVITE;
+
+  // Update messaging based on pending vs confirmed
+  const pendingNote = document.getElementById('successPendingNote');
+  const confirmedNote = document.getElementById('successConfirmedNote');
+  if(pending){
+    if(pendingNote) pendingNote.style.display='block';
+    if(confirmedNote) confirmedNote.style.display='none';
+  } else {
+    if(pendingNote) pendingNote.style.display='none';
+    if(confirmedNote) confirmedNote.style.display='block';
+  }
+
   const overlay=document.getElementById('orderSuccessOverlay');
   overlay.style.display='flex';
 }

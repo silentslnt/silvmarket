@@ -2175,7 +2175,7 @@ async function fireOrderWebhook(orderData){
     };
     const resp=await fetch(BOT_WEBHOOK_URL,{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-webhook-secret':BOT_WEBHOOK_SECRET},
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
       body:JSON.stringify(payload),
     });
     if(resp.ok) return await resp.json();

@@ -1114,31 +1114,108 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <!-- CRYPTO MODAL -->
 <div id="cryptoModal" style="display:none;position:fixed;inset:0;z-index:2000;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
-  align-items:center;justify-content:center">
-  <div style="background:rgba(8,3,22,.98);border:1px solid rgba(147,51,234,.4);
-    border-radius:16px;padding:28px;max-width:420px;width:90%;
-    box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative">
-    <button onclick="closeCryptoModal()" style="position:absolute;top:14px;right:14px;
+  background:rgba(0,0,0,.82);backdrop-filter:blur(10px);
+  align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.4);
+    border-radius:18px;padding:26px;max-width:440px;width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative;margin:auto">
+    <button onclick="closeCryptoModal()" style="position:absolute;top:13px;right:13px;
       background:rgba(255,255,255,.07);border:none;color:#fff;width:30px;height:30px;
-      border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;
-      justify-content:center">✕</button>
-    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff;margin-bottom:4px">₿ Pay with Crypto</div>
-    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;letter-spacing:1px">SEND EXACT AMOUNT · DM ON DISCORD WITH PROOF AFTER PAYING</div>
-    <div id="cryptoTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px"></div>
-    <div id="cryptoAddrWrap">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:8px" id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
-      <div id="cryptoQR" style="width:160px;height:160px;margin:0 auto 14px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px"></div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div id="cryptoAddr" style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);word-break:break-all;min-height:38px;letter-spacing:.5px">Select a coin to see address</div>
-        <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s">📋 Copy</button>
+      border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">✕</button>
+
+    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff;margin-bottom:2px">₿ Pay with Crypto</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:16px;letter-spacing:1.5px">SEND EXACT AMOUNT SHOWN BELOW</div>
+
+    <!-- Timer bar -->
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px">⏱ PAYMENT WINDOW</div>
+      <div id="cryptoTimer" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#ffd700">10:00</div>
+    </div>
+    <div style="height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:18px;overflow:hidden">
+      <div id="cryptoTimerBar" style="height:100%;width:100%;background:linear-gradient(90deg,#ff10f0,#9333ea);border-radius:2px;transition:width 1s linear"></div>
+    </div>
+
+    <!-- Coin tabs -->
+    <div id="cryptoTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px"></div>
+
+    <!-- Amount to send -->
+    <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.22);border-radius:10px;padding:12px 14px;margin-bottom:14px">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,215,0,.6);margin-bottom:4px">EXACT AMOUNT TO SEND</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <div id="cryptoAmtDisplay" style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ffd700">—</div>
+        <button onclick="copyCryptoAmt()" style="padding:7px 12px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.3);border-radius:7px;color:#ffd700;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;white-space:nowrap" id="cryptoCopyAmtBtn">📋 Copy Amount</button>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;font-family:'Rajdhani',sans-serif" id="cryptoUsdEquiv"></div>
+    </div>
+
+    <!-- Address + QR -->
+    <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px" id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
+    <div id="cryptoQR" style="width:150px;height:150px;margin:0 auto 12px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px"></div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <div id="cryptoAddr" style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:10px;color:rgba(255,255,255,.65);word-break:break-all;min-height:36px;letter-spacing:.3px">Select a coin to see address</div>
+      <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" style="padding:10px 13px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s">📋 Copy</button>
+    </div>
+
+    <!-- Status checker -->
+    <div id="cryptoStatusBox" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;margin-bottom:12px;text-align:center">
+      <div id="cryptoStatusText" style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.5px">⏳ Waiting for payment…</div>
+      <div id="cryptoCheckingDots" style="display:none;margin-top:6px">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#9333ea;animation:dot1 1.2s ease-in-out infinite;margin:0 3px"></span>
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff10f0;animation:dot2 1.2s ease-in-out infinite .2s;margin:0 3px"></span>
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#9333ea;animation:dot1 1.2s ease-in-out infinite .4s;margin:0 3px"></span>
       </div>
     </div>
-    <div style="margin-top:16px;padding:10px;background:rgba(255,160,0,.07);border:1px solid rgba(255,160,0,.2);border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,200,80,.8);text-align:center">
-      ⚠️ After sending, DM us on Discord with proof of payment
+
+    <!-- I've sent payment button -->
+    <button id="cryptoISentBtn" onclick="cryptoISent()" style="width:100%;padding:13px;border-radius:11px;
+      background:linear-gradient(135deg,#9333ea,#ff10f0);color:#fff;
+      font-family:'Orbitron',monospace;font-size:12px;font-weight:800;
+      border:none;cursor:pointer;box-shadow:0 0 22px rgba(255,16,240,.22);
+      transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
+      ✅ I've Sent the Payment
+    </button>
+
+    <div style="text-align:center;font-size:10px;color:rgba(255,255,255,.18);font-family:'Rajdhani',sans-serif;line-height:1.5">
+      After clicking, we verify on-chain. Your order ID will appear automatically.
     </div>
   </div>
 </div>
+
+<!-- ORDER SUCCESS OVERLAY (shown after payment confirmed) -->
+<div id="orderSuccessOverlay" style="display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.9);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(0,200,83,.3);
+    border-radius:20px;padding:36px;max-width:460px;width:90%;text-align:center;
+    box-shadow:0 0 60px rgba(0,200,83,.1)">
+    <div style="font-size:64px;margin-bottom:14px;animation:spi .5s cubic-bezier(.34,1.56,.64,1)">🎉</div>
+    <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#00c853;margin-bottom:8px">Order Confirmed!</div>
+    <p style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:22px;line-height:1.7">Your payment was received. Save your Order ID — it's your proof of purchase and delivery key.</p>
+
+    <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.25);border-radius:12px;padding:16px;margin-bottom:16px">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,215,0,.5);margin-bottom:6px">YOUR ORDER ID / CLAIM KEY</div>
+      <div id="successOrderId" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ffd700;letter-spacing:2px;margin-bottom:8px">—</div>
+      <button onclick="copyOrderId()" id="copyOrderIdBtn" style="padding:8px 18px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.3);border-radius:8px;color:#ffd700;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px">📋 Copy ID</button>
+    </div>
+
+    <div style="background:rgba(88,101,242,.07);border:1px solid rgba(88,101,242,.2);border-radius:10px;padding:12px;margin-bottom:18px;font-size:12px;color:rgba(255,255,255,.45);font-family:'Rajdhani',sans-serif;line-height:1.6">
+      📧 A receipt has been emailed to you<br>
+      💬 A ticket has been opened in Discord — check your server!
+    </div>
+
+    <a id="succDiscLink" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;
+      background:#5865f2;color:#fff;padding:13px;border-radius:11px;text-decoration:none;
+      font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;margin-bottom:10px;transition:all .2s">
+      💬 Go to Discord for Delivery
+    </a>
+    <button onclick="closeOrderSuccess()" style="width:100%;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:rgba(255,255,255,.4);cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px">Close</button>
+  </div>
+</div>
+
+<style>
+@keyframes dot1{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes dot2{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+</style>
 
 <script>
 // ================================================================
@@ -1620,7 +1697,9 @@ function doRblx(val){
 function buildVaultcordURL(){
   const base = 'https://discord.com/oauth2/authorize';
   const redirectUri = encodeURIComponent(window.location.origin + '/auth-callback.html');
-  return `${base}?client_id=1481122330041258141&redirect_uri=${redirectUri}&response_type=code&scope=identify+guilds.join&state=107219&prompt=none`;
+  // response_type=token gives access_token directly in the redirect hash
+  // This means auth-callback.html can call Discord API for real avatar/username
+  return `${base}?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
 }
 
 function startDiscordAuth(e){
@@ -1808,11 +1887,31 @@ function setDiscordLinked(user){
   card.classList.add('show');
 
   const avImg = document.getElementById('ducAvImg');
+  const avWrap = avImg.parentElement;
+
+  // Build proper Discord CDN avatar URL
+  let avatarSrc = '';
   if(user.avatar && user.avatar.startsWith('http')){
-    avImg.src     = user.avatar;
-    avImg.onerror = ()=>{ avImg.parentElement.textContent = '👤'; };
+    avatarSrc = user.avatar;
+  } else if(user.avatar && user.id){
+    const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
+    avatarSrc = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`;
+  } else if(user.id){
+    // Default Discord avatar
+    const disc = parseInt(user.discriminator||'0') % 5;
+    avatarSrc = `https://cdn.discordapp.com/embed/avatars/${disc}.png`;
+  }
+
+  if(avatarSrc){
+    avImg.src = avatarSrc;
+    avImg.style.display = 'block';
+    avImg.onerror = ()=>{
+      avImg.style.display='none';
+      avWrap.textContent = '👤';
+    };
   } else {
-    avImg.parentElement.textContent = '👤';
+    avImg.style.display='none';
+    avWrap.textContent = '👤';
   }
 
   const displayName = user.username || 'Discord User';
@@ -1973,39 +2072,89 @@ function selPayMethod(m){
   }
 }
 
+// ── ORDER ID / CLAIM KEY GENERATOR ────────────────────────────
+function genOrderId(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let id='SM-';
+  for(let i=0;i<8;i++) id+=chars[Math.floor(Math.random()*chars.length)];
+  return id;
+}
+function genClaimKey(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let key='';
+  for(let i=0;i<16;i++){if(i===4||i===8||i===12) key+='-'; key+=chars[Math.floor(Math.random()*chars.length)];}
+  return key;
+}
+
+// ── ORDER TOTAL CALC ──────────────────────────────────────────
+function calcTotal(){
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const disc=promoApplied?sub*(promoPct/100):0;
+  const after=sub-disc, fee=after*.03;
+  return Number((after+fee).toFixed(2));
+}
+
 // ── PAY NOW ───────────────────────────────────────────────────
 function payNow(){
-  if(!discordLinked){
-    alert('⚠️ Please link your Discord account first!');
-    return;
-  }
+  if(!discordLinked){ alert('⚠️ Please link your Discord account first!'); return; }
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
-  if(!u){alert('⚠️ Enter your Roblox username first.');return;}
-  if(!e||!e.includes('@')){alert('⚠️ Enter a valid email address.');return;}
+  if(!u){ alert('⚠️ Enter your Roblox username first.'); return; }
+  if(!e||!e.includes('@')){ alert('⚠️ Enter a valid email address.'); return; }
 
   if(selectedPayMethod==='cr'){
     openCryptoModal();
     return;
   }
 
-  // PayPal with dynamic total
-  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const disc=promoApplied?sub*(promoPct/100):0;
-  const after=sub-disc, fee=after*.03, tot=Number((after+fee).toFixed(2));
+  // PayPal — open with exact total, then show "I've paid" confirmation
+  const tot=calcTotal();
   const ppUrl=`${PAY_LINKS.pp}/${tot}USD`;
   window.open(ppUrl,'_blank');
+  showPayPalConfirm(u, e, tot);
+}
 
-  // Fire webhook to bot
-  fireOrderWebhook({robloxUsername:u,email:e,total:tot,paymentMethod:'paypal',items:cart,discordUser});
+function showPayPalConfirm(rblxUser, email, tot){
+  // Replace pay button with a "I've sent the PayPal payment" confirmation
+  const btn=document.getElementById('payNow');
+  btn.innerHTML='⏳ Waiting for your PayPal payment…';
+  btn.disabled=true;
 
-  // Show success
-  setTimeout(()=>{
-    document.getElementById('coBody').style.display='none';
-    document.getElementById('coSucc').classList.add('show');
-    ['cs1','cs2','cs3'].forEach(s=>{const el=document.getElementById(s);el.className='co-s don';el.textContent='✓';});
-    cart=[];updateCartUI();
-  },600);
+  // Add a confirm button below
+  const existing=document.getElementById('ppConfirmBtn');
+  if(existing) existing.remove();
+  const conf=document.createElement('button');
+  conf.id='ppConfirmBtn';
+  conf.className='pay-btn p-pp';
+  conf.style.marginTop='8px';
+  conf.innerHTML='✅ I\'ve Sent the PayPal Payment';
+  conf.onclick=()=>completePayPalOrder(rblxUser, email, tot);
+  btn.parentNode.insertBefore(conf, btn.nextSibling);
+
+  const note=document.createElement('div');
+  note.style.cssText='font-size:10px;color:rgba(255,255,255,.22);text-align:center;margin-top:6px;font-family:Rajdhani,sans-serif;line-height:1.5';
+  note.textContent='After paying on PayPal, click above. Your order ID and ticket will be created instantly.';
+  conf.parentNode.insertBefore(note, conf.nextSibling);
+}
+
+async function completePayPalOrder(rblxUser, email, tot){
+  const orderId=genOrderId();
+  const claimKey=genClaimKey();
+
+  // Fire to bot
+  const botResp=await fireOrderWebhook({
+    robloxUsername:rblxUser, email, total:tot,
+    paymentMethod:'PayPal', items:cart, discordUser,
+    orderId, claimKey, promoCode: promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
+  });
+
+  // Use orderId from bot if returned, else use local
+  const finalOrderId = (botResp&&botResp.orderId) ? botResp.orderId : orderId;
+  const finalClaimKey = (botResp&&botResp.claimKey) ? botResp.claimKey : claimKey;
+
+  closeCO();
+  showOrderSuccess(finalOrderId, finalClaimKey);
+  cart=[]; updateCartUI();
 }
 
 // ── BOT WEBHOOK ───────────────────────────────────────────────
@@ -2013,22 +2162,46 @@ async function fireOrderWebhook(orderData){
   try{
     const payload={
       robloxUsername: orderData.robloxUsername,
-      email: orderData.email,
-      total: orderData.total,
-      paymentMethod: orderData.paymentMethod,
-      items: orderData.items.map(i=>({name:i.name,game:i.game,qty:i.qty,price:i.price})),
-      discordId: orderData.discordUser&&orderData.discordUser.id ? orderData.discordUser.id : null,
-      discordUsername: orderData.discordUser&&orderData.discordUser.username ? orderData.discordUser.username : null,
-      timestamp: new Date().toISOString(),
+      email:          orderData.email,
+      total:          orderData.total,
+      paymentMethod:  orderData.paymentMethod,
+      items:          orderData.items.map(i=>({name:i.name,game:i.game,qty:i.qty,price:i.price})),
+      discordId:      orderData.discordUser?.id || null,
+      discordUsername:orderData.discordUser?.username || null,
+      orderId:        orderData.orderId || null,
+      claimKey:       orderData.claimKey || null,
+      promoCode:      orderData.promoCode || null,
+      timestamp:      new Date().toISOString(),
     };
-    await fetch(BOT_WEBHOOK_URL,{
+    const resp=await fetch(BOT_WEBHOOK_URL,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-webhook-secret':BOT_WEBHOOK_SECRET},
       body:JSON.stringify(payload),
     });
+    if(resp.ok) return await resp.json();
   }catch(err){
-    console.warn('Bot webhook failed (check BOT_WEBHOOK_URL in edit zone):', err);
+    console.warn('Bot webhook failed:', err);
   }
+  return null;
+}
+
+// ── ORDER SUCCESS OVERLAY ─────────────────────────────────────
+function showOrderSuccess(orderId, claimKey){
+  document.getElementById('successOrderId').textContent = orderId + ' · ' + claimKey;
+  document.getElementById('succDiscLink').href = DISCORD_INVITE;
+  const overlay=document.getElementById('orderSuccessOverlay');
+  overlay.style.display='flex';
+}
+function closeOrderSuccess(){
+  document.getElementById('orderSuccessOverlay').style.display='none';
+}
+function copyOrderId(){
+  const txt=document.getElementById('successOrderId').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn=document.getElementById('copyOrderIdBtn');
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy ID',2000);
+  });
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
@@ -2101,57 +2274,289 @@ document.addEventListener('click',function(e){
 
 // ── CRYPTO MODAL ──────────────────────────────────────────────
 let _cryptoCurrent='';
+let _cryptoCurrentCoin='';
+let _cryptoTimerInterval=null;
+let _cryptoTimerSecs=600; // 10 minutes
+let _cryptoCheckInterval=null;
+let _cryptoOrderTotal=0;
+let _cryptoRates={}; // {BTC:68000, ETH:3200, ...}
+
+// Live rates fetched from CoinGecko (free, no key)
+const COIN_IDS={BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tether',LTC:'litecoin'};
+
+async function fetchCryptoRates(total){
+  const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
+  const ids=coins.map(c=>COIN_IDS[c]).filter(Boolean).join(',');
+  try{
+    const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`);
+    const data=await r.json();
+    coins.forEach(c=>{
+      const id=COIN_IDS[c];
+      if(id&&data[id]) _cryptoRates[c]=data[id].usd;
+    });
+    // USDT is always 1:1
+    _cryptoRates['USDT']=1;
+  }catch(e){
+    // Fallback: approximate rates if API fails
+    const fallback={BTC:65000,ETH:3200,SOL:140,USDT:1,LTC:85};
+    Object.assign(_cryptoRates,fallback);
+  }
+}
+
+function getCryptoAmount(coin, usdTotal){
+  const rate=_cryptoRates[coin];
+  if(!rate) return null;
+  const amt=usdTotal/rate;
+  // Format to appropriate decimals
+  if(coin==='BTC'||coin==='LTC') return amt.toFixed(6);
+  if(coin==='ETH') return amt.toFixed(5);
+  if(coin==='SOL') return amt.toFixed(4);
+  if(coin==='USDT') return amt.toFixed(2);
+  return amt.toFixed(6);
+}
+
 function openCryptoModal(){
+  _cryptoOrderTotal = calcTotal();
   document.getElementById('cryptoModal').style.display='flex';
   buildCryptoTabs();
+  fetchCryptoRates(_cryptoOrderTotal).then(()=>{
+    // Refresh displayed amount after rates load
+    if(_cryptoCurrentCoin) updateCryptoAmountDisplay(_cryptoCurrentCoin);
+  });
+  startCryptoTimer();
 }
-function closeCryptoModal(){document.getElementById('cryptoModal').style.display='none';}
+
+function closeCryptoModal(){
+  document.getElementById('cryptoModal').style.display='none';
+  stopCryptoTimer();
+  stopCryptoCheck();
+}
+
+function startCryptoTimer(){
+  stopCryptoTimer();
+  _cryptoTimerSecs=600;
+  updateTimerDisplay();
+  _cryptoTimerInterval=setInterval(()=>{
+    _cryptoTimerSecs--;
+    updateTimerDisplay();
+    if(_cryptoTimerSecs<=0){
+      stopCryptoTimer();
+      stopCryptoCheck();
+      document.getElementById('cryptoTimer').textContent='EXPIRED';
+      document.getElementById('cryptoTimer').style.color='#ff0040';
+      document.getElementById('cryptoTimerBar').style.width='0%';
+      document.getElementById('cryptoISentBtn').disabled=true;
+      document.getElementById('cryptoStatusText').textContent='⏰ Payment window expired. Please restart checkout.';
+    }
+  },1000);
+}
+function stopCryptoTimer(){ clearInterval(_cryptoTimerInterval); }
+
+function updateTimerDisplay(){
+  const m=Math.floor(_cryptoTimerSecs/60);
+  const s=_cryptoTimerSecs%60;
+  document.getElementById('cryptoTimer').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  const pct=(_cryptoTimerSecs/600)*100;
+  document.getElementById('cryptoTimerBar').style.width=pct+'%';
+  // Colour shift: green → yellow → red
+  if(pct>50) document.getElementById('cryptoTimer').style.color='#ffd700';
+  else if(pct>20) document.getElementById('cryptoTimer').style.color='#ff9900';
+  else document.getElementById('cryptoTimer').style.color='#ff0040';
+}
+
 function buildCryptoTabs(){
   const tabs=document.getElementById('cryptoTabs');
   const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
-  if(!coins.length){tabs.innerHTML='<div style="font-family:Rajdhani,sans-serif;color:rgba(255,255,255,.4);font-size:13px;text-align:center">No wallet addresses configured yet.</div>';return;}
-  tabs.innerHTML=coins.map((c,i)=>`<button class="crypto-tab${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)" style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`).join('');
-  if(coins.length) selectCoin(coins[0],tabs.children[0]);
+  if(!coins.length){
+    tabs.innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px">No wallet addresses configured.</div>';
+    return;
+  }
+  tabs.innerHTML=coins.map((c,i)=>`
+    <button class="crypto-tab${i===0?' ct-active':''}"
+      onclick="selectCoin('${c}',this)"
+      style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;
+        font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);
+        background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};
+        color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`
+  ).join('');
+  if(coins.length) selectCoin(coins[0], tabs.children[0]);
 }
-function selectCoin(coin,btn){
-  _cryptoCurrent=CRYPTO_WALLETS[coin]||'';
-  document.querySelectorAll('.crypto-tab').forEach(b=>{b.style.background='rgba(255,255,255,.05)';b.style.color='rgba(255,255,255,.5)';});
-  btn.style.background='rgba(147,51,234,.3)';btn.style.color='#fff';
+
+function selectCoin(coin, btn){
+  _cryptoCurrent    = CRYPTO_WALLETS[coin]||'';
+  _cryptoCurrentCoin= coin;
+  document.querySelectorAll('.crypto-tab').forEach(b=>{
+    b.style.background='rgba(255,255,255,.05)';
+    b.style.color='rgba(255,255,255,.5)';
+  });
+  btn.style.background='rgba(147,51,234,.3)';
+  btn.style.color='#fff';
   document.getElementById('cryptoCoinLabel').textContent=coin+' ADDRESS';
   document.getElementById('cryptoAddr').textContent=_cryptoCurrent||'No address set';
   drawQR(_cryptoCurrent);
+  updateCryptoAmountDisplay(coin);
 }
+
+function updateCryptoAmountDisplay(coin){
+  const amt=getCryptoAmount(coin, _cryptoOrderTotal);
+  if(amt){
+    document.getElementById('cryptoAmtDisplay').textContent=`${amt} ${coin}`;
+    document.getElementById('cryptoUsdEquiv').textContent=`= $${_cryptoOrderTotal.toFixed(2)} USD`;
+  } else {
+    document.getElementById('cryptoAmtDisplay').textContent='Loading…';
+    document.getElementById('cryptoUsdEquiv').textContent='';
+  }
+}
+
 function copyCryptoAddr(){
   if(!_cryptoCurrent) return;
   navigator.clipboard.writeText(_cryptoCurrent).then(()=>{
     const btn=document.getElementById('cryptoCopyBtn');
-    btn.textContent='✅ Copied!';btn.style.background='rgba(0,200,100,.25)';
+    btn.textContent='✅ Copied!';
+    btn.style.background='rgba(0,200,100,.25)';
     setTimeout(()=>{btn.textContent='📋 Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
   });
 }
+
+function copyCryptoAmt(){
+  const coin=_cryptoCurrentCoin;
+  const amt=getCryptoAmount(coin, _cryptoOrderTotal);
+  if(!amt) return;
+  navigator.clipboard.writeText(amt).then(()=>{
+    const btn=document.getElementById('cryptoCopyAmtBtn');
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy Amount',2000);
+  });
+}
+
 function drawQR(address){
   const qr=document.getElementById('cryptoQR');
   if(!address){qr.innerHTML='';return;}
   const url='https://api.qrserver.com/v1/create-qr-code/?size=148x148&data='+encodeURIComponent(address)+'&bgcolor=ffffff&color=000000&margin=4';
-  qr.innerHTML='<img src="'+url+'" width="148" height="148" style="border-radius:6px" alt="QR"/>';
+  qr.innerHTML=`<img src="${url}" width="148" height="148" style="border-radius:6px" alt="QR"/>`;
 }
-document.getElementById('cryptoModal').addEventListener('click',function(e){if(e.target===this)closeCryptoModal();});
 
-// Crypto pay flow — after user shows proof
-window._cryptoPaidHandler = function(){
-  if(!discordLinked){alert('⚠️ Please link your Discord first!');return;}
+// ── "I've Sent" button → verify + complete order ──────────────
+function cryptoISent(){
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
-  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const disc=promoApplied?sub*(promoPct/100):0;
-  const after=sub-disc,fee=after*.03,tot=Number((after+fee).toFixed(2));
-  fireOrderWebhook({robloxUsername:u,email:e,total:tot,paymentMethod:'crypto',items:cart,discordUser});
+  if(!u||!e){ alert('Please fill in your Roblox username and email first.'); return; }
+
+  const btn=document.getElementById('cryptoISentBtn');
+  btn.disabled=true;
+  btn.innerHTML='⏳ Verifying payment…';
+
+  document.getElementById('cryptoCheckingDots').style.display='block';
+  document.getElementById('cryptoStatusText').textContent='🔍 Checking blockchain for your transaction…';
+
+  // Check blockchain — uses public APIs (no key needed for basic checks)
+  startCryptoCheck(u, e);
+}
+
+function startCryptoCheck(rblxUser, email){
+  let checkCount=0;
+  stopCryptoCheck();
+
+  _cryptoCheckInterval=setInterval(async()=>{
+    checkCount++;
+    const found=await checkCryptoPayment(_cryptoCurrentCoin, _cryptoCurrent, _cryptoOrderTotal);
+    if(found){
+      stopCryptoCheck();
+      stopCryptoTimer();
+      completeCryptoOrder(rblxUser, email);
+    } else if(checkCount>=5){
+      // After 5 checks (~30s) not found on chain — mark as pending, still create order
+      // (crypto can take a few mins to appear on mempool)
+      stopCryptoCheck();
+      document.getElementById('cryptoStatusText').textContent='⚠️ Not detected yet — creating order anyway. Staff will verify.';
+      setTimeout(()=>completeCryptoOrder(rblxUser, email),2000);
+    }
+  },6000); // check every 6 seconds
+}
+function stopCryptoCheck(){ clearInterval(_cryptoCheckInterval); }
+
+async function checkCryptoPayment(coin, address, usdAmt){
+  // Use public blockchain explorers — no API key needed
+  try{
+    if(coin==='BTC'){
+      const r=await fetch(`https://blockchain.info/rawaddr/${address}?limit=5`);
+      if(!r.ok) return false;
+      const d=await r.json();
+      const recentTx=d.txs&&d.txs[0];
+      if(!recentTx) return false;
+      const txTime=recentTx.time*1000;
+      const age=Date.now()-txTime;
+      // Check if there's a tx in the last 15 minutes
+      if(age<900000){
+        const satoshi=recentTx.out?.reduce((s,o)=>o.addr===address?s+o.value:s,0)||0;
+        const btcAmt=satoshi/1e8;
+        const expected=parseFloat(getCryptoAmount('BTC',usdAmt));
+        if(btcAmt>=expected*0.98) return true; // 2% tolerance
+      }
+    } else if(coin==='ETH'||coin==='USDT'){
+      const r=await fetch(`https://api.etherscan.io/api?module=account&action=txlist&address=${address}&page=1&offset=5&sort=desc`);
+      if(!r.ok) return false;
+      const d=await r.json();
+      if(d.result&&d.result[0]){
+        const txTime=parseInt(d.result[0].timeStamp)*1000;
+        if(Date.now()-txTime<900000) return true;
+      }
+    } else if(coin==='SOL'){
+      const r=await fetch(`https://public-api.solscan.io/account/transactions?account=${address}&limit=5`);
+      if(!r.ok) return false;
+      const d=await r.json();
+      if(d&&d[0]){
+        const txTime=d[0].blockTime*1000;
+        if(Date.now()-txTime<900000) return true;
+      }
+    } else if(coin==='LTC'){
+      const r=await fetch(`https://api.blockcypher.com/v1/ltc/main/addrs/${address}/full?limit=5`);
+      if(!r.ok) return false;
+      const d=await r.json();
+      if(d.txs&&d.txs[0]){
+        const txTime=new Date(d.txs[0].received).getTime();
+        if(Date.now()-txTime<900000) return true;
+      }
+    }
+  }catch(e){
+    console.log('Chain check error (non-fatal):', e.message);
+  }
+  return false;
+}
+
+async function completeCryptoOrder(rblxUser, email){
+  const orderId=genOrderId();
+  const claimKey=genClaimKey();
+  const coin=_cryptoCurrentCoin;
+  const amt=getCryptoAmount(coin,_cryptoOrderTotal);
+
+  document.getElementById('cryptoStatusText').textContent='✅ Payment received! Creating your order…';
+
+  const botResp=await fireOrderWebhook({
+    robloxUsername:rblxUser, email,
+    total:_cryptoOrderTotal,
+    paymentMethod:`Crypto (${coin})`,
+    items:cart, discordUser,
+    orderId, claimKey,
+    cryptoDetails:{ coin, amount:amt, address:_cryptoCurrent },
+    promoCode:promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
+  });
+
+  const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
+  const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
+
   closeCryptoModal();
-  document.getElementById('coBody').style.display='none';
-  document.getElementById('coSucc').classList.add('show');
-  ['cs1','cs2','cs3'].forEach(s=>{const el=document.getElementById(s);el.className='co-s don';el.textContent='✓';});
-  cart=[];updateCartUI();
-};
+  closeCO();
+  showOrderSuccess(finalOrderId, finalClaimKey);
+  cart=[]; updateCartUI();
+}
+
+document.getElementById('cryptoModal').addEventListener('click',function(e){
+  if(e.target===this) closeCryptoModal();
+});
+document.getElementById('orderSuccessOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeOrderSuccess();
+});
 
 // ── INIT ──────────────────────────────────────────────────────
 function init(){

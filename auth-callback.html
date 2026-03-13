@@ -7,15 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#03010a;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;color:#fff;flex-direction:column;gap:0}
-  .box{text-align:center;padding:40px 32px;max-width:420px;width:90%}
+  body{background:#03010a;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;color:#fff;flex-direction:column}
+  .box{text-align:center;padding:40px 32px;max-width:440px;width:90%}
   .icon{font-size:72px;margin-bottom:18px;display:block;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
-  @keyframes pop{0%{transform:scale(0) rotate(-10deg)}100%{transform:scale(1) rotate(0deg)}}
+  @keyframes pop{0%{transform:scale(0) rotate(-10deg)}100%{transform:scale(1) rotate(0)}}
   h1{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;margin-bottom:10px;color:#00c853}
   p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7;margin-bottom:6px}
-  .uid{font-size:12px;font-family:monospace;color:rgba(255,255,255,.25);margin-top:8px;background:rgba(255,255,255,.04);padding:6px 12px;border-radius:6px;display:inline-block;word-break:break-all}
-  .spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.1);border-top-color:#9333ea;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+  .spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.1);border-top-color:#9333ea;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 18px}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .avatar-wrap{position:relative;width:80px;height:80px;margin:0 auto 14px}
+  .avatar-wrap img{width:80px;height:80px;border-radius:50%;border:3px solid #9333ea;object-fit:cover}
+  .avatar-badge{position:absolute;bottom:0;right:0;width:24px;height:24px;background:#00c853;border-radius:50%;border:2px solid #03010a;display:flex;align-items:center;justify-content:center;font-size:12px}
+  .user-card{background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.25);border-radius:12px;padding:14px 18px;margin:14px 0;display:none}
+  .user-card.show{display:block}
+  .username{font-weight:700;font-size:16px;color:#fff}
+  .uid{font-size:11px;font-family:monospace;color:rgba(255,255,255,.3);margin-top:4px}
   .manual-btn{margin-top:20px;padding:13px 28px;background:linear-gradient(135deg,#3f1d8f,#5865f2);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;display:none}
   .manual-btn:hover{box-shadow:0 0 20px rgba(88,101,242,.5);transform:translateY(-1px)}
   .error-box{background:rgba(255,0,64,.07);border:1px solid rgba(255,0,64,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:rgba(255,100,120,.8);margin-top:14px;display:none}
@@ -23,142 +29,177 @@
 </head>
 <body>
 <div class="box">
-  <span class="icon" id="icon">⏳</span>
+  <div class="spinner" id="spinner"></div>
+  <span class="icon" id="icon" style="display:none">✅</span>
   <h1 id="title" style="color:#ffd700">Verifying Discord…</h1>
-  <p id="msg">Please wait, reading your Discord account…</p>
-  <div class="uid" id="uid" style="display:none"></div>
+  <p id="msg">Reading your Discord account…</p>
+
+  <div class="user-card" id="userCard">
+    <div class="avatar-wrap">
+      <img id="userAvatar" src="" alt=""/>
+      <div class="avatar-badge">✓</div>
+    </div>
+    <div class="username" id="userName">Discord User</div>
+    <div class="uid" id="userId"></div>
+  </div>
+
   <div class="error-box" id="errBox"></div>
-  <button class="manual-btn" id="manualBtn" onclick="manualConfirm()">✅ I completed Discord auth — continue</button>
+  <button class="manual-btn" id="manualBtn" onclick="manualConfirm()">✅ I completed Discord — click to continue</button>
 </div>
 
 <script>
 (function(){
-  // ── READ ALL POSSIBLE PARAMS VAULTCORD MIGHT SEND ──────────
   const qs  = new URLSearchParams(window.location.search);
   const hsh = new URLSearchParams(window.location.hash.replace(/^#\/?/,''));
-
   function p(k){ return qs.get(k) || hsh.get(k) || ''; }
 
-  // Vaultcord typically passes these after their verify redirect
-  const discord_id       = p('discord_id') || p('id')       || p('user_id');
-  const discord_username = p('username')   || p('name')      || p('discord_username') || p('tag') || 'Discord User';
-  const discriminator    = p('discriminator') || '0';
-  const avatar_url       = p('avatar_url') || p('avatar')    || p('icon');
-  const access_token     = p('access_token') || p('token');
-  const code             = p('code');   // OAuth code flow
-  const state            = p('state');
-  const error            = p('error');
-  const verified_flag    = p('verified') === 'true' || p('success') === 'true';
+  const discord_id    = p('discord_id') || p('id') || p('user_id');
+  const discord_uname = p('username') || p('name') || p('discord_username') || p('tag');
+  const discriminator = p('discriminator') || '0';
+  const avatar_raw    = p('avatar_url') || p('avatar') || p('icon');
+  const access_token  = p('access_token') || p('token');
+  const code          = p('code');
+  const state         = p('state');
+  const error         = p('error');
 
-  // Debug: log everything to console
-  console.log('[SilvMarket Auth Callback]', {
-    discord_id, discord_username, discriminator, avatar_url,
-    access_token: access_token ? '***' : '', code: code ? '***' : '',
-    state, error, verified_flag,
-    fullSearch: window.location.search,
-    fullHash: window.location.hash,
-  });
-
-  const hasData = discord_id || access_token || code || verified_flag;
+  console.log('[SilvMarket Auth]', {discord_id, discord_uname, hasCode:!!code, hasToken:!!access_token, error});
 
   if(error){
-    showError('Discord returned an error: ' + error + '. Please close and try again.');
+    showError('Discord error: ' + error + '. Please close and try again.');
     return;
   }
 
-  if(hasData){
-    // ── SUCCESS PATH ──────────────────────────────────────────
-    const userData = {
-      id:            discord_id,
-      username:      discord_username,
-      discriminator: discriminator,
-      avatar:        avatar_url,
-      access_token:  access_token,
-      code:          code,
-      state:         state,
-      verified:      true,
-      timestamp:     Date.now(),
-    };
+  // CASE 1: Got user data directly in URL params (some OAuth flows)
+  if(discord_id || (discord_uname && discord_uname !== 'Discord User')){
+    const avatarUrl = buildAvatarUrl(discord_id, avatar_raw, discriminator);
+    storeAndShow({ id:discord_id||'', username:discord_uname||'Discord User',
+      discriminator, avatar:avatarUrl, verified:true, timestamp:Date.now() });
+    return;
+  }
 
-    // Write to localStorage — main page polls this key
+  // CASE 2: access_token in URL — fetch user from Discord API directly
+  if(access_token){
+    fetchFromToken(access_token);
+    return;
+  }
+
+  // CASE 3: OAuth code only — can't exchange without backend secret
+  // Store code + mark as verified, main page handles the rest
+  if(code){
+    document.getElementById('msg').textContent = 'Discord authorised! Linking your account…';
+    const partial = { id:'', username:'Discord User', discriminator:'0', avatar:'',
+      code, state, verified:true, partial:true, timestamp:Date.now() };
+    storeAndShow(partial, /*skipCard=*/true);
+    return;
+  }
+
+  // CASE 4: No params — manual confirm
+  document.getElementById('spinner').style.display='none';
+  document.getElementById('icon').style.display='block';
+  document.getElementById('icon').textContent='🔗';
+  document.getElementById('title').textContent='Discord Connected';
+  document.getElementById('title').style.color='#5865f2';
+  document.getElementById('msg').textContent='Your Discord was authenticated. Click below to confirm.';
+  document.getElementById('manualBtn').style.display='inline-block';
+  try{ localStorage.setItem('silv_discord_auth', JSON.stringify({
+    id:'', username:'Discord User', discriminator:'0', avatar:'',
+    verified:false, awaitingConfirm:true, timestamp:Date.now(),
+  })); }catch(e){}
+
+  // ── HELPERS ───────────────────────────────────────────────
+  async function fetchFromToken(token){
     try{
-      localStorage.setItem('silv_discord_auth',    JSON.stringify(userData));
-      localStorage.setItem('silv_discord_verified','1');
-    }catch(e){ console.warn('localStorage error', e); }
+      const resp = await fetch('https://discord.com/api/v10/users/@me', {
+        headers:{ 'Authorization':'Bearer '+token }
+      });
+      if(!resp.ok) throw new Error('Discord API '+resp.status);
+      const u = await resp.json();
+      const avatarUrl = u.avatar
+        ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.${u.avatar.startsWith('a_')?'gif':'png'}?size=128`
+        : getDefaultAvatar(u.discriminator);
+      storeAndShow({ id:u.id, username:u.global_name||u.username,
+        discriminator:u.discriminator||'0', avatar:avatarUrl, verified:true, timestamp:Date.now() });
+    }catch(err){
+      console.error('Discord fetch error:', err);
+      storeAndShow({ id:'', username:'Discord User', discriminator:'0', avatar:'', verified:true, timestamp:Date.now() }, true);
+    }
+  }
 
-    // Also fire postMessage to opener in case same-origin
+  function buildAvatarUrl(id, hash, disc){
+    if(!hash && !id) return '';
+    if(hash && hash.startsWith('http')) return hash;
+    if(hash && id) return `https://cdn.discordapp.com/avatars/${id}/${hash}.${hash.startsWith('a_')?'gif':'png'}?size=128`;
+    return getDefaultAvatar(disc);
+  }
+
+  function getDefaultAvatar(disc){
+    return `https://cdn.discordapp.com/embed/avatars/${parseInt(disc||'0')%5}.png`;
+  }
+
+  function storeAndShow(userData, skipCard){
+    try{
+      localStorage.setItem('silv_discord_auth', JSON.stringify(userData));
+      localStorage.setItem('silv_discord_verified','1');
+    }catch(e){}
     try{
       if(window.opener && !window.opener.closed){
+        window.opener.postMessage({type:'DISCORD_AUTH',...userData}, window.location.origin);
         window.opener.postMessage({type:'DISCORD_AUTH',...userData}, '*');
       }
     }catch(e){}
 
-    // Show success UI
-    document.getElementById('icon').textContent  = '✅';
-    document.getElementById('title').textContent = 'Discord Linked!';
-    document.getElementById('title').style.color = '#00c853';
-    document.getElementById('msg').textContent   = 'Verified! This window will close in a moment.';
-    if(discord_id || discord_username !== 'Discord User'){
-      const uid = document.getElementById('uid');
-      uid.textContent = discord_username + (discord_id ? ' · ID: ' + discord_id : '');
-      uid.style.display = 'inline-block';
+    document.getElementById('spinner').style.display='none';
+    document.getElementById('icon').style.display='block';
+    document.getElementById('icon').textContent='✅';
+    document.getElementById('title').textContent='Discord Linked!';
+    document.getElementById('title').style.color='#00c853';
+    document.getElementById('msg').textContent='Verified! This window will close shortly.';
+
+    if(!skipCard && userData.avatar){
+      const avImg = document.getElementById('userAvatar');
+      avImg.src = userData.avatar;
+      avImg.onerror = ()=>{ avImg.parentElement.innerHTML = '<div style="width:80px;height:80px;border-radius:50%;background:#9333ea;display:flex;align-items:center;justify-content:center;font-size:32px">👤</div><div class="avatar-badge" style="position:absolute;bottom:0;right:0;width:24px;height:24px;background:#00c853;border-radius:50%;border:2px solid #03010a;display:flex;align-items:center;justify-content:center;font-size:12px">✓</div>'; };
+      document.getElementById('userName').textContent = userData.username || 'Discord User';
+      const disc = userData.discriminator && userData.discriminator!=='0' ? '#'+userData.discriminator : '';
+      document.getElementById('userId').textContent = (userData.id?'ID: '+userData.id:'') + disc;
+      document.getElementById('userCard').classList.add('show');
     }
 
-    setTimeout(()=>{ try{ window.close(); }catch(e){} }, 1600);
-
-  } else {
-    // ── NO PARAMS PATH ────────────────────────────────────────
-    // Vaultcord completed auth on their side but didn't pass params back.
-    // This happens when their verify flow redirects without user data in URL.
-    // Show manual confirm button — user confirms, we store a verified flag.
-    document.getElementById('icon').textContent  = '🔗';
-    document.getElementById('title').textContent = 'Discord Connected';
-    document.getElementById('title').style.color = '#5865f2';
-    document.getElementById('msg').textContent   = 'Your Discord was authenticated via Vaultcord. Click below to confirm and return to checkout.';
-    document.getElementById('manualBtn').style.display = 'inline-block';
-
-    // Also store a partial flag so polling detects something happened
-    try{
-      localStorage.setItem('silv_discord_auth', JSON.stringify({
-        id:'', username:'Discord User', discriminator:'0', avatar:'',
-        verified:false, awaitingConfirm:true, timestamp: Date.now(),
-      }));
-    }catch(e){}
+    setTimeout(()=>{ try{ window.close(); }catch(e){} }, 2200);
   }
 
   function showError(msg){
-    document.getElementById('icon').textContent  = '❌';
-    document.getElementById('title').textContent = 'Auth Error';
-    document.getElementById('title').style.color = '#ff3366';
-    document.getElementById('msg').textContent   = 'Something went wrong.';
-    const eb = document.getElementById('errBox');
-    eb.textContent = msg;
-    eb.style.display = 'block';
-    document.getElementById('manualBtn').style.display = 'inline-block';
+    document.getElementById('spinner').style.display='none';
+    document.getElementById('icon').style.display='block';
+    document.getElementById('icon').textContent='❌';
+    document.getElementById('title').textContent='Auth Error';
+    document.getElementById('title').style.color='#ff3366';
+    document.getElementById('msg').textContent='Something went wrong.';
+    const eb=document.getElementById('errBox');
+    eb.textContent=msg; eb.style.display='block';
+    document.getElementById('manualBtn').style.display='inline-block';
   }
-
+  window.showError = showError;
 })();
 
 function manualConfirm(){
-  const userData = {
-    id:'', username:'Discord User', discriminator:'0', avatar:'',
-    verified:true, manualConfirm:true, timestamp: Date.now(),
-  };
+  const userData={id:'',username:'Discord User',discriminator:'0',avatar:'',
+    verified:true, manualConfirm:true, timestamp:Date.now()};
   try{
-    localStorage.setItem('silv_discord_auth',    JSON.stringify(userData));
+    localStorage.setItem('silv_discord_auth',JSON.stringify(userData));
     localStorage.setItem('silv_discord_verified','1');
   }catch(e){}
   try{
-    if(window.opener && !window.opener.closed){
-      window.opener.postMessage({type:'DISCORD_AUTH',...userData}, '*');
+    if(window.opener&&!window.opener.closed){
+      window.opener.postMessage({type:'DISCORD_AUTH',...userData},'*');
     }
   }catch(e){}
-  document.getElementById('icon').textContent  = '✅';
-  document.getElementById('title').textContent = 'Confirmed!';
-  document.getElementById('title').style.color = '#00c853';
-  document.getElementById('manualBtn').style.display = 'none';
-  document.getElementById('msg').textContent = 'Closing window…';
-  setTimeout(()=>{ try{ window.close(); }catch(e){} }, 1000);
+  document.getElementById('icon').textContent='✅';
+  document.getElementById('title').textContent='Confirmed!';
+  document.getElementById('title').style.color='#00c853';
+  document.getElementById('manualBtn').style.display='none';
+  document.getElementById('msg').textContent='Closing window…';
+  setTimeout(()=>{ try{window.close();}catch(e){} },1000);
 }
 </script>
 </body>

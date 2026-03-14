@@ -2369,9 +2369,20 @@ async function fireOrderWebhook(orderData){
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
       body:JSON.stringify(payload),
     });
-    if(resp.ok) return await resp.json();
+    if(resp.ok){
+      const data = await resp.json();
+      console.log('✅ Bot webhook OK:', data);
+      return data;
+    } else {
+      const errText = await resp.text();
+      console.error('❌ Bot webhook error', resp.status, errText);
+      // If 401 = wrong secret, show helpful message
+      if(resp.status === 401){
+        console.error('❌ WEBHOOK SECRET MISMATCH — update BOT_WEBHOOK_SECRET in index.html to match WEBHOOK_SECRET in Railway');
+      }
+    }
   }catch(err){
-    console.warn('Bot webhook failed:', err);
+    console.error('❌ Bot webhook fetch failed (CORS or network):', err.message);
   }
   return null;
 }

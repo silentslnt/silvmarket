@@ -1253,9 +1253,9 @@ const CRYPTO_WALLETS = {
 const PAY_LINKS = {
   // ✏️ PayPal: your business email — buyers send to this address
   // Format: paypal.com/pay?email=YOUR_EMAIL&amount=TOTAL&currencyCode=USD
-  pp: 'andreaskk112@gmail.com',  // ← replace with your PayPal business email
-  // ✏️ Debit: paste your Stripe payment link here (one-time setup at stripe.com)
-  dc: 'https://buy.stripe.com/YOUR_STRIPE_LINK', // ← replace with your Stripe link
+  pp: 'andreaskk112@gmail.com',  // PayPal business email
+  // ✏️ Debit: your Stripe payment link — amount is auto-filled from cart total
+  dc: 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f',
   cr: '#crypto',
 };
 
@@ -2130,8 +2130,9 @@ function payNow(){
   }
 
   if(selectedPayMethod==='dc'){
-    // Debit card via Stripe — open Stripe link, staff verifies
-    const stripeUrl = PAY_LINKS.dc;
+    // Stripe — append prefilled_amount in cents for auto-fill
+    const cents = Math.round(tot * 100);
+    const stripeUrl = PAY_LINKS.dc + '?prefilled_amount=' + cents;
     window.open(stripeUrl,'_blank');
     showManualConfirm(u, e, tot, 'Debit Card', stripeUrl);
     return;

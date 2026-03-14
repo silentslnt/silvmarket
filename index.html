@@ -2184,40 +2184,103 @@ function payNow(){
   if(selectedPayMethod==='cr'){ openCryptoModal(); return; }
   const tot=calcTotal();
   if(selectedPayMethod==='pp'){
-    // paypal.me/<username>/<amount> is the ONLY PayPal URL that pre-fills recipient + amount
-    // PAY_LINKS.pp should be your paypal.me username (not email)
+    // paypal.me/<username>/<amount> pre-fills recipient + amount
+    const ppOrderId  = genOrderId();
+    const ppClaimKey = genClaimKey();
+    // Fire to bot immediately before opening PayPal
+    fireOrderWebhook({
+      robloxUsername:u, email:e, total:tot,
+      paymentMethod:'PayPal', paymentStatus:'pending_verification',
+      items:cart, discordUser, orderId:ppOrderId, claimKey:ppClaimKey,
+      promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+    });
     const ppUrl=`https://www.paypal.me/${PAY_LINKS.pp}/${tot}`;
     window.open(ppUrl,'_blank');
-    showPaymentPending(u, e, tot, 'PayPal');
+    // Pass pre-generated IDs so showPaymentPending doesn't fire webhook again
+    showPaymentPending(u, e, tot, 'PayPal', ppOrderId, ppClaimKey);
     return;
   }
   if(selectedPayMethod==='dc'){
-    // Stripe: prefilled_amount in CENTS — requires "Customer chooses price" product type
-    const cents=Math.round(tot*100);
-    const stripeUrl=PAY_LINKS.dc+'?prefilled_amount='+cents+'&prefilled_email='+encodeURIComponent(e);
-    window.open(stripeUrl,'_blank');
-    showPaymentPending(u, e, tot, 'Debit Card');
+    // Stripe: create real checkout session via bot so amount is exact
+    openStripeCheckout(u, e, tot);
     return;
   }
 }
 
+// ── STRIPE CHECKOUT — creates session via bot with exact amount ──
+async function openStripeCheckout(rblxUser, email, tot){
+  const btn = document.getElementById('payNow');
+  btn.innerHTML = '⏳ Creating checkout…';
+  btn.disabled = true;
+
+  try {
+    const orderId  = genOrderId();
+    const claimKey = genClaimKey();
+
+    // Ask bot to create a Stripe Checkout Session with the exact amount
+    const resp = await fetch(BOT_WEBHOOK_URL.replace('/order','/create-checkout'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-silv-secret': BOT_WEBHOOK_SECRET },
+      body: JSON.stringify({
+        amount:      tot,
+        email:       email,
+        orderId:     orderId,
+        description: cart.map(i=>i.name).join(', '),
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.url) {
+      // Log order to bot immediately as pending
+      fireOrderWebhook({
+        robloxUsername: rblxUser, email, total: tot,
+        paymentMethod: 'Debit Card', paymentStatus: 'pending_verification',
+        items: cart, discordUser, orderId, claimKey,
+        promoCode: promoApplied ? document.getElementById('promoIn')?.value.trim().toUpperCase() : null,
+      });
+      // Open Stripe checkout with EXACT pre-filled amount
+      window.open(data.url, '_blank');
+      showPaymentPending(rblxUser, email, tot, 'Debit Card', orderId, claimKey);
+    } else {
+      // Fallback to payment link if bot not configured
+      console.warn('Stripe session failed, falling back to payment link:', data.error);
+      const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(email);
+      window.open(stripeUrl, '_blank');
+      showPaymentPending(rblxUser, email, tot, 'Debit Card');
+    }
+  } catch(err) {
+    console.warn('Stripe checkout error:', err);
+    // Fallback
+    const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(email);
+    window.open(stripeUrl, '_blank');
+    showPaymentPending(rblxUser, email, tot, 'Debit Card');
+  }
+}
+
 // ── PAYMENT PENDING UI ─────────────────────────────────────────
-function showPaymentPending(rblxUser, email, tot, method){
+// showPaymentPending — accepts optional pre-generated orderId/claimKey
+// (Stripe flow pre-generates them before calling this)
+function showPaymentPending(rblxUser, email, tot, method, existingOrderId, existingClaimKey){
   const btn=document.getElementById('payNow');
   // Clear any existing pending UI
   document.getElementById('ppConfirmBtn')?.remove();
   document.getElementById('ppConfirmNote')?.remove();
   document.getElementById('ppChangeBtn')?.remove();
 
-  // Generate IDs and fire to bot IMMEDIATELY
-  const orderId=genOrderId();
-  const claimKey=genClaimKey();
-  fireOrderWebhook({
-    robloxUsername:rblxUser, email, total:tot,
-    paymentMethod:method, paymentStatus:'pending_verification',
-    items:cart, discordUser, orderId, claimKey,
-    promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
-  });
+  // Use pre-generated IDs if provided, else generate + fire to bot
+  const orderId  = existingOrderId  || genOrderId();
+  const claimKey = existingClaimKey || genClaimKey();
+
+  // Only fire webhook if NOT already fired (Stripe pre-fires it)
+  if(!existingOrderId){
+    fireOrderWebhook({
+      robloxUsername:rblxUser, email, total:tot,
+      paymentMethod:method, paymentStatus:'pending_verification',
+      items:cart, discordUser, orderId, claimKey,
+      promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+    });
+  }
 
   // Lock button
   btn.innerHTML='⏳ Payment window open…';

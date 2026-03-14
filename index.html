@@ -633,7 +633,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 </div>
 
 <nav>
-  <a class="logo" href="#" id="navLogo"><img id="navLogoImg" style="display:none;height:36px;border-radius:6px;vertical-align:middle" alt="logo"/> <span id="navLogoText">SILV<span class="logo-tag">MKT</span></span></a>
+  <a class="logo" href="#" id="navLogo" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <img id="navLogoImg" style="display:none;height:34px;border-radius:6px;vertical-align:middle" alt="logo"/>
+    <span id="navLogoText" style="display:flex;align-items:center;gap:6px">
+      <span style="font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:2px;color:#fff">SILV</span>
+      <span style="font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">MARKET</span>
+      <span style="font-size:8px;font-weight:700;letter-spacing:1.5px;background:var(--pink);color:#000;padding:2px 5px;border-radius:3px;font-family:'Rajdhani',sans-serif;margin-left:2px">SHOP</span>
+    </span>
+  </a>
   <div class="nav-search">
     <input type="text" id="searchInput" placeholder="🔍 Search products…" oninput="doSearch(this.value)" autocomplete="off" />
     <div class="search-results" id="searchResults"></div>
@@ -643,6 +650,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       Discord
     </a>
+    <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
     <button class="cart-btn" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="cBadge">0</span></button>
   </div>
 </nav>
@@ -974,9 +982,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <br>
       <a id="discFootLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
     </div>
-    <div class="fc"><h4>Our Shop</h4><a href="#">About Us</a><a href="#">How it Works</a><a href="#">FAQ</a></div>
-    <div class="fc"><h4>Help</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Refund Policy</a></div>
-    <div class="fc"><h4>Affiliates</h4><a href="#">Become an Affiliate</a><a href="#">Affiliate Login</a><a href="#">Affiliate Dashboard</a></div>
+    <div class="fc"><h4>Our Shop</h4><a href="#" onclick="showPage('about')">About Us</a><a href="#" onclick="showPage('how')">How it Works</a><a href="#" onclick="showPage('faq')">FAQ</a></div>
+    <div class="fc"><h4>Help</h4><a href="#" onclick="showPage('privacy')">Privacy Policy</a><a href="#" onclick="showPage('terms')">Terms of Service</a><a href="#" onclick="showPage('refund')">Refund Policy</a></div>
+    <div class="fc"><h4>Affiliates</h4><a href="#" onclick="showPage('affiliate')">Become an Affiliate</a><a href="#" onclick="openLoginModal()">Affiliate Login</a><a href="#" onclick="openLoginModal()">Affiliate Dashboard</a></div>
   </div>
   <div class="fbot">
     <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
@@ -984,6 +992,66 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
 </footer>
 
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE MODALS — About, FAQ, Legal, Affiliate, Login
+     ══════════════════════════════════════════════════ -->
+
+<!-- Generic Modal Shell -->
+<div id="pageModal" style="display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto" onclick="if(event.target===this)closePageModal()">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.3);border-radius:18px;padding:36px;max-width:680px;width:100%;position:relative;margin:auto">
+    <button onclick="closePageModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+    <div id="pageModalContent"></div>
+  </div>
+</div>
+
+<!-- Login / Signup Modal -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;z-index:4500;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:center;justify-content:center" onclick="if(event.target===this)closeLoginModal()">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;padding:36px;max-width:420px;width:90%;position:relative">
+    <button onclick="closeLoginModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:0;margin-bottom:24px;background:rgba(255,255,255,.04);border-radius:10px;padding:4px">
+      <button id="loginTab" onclick="switchAuthTab('login')" style="flex:1;padding:9px;border:none;border-radius:8px;background:rgba(147,51,234,.35);color:#fff;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s">LOGIN</button>
+      <button id="signupTab" onclick="switchAuthTab('signup')" style="flex:1;padding:9px;border:none;border-radius:8px;background:transparent;color:rgba(255,255,255,.4);font-family:'Orbitron',monospace;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s">SIGN UP</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Welcome Back</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Sign in to view your orders and profile</div>
+      <input id="liEmail" type="email" placeholder="Email address" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
+      <input id="liPass" type="password" placeholder="Password" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
+      <div id="liErr" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+      <button onclick="doLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">LOGIN</button>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" style="display:none">
+      <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Create Account</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Save your orders and checkout faster</div>
+      <input id="suName" type="text" placeholder="Display name" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
+      <input id="suEmail" type="email" placeholder="Email address" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
+      <input id="suPass" type="password" placeholder="Password (min 6 chars)" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
+      <div id="suErr" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+      <button onclick="doSignup()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">CREATE ACCOUNT</button>
+    </div>
+
+    <!-- Logged In State -->
+    <div id="loggedInPanel" style="display:none">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px">👤</div>
+        <div id="liUserName" style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff"></div>
+        <div id="liUserEmail" style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);margin-top:4px"></div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;margin-bottom:14px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:10px">📦 YOUR ORDERS</div>
+        <div id="liOrdersList" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5)">No orders yet.</div>
+      </div>
+      <button onclick="doLogout()" style="width:100%;padding:11px;background:rgba(255,0,64,.1);border:1px solid rgba(255,0,64,.25);border-radius:10px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Sign Out</button>
+    </div>
+  </div>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -1239,8 +1307,8 @@ const DISCORD_INVITE = 'https://discord.gg/brianrots';
 const VAULTCORD_CLIENT_ID = '1481122330041258141';
 
 // Bot webhook — POST /order when purchase complete
-const BOT_WEBHOOK_URL = 'https://YOUR-BOT-SERVER.com/order'; // ← replace with your bot.js server URL
-const BOT_WEBHOOK_SECRET = 'YOUR_WEBHOOK_SECRET'; // ← replace with your .env WEBHOOK_SECRET
+const BOT_WEBHOOK_URL = 'https://silvreview-production.up.railway.app/order';
+const BOT_WEBHOOK_SECRET = 'sltnslntslnt'; // ← must match WEBHOOK_SECRET in your Railway .env
 
 const CRYPTO_WALLETS = {
   BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',
@@ -2121,18 +2189,20 @@ function payNow(){
   const tot=calcTotal();
 
   if(selectedPayMethod==='pp'){
-    // PayPal — build send money link using business email
-    const email=PAY_LINKS.pp;
-    const ppUrl=`https://www.paypal.com/pay?email=${encodeURIComponent(email)}&amount=${tot}&currencyCode=USD`;
+    // PayPal business — direct send money link that actually works
+    const ppUrl=`https://www.paypal.com/sendmoney?recipient=${encodeURIComponent(PAY_LINKS.pp)}&amount=${tot}&currencyCode=USD&note=${encodeURIComponent('Silv Market Order')}`;
     window.open(ppUrl,'_blank');
     showManualConfirm(u, e, tot, 'PayPal', ppUrl);
     return;
   }
 
   if(selectedPayMethod==='dc'){
-    // Stripe — append prefilled_amount in cents for auto-fill
     const cents = Math.round(tot * 100);
-    const stripeUrl = PAY_LINKS.dc + '?prefilled_amount=' + cents;
+    // Stripe prefilled_amount works only on variable-price payment links
+    // Also prefill email if available
+    const email = document.getElementById('emailIn').value.trim();
+    let stripeUrl = PAY_LINKS.dc + '?prefilled_amount=' + cents;
+    if(email) stripeUrl += '&prefilled_email=' + encodeURIComponent(email);
     window.open(stripeUrl,'_blank');
     showManualConfirm(u, e, tot, 'Debit Card', stripeUrl);
     return;
@@ -2142,7 +2212,7 @@ function payNow(){
 // ── MANUAL CONFIRM (PayPal + Debit — staff verifies) ─────────
 function showManualConfirm(rblxUser, email, tot, method, payUrl){
   const btn=document.getElementById('payNow');
-  btn.innerHTML=`⏳ Waiting for ${method} payment…`;
+  btn.innerHTML=`⏳ Payment window open…`;
   btn.disabled=true;
 
   const existing=document.getElementById('ppConfirmBtn');
@@ -2150,39 +2220,74 @@ function showManualConfirm(rblxUser, email, tot, method, payUrl){
   const existNote=document.getElementById('ppConfirmNote');
   if(existNote) existNote.remove();
 
+  // Immediately log to bot as pending — staff can see it right away
+  const orderId=genOrderId();
+  const claimKey=genClaimKey();
+  fireOrderWebhook({
+    robloxUsername:rblxUser, email, total:tot,
+    paymentMethod:method, paymentStatus:'pending_verification',
+    items:cart, discordUser, orderId, claimKey,
+    promoCode: promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+  });
+
+  // Show countdown — after 2 min auto-submit (gives staff time to verify)
+  // User can also click "Done" early
+  let secs = 120;
+  const wrap = document.createElement('div');
+  wrap.id='ppConfirmNote';
+  wrap.style.cssText='margin-top:10px;text-align:center';
+  wrap.innerHTML=`
+    <div style="background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:12px">
+      <div style="font-family:Rajdhani,sans-serif;font-size:12px;color:rgba(255,200,100,.7);margin-bottom:8px">
+        ⏳ Sent to bot for staff verification<br>
+        <strong style="color:#ffd700">Total: $${tot}</strong> via ${method}
+      </div>
+      <div style="font-family:Orbitron,monospace;font-size:20px;font-weight:800;color:#ffd700" id="ppCountdown">2:00</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.2);font-family:Rajdhani,sans-serif;margin-top:4px">
+        Auto-completing in… or click below when paid
+      </div>
+    </div>`;
+  btn.parentNode.insertBefore(wrap, btn.nextSibling);
+
   const conf=document.createElement('button');
   conf.id='ppConfirmBtn';
   conf.className=`pay-btn ${method==='PayPal'?'p-pp':'p-dc'}`;
   conf.style.marginTop='8px';
-  conf.innerHTML=`✅ I've Sent the ${method} Payment`;
-  conf.onclick=()=>submitPendingOrder(rblxUser, email, tot, method);
-  btn.parentNode.insertBefore(conf, btn.nextSibling);
+  conf.innerHTML=`✅ I've Completed the Payment`;
+  conf.onclick=()=>{ clearInterval(timer); finalizePendingOrder(orderId, claimKey, rblxUser, tot, method); };
+  wrap.parentNode.insertBefore(conf, wrap.nextSibling);
 
-  const note=document.createElement('div');
-  note.id='ppConfirmNote';
-  note.style.cssText='font-size:10px;color:rgba(255,255,255,.22);text-align:center;margin-top:6px;font-family:Rajdhani,sans-serif;line-height:1.6';
-  note.innerHTML=`After paying, click above. Staff will verify your payment and deliver within minutes.<br>Total to send: <strong style="color:#ffd700">$${tot}</strong>`;
-  conf.parentNode.insertBefore(note, conf.nextSibling);
+  const timer = setInterval(()=>{
+    secs--;
+    const m=Math.floor(secs/60), s=secs%60;
+    const cd=document.getElementById('ppCountdown');
+    if(cd) cd.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+    if(secs<=0){ clearInterval(timer); finalizePendingOrder(orderId, claimKey, rblxUser, tot, method); }
+  }, 1000);
 }
 
-// ── PENDING ORDER (PayPal/Debit — queued for staff verification)
+function finalizePendingOrder(orderId, claimKey, rblxUser, tot, method){
+  document.getElementById('ppConfirmBtn')?.remove();
+  document.getElementById('ppConfirmNote')?.remove();
+  saveOrderToUser(orderId, claimKey, cart, tot, method);
+  closeCO();
+  showOrderSuccess(orderId, claimKey, /*pending=*/true);
+  cart=[]; updateCartUI();
+}
+
+// ── PENDING ORDER (legacy — kept for compat) ──────────────────
 async function submitPendingOrder(rblxUser, email, tot, method){
   const orderId=genOrderId();
   const claimKey=genClaimKey();
-
-  // Fire to bot — bot posts to #pending-verification channel for staff to confirm
   const botResp=await fireOrderWebhook({
     robloxUsername:rblxUser, email, total:tot,
-    paymentMethod:method,
-    paymentStatus:'pending_verification', // ← staff must confirm
-    items:cart, discordUser,
-    orderId, claimKey,
+    paymentMethod:method, paymentStatus:'pending_verification',
+    items:cart, discordUser, orderId, claimKey,
     promoCode: promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
   });
-
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
   const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
-
+  saveOrderToUser(finalOrderId, finalClaimKey, cart, tot, method);
   closeCO();
   showOrderSuccess(finalOrderId, finalClaimKey, /*pending=*/true);
   cart=[]; updateCartUI();
@@ -2589,6 +2694,7 @@ async function completeCryptoOrder(rblxUser, email){
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
   const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
 
+  saveOrderToUser(finalOrderId, finalClaimKey, cart, _cryptoOrderTotal, `Crypto (${_cryptoCurrentCoin})`);
   closeCryptoModal();
   closeCO();
   showOrderSuccess(finalOrderId, finalClaimKey);
@@ -2601,6 +2707,220 @@ document.getElementById('cryptoModal').addEventListener('click',function(e){
 document.getElementById('orderSuccessOverlay').addEventListener('click',function(e){
   if(e.target===this) closeOrderSuccess();
 });
+
+// ── PAGE MODALS (About, FAQ, Legal, Affiliate) ─────────────────
+function getPageContent(key){
+  const disc = typeof DISCORD_INVITE !== 'undefined' ? DISCORD_INVITE : '#';
+  const pages = {
+    about: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">About Us</div>
+      <p style="font-family:'Rajdhani',sans-serif;font-size:14px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:18px">
+        Welcome to <strong style="color:#fff">Silv Market</strong> — the most trusted Roblox digital items shop. We offer instant delivery of fruits, pets, weapons, Robux and more across all major Roblox games.
+      </p>
+      <div style="background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.2);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:#ff10f0;margin-bottom:8px">🚀 DELIVERY & COMMUNITY</div>
+        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);line-height:1.7">All deliveries are handled safely through our official Discord server. After purchase, a private ticket is opened and staff deliver your items directly in-game — usually within minutes.</p>
+        <a href="${disc}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;color:#5865f2;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-decoration:none">💬 Join our Discord</a>
+      </div>
+      <div style="background:rgba(147,51,234,.06);border:1px solid rgba(147,51,234,.2);border-radius:12px;padding:16px">
+        <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:#9333ea;margin-bottom:8px">💳 PAYMENT OPTIONS</div>
+        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);line-height:1.7">We accept PayPal, Debit Card (via Stripe), and major cryptocurrencies including BTC, ETH, SOL, USDT, and LTC.</p>
+      </div>`,
+    how: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:20px">How Does It Work?</div>
+      ${[['1','🛒 Select a Product','Browse our shop and add items to your cart. Use filters to find exactly what you need.'],
+         ['2','💳 Pay the Invoice','Choose your payment method (PayPal, Debit Card, or Crypto), link your Discord, and complete checkout. The exact amount is pre-filled for you.'],
+         ['3','📦 Receive Your Items','After payment is verified, a private Discord ticket is opened automatically. Staff will deliver your items in-game within minutes.']
+      ].map(([n,t,d])=>`<div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:20px"><div style="width:42px;height:42px;min-width:42px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff">${n}</div><div><div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px">${t}</div><div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5);line-height:1.7">${d}</div></div></div>`).join('')}`,
+    faq: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:20px">Questions & Answers</div>
+      ${[['Can I make payments using my preferred method?','Yes — we support PayPal, Debit/Credit Card via Stripe, and major cryptocurrencies including BTC, ETH, SOL, USDT, and LTC.'],
+         ['Is it safe to make payments?','Yes. We use Stripe and PayPal for secure payment processing. We never store your card details. All transactions are encrypted.'],
+         ['How do I receive my items?','After payment is confirmed, a private ticket is opened in our Discord server. A staff member will deliver your items in-game within minutes.'],
+         ['What if I have a problem with my order?','Open a ticket in our Discord server anytime. Our staff are available daily to assist with any delivery issues.'],
+         ['What is the refund policy?','Refunds are only granted if the item is not delivered due to an error on our part. Please see our Refund Policy for full details.'],
+         ['How long does delivery take?','Most orders are delivered within 1–10 minutes of payment confirmation. During peak hours it may take slightly longer.']
+      ].map(([q,a])=>`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px;margin-bottom:10px"><div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">❓ ${q}</div><div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5);line-height:1.7">${a}</div></div>`).join('')}`,
+    privacy: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:20px">Privacy Policy</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);line-height:1.9">
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin-bottom:4px">Information we collect:</p>
+        <p>Name, email address, IP address, and payment details (processed securely by Stripe/PayPal — not stored by us).</p>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">Purpose of collection:</p>
+        <p>To process and fulfill orders, verify identity and prevent fraud, and communicate with customers regarding purchases or support.</p>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">Sharing of information:</p>
+        <p>Payment details are shared with Stripe/PayPal for secure processing. Information may be shared if required by law. We do not sell or rent personal information.</p>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">Data retention:</p>
+        <p>Information is retained only as long as necessary to provide services, meet legal obligations, or resolve disputes.</p>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">Customer rights:</p>
+        <p>You may request correction or deletion of your information by contacting <a href="mailto:andreaskk112@gmail.com" style="color:#ff10f0">andreaskk112@gmail.com</a>.</p>
+      </div>`,
+    terms: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:20px">Terms of Service</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);line-height:1.9">
+        ${[['Acceptance of Terms','By accessing or purchasing from this website, you agree to these Terms of Service.'],
+           ['Products and Delivery','All products are digital items delivered directly by us. Delivery instructions are provided after purchase via Discord ticket.'],
+           ['Customer Responsibilities','Customers must provide accurate and complete information. Failure to provide correct details may result in non-delivery, which does not qualify for a refund.'],
+           ['Payments','All payments are processed securely through Stripe or PayPal. By placing an order you authorize the respective processor to charge your payment method.'],
+           ['Refund Policy','Refunds are not offered for completed purchases. Refunds are only granted if the item is not delivered due to an error on our part.'],
+           ['Prohibited Uses','Attempting to interfere with the website, using the site for unlawful purposes, or attempting unauthorized access to accounts or systems.'],
+           ['Limitation of Liability','Our liability is limited strictly to the value of the product purchased.']
+        ].map(([h,b])=>`<p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">${h}</p><p>${b}</p>`).join('')}
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">Contact</p>
+        <p>For questions: <a href="mailto:andreaskk112@gmail.com" style="color:#ff10f0">andreaskk112@gmail.com</a></p>
+      </div>`,
+    refund: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:20px">Refund Policy</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);line-height:1.9">
+        <p>Refunds are <strong style="color:#fff">not offered</strong> for completed purchases. All sales are final once an item has been delivered.</p>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">When refunds ARE granted:</p>
+        <ul style="padding-left:18px;list-style:disc;line-height:2">
+          <li>The item was not delivered due to an error on our part</li>
+          <li>The item delivered was significantly different from what was purchased</li>
+          <li>A duplicate charge occurred</li>
+        </ul>
+        <p style="font-weight:700;color:rgba(255,255,255,.8);margin:12px 0 4px">How to request:</p>
+        <p>Open a ticket in our Discord server within 24 hours of purchase with your Order ID and description of the issue.</p>
+        <p style="margin-top:12px">Contact: <a href="mailto:andreaskk112@gmail.com" style="color:#ff10f0">andreaskk112@gmail.com</a></p>
+      </div>`,
+    affiliate: `
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">Become an Affiliate</div>
+      <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">Earn commissions by promoting Silv Market</p>
+      <div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);border-radius:12px;padding:20px;margin-bottom:16px;text-align:center">
+        <div style="font-size:42px;margin-bottom:10px">🚀</div>
+        <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ffd700;margin-bottom:8px">Affiliate Program Coming Soon</div>
+        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);line-height:1.7">Join our Discord and DM staff to enquire about early affiliate access. Earn a % on every sale you refer.</p>
+      </div>
+      <a href="${disc}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:#5865f2;border-radius:11px;color:#fff;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px">💬 Join Discord to Apply</a>`,
+  };
+  return pages[key] || '';
+}
+
+function showPage(key){
+  const content = getPageContent(key);
+  if(!content) return;
+  document.getElementById('pageModalContent').innerHTML = content;
+  document.getElementById('pageModal').style.display = 'flex';
+}
+function closePageModal(){
+  document.getElementById('pageModal').style.display = 'none';
+}
+
+// ── LOGIN / SIGNUP SYSTEM ──────────────────────────────────────
+// Uses localStorage — simple credential store
+// In production you'd use a real backend, but this works for a Roblox shop
+
+let currentUser = null;
+
+function loadUsers(){ try{ return JSON.parse(localStorage.getItem('silv_users')||'{}'); }catch{ return {}; } }
+function saveUsers(u){ try{ localStorage.setItem('silv_users', JSON.stringify(u)); }catch{} }
+function loadSession(){ try{ return JSON.parse(sessionStorage.getItem('silv_session')||'null'); }catch{ return null; } }
+function saveSession(u){ try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{} }
+function clearSession(){ try{ sessionStorage.removeItem('silv_session'); }catch{} }
+
+function saveOrderToUser(orderId, claimKey, items, total, method){
+  if(!currentUser) return;
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  if(!u) return;
+  if(!u.orders) u.orders = [];
+  u.orders.unshift({ orderId, claimKey, items: items.map(i=>i.name), total, method, date: new Date().toISOString() });
+  saveUsers(users);
+}
+
+function openLoginModal(){
+  const modal = document.getElementById('loginModal');
+  modal.style.display = 'flex';
+  if(currentUser) showLoggedInPanel();
+  else switchAuthTab('login');
+}
+function closeLoginModal(){
+  document.getElementById('loginModal').style.display = 'none';
+}
+function switchAuthTab(tab){
+  document.getElementById('loginForm').style.display  = tab==='login'  ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab==='signup' ? 'block' : 'none';
+  document.getElementById('loggedInPanel').style.display = 'none';
+  document.getElementById('loginTab').style.background  = tab==='login'  ? 'rgba(147,51,234,.35)' : 'transparent';
+  document.getElementById('loginTab').style.color       = tab==='login'  ? '#fff' : 'rgba(255,255,255,.4)';
+  document.getElementById('signupTab').style.background = tab==='signup' ? 'rgba(147,51,234,.35)' : 'transparent';
+  document.getElementById('signupTab').style.color      = tab==='signup' ? '#fff' : 'rgba(255,255,255,.4)';
+}
+function showLoggedInPanel(){
+  document.getElementById('loginForm').style.display  = 'none';
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('loggedInPanel').style.display = 'block';
+  document.getElementById('liUserName').textContent  = currentUser.name;
+  document.getElementById('liUserEmail').textContent = currentUser.email;
+  // Show orders
+  const users  = loadUsers();
+  const u      = users[currentUser.email];
+  const orders = u?.orders || [];
+  const el     = document.getElementById('liOrdersList');
+  if(!orders.length){ el.textContent = 'No orders yet.'; }
+  else {
+    el.innerHTML = orders.slice(0,5).map(o=>`
+      <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+          <span style="color:#fff;font-weight:700">\`${o.orderId}\`</span>
+          <span style="color:#ffd700">$${o.total}</span>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.3)">${o.items?.join(', ')||'—'} · ${o.method}</div>
+      </div>`).join('');
+  }
+}
+
+function doLogin(){
+  const email = document.getElementById('liEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('liPass').value;
+  const err   = document.getElementById('liErr');
+  if(!email||!pass){ err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
+  const users = loadUsers();
+  const u     = users[email];
+  if(!u || u.password !== btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  err.style.display='none';
+  currentUser = { email, name: u.name };
+  saveSession(currentUser);
+  updateNavLogin();
+  showLoggedInPanel();
+}
+
+function doSignup(){
+  const name  = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('suPass').value;
+  const err   = document.getElementById('suErr');
+  if(!name||!email||!pass){ err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
+  if(!email.includes('@')){ err.textContent='Invalid email address.'; err.style.display='block'; return; }
+  if(pass.length<6){ err.textContent='Password must be at least 6 characters.'; err.style.display='block'; return; }
+  const users = loadUsers();
+  if(users[email]){ err.textContent='An account with this email already exists.'; err.style.display='block'; return; }
+  users[email] = { name, email, password: btoa(pass), orders: [], createdAt: new Date().toISOString() };
+  saveUsers(users);
+  currentUser = { email, name };
+  saveSession(currentUser);
+  err.style.display='none';
+  updateNavLogin();
+  showLoggedInPanel();
+}
+
+function doLogout(){
+  currentUser = null;
+  clearSession();
+  updateNavLogin();
+  closeLoginModal();
+}
+
+function updateNavLogin(){
+  const lbl = document.getElementById('navLoginLabel');
+  if(lbl) lbl.textContent = currentUser ? currentUser.name.split(' ')[0] : 'Login';
+}
+
+// Restore session on load
+(function restoreSession(){
+  const s = loadSession();
+  if(s){ currentUser = s; updateNavLogin(); }
+})();
 
 // ── INIT ──────────────────────────────────────────────────────
 function init(){
@@ -2617,7 +2937,7 @@ function init(){
 }
 init();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();}});
 
 // ── BRANDING ──────────────────────────────────────────────────
 (function applyBranding(){

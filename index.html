@@ -982,9 +982,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <br>
       <a id="discFootLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank" style="display:inline-flex;width:auto">💬 Discord Server</a>
     </div>
-    <div class="fc"><h4>Our Shop</h4><a href="#" onclick="showPage('about')">About Us</a><a href="#" onclick="showPage('how')">How it Works</a><a href="#" onclick="showPage('faq')">FAQ</a></div>
-    <div class="fc"><h4>Help</h4><a href="#" onclick="showPage('privacy')">Privacy Policy</a><a href="#" onclick="showPage('terms')">Terms of Service</a><a href="#" onclick="showPage('refund')">Refund Policy</a></div>
-    <div class="fc"><h4>Affiliates</h4><a href="#" onclick="showPage('affiliate')">Become an Affiliate</a><a href="#" onclick="openLoginModal()">Affiliate Login</a><a href="#" onclick="openLoginModal()">Affiliate Dashboard</a></div>
+    <div class="fc"><h4>Our Shop</h4><a href="#" onclick="showPage('about');return false">About Us</a><a href="#" onclick="showPage('how');return false">How it Works</a><a href="#" onclick="showPage('faq');return false">FAQ</a></div>
+    <div class="fc"><h4>Help</h4><a href="#" onclick="showPage('privacy');return false">Privacy Policy</a><a href="#" onclick="showPage('terms');return false">Terms of Service</a><a href="#" onclick="showPage('refund');return false">Refund Policy</a></div>
+    <div class="fc"><h4>Affiliates</h4><a href="#" onclick="showPage('affiliate');return false">Become an Affiliate</a><a href="#" onclick="openLoginModal();return false">Affiliate Login</a><a href="#" onclick="openLoginModal();return false">Affiliate Dashboard</a></div>
   </div>
   <div class="fbot">
     <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
@@ -1319,10 +1319,11 @@ const CRYPTO_WALLETS = {
 };
 
 const PAY_LINKS = {
-  // ✏️ PayPal: your business email — buyers send to this address
-  // Format: paypal.com/pay?email=YOUR_EMAIL&amount=TOTAL&currencyCode=USD
-  pp: 'andreaskk112@gmail.com',  // PayPal business email
-  // ✏️ Debit: your Stripe payment link — amount is auto-filled from cart total
+  // ✏️ PayPal: your paypal.me USERNAME (not email)
+  // Go to paypal.com/me to find or set your username
+  // e.g. if your link is paypal.me/silvmarket → put 'silvmarket'
+  pp: 'silvmarket',  // ← your paypal.me username
+  // ✏️ Debit: Stripe link — product MUST be "Customer chooses price" for prefill to work
   dc: 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f',
   cr: '#crypto',
 };
@@ -2180,99 +2181,100 @@ function payNow(){
   const e=document.getElementById('emailIn').value.trim();
   if(!u){ alert('⚠️ Enter your Roblox username first.'); return; }
   if(!e||!e.includes('@')){ alert('⚠️ Enter a valid email address.'); return; }
-
-  if(selectedPayMethod==='cr'){
-    openCryptoModal();
-    return;
-  }
-
+  if(selectedPayMethod==='cr'){ openCryptoModal(); return; }
   const tot=calcTotal();
-
   if(selectedPayMethod==='pp'){
-    // PayPal business — direct send money link that actually works
-    const ppUrl=`https://www.paypal.com/sendmoney?recipient=${encodeURIComponent(PAY_LINKS.pp)}&amount=${tot}&currencyCode=USD&note=${encodeURIComponent('Silv Market Order')}`;
+    // paypal.me/<username>/<amount> is the ONLY PayPal URL that pre-fills recipient + amount
+    // PAY_LINKS.pp should be your paypal.me username (not email)
+    const ppUrl=`https://www.paypal.me/${PAY_LINKS.pp}/${tot}`;
     window.open(ppUrl,'_blank');
-    showManualConfirm(u, e, tot, 'PayPal', ppUrl);
+    showPaymentPending(u, e, tot, 'PayPal');
     return;
   }
-
   if(selectedPayMethod==='dc'){
-    const cents = Math.round(tot * 100);
-    // Stripe prefilled_amount works only on variable-price payment links
-    // Also prefill email if available
-    const email = document.getElementById('emailIn').value.trim();
-    let stripeUrl = PAY_LINKS.dc + '?prefilled_amount=' + cents;
-    if(email) stripeUrl += '&prefilled_email=' + encodeURIComponent(email);
+    // Stripe: prefilled_amount in CENTS — requires "Customer chooses price" product type
+    const cents=Math.round(tot*100);
+    const stripeUrl=PAY_LINKS.dc+'?prefilled_amount='+cents+'&prefilled_email='+encodeURIComponent(e);
     window.open(stripeUrl,'_blank');
-    showManualConfirm(u, e, tot, 'Debit Card', stripeUrl);
+    showPaymentPending(u, e, tot, 'Debit Card');
     return;
   }
 }
 
-// ── MANUAL CONFIRM (PayPal + Debit — staff verifies) ─────────
-function showManualConfirm(rblxUser, email, tot, method, payUrl){
+// ── PAYMENT PENDING UI ─────────────────────────────────────────
+function showPaymentPending(rblxUser, email, tot, method){
   const btn=document.getElementById('payNow');
-  btn.innerHTML=`⏳ Payment window open…`;
-  btn.disabled=true;
+  // Clear any existing pending UI
+  document.getElementById('ppConfirmBtn')?.remove();
+  document.getElementById('ppConfirmNote')?.remove();
+  document.getElementById('ppChangeBtn')?.remove();
 
-  const existing=document.getElementById('ppConfirmBtn');
-  if(existing) existing.remove();
-  const existNote=document.getElementById('ppConfirmNote');
-  if(existNote) existNote.remove();
-
-  // Immediately log to bot as pending — staff can see it right away
+  // Generate IDs and fire to bot IMMEDIATELY
   const orderId=genOrderId();
   const claimKey=genClaimKey();
   fireOrderWebhook({
     robloxUsername:rblxUser, email, total:tot,
     paymentMethod:method, paymentStatus:'pending_verification',
     items:cart, discordUser, orderId, claimKey,
-    promoCode: promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+    promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
   });
 
-  // Show countdown — after 2 min auto-submit (gives staff time to verify)
-  // User can also click "Done" early
-  let secs = 120;
-  const wrap = document.createElement('div');
-  wrap.id='ppConfirmNote';
-  wrap.style.cssText='margin-top:10px;text-align:center';
-  wrap.innerHTML=`
-    <div style="background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:12px">
-      <div style="font-family:Rajdhani,sans-serif;font-size:12px;color:rgba(255,200,100,.7);margin-bottom:8px">
-        ⏳ Sent to bot for staff verification<br>
-        <strong style="color:#ffd700">Total: $${tot}</strong> via ${method}
-      </div>
-      <div style="font-family:Orbitron,monospace;font-size:20px;font-weight:800;color:#ffd700" id="ppCountdown">2:00</div>
-      <div style="font-size:10px;color:rgba(255,255,255,.2);font-family:Rajdhani,sans-serif;margin-top:4px">
-        Auto-completing in… or click below when paid
-      </div>
-    </div>`;
-  btn.parentNode.insertBefore(wrap, btn.nextSibling);
+  // Lock button
+  btn.innerHTML='⏳ Payment window open…';
+  btn.disabled=true;
+  btn.style.opacity='0.6';
 
+  // "Change method" button
+  const changeBtn=document.createElement('button');
+  changeBtn.id='ppChangeBtn';
+  changeBtn.style.cssText='width:100%;padding:9px;margin-top:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:rgba(255,255,255,.45);font-family:Rajdhani,sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s';
+  changeBtn.textContent='← Change payment method';
+  changeBtn.onmouseenter=()=>changeBtn.style.color='rgba(255,255,255,.8)';
+  changeBtn.onmouseleave=()=>changeBtn.style.color='rgba(255,255,255,.45)';
+  changeBtn.onclick=resetPaymentUI;
+  btn.parentNode.insertBefore(changeBtn, btn.nextSibling);
+
+  // Info box
+  const infoBox=document.createElement('div');
+  infoBox.id='ppConfirmNote';
+  infoBox.style.cssText='margin-top:10px';
+  infoBox.innerHTML=`<div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:14px;text-align:center">
+    <div style="font-size:10px;color:rgba(255,200,100,.5);font-family:Rajdhani,sans-serif;letter-spacing:1.5px;margin-bottom:6px">ORDER LOGGED — STAFF NOTIFIED</div>
+    <div style="font-family:Orbitron,monospace;font-size:12px;font-weight:800;color:#ffd700;margin-bottom:6px">${orderId}</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.4);font-family:Rajdhani,sans-serif;margin-bottom:8px">Send exactly <strong style="color:#ffd700">$${tot}</strong> via ${method}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.2);font-family:Rajdhani,sans-serif;line-height:1.6">Staff are checking your payment.<br>Click below once you have completed it.</div>
+  </div>`;
+  changeBtn.parentNode.insertBefore(infoBox, changeBtn.nextSibling);
+
+  // "I've paid" confirm
   const conf=document.createElement('button');
   conf.id='ppConfirmBtn';
   conf.className=`pay-btn ${method==='PayPal'?'p-pp':'p-dc'}`;
   conf.style.marginTop='8px';
-  conf.innerHTML=`✅ I've Completed the Payment`;
-  conf.onclick=()=>{ clearInterval(timer); finalizePendingOrder(orderId, claimKey, rblxUser, tot, method); };
-  wrap.parentNode.insertBefore(conf, wrap.nextSibling);
-
-  const timer = setInterval(()=>{
-    secs--;
-    const m=Math.floor(secs/60), s=secs%60;
-    const cd=document.getElementById('ppCountdown');
-    if(cd) cd.textContent=`${m}:${s.toString().padStart(2,'0')}`;
-    if(secs<=0){ clearInterval(timer); finalizePendingOrder(orderId, claimKey, rblxUser, tot, method); }
-  }, 1000);
+  conf.innerHTML=`✅ I've Completed the ${method} Payment`;
+  conf.onclick=()=>finalizePendingOrder(orderId,claimKey,rblxUser,tot,method);
+  infoBox.parentNode.insertBefore(conf, infoBox.nextSibling);
 }
 
-function finalizePendingOrder(orderId, claimKey, rblxUser, tot, method){
+function resetPaymentUI(){
+  const btn=document.getElementById('payNow');
   document.getElementById('ppConfirmBtn')?.remove();
   document.getElementById('ppConfirmNote')?.remove();
-  saveOrderToUser(orderId, claimKey, cart, tot, method);
+  document.getElementById('ppChangeBtn')?.remove();
+  btn.disabled=false;
+  btn.style.opacity='1';
+  btn.className='pay-btn '+(PAY_CLS[selectedPayMethod]||'p-pp');
+  btn.innerHTML=PAY_LABELS[selectedPayMethod]||'💙 Pay Now';
+}
+
+function finalizePendingOrder(orderId,claimKey,rblxUser,tot,method){
+  document.getElementById('ppConfirmBtn')?.remove();
+  document.getElementById('ppConfirmNote')?.remove();
+  document.getElementById('ppChangeBtn')?.remove();
+  saveOrderToUser(orderId,claimKey,cart,tot,method);
   closeCO();
-  showOrderSuccess(orderId, claimKey, /*pending=*/true);
-  cart=[]; updateCartUI();
+  showOrderSuccess(orderId,claimKey,true);
+  cart=[];updateCartUI();
 }
 
 // ── PENDING ORDER (legacy — kept for compat) ──────────────────

@@ -1164,11 +1164,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
         <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:11px">Payment Method</div>
         <div class="pm-grid" style="grid-template-columns:1fr 1fr 1fr">
-          <div class="pm spp" id="pm-pp" onclick="selPayMethod('pp')"><div class="pm-ico">💙</div><div class="pm-nm">PayPal</div></div>
-          <div class="pm" id="pm-dc" onclick="selPayMethod('dc')"><div class="pm-ico">💳</div><div class="pm-nm">Debit Card</div></div>
+          <div class="pm sdc" id="pm-dc" onclick="selPayMethod('dc')"><div class="pm-ico">💳</div><div class="pm-nm">Debit Card</div></div>
           <div class="pm" id="pm-cr" onclick="selPayMethod('cr')"><div class="pm-ico">₿</div><div class="pm-nm">Crypto</div></div>
         </div>
-        <button class="pay-btn p-pp" id="payNow" onclick="payNow()" disabled>🔒 Link Discord First</button>
+        <button class="pay-btn p-dc" id="payNow" onclick="payNow()" disabled>🔒 Link Discord First</button>
         <div class="pay-note">🔒 Secure encrypted payment · 🛡️ Buyer protection · ⚡ Instant delivery</div>
       </div>
     </div>
@@ -1525,15 +1524,15 @@ const TSUNAMI = [
 ];
 
 // ── STATE ────────────────────────────────────────────────────
-let cart = [], selectedPayMethod='pp', promoApplied=false, promoPct=0;
+let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0;
 let rblxVerified=false, fruitModes={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
 let _authWindow = null;
 let _authCheckInterval = null;
-const PAY_LABELS = {pp:'💙 Pay with PayPal',dc:'💳 Pay with Debit Card',cr:'₿ Pay with Crypto'};
-const PAY_CLS    = {pp:'p-pp',dc:'p-dc',cr:'p-cr'};
-const PM_SEL     = {pp:'spp',dc:'sdc',cr:'scr'};
+const PAY_LABELS = {dc:'💳 Pay with Debit Card',cr:'₿ Pay with Crypto'};
+const PAY_CLS    = {dc:'p-dc',cr:'p-cr'};
+const PM_SEL     = {dc:'sdc',cr:'scr'};
 
 // ── BADGE HELPERS ─────────────────────────────────────────────
 const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sale',best:'b-best',oos:'b-oos',rare:'b-rare',perm:'b-perm',bundle:'b-new',popular:'b-hot'};
@@ -2049,7 +2048,7 @@ function updatePayBtn(){
     msg.classList.remove('show');
   } else {
     btn.disabled    = true;
-    btn.className   = 'pay-btn p-pp';
+    btn.className   = 'pay-btn p-dc';
     btn.textContent = '🔒 Link Discord First';
     msg.classList.add('show');
   }
@@ -2144,7 +2143,10 @@ function applyPromo(){
 
 function selPayMethod(m){
   selectedPayMethod=m;
-  ['pp','dc','cr'].forEach(k=>{document.getElementById('pm-'+k).className='pm'+(k===m?' '+PM_SEL[k]:'');});
+  ['dc','cr'].forEach(k=>{
+    const el=document.getElementById('pm-'+k);
+    if(el) el.className='pm'+(k===m?' '+PM_SEL[k]:'');
+  });
   if(discordLinked){
     const btn=document.getElementById('payNow');
     btn.className='pay-btn '+PAY_CLS[m];
@@ -2183,23 +2185,7 @@ function payNow(){
   if(!e||!e.includes('@')){ alert('⚠️ Enter a valid email address.'); return; }
   if(selectedPayMethod==='cr'){ openCryptoModal(); return; }
   const tot=calcTotal();
-  if(selectedPayMethod==='pp'){
-    // paypal.me/<username>/<amount> pre-fills recipient + amount
-    const ppOrderId  = genOrderId();
-    const ppClaimKey = genClaimKey();
-    // Fire to bot immediately before opening PayPal
-    fireOrderWebhook({
-      robloxUsername:u, email:e, total:tot,
-      paymentMethod:'PayPal', paymentStatus:'pending_verification',
-      items:cart, discordUser, orderId:ppOrderId, claimKey:ppClaimKey,
-      promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
-    });
-    const ppUrl=`https://www.paypal.me/${PAY_LINKS.pp}/${tot}`;
-    window.open(ppUrl,'_blank');
-    // Pass pre-generated IDs so showPaymentPending doesn't fire webhook again
-    showPaymentPending(u, e, tot, 'PayPal', ppOrderId, ppClaimKey);
-    return;
-  }
+
   if(selectedPayMethod==='dc'){
     // Stripe: create real checkout session via bot so amount is exact
     openStripeCheckout(u, e, tot);
@@ -2232,14 +2218,7 @@ async function openStripeCheckout(rblxUser, email, tot){
     const data = await resp.json();
 
     if (data.url) {
-      // Log order to bot immediately as pending
-      fireOrderWebhook({
-        robloxUsername: rblxUser, email, total: tot,
-        paymentMethod: 'Debit Card', paymentStatus: 'pending_verification',
-        items: cart, discordUser, orderId, claimKey,
-        promoCode: promoApplied ? document.getElementById('promoIn')?.value.trim().toUpperCase() : null,
-      });
-      // Open Stripe checkout with EXACT pre-filled amount
+      // Open Stripe checkout — do NOT log to bot yet, wait for user to confirm
       window.open(data.url, '_blank');
       showPaymentPending(rblxUser, email, tot, 'Debit Card', orderId, claimKey);
     } else {
@@ -2268,19 +2247,11 @@ function showPaymentPending(rblxUser, email, tot, method, existingOrderId, exist
   document.getElementById('ppConfirmNote')?.remove();
   document.getElementById('ppChangeBtn')?.remove();
 
-  // Use pre-generated IDs if provided, else generate + fire to bot
+  // Use pre-generated IDs if provided, else generate fresh
   const orderId  = existingOrderId  || genOrderId();
   const claimKey = existingClaimKey || genClaimKey();
 
-  // Only fire webhook if NOT already fired (Stripe pre-fires it)
-  if(!existingOrderId){
-    fireOrderWebhook({
-      robloxUsername:rblxUser, email, total:tot,
-      paymentMethod:method, paymentStatus:'pending_verification',
-      items:cart, discordUser, orderId, claimKey,
-      promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
-    });
-  }
+  // ⚠️ Do NOT fire webhook here — only fires when buyer clicks confirm below
 
   // Lock button
   btn.innerHTML='⏳ Payment window open…';
@@ -2302,7 +2273,7 @@ function showPaymentPending(rblxUser, email, tot, method, existingOrderId, exist
   infoBox.id='ppConfirmNote';
   infoBox.style.cssText='margin-top:10px';
   infoBox.innerHTML=`<div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:14px;text-align:center">
-    <div style="font-size:10px;color:rgba(255,200,100,.5);font-family:Rajdhani,sans-serif;letter-spacing:1.5px;margin-bottom:6px">ORDER LOGGED — STAFF NOTIFIED</div>
+    <div style="font-size:10px;color:rgba(255,200,100,.5);font-family:Rajdhani,sans-serif;letter-spacing:1.5px;margin-bottom:6px">COMPLETE PAYMENT THEN CLICK BELOW</div>
     <div style="font-family:Orbitron,monospace;font-size:12px;font-weight:800;color:#ffd700;margin-bottom:6px">${orderId}</div>
     <div style="font-size:12px;color:rgba(255,255,255,.4);font-family:Rajdhani,sans-serif;margin-bottom:8px">Send exactly <strong style="color:#ffd700">$${tot}</strong> via ${method}</div>
     <div style="font-size:10px;color:rgba(255,255,255,.2);font-family:Rajdhani,sans-serif;line-height:1.6">Staff are checking your payment.<br>Click below once you have completed it.</div>
@@ -2330,13 +2301,31 @@ function resetPaymentUI(){
   btn.innerHTML=PAY_LABELS[selectedPayMethod]||'💙 Pay Now';
 }
 
-function finalizePendingOrder(orderId,claimKey,rblxUser,tot,method){
+async function finalizePendingOrder(orderId,claimKey,rblxUser,tot,method){
+  // Disable confirm button to prevent double-click
+  const conf=document.getElementById('ppConfirmBtn');
+  if(conf){ conf.disabled=true; conf.innerHTML='⏳ Processing…'; }
+
+  // NOW fire to bot — payment claimed as completed, ticket + DM will be created
+  const botResp = await fireOrderWebhook({
+    robloxUsername:rblxUser,
+    email: document.getElementById('emailIn')?.value.trim(),
+    total:tot,
+    paymentMethod:method,
+    paymentStatus:'completed',
+    items:cart, discordUser, orderId, claimKey,
+    promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+  });
+
+  const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
+  const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
+
   document.getElementById('ppConfirmBtn')?.remove();
   document.getElementById('ppConfirmNote')?.remove();
   document.getElementById('ppChangeBtn')?.remove();
-  saveOrderToUser(orderId,claimKey,cart,tot,method);
+  saveOrderToUser(finalOrderId,finalClaimKey,cart,tot,method);
   closeCO();
-  showOrderSuccess(orderId,claimKey,true);
+  showOrderSuccess(finalOrderId,finalClaimKey,false);
   cart=[];updateCartUI();
 }
 
@@ -2531,6 +2520,7 @@ function getCryptoAmount(coin, usdTotal){
 
 function openCryptoModal(){
   _cryptoOrderTotal = calcTotal();
+  _cryptoOrderSubmitted = false; // reset for new attempt
   document.getElementById('cryptoModal').style.display='flex';
   buildCryptoTabs();
   fetchCryptoRates(_cryptoOrderTotal).then(()=>{
@@ -2651,10 +2641,14 @@ function drawQR(address){
 }
 
 // ── "I've Sent" button → verify + complete order ──────────────
+// Track if order already submitted to prevent double-fire
+let _cryptoOrderSubmitted = false;
+
 function cryptoISent(){
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
   if(!u||!e){ alert('Please fill in your Roblox username and email first.'); return; }
+  if(_cryptoOrderSubmitted){ return; } // prevent double submit
 
   const btn=document.getElementById('cryptoISentBtn');
   btn.disabled=true;
@@ -2663,7 +2657,6 @@ function cryptoISent(){
   document.getElementById('cryptoCheckingDots').style.display='block';
   document.getElementById('cryptoStatusText').textContent='🔍 Checking blockchain for your transaction…';
 
-  // Check blockchain — uses public APIs (no key needed for basic checks)
   startCryptoCheck(u, e);
 }
 
@@ -2677,15 +2670,14 @@ function startCryptoCheck(rblxUser, email){
     if(found){
       stopCryptoCheck();
       stopCryptoTimer();
-      completeCryptoOrder(rblxUser, email);
+      completeCryptoOrder(rblxUser, email, true); // confirmed on-chain
     } else if(checkCount>=5){
-      // After 5 checks (~30s) not found on chain — mark as pending, still create order
-      // (crypto can take a few mins to appear on mempool)
+      // Not found after 5 checks — create pending order, staff verify in ticket
       stopCryptoCheck();
-      document.getElementById('cryptoStatusText').textContent='⚠️ Not detected yet — creating order anyway. Staff will verify.';
-      setTimeout(()=>completeCryptoOrder(rblxUser, email),2000);
+      document.getElementById('cryptoStatusText').textContent='⚠️ Not detected on-chain yet. Creating order — prove payment in your Discord ticket.';
+      setTimeout(()=>completeCryptoOrder(rblxUser, email, false),2000);
     }
-  },6000); // check every 6 seconds
+  },6000);
 }
 function stopCryptoCheck(){ clearInterval(_cryptoCheckInterval); }
 
@@ -2738,31 +2730,38 @@ async function checkCryptoPayment(coin, address, usdAmt){
   return false;
 }
 
-async function completeCryptoOrder(rblxUser, email){
+async function completeCryptoOrder(rblxUser, email, confirmed=false){
+  if(_cryptoOrderSubmitted) return; // prevent double-fire
+  _cryptoOrderSubmitted = true;
+
   const orderId=genOrderId();
   const claimKey=genClaimKey();
   const coin=_cryptoCurrentCoin;
   const amt=getCryptoAmount(coin,_cryptoOrderTotal);
+  const status = confirmed ? 'completed' : 'pending_verification';
 
-  document.getElementById('cryptoStatusText').textContent='✅ Payment received! Creating your order…';
+  document.getElementById('cryptoStatusText').textContent = confirmed
+    ? '✅ Payment detected! Creating your order…'
+    : '⏳ Order created — prove payment in your Discord ticket.';
 
   const botResp=await fireOrderWebhook({
     robloxUsername:rblxUser, email,
     total:_cryptoOrderTotal,
     paymentMethod:`Crypto (${coin})`,
+    paymentStatus: status,
     items:cart, discordUser,
     orderId, claimKey,
     cryptoDetails:{ coin, amount:amt, address:_cryptoCurrent },
-    promoCode:promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
+    promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
   });
 
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
   const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
 
-  saveOrderToUser(finalOrderId, finalClaimKey, cart, _cryptoOrderTotal, `Crypto (${_cryptoCurrentCoin})`);
+  saveOrderToUser(finalOrderId, finalClaimKey, cart, _cryptoOrderTotal, `Crypto (${coin})`);
   closeCryptoModal();
   closeCO();
-  showOrderSuccess(finalOrderId, finalClaimKey);
+  showOrderSuccess(finalOrderId, finalClaimKey, !confirmed);
   cart=[]; updateCartUI();
 }
 

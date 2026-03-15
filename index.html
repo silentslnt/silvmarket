@@ -725,7 +725,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Best Sellers 🔥</div>
       <p class="sec-sub">Our most popular items across all games — trusted by hundreds of players.</p>
     </div>
-    <button class="view-all">View All →</button>
+    
 
     <button class="view-all" onclick="openViewAll('bestsellers')">View All →</button>  </div>
   <div class="bs-row" id="bsGrid"></div>
@@ -1427,6 +1427,7 @@ const PROMOS = {
   SILV20:20,
   BRAINROT20:20,
   DISCORD10:10,
+  GAG15:15,
   MM2SAVE:15,
 };
 
@@ -1776,47 +1777,43 @@ const BESTSELLERS = [
 ];
 
 function renderBS(){
-  document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(i=>`
-    (() => {
-      const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:parseFloat(i.p.replace('$','')),oldP:null,rar:'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
-      return `<div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
-        <div class="pc-img ${i.bg||'r-rare'}">
-          ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>`:`<span class="em">${i.em}</span>`}
-          ${bdg(i.badge)}${stk(i.stock)}
-        </div>
-        <div class="pc-body">
-          <div class="pc-g" style="color:var(--yellow);font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">${i.game}</div>
-          <div class="pc-n">${i.n}</div>
-          <div class="pc-price">${i.p}</div>
-          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${i.p}','${i.em}','${i.game}')">🛒 Add to Cart</button>
-        </div>
-      </div>`;
-    })()`).join('');
-}
-
-// ── SEARCH ────────────────────────────────────────────────────
-const ALL_PRODUCTS=[];
-function buildSearchIndex(){
-  const push=(items,game)=>items.forEach(i=>ALL_PRODUCTS.push({n:i.n,em:i.em,p:i.p||i.norm||0,game}));
-  ROBUX.forEach(r=>ALL_PRODUCTS.push({n:`${r.a.toLocaleString()} Robux`,em:'💎',p:r.p,game:'Robux'}));
-  push(FRUITS,'Blox Fruits');push(FRUIT_SKINS,'Blox Fruits');push(BF_GP,'Blox Fruits');
-  push(GAG,'Grow a Garden');push(AM,'Adopt Me');push(MM2,'MM2');
-  push(BRAINROT,'Steal a Brainrot');push(RIVALS,'Rivals');push(NIGHTS,'99 Nights');push(TSUNAMI,'Escape Tsunami');
-}
-function doSearch(q){
-  const el=document.getElementById('searchResults');
-  if(!q||q.trim().length<2){el.classList.remove('open');return;}
-  const matches=ALL_PRODUCTS.filter(p=>p.n.toLowerCase().includes(q.toLowerCase())).slice(0,12);
-  if(!matches.length){el.innerHTML=`<div class="sr-none">No results for "${q}"</div>`;el.classList.add('open');return;}
-  el.innerHTML=matches.map(p=>`
-    <div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\\'")}','$${Number(p.p).toFixed(2)}','${p.em}','${p.game}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
-      <div class="sr-em">${p.em}</div>
-      <div class="sr-info"><div class="sr-name">${p.n}</div><div class="sr-game">${p.game}</div></div>
-      <div class="sr-price">$${Number(p.p).toFixed(2)}</div>
-    </div>`).join('');
-  el.classList.add('open');
-}
-document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
+  document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i,idx){
+    var p=parseFloat((i.p||'$0').replace('$',''))||0;
+    var imgHtml=i.img
+      ?('<img src="'+i.img+'" alt="" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>')
+      :('<span class="em">'+i.em+'</span>');
+    return [
+      '<div class="pc" style="cursor:pointer" data-bs-idx="'+idx+'">',
+        '<div class="pc-img '+(i.bg||'r-rare')+'">',
+          imgHtml,
+          bdg(i.badge||''),
+          stk(i.stock!=null?i.stock:99),
+        '</div>',
+        '<div class="pc-body">',
+          '<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>',
+          '<div class="pc-n">'+i.n+'</div>',
+          '<div class="pc-price">'+i.p+'</div>',
+          '<button class="pc-btn" data-bs-add="'+idx+'">&#x1F6D2; Add to Cart</button>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }).join('');
+  // Wire up click handlers after rendering
+  document.querySelectorAll('#bsGrid [data-bs-idx]').forEach(function(el){
+    var idx=parseInt(el.dataset.bsIdx);
+    var i=BESTSELLERS[idx];
+    var p=parseFloat((i.p||'$0').replace('$',''))||0;
+    var obj={n:i.n,em:i.em,p:p,oldP:null,rar:'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''};
+    el.addEventListener('click',function(e){
+      if(!e.target.closest('[data-bs-add]')) openItemDetail(encodeURIComponent(JSON.stringify(obj)));
+    });
+    var btn=el.querySelector('[data-bs-add]');
+    if(btn) btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      addToCart(i.n,i.p,i.em,i.game);
+    });
+  });
+}document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
 
 // ── ROBLOX USERNAME VALIDATION ────────────────────────────────
 let _rblxTimer=null;
@@ -3347,7 +3344,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryp
 // ── BRANDING ──────────────────────────────────────────────────
 (function applyBranding(){
   if(SITE_FAVICON){let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);}
-  if(SITE_LOGO_URL){const img=document.getElementById('navLogoImg');const txt=document.getElementById('navLogoText');img.src=SITE_LOGO_URL;img.style.display='inline-block';if(txt)txt.style.display='none';}
+  if(SITE_LOGO_URL){
+    const img=document.getElementById('navLogoImg');
+    img.src=SITE_LOGO_URL;
+    img.style.display='inline-block';
+    // Keep text visible — logo sits NEXT to SILV MARKET text
+  }
   document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
 })();
 </script>

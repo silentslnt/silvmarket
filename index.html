@@ -726,7 +726,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <p class="sec-sub">Our most popular items across all games — trusted by hundreds of players.</p>
     </div>
     <button class="view-all">View All →</button>
-  </div>
+
+    <button class="view-all" onclick="openViewAll('bestsellers')">View All →</button>  </div>
   <div class="bs-row" id="bsGrid"></div>
 </section>
 
@@ -752,6 +753,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Blox Fruits</div>
       <p class="sec-sub">All top-tier fruits with Normal / ⭐ Permanent toggle · Skins · Gamepasses</p>
     </div>
+    <button class="view-all" onclick="openViewAll('bf')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -791,6 +793,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Grow a Garden</div>
       <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
     </div>
+    <button class="view-all" onclick="openViewAll('gag')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -812,6 +815,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Adopt Me</div>
       <p class="sec-sub">Legendary, Neon and Mega Neon pets · Fly Ride enabled</p>
     </div>
+    <button class="view-all" onclick="openViewAll('am')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -833,6 +837,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">MM2</div>
       <p class="sec-sub">Godly knives, chroma weapons, rare limited items</p>
     </div>
+    <button class="view-all" onclick="openViewAll('mm2')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -856,6 +861,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Brainrot Pets</div>
       <p class="sec-sub">Exclusive bundles, OP pets and ultra packs</p>
     </div>
+    <button class="view-all" onclick="openViewAll('brainrot')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -876,6 +882,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Rivals</div>
       <p class="sec-sub">Rank boosts, skins, cosmetics and coins</p>
     </div>
+    <button class="view-all" onclick="openViewAll('rivals')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -897,6 +904,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">99 Nights</div>
       <p class="sec-sub">Rare pets, bundles, boosts and currency</p>
     </div>
+    <button class="view-all" onclick="openViewAll('nights')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -917,6 +925,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="sec-title">Escape Tsunami</div>
       <p class="sec-sub">Exclusive bundles and rare items</p>
     </div>
+    <button class="view-all" onclick="openViewAll('tsunami')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
@@ -999,6 +1008,93 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
      ══════════════════════════════════════════════════ -->
 
 <!-- Generic Modal Shell -->
+<!-- ═══════════════════════════════════════════════
+     ITEM DETAIL MODAL
+     ═══════════════════════════════════════════════ -->
+<div id="itemDetailModal" style="display:none;position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeItemDetail()">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.3);border-radius:20px;max-width:860px;width:100%;position:relative;overflow:hidden;margin:auto">
+    <!-- Back button -->
+    <button onclick="closeItemDetail()" style="position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.07)'">
+      ← Back to Shop
+    </button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:420px" id="itemDetailInner">
+      <!-- left: image -->
+      <div id="itemDetailImg" style="display:flex;align-items:center;justify-content:center;padding:60px 40px;border-right:1px solid rgba(255,255,255,.07);position:relative;min-height:340px"></div>
+      <!-- right: info -->
+      <div style="padding:60px 36px 36px">
+        <div id="itemDetailGame" style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px"></div>
+        <div id="itemDetailName" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2"></div>
+        <div id="itemDetailRar" style="margin-bottom:12px"></div>
+        <div id="itemDetailPrice" style="font-family:'Orbitron',monospace;font-size:32px;font-weight:800;color:var(--yellow);margin-bottom:4px"></div>
+        <div id="itemDetailOldPrice" style="margin-bottom:16px"></div>
+        <div id="itemDetailDesc" style="font-family:'Rajdhani',sans-serif;font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px;padding:14px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.06)"></div>
+        <div id="itemDetailStock" style="margin-bottom:16px;font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4)"></div>
+        <!-- Quantity selector -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.5)">Quantity:</div>
+          <div style="display:flex;align-items:center;gap:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden">
+            <button onclick="changeDetailQty(-1)" style="padding:8px 14px;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(255,255,255,.08)'" onmouseleave="this.style.background='none'">−</button>
+            <span id="detailQty" style="padding:8px 16px;font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#fff;min-width:36px;text-align:center">1</span>
+            <button onclick="changeDetailQty(1)" style="padding:8px 14px;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(255,255,255,.08)'" onmouseleave="this.style.background='none'">+</button>
+          </div>
+        </div>
+        <button id="itemDetailAddBtn" onclick="addToCartFromDetail()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#ff10f0);color:#fff;font-family:'Orbitron',monospace;font-size:13px;font-weight:800;border:none;cursor:pointer;box-shadow:0 0 24px rgba(255,16,240,.25);transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px">🛒 Add to Cart</button>
+        <!-- Trust badges -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px">
+          <div style="text-align:center;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)"><div style="font-size:18px;margin-bottom:4px">⚡</div><div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.4)">Fast Delivery</div></div>
+          <div style="text-align:center;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)"><div style="font-size:18px;margin-bottom:4px">✅</div><div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.4)">Verified</div></div>
+          <div style="text-align:center;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)"><div style="font-size:18px;margin-bottom:4px">🔒</div><div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.4)">Secure</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     VIEW ALL OVERLAY
+     ═══════════════════════════════════════════════ -->
+<div id="viewAllOverlay" style="display:none;position:fixed;inset:0;z-index:5000;background:linear-gradient(160deg,#0d0520,#07031a);overflow-y:auto">
+  <div style="max-width:1400px;margin:0 auto;padding:24px">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)">
+      <button onclick="closeViewAll()" style="display:flex;align-items:center;gap:6px;padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.07)'">← Back to Shop</button>
+      <div>
+        <div id="viewAllTitle" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#fff"></div>
+        <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-top:2px"></div>
+      </div>
+    </div>
+    <!-- Filter bar -->
+    <div id="viewAllFilters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <!-- Sort bar -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px">SORT:</span>
+      <button onclick="sortViewAll('default')" class="va-sort va-sort-active" id="vaSort-default">Default</button>
+      <button onclick="sortViewAll('low')"     class="va-sort" id="vaSort-low">Price ↑</button>
+      <button onclick="sortViewAll('high')"    class="va-sort" id="vaSort-high">Price ↓</button>
+      <button onclick="sortViewAll('stock')"   class="va-sort" id="vaSort-stock">In Stock First</button>
+    </div>
+    <!-- Grid -->
+    <div id="viewAllGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
+  </div>
+</div>
+
+<style>
+/* Item detail mobile */
+@media(max-width:640px){
+  #itemDetailInner{grid-template-columns:1fr!important}
+  #itemDetailInner>div:first-child{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.07);min-height:220px!important;padding:50px 20px 20px!important}
+  #itemDetailInner>div:last-child{padding:20px!important}
+  #itemDetailName{font-size:18px!important}
+  #itemDetailPrice{font-size:26px!important}
+}
+/* View all sort buttons */
+.va-sort{padding:6px 14px;border-radius:7px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s}
+.va-sort:hover,.va-sort-active{background:rgba(147,51,234,.25);border-color:rgba(147,51,234,.5);color:#fff}
+/* View all filter pills */
+.va-filter{padding:7px 16px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;white-space:nowrap}
+.va-filter:hover,.va-filter-active{background:rgba(255,16,240,.15);border-color:rgba(255,16,240,.4);color:#fff}
+</style>
+
 <div id="pageModal" style="display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto" onclick="if(event.target===this)closePageModal()">
   <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.3);border-radius:18px;padding:36px;max-width:680px;width:100%;position:relative;margin:auto">
     <button onclick="closePageModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
@@ -1620,10 +1716,12 @@ function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
   const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
   const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami'}[game]||game;
+  // Build item data for detail modal (escape for onclick attr)
+  const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
   return `
-  <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}">
+  <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      <span class="em">${i.em}</span>
+      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s"/>`:`<span class="em">${i.em}</span>`}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -1632,8 +1730,8 @@ function mkCard(i,game,gcls){
       ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
       ${i.oldP?`<div class="pc-price">$${Number(i.p).toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
       ${i.oos
-        ?`<button class="pc-btn oos" disabled>⏳ Out of Stock</button>`
-        :`<button class="pc-btn" onclick="addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em}','${gameLbl}')">🛒 Add to Cart</button>`
+        ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
+        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em}','${gameLbl}')">🛒 Add to Cart</button>`
       }
     </div>
   </div>`;
@@ -1679,18 +1777,21 @@ const BESTSELLERS = [
 
 function renderBS(){
   document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(i=>`
-    <div class="pc">
-      <div class="pc-img ${i.bg||'r-rare'}">
-        <span class="em">${i.em}</span>
-        ${bdg(i.badge)}${stk(i.stock)}
-      </div>
-      <div class="pc-body">
-        <div class="pc-g" style="color:var(--yellow);font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">${i.game}</div>
-        <div class="pc-n">${i.n}</div>
-        <div class="pc-price">${i.p}</div>
-        <button class="pc-btn" onclick="addToCart('${i.n.replace(/'/g,"\\'")}','${i.p}','${i.em}','${i.game}')">🛒 Add to Cart</button>
-      </div>
-    </div>`).join('');
+    (() => {
+      const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:parseFloat(i.p.replace('$','')),oldP:null,rar:'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
+      return `<div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
+        <div class="pc-img ${i.bg||'r-rare'}">
+          ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>`:`<span class="em">${i.em}</span>`}
+          ${bdg(i.badge)}${stk(i.stock)}
+        </div>
+        <div class="pc-body">
+          <div class="pc-g" style="color:var(--yellow);font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">${i.game}</div>
+          <div class="pc-n">${i.n}</div>
+          <div class="pc-price">${i.p}</div>
+          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${i.p}','${i.em}','${i.game}')">🛒 Add to Cart</button>
+        </div>
+      </div>`;
+    })()`).join('');
 }
 
 // ── SEARCH ────────────────────────────────────────────────────
@@ -2782,6 +2883,236 @@ document.getElementById('orderSuccessOverlay').addEventListener('click',function
   if(e.target===this) closeOrderSuccess();
 });
 
+
+// ── ITEM DETAIL MODAL ─────────────────────────────────────────
+let _detailItem = null;
+let _detailQty  = 1;
+
+function openItemDetail(encodedData){
+  try{
+    _detailItem = JSON.parse(decodeURIComponent(encodedData));
+  }catch(e){ return; }
+  _detailQty = 1;
+
+  const i = _detailItem;
+  const modal = document.getElementById('itemDetailModal');
+
+  // Image area
+  const imgEl = document.getElementById('itemDetailImg');
+  if(i.img){
+    imgEl.innerHTML = `<img src="${i.img}" alt="${i.n}" style="max-width:90%;max-height:320px;object-fit:contain;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.5)"/>`;
+  } else {
+    imgEl.innerHTML = `<div class="pc-img ${i.bg||'r-rare'}" style="width:220px;height:220px;border-radius:16px;font-size:90px;display:flex;align-items:center;justify-content:center"><span>${i.em||'📦'}</span></div>`;
+  }
+
+  // Info
+  document.getElementById('itemDetailGame').textContent  = i.game?.toUpperCase() || '';
+  document.getElementById('itemDetailName').textContent  = i.n;
+
+  // Rarity badge
+  const rarEl = document.getElementById('itemDetailRar');
+  if(i.rar && RAR_LBL[i.rar]){
+    rarEl.innerHTML = `<span class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}" style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px">${RAR_LBL[i.rar]}</span>`;
+  } else { rarEl.innerHTML = ''; }
+
+  // Price
+  const price = Number(i.p||0);
+  document.getElementById('itemDetailPrice').textContent = `$${price.toFixed(2)}`;
+  const oldPriceEl = document.getElementById('itemDetailOldPrice');
+  if(i.oldP){ oldPriceEl.innerHTML = `<span style="font-family:'Rajdhani',sans-serif;font-size:14px;color:rgba(255,255,255,.3);text-decoration:line-through">Was $${Number(i.oldP).toFixed(2)}</span>`; }
+  else { oldPriceEl.innerHTML = ''; }
+
+  // Description
+  const DESCRIPTIONS = {
+    'Blox Fruits': `A premium Blox Fruits item. All deliveries are handled safely through our Discord server — a staff member will deliver directly to your in-game character.`,
+    'Grow a Garden': `A premium Grow a Garden item. Our staff will deliver to your in-game garden via our Discord delivery system.`,
+    'Adopt Me': `A premium Adopt Me pet or item. Delivered safely through a secure in-game trade via our Discord server.`,
+    'Murder Mystery 2': `A rare MM2 weapon or item. Delivered via a secure in-game drop by our verified staff.`,
+    'Steal a Brainrot': `A Steal a Brainrot item. Fast delivery through our Discord after purchase.`,
+    'Rivals': `A Rivals item or boost. Applied to your account by our staff through our Discord server.`,
+    '99 Nights': `A 99 Nights item. Delivered directly to your account via our Discord delivery team.`,
+    'Escape Tsunami': `An Escape Tsunami item. Our staff will deliver to your account via Discord.`,
+    'Robux': `Robux delivered directly to your Roblox account. No middleman — fast and secure.`,
+  };
+  const desc = DESCRIPTIONS[i.game] || `Premium ${i.game} item. Delivered instantly via our Discord server after payment.`;
+  document.getElementById('itemDetailDesc').innerHTML = `<strong style="color:rgba(255,255,255,.7)">Description</strong><br><span style="color:rgba(255,255,255,.5)">${desc}</span>`;
+
+  // Stock
+  const stockEl = document.getElementById('itemDetailStock');
+  if(i.stock === 0){ stockEl.innerHTML = `<span style="color:#ff4466">⏳ Out of Stock</span>`; }
+  else if(i.stock <= 5){ stockEl.innerHTML = `<span style="color:#ff9900">⚠️ Only ${i.stock} left in stock!</span>`; }
+  else { stockEl.innerHTML = `<span style="color:#00c853">✅ In Stock (${i.stock})</span>`; }
+
+  // Qty
+  document.getElementById('detailQty').textContent = '1';
+
+  // Add to cart button
+  const addBtn = document.getElementById('itemDetailAddBtn');
+  if(i.stock === 0){
+    addBtn.disabled = true;
+    addBtn.innerHTML = '⏳ Out of Stock';
+    addBtn.style.opacity = '0.4';
+    addBtn.style.cursor = 'not-allowed';
+  } else {
+    addBtn.disabled = false;
+    addBtn.innerHTML = '🛒 Add to Cart';
+    addBtn.style.opacity = '1';
+    addBtn.style.cursor = 'pointer';
+  }
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeItemDetail(){
+  document.getElementById('itemDetailModal').style.display = 'none';
+  document.body.style.overflow = '';
+  _detailItem = null;
+  _detailQty  = 1;
+}
+
+function changeDetailQty(delta){
+  const max = _detailItem?.stock ?? 99;
+  _detailQty = Math.max(1, Math.min(max||99, _detailQty + delta));
+  document.getElementById('detailQty').textContent = _detailQty;
+}
+
+function addToCartFromDetail(){
+  if(!_detailItem) return;
+  const i = _detailItem;
+  const ps = `$${Number(i.p||0).toFixed(2)}`;
+  for(let q=0; q<_detailQty; q++){
+    addToCart(i.n, ps, i.em||'📦', i.game);
+  }
+  closeItemDetail();
+}
+
+document.getElementById('itemDetailModal').addEventListener('click', function(e){
+  if(e.target === this) closeItemDetail();
+});
+
+// ── VIEW ALL OVERLAY ───────────────────────────────────────────
+let _viewAllItems    = [];
+let _viewAllFiltered = [];
+let _viewAllFilter   = 'all';
+let _viewAllSort     = 'default';
+
+const VIEW_ALL_CONFIG = {
+  bestsellers: { title:'🏆 Best Sellers',        items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
+  bf:       { title:'🍎 Blox Fruits',   items:()=>FRUITS, filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
+  gag:      { title:'🌱 Grow a Garden', items:()=>GAG,    filters:['all','seeds','pets','tools','tokens'] },
+  am:       { title:'🐾 Adopt Me',      items:()=>AM,     filters:['all','legendary','neon','mega'] },
+  mm2:      { title:'⚔️ Murder Mystery 2', items:()=>MM2,  filters:['all','godly','chroma','bundle'] },
+  brainrot: { title:'🧠 Steal a Brainrot', items:()=>BRAINROT, filters:['all','pets','bundles','packs'] },
+  rivals:   { title:'🥊 Rivals',        items:()=>RIVALS, filters:['all','boost','skin','bundle','currency'] },
+  nights:   { title:'🌙 99 Nights',     items:()=>NIGHTS, filters:['all','pets','bundles','currency'] },
+  tsunami:  { title:'🌊 Escape Tsunami',items:()=>TSUNAMI,filters:['all','pets','bundles','currency'] },
+};
+
+function openViewAll(key){
+  const cfg = VIEW_ALL_CONFIG[key];
+  if(!cfg) return;
+
+  _viewAllItems  = cfg.items();
+  _viewAllFilter = 'all';
+  _viewAllSort   = 'default';
+  _viewAllFiltered = [..._viewAllItems];
+
+  document.getElementById('viewAllTitle').textContent = cfg.title;
+
+  // Build filter pills
+  const filtersEl = document.getElementById('viewAllFilters');
+  if(cfg.filters.length > 0){
+    filtersEl.innerHTML = cfg.filters.map(f =>
+      `<button class="va-filter${f==='all'?' va-filter-active':''}" onclick="setViewAllFilter('${f}',this)">${f==='all'?'All':f.charAt(0).toUpperCase()+f.slice(1)}</button>`
+    ).join('');
+    filtersEl.style.display = 'flex';
+  } else {
+    filtersEl.innerHTML = '';
+    filtersEl.style.display = 'none';
+  }
+
+  // Reset sort buttons
+  document.querySelectorAll('.va-sort').forEach(b=>b.classList.remove('va-sort-active'));
+  document.getElementById('vaSort-default')?.classList.add('va-sort-active');
+
+  renderViewAllGrid();
+  document.getElementById('viewAllOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('viewAllOverlay').scrollTop = 0;
+}
+
+function closeViewAll(){
+  document.getElementById('viewAllOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function setViewAllFilter(filter, btn){
+  _viewAllFilter = filter;
+  document.querySelectorAll('.va-filter').forEach(b=>b.classList.remove('va-filter-active'));
+  btn.classList.add('va-filter-active');
+
+  if(filter === 'all'){
+    _viewAllFiltered = [..._viewAllItems];
+  } else {
+    _viewAllFiltered = _viewAllItems.filter(i =>
+      (i.cat||i.sub||i.rar||'').toLowerCase() === filter.toLowerCase()
+    );
+  }
+  applySortViewAll();
+  renderViewAllGrid();
+}
+
+function sortViewAll(type){
+  _viewAllSort = type;
+  document.querySelectorAll('.va-sort').forEach(b=>b.classList.remove('va-sort-active'));
+  document.getElementById(`vaSort-${type}`)?.classList.add('va-sort-active');
+  applySortViewAll();
+  renderViewAllGrid();
+}
+
+function applySortViewAll(){
+  const arr = [..._viewAllFiltered];
+  if(_viewAllSort === 'low')   arr.sort((a,b)=>(a.p||a.norm||0)-(b.p||b.norm||0));
+  if(_viewAllSort === 'high')  arr.sort((a,b)=>(b.p||b.norm||0)-(a.p||a.norm||0));
+  if(_viewAllSort === 'stock') arr.sort((a,b)=>(b.stock??99)-(a.stock??99));
+  _viewAllFiltered = arr;
+}
+
+function renderViewAllGrid(){
+  const grid = document.getElementById('viewAllGrid');
+  const count = document.getElementById('viewAllCount');
+  count.textContent = `${_viewAllFiltered.length} item${_viewAllFiltered.length!==1?'s':''}`;
+
+  if(!_viewAllFiltered.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:rgba(255,255,255,.3);font-family:'Rajdhani',sans-serif;font-size:16px">No items found.</div>`;
+    return;
+  }
+
+  grid.innerHTML = _viewAllFiltered.map(i => {
+    const p = Number(i.p||i.norm||i.price||0);
+    const ps = `$${p.toFixed(2)}`;
+    const game = i.game||'';
+    const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game,sub:i.sub||''}));
+    return `
+    <div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
+      <div class="pc-img ${i.bg||'r-rare'}">
+        ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>`:`<span class="em">${i.em||'📦'}</span>`}
+        ${bdg(i.badge||'')}${stk(i.stock??99)}
+      </div>
+      <div class="pc-body">
+        <div class="pc-n">${i.n}</div>
+        ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
+        ${i.oldP?`<div class="pc-price">$${p.toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
+        ${i.oos||i.stock===0
+          ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
+          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\'")}','${ps}','${i.em||'📦'}','${game}')">🛒 Add to Cart</button>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ── PAGE MODALS (About, FAQ, Legal, Affiliate) ─────────────────
 function getPageContent(key){
   const disc = typeof DISCORD_INVITE !== 'undefined' ? DISCORD_INVITE : '#';
@@ -3011,7 +3342,7 @@ function init(){
 }
 init();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();}});
 
 // ── BRANDING ──────────────────────────────────────────────────
 (function applyBranding(){

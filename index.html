@@ -634,7 +634,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <nav>
   <a class="logo" href="#" id="navLogo" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-    <img id="navLogoImg" style="display:none;height:34px;border-radius:6px;vertical-align:middle" alt="logo"/>
+    <img id="navLogoImg" src="https://silvmarket.shop/images/logo.png"
+         style="height:36px;width:36px;border-radius:8px;object-fit:contain;flex-shrink:0"
+         alt="Silv Market"
+         onerror="this.style.display='none'"/>
     <span id="navLogoText" style="display:flex;align-items:center;gap:6px">
       <span style="font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:2px;color:#fff">SILV</span>
       <span style="font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">MARKET</span>
@@ -1427,7 +1430,6 @@ const PROMOS = {
   SILV20:20,
   BRAINROT20:20,
   DISCORD10:10,
-  GAG15:15,
   MM2SAVE:15,
 };
 
@@ -3345,10 +3347,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryp
 (function applyBranding(){
   if(SITE_FAVICON){let lnk=document.querySelector("link[rel~='icon']")||document.createElement('link');lnk.rel='icon';lnk.href=SITE_FAVICON;document.head.appendChild(lnk);}
   if(SITE_LOGO_URL){
+    // Update logo src if a custom URL is set in Easy Edit Zone
     const img=document.getElementById('navLogoImg');
-    img.src=SITE_LOGO_URL;
-    img.style.display='inline-block';
-    // Keep text visible — logo sits NEXT to SILV MARKET text
+    if(img){ img.src=SITE_LOGO_URL; img.style.display=''; }
   }
   document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
 })();

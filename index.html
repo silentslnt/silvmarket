@@ -1106,26 +1106,67 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 </div>
 
 <!-- Login / Signup Modal -->
+<!-- ═══════════════════════════════════════════
+     AUTH MODAL — Login / Signup
+     ═══════════════════════════════════════════ -->
 <div id="loginModal" style="display:none;position:fixed;inset:0;z-index:4500;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:center;justify-content:center" onclick="if(event.target===this)closeLoginModal()">
-  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;padding:36px;max-width:420px;width:90%;position:relative">
-    <button onclick="closeLoginModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
-
-    <!-- Tabs -->
-    <div style="display:flex;gap:0;margin-bottom:24px;background:rgba(255,255,255,.04);border-radius:10px;padding:4px">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;padding:32px;max-width:420px;width:90%;position:relative;max-height:90vh;overflow-y:auto">
+    <button onclick="closeLoginModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:1">✕</button>
+    <!-- Tabs — only shown when logged out -->
+    <div id="authTabs" style="display:flex;gap:0;margin-bottom:24px;background:rgba(255,255,255,.04);border-radius:10px;padding:4px">
       <button id="loginTab" onclick="switchAuthTab('login')" style="flex:1;padding:9px;border:none;border-radius:8px;background:rgba(147,51,234,.35);color:#fff;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s">LOGIN</button>
       <button id="signupTab" onclick="switchAuthTab('signup')" style="flex:1;padding:9px;border:none;border-radius:8px;background:transparent;color:rgba(255,255,255,.4);font-family:'Orbitron',monospace;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s">SIGN UP</button>
     </div>
-
     <!-- Login Form -->
     <div id="loginForm">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Welcome Back</div>
       <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Sign in to view your orders and profile</div>
       <input id="liEmail" type="email" placeholder="Email address" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
       <input id="liPass" type="password" placeholder="Password" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
+      <div style="text-align:right;margin-bottom:12px">
+        <button onclick="openForgotPassword()" style="background:none;border:none;color:rgba(255,16,240,.8);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer;padding:0;text-decoration:underline">Forgot Password?</button>
+      </div>
       <div id="liErr" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
       <button onclick="doLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">LOGIN</button>
     </div>
 
+    <!-- ── Forgot Password Flow ── -->
+    <div id="forgotForm" style="display:none">
+      <!-- Step 1: Enter email -->
+      <div id="fpStep1">
+        <button onclick="closeForgotPassword()" style="background:none;border:none;color:rgba(255,255,255,.4);font-family:'Rajdhani',sans-serif;font-size:12px;cursor:pointer;padding:0;margin-bottom:18px;display:flex;align-items:center;gap:5px">← Back to Login</button>
+        <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Reset Password</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Enter your email and we'll send you a 6-digit reset code.</div>
+        <input id="fpEmail" type="email" placeholder="Your account email" onkeydown="if(event.key==='Enter')fpSendCode()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:14px;outline:none;box-sizing:border-box"/>
+        <div id="fpErr1" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+        <button onclick="fpSendCode()" id="fpSendBtn" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">SEND RESET CODE</button>
+      </div>
+      <!-- Step 2: Enter code -->
+      <div id="fpStep2" style="display:none">
+        <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Check Your Email</div>
+        <div id="fpCodeHint" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px;line-height:1.6"></div>
+        <input id="fpCode" type="text" maxlength="6" placeholder="6-digit code" onkeydown="if(event.key==='Enter')fpVerifyCode()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:20px;font-weight:800;letter-spacing:8px;margin-bottom:14px;outline:none;box-sizing:border-box;text-align:center"/>
+        <div id="fpErr2" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+        <button onclick="fpVerifyCode()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer;margin-bottom:10px">VERIFY CODE</button>
+        <button onclick="fpResendCode()" style="width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:11px;color:rgba(255,255,255,.5);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer">Resend Code</button>
+      </div>
+      <!-- Step 3: New password -->
+      <div id="fpStep3" style="display:none">
+        <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">New Password</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Choose a strong new password for your account.</div>
+        <input id="fpNewPass" type="password" placeholder="New password (min 6 chars)" onkeydown="if(event.key==='Enter')fpSetPassword()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
+        <input id="fpNewPass2" type="password" placeholder="Confirm new password" onkeydown="if(event.key==='Enter')fpSetPassword()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:14px;outline:none;box-sizing:border-box"/>
+        <div id="fpErr3" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+        <button onclick="fpSetPassword()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">SET NEW PASSWORD</button>
+      </div>
+      <!-- Step 4: Done -->
+      <div id="fpStep4" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:48px;margin-bottom:12px">✅</div>
+        <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:8px">Password Updated!</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px">Your password has been changed. You can now sign in.</div>
+        <button onclick="closeForgotPassword()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">SIGN IN NOW</button>
+      </div>
+    </div>
     <!-- Signup Form -->
     <div id="signupForm" style="display:none">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Create Account</div>
@@ -1136,22 +1177,104 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div id="suErr" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
       <button onclick="doSignup()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">CREATE ACCOUNT</button>
     </div>
+  </div>
+</div>
 
-    <!-- Logged In State -->
-    <div id="loggedInPanel" style="display:none">
-      <div style="text-align:center;margin-bottom:20px">
-        <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px">👤</div>
-        <div id="liUserName" style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff"></div>
-        <div id="liUserEmail" style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);margin-top:4px"></div>
+<!-- ═══════════════════════════════════════════
+     ACCOUNT PANEL — shown when logged in
+     ═══════════════════════════════════════════ -->
+<div id="accountPanel" style="display:none;position:fixed;inset:0;z-index:4500;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeAccountPanel()">
+  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;max-width:480px;width:100%;position:relative;margin:auto;overflow:hidden">
+    <button onclick="closeAccountPanel()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2">✕</button>
+
+    <!-- Profile header -->
+    <div style="background:linear-gradient(135deg,rgba(147,51,234,.2),rgba(255,16,240,.1));padding:28px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07)">
+      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.15)">👤</div>
+      <div id="apName" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:4px"></div>
+      <div id="apEmail" style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4)"></div>
+      <div id="ap2faStatus" style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700"></div>
+    </div>
+
+    <!-- Tab nav -->
+    <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.07)">
+      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">📦 Orders</button>
+      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">⚙️ Settings</button>
+      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">🔒 Security</button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div id="apPanel-overview" style="padding:20px">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:12px">YOUR ORDER HISTORY</div>
+      <div id="apOrdersList" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5)">No orders yet.</div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between">
+        <span style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4)">Total Spent</span>
+        <span id="apTotalSpent" style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ffd700">$0.00</span>
       </div>
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;margin-bottom:14px">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:10px">📦 YOUR ORDERS</div>
-        <div id="liOrdersList" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5)">No orders yet.</div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div id="apPanel-settings" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">ACCOUNT SETTINGS</div>
+
+      <div style="margin-bottom:14px">
+        <label style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);display:block;margin-bottom:6px">DISPLAY NAME</label>
+        <div style="display:flex;gap:8px">
+          <input id="apNewName" type="text" placeholder="New display name" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none"/>
+          <button onclick="updateAccountName()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.4);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+        </div>
       </div>
-      <button onclick="doLogout()" style="width:100%;padding:11px;background:rgba(255,0,64,.1);border:1px solid rgba(255,0,64,.25);border-radius:10px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Sign Out</button>
+
+      <div style="margin-bottom:14px">
+        <label style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);display:block;margin-bottom:6px">EMAIL ADDRESS</label>
+        <div style="display:flex;gap:8px">
+          <input id="apNewEmail" type="email" placeholder="New email address" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none"/>
+          <button onclick="updateAccountEmail()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.4);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+        </div>
+      </div>
+
+      <div id="apSettingsMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:8px"></div>
+    </div>
+
+    <!-- SECURITY TAB -->
+    <div id="apPanel-security" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">SECURITY SETTINGS</div>
+
+      <!-- Change Password -->
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px">🔑 Change Password</div>
+        <input id="apOldPass" type="password" placeholder="Current password" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:8px;box-sizing:border-box"/>
+        <input id="apNewPass" type="password" placeholder="New password (min 6 chars)" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:10px;box-sizing:border-box"/>
+        <button onclick="changePassword()" style="width:100%;padding:10px;background:rgba(147,51,234,.2);border:1px solid rgba(147,51,234,.35);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Update Password</button>
+      </div>
+
+      <!-- 2FA with email -->
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff">📧 Email 2FA</div>
+          <div id="ap2faToggle" onclick="toggle2FA()" style="width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .3s">
+            <div id="ap2faThumb" style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:left .3s"></div>
+          </div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">When enabled, a verification code will be sent to your email each time you sign in.</div>
+        <div id="ap2faVerifySection" style="display:none;margin-top:12px">
+          <input id="ap2faCode" type="text" placeholder="Enter 6-digit code sent to your email" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:8px;box-sizing:border-box"/>
+          <button onclick="verify2FACode()" style="width:100%;padding:10px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Verify & Enable</button>
+        </div>
+      </div>
+
+      <div id="apSecurityMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:4px"></div>
+
+      <!-- Sign out -->
+      <button onclick="doLogout()" style="width:100%;padding:11px;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.2);border-radius:10px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px">Sign Out</button>
     </div>
   </div>
 </div>
+
+<style>
+.ap-tab{flex:1;padding:12px 8px;border:none;background:transparent;color:rgba(255,255,255,.4);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s;border-bottom:2px solid transparent}
+.ap-tab:hover{color:rgba(255,255,255,.7)}
+.ap-tab-active{color:#fff!important;border-bottom-color:#ff10f0!important;background:rgba(255,16,240,.05)!important}
+</style>
 
 <!-- CART SIDEBAR -->
 <div class="cart-ov" id="cartOv" onclick="toggleCart()"></div>
@@ -3210,49 +3333,35 @@ function closePageModal(){
   document.getElementById('pageModal').style.display = 'none';
 }
 
-// ── LOGIN / SIGNUP SYSTEM ──────────────────────────────────────
-// Uses localStorage — simple credential store
-// In production you'd use a real backend, but this works for a Roblox shop
-
+// ── LOGIN / SIGNUP SYSTEM ────────────────────────────────────
 let currentUser = null;
 
-function loadUsers(){ try{ return JSON.parse(localStorage.getItem('silv_users')||'{}'); }catch{ return {}; } }
-function saveUsers(u){ try{ localStorage.setItem('silv_users', JSON.stringify(u)); }catch{} }
-function loadSession(){ try{ return JSON.parse(sessionStorage.getItem('silv_session')||'null'); }catch{ return null; } }
+function loadUsers()   { try{ return JSON.parse(localStorage.getItem('silv_users')||'{}'); }catch{ return {}; } }
+function saveUsers(u)  { try{ localStorage.setItem('silv_users', JSON.stringify(u)); }catch{} }
+function loadSession() { try{ return JSON.parse(sessionStorage.getItem('silv_session')||'null'); }catch{ return null; } }
 function saveSession(u){ try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{} }
 function clearSession(){ try{ sessionStorage.removeItem('silv_session'); }catch{} }
 
-function saveOrderToUser(orderId, claimKey, items, total, method){
-  if(!currentUser) return;
-  const users = loadUsers();
-  const u = users[currentUser.email];
-  if(!u) return;
-  if(!u.orders) u.orders = [];
-  u.orders.unshift({ orderId, claimKey, items: items.map(i=>i.name), total, method, date: new Date().toISOString() });
-  saveUsers(users);
-
-  // Update account record in bot
-  try {
-    const botUrl = BOT_WEBHOOK_URL.replace('/order', '/account/order');
-    fetch(botUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-silv-secret': BOT_WEBHOOK_SECRET },
-      body: JSON.stringify({
-        email:         currentUser.email,
-        orderId,
-        total,
-        items:         items.map(i=>({name:i.name})),
-        paymentMethod: method,
-      }),
-    }).catch(() => {});
-  } catch(e) {}
+// ── Nav button — shows name if logged in, "Login" if not ──────
+function updateNavLogin(){
+  const lbl = document.getElementById('navLoginLabel');
+  const btn = document.getElementById('navLoginBtn');
+  if(!lbl || !btn) return;
+  if(currentUser){
+    lbl.textContent = currentUser.name.split(' ')[0];
+    btn.onclick = openAccountPanel;
+  } else {
+    lbl.textContent = 'Login';
+    btn.onclick = openLoginModal;
+  }
 }
 
+// ── Login modal — only opens when NOT logged in ───────────────
 function openLoginModal(){
-  const modal = document.getElementById('loginModal');
-  modal.style.display = 'flex';
-  if(currentUser) showLoggedInPanel();
-  else switchAuthTab('login');
+  if(currentUser){ openAccountPanel(); return; }
+  const m = document.getElementById('loginModal');
+  m.style.display = 'flex';
+  switchAuthTab('login');
 }
 function closeLoginModal(){
   document.getElementById('loginModal').style.display = 'none';
@@ -3260,51 +3369,231 @@ function closeLoginModal(){
 function switchAuthTab(tab){
   document.getElementById('loginForm').style.display  = tab==='login'  ? 'block' : 'none';
   document.getElementById('signupForm').style.display = tab==='signup' ? 'block' : 'none';
-  document.getElementById('loggedInPanel').style.display = 'none';
-  document.getElementById('loginTab').style.background  = tab==='login'  ? 'rgba(147,51,234,.35)' : 'transparent';
-  document.getElementById('loginTab').style.color       = tab==='login'  ? '#fff' : 'rgba(255,255,255,.4)';
-  document.getElementById('signupTab').style.background = tab==='signup' ? 'rgba(147,51,234,.35)' : 'transparent';
-  document.getElementById('signupTab').style.color      = tab==='signup' ? '#fff' : 'rgba(255,255,255,.4)';
+  const lt = document.getElementById('loginTab');
+  const st = document.getElementById('signupTab');
+  if(lt){ lt.style.background = tab==='login'  ? 'rgba(147,51,234,.35)' : 'transparent'; lt.style.color = tab==='login'  ? '#fff' : 'rgba(255,255,255,.4)'; }
+  if(st){ st.style.background = tab==='signup' ? 'rgba(147,51,234,.35)' : 'transparent'; st.style.color = tab==='signup' ? '#fff' : 'rgba(255,255,255,.4)'; }
 }
-function showLoggedInPanel(){
-  document.getElementById('loginForm').style.display  = 'none';
-  document.getElementById('signupForm').style.display = 'none';
-  document.getElementById('loggedInPanel').style.display = 'block';
-  document.getElementById('liUserName').textContent  = currentUser.name;
-  document.getElementById('liUserEmail').textContent = currentUser.email;
-  // Show orders
+
+// ── Account panel — only opens when logged in ─────────────────
+function openAccountPanel(){
+  if(!currentUser){ openLoginModal(); return; }
+  const panel = document.getElementById('accountPanel');
+  if(!panel) return;
+  // Populate header
+  document.getElementById('apName').textContent  = currentUser.name;
+  document.getElementById('apEmail').textContent = currentUser.email;
+  // 2FA status badge
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  const twofa = u?.twofa || false;
+  const badge = document.getElementById('ap2faStatus');
+  if(badge){
+    badge.textContent   = twofa ? '🔒 2FA Enabled' : '⚠️ 2FA Disabled';
+    badge.style.background  = twofa ? 'rgba(0,200,83,.15)' : 'rgba(255,100,0,.15)';
+    badge.style.color       = twofa ? '#00c853' : '#ff6600';
+    badge.style.border      = twofa ? '1px solid rgba(0,200,83,.3)' : '1px solid rgba(255,100,0,.3)';
+  }
+  // 2FA toggle visual
+  update2FAToggle(twofa);
+  // Switch to overview
+  switchAPTab('overview');
+  panel.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeAccountPanel(){
+  const panel = document.getElementById('accountPanel');
+  if(panel) panel.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// ── Account panel tab switcher ────────────────────────────────
+function switchAPTab(tab){
+  ['overview','settings','security'].forEach(t => {
+    const panel = document.getElementById('apPanel-'+t);
+    const btn   = document.getElementById('apTab-'+t);
+    if(panel) panel.style.display = t===tab ? 'block' : 'none';
+    if(btn){
+      btn.classList.toggle('ap-tab-active', t===tab);
+    }
+  });
+  if(tab === 'overview') loadAPOrders();
+}
+
+// ── Load orders into overview tab ────────────────────────────
+function loadAPOrders(){
   const users  = loadUsers();
-  const u      = users[currentUser.email];
+  const u      = users[currentUser?.email];
   const orders = u?.orders || [];
-  const el     = document.getElementById('liOrdersList');
-  if(!orders.length){ el.textContent = 'No orders yet.'; }
-  else {
-    el.innerHTML = orders.slice(0,5).map(o=>`
-      <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:2px">
-          <span style="color:#fff;font-weight:700">\`${o.orderId}\`</span>
-          <span style="color:#ffd700">$${o.total}</span>
+  const el     = document.getElementById('apOrdersList');
+  const totEl  = document.getElementById('apTotalSpent');
+  if(!el) return;
+  if(!orders.length){
+    el.innerHTML = '<div style="color:rgba(255,255,255,.35);padding:10px 0">No orders yet.</div>';
+  } else {
+    el.innerHTML = orders.slice(0,10).map(o=>`
+      <div style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+          <span style="font-family:'Orbitron',monospace;font-size:11px;color:rgba(255,255,255,.6)">${o.orderId}</span>
+          <span style="font-family:'Orbitron',monospace;font-size:12px;color:#ffd700;font-weight:700">$${o.total}</span>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,.3)">${o.items?.join(', ')||'—'} · ${o.method}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:2px">${o.items?.join(', ')||'—'}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.25)">${o.method} · ${new Date(o.date).toLocaleDateString()}</div>
       </div>`).join('');
+  }
+  if(totEl){
+    const total = orders.reduce((s,o)=>s+Number(o.total||0),0);
+    totEl.textContent = '$'+total.toFixed(2);
   }
 }
 
+// ── Settings tab actions ──────────────────────────────────────
+function updateAccountName(){
+  const val = document.getElementById('apNewName')?.value.trim();
+  if(!val) return showAPMsg('settings','Name cannot be empty.',true);
+  const users = loadUsers();
+  if(!users[currentUser.email]) return;
+  users[currentUser.email].name = val;
+  saveUsers(users);
+  currentUser.name = val;
+  saveSession(currentUser);
+  document.getElementById('apName').textContent = val;
+  document.getElementById('apNewName').value = '';
+  updateNavLogin();
+  showAPMsg('settings','✅ Name updated!',false);
+}
+function updateAccountEmail(){
+  const val = document.getElementById('apNewEmail')?.value.trim().toLowerCase();
+  if(!val || !val.includes('@')) return showAPMsg('settings','Enter a valid email.',true);
+  const users = loadUsers();
+  if(users[val] && val !== currentUser.email) return showAPMsg('settings','Email already in use.',true);
+  const userData = users[currentUser.email];
+  delete users[currentUser.email];
+  users[val] = { ...userData, email: val };
+  saveUsers(users);
+  currentUser.email = val;
+  saveSession(currentUser);
+  document.getElementById('apEmail').textContent = val;
+  document.getElementById('apNewEmail').value = '';
+  showAPMsg('settings','✅ Email updated!',false);
+}
+
+// ── Security tab actions ──────────────────────────────────────
+function changePassword(){
+  const oldP = document.getElementById('apOldPass')?.value;
+  const newP = document.getElementById('apNewPass')?.value;
+  if(!oldP||!newP) return showAPMsg('security','Fill in both fields.',true);
+  if(newP.length<6) return showAPMsg('security','New password must be 6+ characters.',true);
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  if(!u) return;
+  if(u.password !== btoa(oldP)) return showAPMsg('security','Current password is incorrect.',true);
+  u.password = btoa(newP);
+  saveUsers(users);
+  document.getElementById('apOldPass').value = '';
+  document.getElementById('apNewPass').value = '';
+  showAPMsg('security','✅ Password updated!',false);
+}
+
+let _2faPendingEnable = false;
+function toggle2FA(){
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  if(!u) return;
+  if(u.twofa){
+    // Disable 2FA
+    u.twofa = false;
+    saveUsers(users);
+    update2FAToggle(false);
+    const badge = document.getElementById('ap2faStatus');
+    if(badge){ badge.textContent='⚠️ 2FA Disabled'; badge.style.color='#ff6600'; badge.style.background='rgba(255,100,0,.15)'; badge.style.border='1px solid rgba(255,100,0,.3)'; }
+    showAPMsg('security','2FA has been disabled.',false);
+    document.getElementById('ap2faVerifySection').style.display = 'none';
+    _2faPendingEnable = false;
+  } else {
+    // Send verification code to "enable" flow
+    _2faPendingEnable = true;
+    const code = Math.floor(100000 + Math.random()*900000).toString();
+    localStorage.setItem('silv_2fa_pending', JSON.stringify({ code, email: currentUser.email, expires: Date.now()+600000 }));
+    document.getElementById('ap2faVerifySection').style.display = 'block';
+    showAPMsg('security','📧 A 6-digit code has been generated. Check your email (simulated — code: '+code+')',false);
+  }
+}
+function update2FAToggle(enabled){
+  const toggle = document.getElementById('ap2faToggle');
+  const thumb  = document.getElementById('ap2faThumb');
+  if(!toggle||!thumb) return;
+  toggle.style.background = enabled ? 'rgba(147,51,234,.6)'  : 'rgba(255,255,255,.1)';
+  thumb.style.left        = enabled ? '23px' : '3px';
+}
+function verify2FACode(){
+  const entered = document.getElementById('ap2faCode')?.value.trim();
+  const stored  = JSON.parse(localStorage.getItem('silv_2fa_pending')||'null');
+  if(!stored || Date.now() > stored.expires) return showAPMsg('security','Code expired. Toggle again to resend.',true);
+  if(stored.code !== entered) return showAPMsg('security','Incorrect code. Try again.',true);
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  if(!u) return;
+  u.twofa = true;
+  saveUsers(users);
+  localStorage.removeItem('silv_2fa_pending');
+  document.getElementById('ap2faVerifySection').style.display = 'none';
+  document.getElementById('ap2faCode').value = '';
+  update2FAToggle(true);
+  const badge = document.getElementById('ap2faStatus');
+  if(badge){ badge.textContent='🔒 2FA Enabled'; badge.style.color='#00c853'; badge.style.background='rgba(0,200,83,.15)'; badge.style.border='1px solid rgba(0,200,83,.3)'; }
+  showAPMsg('security','✅ 2FA enabled successfully!',false);
+}
+
+function showAPMsg(tab, msg, isErr){
+  const el = document.getElementById('apPanel-'+tab+' > #ap'+tab.charAt(0).toUpperCase()+tab.slice(1)+'Msg') ||
+             document.getElementById('ap'+tab.charAt(0).toUpperCase()+tab.slice(1)+'Msg');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.display    = 'block';
+  el.style.background = isErr ? 'rgba(255,0,64,.1)'   : 'rgba(0,200,83,.1)';
+  el.style.color      = isErr ? '#ff4466'              : '#00c853';
+  el.style.border     = isErr ? '1px solid rgba(255,0,64,.2)' : '1px solid rgba(0,200,83,.2)';
+  setTimeout(()=>{ el.style.display='none'; }, 4000);
+}
+
+// ── Save order to account ─────────────────────────────────────
+function saveOrderToUser(orderId, claimKey, items, total, method){
+  if(!currentUser) return;
+  const users = loadUsers();
+  const u = users[currentUser.email];
+  if(!u) return;
+  if(!u.orders) u.orders = [];
+  u.orders.unshift({ orderId, claimKey, items:items.map(i=>i.name), total, method, date:new Date().toISOString() });
+  saveUsers(users);
+  // Sync to bot
+  try {
+    fetch(BOT_WEBHOOK_URL.replace('/order','/account/order'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({ email:currentUser.email, orderId, total, items:items.map(i=>({name:i.name})), paymentMethod:method }),
+    }).catch(()=>{});
+  } catch(e){}
+}
+
+// ── Login ─────────────────────────────────────────────────────
 function doLogin(){
   const email = document.getElementById('liEmail').value.trim().toLowerCase();
   const pass  = document.getElementById('liPass').value;
   const err   = document.getElementById('liErr');
   if(!email||!pass){ err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
   const users = loadUsers();
-  const u     = users[email];
-  if(!u || u.password !== btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
-  err.style.display='none';
-  currentUser = { email, name: u.name };
+  const u = users[email];
+  if(!u||u.password!==btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  err.style.display = 'none';
+  currentUser = { email, name:u.name };
   saveSession(currentUser);
+  closeLoginModal();
   updateNavLogin();
-  showLoggedInPanel();
+  openAccountPanel();
 }
 
+// ── Signup ────────────────────────────────────────────────────
 function doSignup(){
   const name  = document.getElementById('suName').value.trim();
   const email = document.getElementById('suEmail').value.trim().toLowerCase();
@@ -3315,48 +3604,172 @@ function doSignup(){
   if(pass.length<6){ err.textContent='Password must be at least 6 characters.'; err.style.display='block'; return; }
   const users = loadUsers();
   if(users[email]){ err.textContent='An account with this email already exists.'; err.style.display='block'; return; }
-  users[email] = { name, email, password: btoa(pass), orders: [], createdAt: new Date().toISOString() };
+  users[email] = { name, email, password:btoa(pass), orders:[], twofa:false, createdAt:new Date().toISOString() };
   saveUsers(users);
   currentUser = { email, name };
   saveSession(currentUser);
-  err.style.display='none';
+  err.style.display = 'none';
+  closeLoginModal();
   updateNavLogin();
-  showLoggedInPanel();
-
-  // Log new account to bot (fire and forget — don't block UI)
+  openAccountPanel();
+  // Log to bot
   try {
-    const botUrl = BOT_WEBHOOK_URL.replace('/order', '/account');
-    fetch(botUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-silv-secret': BOT_WEBHOOK_SECRET },
-      body: JSON.stringify({
-        name,
-        email,
-        discordId:       discordUser?.id       || null,
-        discordUsername: discordUser?.username  || null,
-      }),
-    }).catch(() => {}); // silently ignore if bot is down
-  } catch(e) {}
+    fetch(BOT_WEBHOOK_URL.replace('/order','/account'), {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({ name, email, discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
+    }).catch(()=>{});
+  } catch(e){}
 }
 
+// ── Logout ────────────────────────────────────────────────────
 function doLogout(){
   currentUser = null;
   clearSession();
+  closeAccountPanel();
   updateNavLogin();
-  closeLoginModal();
 }
 
-function updateNavLogin(){
-  const lbl = document.getElementById('navLoginLabel');
-  if(lbl) lbl.textContent = currentUser ? currentUser.name.split(' ')[0] : 'Login';
-}
-
-// Restore session on load
+// ── Restore session on page load ──────────────────────────────
 (function restoreSession(){
   const s = loadSession();
   if(s){ currentUser = s; updateNavLogin(); }
 })();
 
+
+// ── FORGOT PASSWORD SYSTEM ────────────────────────────────────
+let _fpEmail = '';
+let _fpToken = '';
+const BOT_BASE = BOT_WEBHOOK_URL.replace('/order', '');
+
+function openForgotPassword(){
+  document.getElementById('loginForm').style.display   = 'none';
+  document.getElementById('authTabs').style.display    = 'none';
+  document.getElementById('forgotForm').style.display  = 'block';
+  // Reset to step 1
+  ['fpStep1','fpStep2','fpStep3','fpStep4'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = i===0 ? 'block' : 'none';
+  });
+  document.getElementById('fpEmail').value   = '';
+  document.getElementById('fpCode').value    = '';
+  _fpEmail = ''; _fpToken = '';
+}
+
+function closeForgotPassword(){
+  document.getElementById('forgotForm').style.display  = 'none';
+  document.getElementById('authTabs').style.display    = 'flex';
+  switchAuthTab('login');
+}
+
+// Step 1 — Send code
+async function fpSendCode(){
+  const email = document.getElementById('fpEmail').value.trim().toLowerCase();
+  const err   = document.getElementById('fpErr1');
+  const btn   = document.getElementById('fpSendBtn');
+  if(!email || !email.includes('@')){ err.textContent='Enter a valid email address.'; err.style.display='block'; return; }
+
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    await fetch(BOT_BASE+'/forgot-password', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ email }),
+    });
+  } catch(e) { /* silent — always show success for security */ }
+
+  _fpEmail = email;
+  btn.disabled = false;
+  btn.textContent = 'SEND RESET CODE';
+
+  // Show step 2
+  document.getElementById('fpStep1').style.display = 'none';
+  document.getElementById('fpStep2').style.display = 'block';
+  document.getElementById('fpCodeHint').innerHTML =
+    `We sent a 6-digit code to <strong style="color:#fff">${email}</strong>.<br/>Check your inbox (and spam folder).`;
+  document.getElementById('fpCode').focus();
+}
+
+// Step 2 — Verify code
+async function fpVerifyCode(){
+  const code = document.getElementById('fpCode').value.trim();
+  const err  = document.getElementById('fpErr2');
+  if(!code || code.length !== 6){ err.textContent='Enter the 6-digit code from your email.'; err.style.display='block'; return; }
+  err.style.display = 'none';
+
+  try {
+    const resp = await fetch(BOT_BASE+'/verify-reset-code', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ email:_fpEmail, code }),
+    });
+    const data = await resp.json();
+    if(!data.valid){ err.textContent = data.error || 'Invalid code.'; err.style.display='block'; return; }
+    _fpToken = data.token;
+    // Show step 3
+    document.getElementById('fpStep2').style.display = 'none';
+    document.getElementById('fpStep3').style.display = 'block';
+    document.getElementById('fpNewPass').focus();
+  } catch(e) {
+    err.textContent = 'Something went wrong. Please try again.';
+    err.style.display = 'block';
+  }
+}
+
+// Step 2 — Resend code
+async function fpResendCode(){
+  document.getElementById('fpErr2').style.display = 'none';
+  document.getElementById('fpCode').value = '';
+  try {
+    await fetch(BOT_BASE+'/forgot-password', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ email:_fpEmail }),
+    });
+  } catch(e) {}
+  document.getElementById('fpErr2').textContent = '✅ New code sent! Check your email.';
+  document.getElementById('fpErr2').style.color = '#00c853';
+  document.getElementById('fpErr2').style.display = 'block';
+  setTimeout(()=>{ document.getElementById('fpErr2').style.display='none'; }, 4000);
+}
+
+// Step 3 — Set new password
+async function fpSetPassword(){
+  const pass1 = document.getElementById('fpNewPass').value;
+  const pass2 = document.getElementById('fpNewPass2').value;
+  const err   = document.getElementById('fpErr3');
+  if(!pass1 || pass1.length < 6){ err.textContent='Password must be at least 6 characters.'; err.style.display='block'; return; }
+  if(pass1 !== pass2){ err.textContent='Passwords do not match.'; err.style.display='block'; return; }
+  err.style.display = 'none';
+
+  try {
+    const resp = await fetch(BOT_BASE+'/reset-password', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ email:_fpEmail, token:_fpToken, newPassword:pass1 }),
+    });
+    const data = await resp.json();
+    if(!data.success){ err.textContent = data.error || 'Reset failed. Please try again.'; err.style.display='block'; return; }
+
+    // Update password in localStorage
+    const users = loadUsers();
+    if(users[_fpEmail]){
+      users[_fpEmail].password = btoa(pass1);
+      saveUsers(users);
+    }
+
+    // Show step 4 — success
+    document.getElementById('fpStep3').style.display = 'none';
+    document.getElementById('fpStep4').style.display = 'block';
+    _fpToken = ''; // clear token
+  } catch(e) {
+    err.textContent = 'Something went wrong. Please try again.';
+    err.style.display = 'block';
+  }
+}
 
 // ── SEARCH ────────────────────────────────────────────────────
 const ALL_PRODUCTS = [];

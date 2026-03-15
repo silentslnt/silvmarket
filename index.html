@@ -3674,10 +3674,12 @@ async function fpSendCode(){
   btn.textContent = 'Sending…';
 
   try {
+    // Pass name if user is logged in — for personalised email
+    const resetName = currentUser?.name || '';
     await fetch(BOT_BASE+'/forgot-password', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ email }),
+      body:JSON.stringify({ email, name: resetName }),
     });
   } catch(e) { /* silent — always show success for security */ }
 

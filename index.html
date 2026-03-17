@@ -1824,7 +1824,7 @@ function renderBF(filter='all'){
     const hasPerm=f.perm!==null&&f.perm!==undefined;
     const dp=hasPerm&&mode==='perm'?f.perm:f.norm;
     const bgC=RAR_BG[f.rar]||'r-rare';
-    const img=IMGS[f.n]||'';
+    const img=f.img||IMGS[f.n]||'';
     const typeEl=f.type&&f.type!=='Skin'&&f.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[f.type]||'t-nat'}">${f.type}</div>`:'';
     return `
     <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="(function(el){if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')){const obj={n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''};openItemDetail(encodeURIComponent(JSON.stringify(obj)));}})(this)">

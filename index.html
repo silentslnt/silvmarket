@@ -231,7 +231,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-img .em{font-size:60px;line-height:1;position:relative;z-index:1;transition:transform .3s}
 .pc:hover .em{transform:scale(1.1)}
 .pc-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38%;
-  background:linear-gradient(to top,rgba(16,6,38,.9),transparent)}
+  background:linear-gradient(to top,rgba(16,6,38,.9),transparent);pointer-events:none}
 
 .r-common{background:linear-gradient(150deg,#111a11,#0a0f0a)}
 .r-uncommon{background:linear-gradient(150deg,#132208,#0c1a04)}
@@ -688,6 +688,36 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .ci-qb:hover{background:rgba(147,51,234,.3);border-color:rgba(147,51,234,.5)}
 .ci-qn{font-size:11px;font-weight:700;min-width:18px;text-align:center;font-family:'Orbitron',monospace}
+/* ── SHINY SECTION TITLES ──────────────────────────────────── */
+@keyframes gold-shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.sec-title-shiny{
+  background:linear-gradient(90deg,#ffd700 0%,#fff 30%,#ffd700 50%,#ff10f0 70%,#ffd700 100%)!important;
+  background-size:250% auto!important;
+  -webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  animation:gold-shimmer 3s linear infinite!important}
+/* ── CART ITEM ADD ANIMATION ───────────────────────────────── */
+@keyframes ci-in{from{opacity:0;transform:translateX(20px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes ci-out{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-20px) scale(.96)}}
+.ci{animation:ci-in .25s cubic-bezier(.16,1,.3,1)}
+/* ── CART BADGE PULSE ──────────────────────────────────────── */
+@keyframes badge-pop{0%,100%{transform:scale(1)}40%{transform:scale(1.4)}70%{transform:scale(.92)}}
+.cbadge-pop{animation:badge-pop .35s cubic-bezier(.34,1.56,.64,1)!important}
+/* ── CHECKOUT BUTTON GLOW ──────────────────────────────────── */
+.co-btn:not(:disabled){
+  background:linear-gradient(135deg,var(--pink),var(--purple),var(--pink))!important;
+  background-size:200% auto!important;
+  animation:shimmer-move 3s linear infinite!important}
+/* ── ITEM DETAIL PRICE SHINY ───────────────────────────────── */
+#itemDetailPrice{
+  background:linear-gradient(90deg,#ffd700,#ff10f0,#fff,#ffd700)!important;
+  background-size:300% auto!important;
+  -webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  animation:gold-shimmer 2s linear infinite!important}
+/* ── ADD TO CART BUTTON PULSE ON CLICK ─────────────────────── */
+@keyframes btn-ping{0%{box-shadow:0 0 0 0 rgba(255,16,240,.6)}100%{box-shadow:0 0 0 14px rgba(255,16,240,0)}}
+.pc-btn:active{animation:btn-ping .4s ease-out}
 </style>
 </head>
 <body>
@@ -833,7 +863,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:var(--yellow)">🏆 Top Picks</div>
-      <div class="sec-title">Best Sellers 🔥</div>
+      <div class="sec-title sec-title-shiny">Best Sellers 🔥</div>
       <p class="sec-sub">Our most popular items across all games — trusted by hundreds of players.</p>
     </div>
     
@@ -1053,35 +1083,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterTS(this,'currency')">🪙 Currency</button>
   </div>
   <div class="h-scroll" id="tsunamiGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S">
-  <div style="text-align:center;margin-bottom:32px">
-    <div class="sec-ey" style="color:var(--yellow);justify-content:center">💳 Accepted</div>
-    <div class="sec-title">Pay Your Way</div>
-    <p class="sec-sub">All major methods accepted. Safe, fast, buyer-protected.</p>
-  </div>
-  <div class="pay-grid">
-    <div class="pay-c pp"><div class="pay-ico">💙</div><div class="pay-nm">PayPal</div><div class="pay-ds">Buyer protection</div></div>
-    <div class="pay-c cr"><div class="pay-ico">₿</div><div class="pay-nm">Crypto</div><div class="pay-ds">BTC · ETH · SOL · USDT</div></div>
-  </div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S">
-  <div style="text-align:center;margin-bottom:32px">
-    <div class="sec-ey" style="color:var(--pink);justify-content:center">⚡ Process</div>
-    <div class="sec-title">How It Works</div>
-  </div>
-  <div class="how-grid">
-    <div class="hc"><div class="hc-n">1</div><h3>Add to Cart</h3><p>Browse any game, toggle Normal/Perm, add to cart.</p></div>
-    <div class="hc"><div class="hc-n">2</div><h3>Checkout</h3><p>Enter your Roblox username and link your Discord.</p></div>
-    <div class="hc"><div class="hc-n">3</div><h3>Pay</h3><p>PayPal or Crypto — all protected.</p></div>
-    <div class="hc"><div class="hc-n">4</div><h3>Delivered!</h3><p>We meet you in-game within minutes of payment. ⚡</p></div>
-  </div>
 </section>
 
 <div class="div-line"></div>
@@ -1910,9 +1911,9 @@ function mkImgEl(name,em,img){
 // ── RENDER ROBUX / SOCIAL ─────────────────────────────────────
 const ROBUX_META={
   robux:    {ico:'💎',lbl:'ROBUX',    game:'Robux',            sub:'$5.50 per 1,000 Robux · Delivered directly to your Roblox account · No middleman'},
-  followers:{ico:'👥',lbl:'FOLLOWERS',game:'Roblox Services',  sub:'$5 per 1,000 Followers · Boost your Roblox profile'},
-  members:  {ico:'🏟️',lbl:'MEMBERS',  game:'Roblox Services',  sub:'$5 per 1,000 Group Members · Grow your Roblox group fast'},
-  likes:    {ico:'❤️',lbl:'FAV/LIKES',game:'Roblox Services',  sub:'$5 per 1,000 Favorites & Likes · Boost your game popularity'},
+  followers:{ico:'👥',lbl:'FOLLOWERS',game:'Roblox Services',  sub:'$5 per 1,000 Followers · Real high-quality followers · Send your preferred delivery link in our Discord server after purchase'},
+  members:  {ico:'🏟️',lbl:'MEMBERS',  game:'Roblox Services',  sub:'$5 per 1,000 Group Members · Real members, no bots · Send your group link in our Discord after checkout'},
+  likes:    {ico:'❤️',lbl:'FAV/LIKES',game:'Roblox Services',  sub:'$5 per 1,000 Favorites & Likes · Real engagement on your game · Send your game link in Discord after purchase'},
 };
 function filterRobuxCat(btn,cat){
   document.querySelectorAll('[id^="rcat-"]').forEach(b=>b.classList.remove('jtb','jtd','jta','jtc'));
@@ -1952,8 +1953,10 @@ function renderBF(filter='all'){
     const bgC=RAR_BG[f.rar]||'r-rare';
     const img=f.img||IMGS[f.n]||'';
     const typeEl=f.type&&f.type!=='Skin'&&f.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[f.type]||'t-nat'}">${f.type}</div>`:'';
+    const iData=encodeURIComponent(JSON.stringify({n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''}));
+    const addName=((mode==='perm'&&hasPerm)?'Perm ':'')+f.n;
     return `
-    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="(function(el){if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')){const obj={n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''};openItemDetail(encodeURIComponent(JSON.stringify(obj)));}})(this)">
+    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
       <div class="pc-img ${bgC}">
         ${mkImgEl(f.n,f.em,img)}
         ${bdg(f.badge)}${stk(f.stock)}${typeEl}
@@ -1967,7 +1970,7 @@ function renderBF(filter='all'){
           <button class="tog${mode==='perm'?' sp':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','perm');event.stopPropagation()">⭐ Perm</button>
         </div>`:''}
         <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">$${dp.toFixed(2)}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${((mode==='perm'&&hasPerm)?'Perm ':'')+f.n.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${f.em}','Blox Fruits')">🛒 Add to Cart</button>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${f.em}','Blox Fruits')">🛒 Add to Cart</button>
       </div>
     </div>`;
   }).join('');
@@ -2049,42 +2052,23 @@ const BESTSELLERS = [
 ];
 
 function renderBS(){
-  document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i,idx){
+  document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
     var p=parseFloat((i.p||'$0').replace('$',''))||0;
+    var iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
+    var safeName=i.n.replace(/'/g,"\\'");
     var imgHtml=i.img
-      ?('<img src="'+i.img+'" alt="" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>')
+      ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+i.em+'</span>')
       :('<span class="em">'+i.em+'</span>');
-    return [
-      '<div class="pc" style="cursor:pointer" data-bs-idx="'+idx+'">',
-        '<div class="pc-img '+(i.bg||'r-rare')+'">',
-          imgHtml,
-          bdg(i.badge||''),
-          stk(i.stock!=null?i.stock:99),
-        '</div>',
-        '<div class="pc-body">',
-          '<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>',
-          '<div class="pc-n">'+i.n+'</div>',
-          '<div class="pc-price">'+i.p+'</div>',
-          '<button class="pc-btn" data-bs-add="'+idx+'">&#x1F6D2; Add to Cart</button>',
-        '</div>',
-      '</div>'
-    ].join('');
+    return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\'))openItemDetail(\''+iData+'\')">'
+      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+'</div>'
+      +'<div class="pc-body">'
+        +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
+        +'<div class="pc-n">'+i.n+'</div>'
+        +'<div class="pc-price">'+i.p+'</div>'
+        +'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+i.p+'\',\''+i.em+'\',\''+i.game+'\')">🛒 Add to Cart</button>'
+      +'</div>'
+    +'</div>';
   }).join('');
-  // Wire up click handlers after rendering
-  document.querySelectorAll('#bsGrid [data-bs-idx]').forEach(function(el){
-    var idx=parseInt(el.dataset.bsIdx);
-    var i=BESTSELLERS[idx];
-    var p=parseFloat((i.p||'$0').replace('$',''))||0;
-    var obj={n:i.n,em:i.em,p:p,oldP:null,rar:'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''};
-    el.addEventListener('click',function(e){
-      if(!e.target.closest('[data-bs-add]')) openItemDetail(encodeURIComponent(JSON.stringify(obj)));
-    });
-    var btn=el.querySelector('[data-bs-add]');
-    if(btn) btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      addToCart(i.n,i.p,i.em,i.game);
-    });
-  });
 }document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
 
 // ── ROBLOX USERNAME VALIDATION ────────────────────────────────
@@ -2432,6 +2416,9 @@ function addToCart(name,priceStr,em,game){
   else cart.push({name,price,em,game,qty:1});
   updateCartUI();
   openCartSB();
+  // Badge pop animation
+  const badge=document.getElementById('cBadge');
+  if(badge){badge.classList.remove('cbadge-pop');void badge.offsetWidth;badge.classList.add('cbadge-pop');setTimeout(()=>badge.classList.remove('cbadge-pop'),400);}
 }
 function removeFromCart(name){cart=cart.filter(c=>c.name!==name);updateCartUI();}
 function clearCart(){cart=[];updateCartUI();}

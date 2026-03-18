@@ -691,6 +691,32 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 </style>
 </head>
 <body>
+
+<!-- ── INTRO SPLASH ─────────────────────────────────────────── -->
+<div id="introSplash">
+  <div id="introSplashInner">
+    <img src="https://silvmarket.shop/images/logo.png" alt=""
+      style="width:76px;height:76px;border-radius:18px;object-fit:contain;
+        margin-bottom:20px;display:block;margin-left:auto;margin-right:auto;
+        filter:drop-shadow(0 0 28px rgba(255,16,240,.6))"
+      onerror="this.style.display='none'"/>
+    <div style="font-family:'Orbitron',monospace;font-size:44px;font-weight:900;letter-spacing:7px;
+      background:linear-gradient(135deg,#fff 0%,#ffd700 45%,#ff10f0 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 0 24px rgba(255,16,240,.35))">
+      SILV&nbsp;<span style="background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">MARKET</span>
+    </div>
+    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;
+      color:rgba(255,255,255,.32);text-transform:uppercase;margin-top:10px">Premium Roblox Shop</div>
+    <div style="margin-top:24px;width:180px;height:2px;background:rgba(255,255,255,.07);
+      border-radius:2px;overflow:hidden;margin-left:auto;margin-right:auto">
+      <div style="height:100%;border-radius:2px;
+        background:linear-gradient(90deg,#9333ea,#ff10f0);
+        animation:intro-bar 1.05s ease-out both"></div>
+    </div>
+  </div>
+</div>
+
 <div class="bg"></div>
 <div class="bg-grid"></div>
 <div class="scan"></div>
@@ -821,10 +847,17 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <section class="S" id="robux">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:var(--yellow)">💎 In-Game Currency</div>
-      <div class="sec-title">Buy Robux</div>
-      <p class="sec-sub">$6 per 1,000 Robux · Delivered directly to your Roblox account · No middleman</p>
+      <div class="sec-ey" style="color:var(--yellow)">💎 Roblox Services</div>
+      <div class="sec-title">Robux &amp; More</div>
+      <p class="sec-sub" id="robuxSubtitle">$5.50 per 1,000 Robux · Delivered directly to your Roblox account · No middleman</p>
     </div>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Category:</span>
+    <button class="jt jtb" id="rcat-robux"     onclick="filterRobuxCat(this,'robux')">💎 Robux</button>
+    <button class="jt"     id="rcat-followers" onclick="filterRobuxCat(this,'followers')">👥 Followers</button>
+    <button class="jt"     id="rcat-members"   onclick="filterRobuxCat(this,'members')">🏟️ Group Members</button>
+    <button class="jt"     id="rcat-likes"     onclick="filterRobuxCat(this,'likes')">❤️ Favorites &amp; Likes</button>
   </div>
   <div class="h-scroll" id="robuxGrid"></div>
 </section>
@@ -1063,11 +1096,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div class="rv-col">
       <div class="rv-col-inner rv-slow">
         <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Got Perm Dragon in 5 mins fr. Super legit, already told my whole friend group 🔥</p><div class="rv-bot"><div class="rv-av">🎮</div><div><div class="rv-name">xX_DragonKing</div><div class="rv-meta">Blox Fruits · 2d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Leopard delivered in under 2 min. No cap this is the fastest shop on the internet 🐆</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
+        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Tiger delivered in under 2 min. No cap this is the fastest shop on the internet 🐯</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
         <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">GAG Godly Watering Can delivered instantly. My garden is goated now 🌱</p><div class="rv-bot"><div class="rv-av">🌱</div><div><div class="rv-name">GardenGod</div><div class="rv-meta">Grow a Garden · 1d ago</div></div></div></div>
         <!-- duplicate for infinite scroll -->
         <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Got Perm Dragon in 5 mins fr. Super legit, already told my whole friend group 🔥</p><div class="rv-bot"><div class="rv-av">🎮</div><div><div class="rv-name">xX_DragonKing</div><div class="rv-meta">Blox Fruits · 2d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Leopard delivered in under 2 min. No cap this is the fastest shop on the internet 🐆</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
+        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Tiger delivered in under 2 min. No cap this is the fastest shop on the internet 🐯</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
         <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">GAG Godly Watering Can delivered instantly. My garden is goated now 🌱</p><div class="rv-bot"><div class="rv-av">🌱</div><div><div class="rv-name">GardenGod</div><div class="rv-meta">Grow a Garden · 1d ago</div></div></div></div>
       </div>
     </div>
@@ -1626,6 +1659,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <style>
 @keyframes dot1{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes dot2{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes intro-pop{from{transform:scale(0.55) translateY(12px);opacity:0}to{transform:none;opacity:1}}
+@keyframes intro-hide{0%{opacity:1;pointer-events:all}100%{opacity:0;pointer-events:none;visibility:hidden}}
+@keyframes intro-bar{from{width:0}to{width:100%}}
+#introSplash{position:fixed;inset:0;z-index:10000;
+  background:radial-gradient(ellipse 90% 70% at 50% 50%,#0f0430,#03010a);
+  display:flex;align-items:center;justify-content:center;
+  animation:intro-hide .35s ease-in 1.05s forwards}
+#introSplashInner{text-align:center;animation:intro-pop .45s cubic-bezier(.34,1.56,.64,1) both}
 </style>
 
 <script>
@@ -1683,14 +1724,19 @@ const IMGS = {};
 
 // ── DATA ─────────────────────────────────────────────────────
 const ROBUX = [
-  {a:1000,p:6},{a:2000,p:12},{a:3000,p:18},
-  {a:5000,p:30,best:true},{a:10000,p:60},{a:20000,p:120},
+  {a:1000,p:5.5},{a:2000,p:11},{a:3000,p:16.5},
+  {a:5000,p:27.5,best:true},{a:10000,p:55},{a:20000,p:110},
 ];
+const SOCIAL = {
+  followers:[{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
+  members:  [{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
+  likes:    [{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
+};
 
 const FRUITS = [
   {n:'Dragon',em:'🐉',type:'Beast',rar:'mythical',norm:18.99,perm:32.49,badge:'myth',stock:3,cat:'beast',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png'},
   {n:'Kitsune',em:'🦊',type:'Beast',rar:'mythical',norm:22.99,perm:39.99,badge:'myth',stock:2,cat:'beast',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kitsune.png'},
-  {n:'Leopard',em:'🐆',type:'Beast',rar:'mythical',norm:16.99,perm:29.99,badge:'myth',stock:5,cat:'beast',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/leopard.png'},
+  {n:'Tiger',em:'🐯',type:'Beast',rar:'mythical',norm:16.99,perm:29.99,badge:'myth',stock:5,cat:'beast',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/leopard.png'},
   {n:'Spirit',em:'👻',type:'Natural',rar:'mythical',norm:14.99,perm:26.99,badge:'myth',stock:4,cat:'mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/spirit.png'},
   {n:'Gravity',em:'⚛️',type:'Natural',rar:'mythical',norm:10.99,perm:22.49,badge:'myth',stock:8,cat:'mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/gravity.png'},
   {n:'Control',em:'🌀',type:'Natural',rar:'mythical',norm:12.99,perm:23.99,badge:'myth',stock:3,cat:'mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/control.png'},
@@ -1724,7 +1770,7 @@ const FRUIT_SKINS = [
   {n:'Dragon Skin - Void',   em:'⚫',type:'Skin',rar:'legendary',norm:11.99,perm:null,badge:'leg',stock:2,cat:'skin'},
   {n:'Buddha Skin - Golden', em:'🌟',type:'Skin',rar:'rare',     norm:5.99, perm:null,badge:'rare',stock:8,cat:'skin'},
   {n:'Dough Skin - Dark',    em:'🍫',type:'Skin',rar:'rare',     norm:6.99, perm:null,badge:'rare',stock:5,cat:'skin'},
-  {n:'Leopard Skin - White', em:'🤍',type:'Skin',rar:'legendary',norm:10.99,perm:null,badge:'leg',stock:3,cat:'skin'},
+  {n:'Tiger Skin - White', em:'🤍',type:'Skin',rar:'legendary',norm:10.99,perm:null,badge:'leg',stock:3,cat:'skin'},
 ];
 
 const BF_GP = [
@@ -1861,14 +1907,29 @@ function mkImgEl(name,em,img){
   return `<span class="em">${em}</span>`;
 }
 
-// ── RENDER ROBUX ──────────────────────────────────────────────
-function renderRobux(){
-  document.getElementById('robuxGrid').innerHTML=ROBUX.map(r=>`
-    <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} Robux','$${r.p}','💎','Robux')">
-      <div class="rp-ico">💎</div>
+// ── RENDER ROBUX / SOCIAL ─────────────────────────────────────
+const ROBUX_META={
+  robux:    {ico:'💎',lbl:'ROBUX',    game:'Robux',            sub:'$5.50 per 1,000 Robux · Delivered directly to your Roblox account · No middleman'},
+  followers:{ico:'👥',lbl:'FOLLOWERS',game:'Roblox Services',  sub:'$5 per 1,000 Followers · Boost your Roblox profile'},
+  members:  {ico:'🏟️',lbl:'MEMBERS',  game:'Roblox Services',  sub:'$5 per 1,000 Group Members · Grow your Roblox group fast'},
+  likes:    {ico:'❤️',lbl:'FAV/LIKES',game:'Roblox Services',  sub:'$5 per 1,000 Favorites & Likes · Boost your game popularity'},
+};
+function filterRobuxCat(btn,cat){
+  document.querySelectorAll('[id^="rcat-"]').forEach(b=>b.classList.remove('jtb','jtd','jta','jtc'));
+  btn.classList.add('jtb');
+  renderRobux(cat);
+}
+function renderRobux(cat='robux'){
+  const meta=ROBUX_META[cat]||ROBUX_META.robux;
+  const sub=document.getElementById('robuxSubtitle');
+  if(sub) sub.textContent=meta.sub;
+  const data=cat==='robux'?ROBUX:SOCIAL[cat];
+  document.getElementById('robuxGrid').innerHTML=data.map(r=>`
+    <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}','$${r.p.toFixed(2)}','${meta.ico}','${meta.game}')">
+      <div class="rp-ico">${meta.ico}</div>
       <div class="rp-amt">${r.a.toLocaleString()}</div>
-      <div class="rp-lbl">ROBUX</div>
-      <div class="rp-price">$${r.p}.00</div>
+      <div class="rp-lbl">${meta.lbl}</div>
+      <div class="rp-price">$${r.p.toFixed(2)}</div>
       <button class="rp-btn">🛒 Buy Now</button>
     </div>`).join('');
 }
@@ -1977,13 +2038,13 @@ function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEa
 
 // ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
-  {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical'},
+  {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png'},
   {n:"Nik's Scythe",      em:'🔪',p:'$34.99',game:'MM2',        badge:'hot', stock:2, bg:'r-mythical'},
   {n:'Shadow Dragon',     em:'🐉',p:'$22.99',game:'Adopt Me',   badge:'hot', stock:4, bg:'r-mythical'},
-  {n:'Permanent Leopard', em:'🐆',p:'$29.99',game:'Blox Fruits',badge:'best',stock:5, bg:'r-mythical'},
+  {n:'Permanent Tiger',   em:'🐯',p:'$29.99',game:'Blox Fruits',badge:'best',stock:5, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/leopard.png'},
   {n:'Godly Watering Can',em:'🚿',p:'$19.99',game:'Grow a Garden',badge:'hot',stock:2,bg:'r-mythical'},
   {n:'Rivals Ultimate',   em:'💎',p:'$19.99',game:'Rivals',     badge:'best',stock:3, bg:'r-legendary'},
-  {n:'5,000 Robux',       em:'💎',p:'$30.00',game:'Robux',      badge:'hot', stock:99,bg:'r-robux'},
+  {n:'5,000 Robux',       em:'💎',p:'$27.50',game:'Robux',      badge:'hot', stock:99,bg:'r-robux'},
   {n:'99 Nights Bundle',  em:'🌙',p:'$14.99',game:'99 Nights',  badge:'best',stock:3, bg:'r-legendary'},
 ];
 
@@ -3933,6 +3994,12 @@ document.addEventListener('click', function(e){
     document.getElementById('searchResults')?.classList.remove('open');
   }
 });
+
+// ── INTRO SPLASH CLEANUP ──────────────────────────────────────
+(function(){
+  var s=document.getElementById('introSplash');
+  if(s) s.addEventListener('animationend',function(e){if(e.animationName==='intro-hide')s.remove();});
+})();
 
 // ── INIT ──────────────────────────────────────────────────────
 function init(){

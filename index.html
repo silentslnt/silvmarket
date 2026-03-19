@@ -670,16 +670,30 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .sa-hidden{opacity:0!important;pointer-events:none!important}
 /* Mobile swipe hint */
 .swipe-hint{
-  display:none;align-items:center;justify-content:center;gap:7px;
-  margin-top:9px;padding:5px 0;
-  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
-  letter-spacing:2.5px;color:rgba(255,255,255,.3);text-transform:uppercase}
-.swipe-hint-dot{width:5px;height:5px;border-radius:50%;
-  background:var(--pink);opacity:.5;
-  animation:sh-pulse 1.4s ease-in-out infinite}
-.swipe-hint-dot:nth-child(2){animation-delay:.2s}
-.swipe-hint-dot:nth-child(3){animation-delay:.4s}
-@keyframes sh-pulse{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.5);opacity:.8}}
+  display:none;align-items:center;justify-content:center;gap:0;
+  margin-top:8px;padding:5px 0;user-select:none}
+.swipe-hint-label{
+  font-family:'Orbitron',monospace;font-size:9px;font-weight:700;
+  letter-spacing:3px;color:rgba(255,255,255,.32);text-transform:uppercase;
+  padding:0 8px}
+.swipe-hint-arr{
+  display:flex;align-items:center;gap:3px}
+.swipe-hint-arr span{
+  display:block;width:6px;height:6px;border-top:1.5px solid var(--pink);border-right:1.5px solid var(--pink);
+  opacity:0}
+/* Left chevrons — point left */
+.swipe-hint-arr.sh-l span{transform:rotate(-135deg)}
+/* Right chevrons — point right */
+.swipe-hint-arr.sh-r span{transform:rotate(45deg)}
+/* Stagger each chevron fading in outward */
+.swipe-hint-arr.sh-l span:nth-child(1){animation:sh-left 1.5s ease-in-out .4s infinite}
+.swipe-hint-arr.sh-l span:nth-child(2){animation:sh-left 1.5s ease-in-out .2s infinite}
+.swipe-hint-arr.sh-l span:nth-child(3){animation:sh-left 1.5s ease-in-out 0s infinite}
+.swipe-hint-arr.sh-r span:nth-child(1){animation:sh-right 1.5s ease-in-out 0s infinite}
+.swipe-hint-arr.sh-r span:nth-child(2){animation:sh-right 1.5s ease-in-out .2s infinite}
+.swipe-hint-arr.sh-r span:nth-child(3){animation:sh-right 1.5s ease-in-out .4s infinite}
+@keyframes sh-left{0%{opacity:0;transform:rotate(-135deg) translate(-3px,-3px)}40%{opacity:.7}100%{opacity:0;transform:rotate(-135deg) translate(3px,3px)}}
+@keyframes sh-right{0%{opacity:0;transform:rotate(45deg) translate(-3px,-3px)}40%{opacity:.7}100%{opacity:0;transform:rotate(45deg) translate(3px,3px)}}
 @media(max-width:768px){
   .swipe-hint{display:flex}
   .scroll-arr{display:none!important}}
@@ -4118,7 +4132,7 @@ function initScrollWraps(){
     // Mobile swipe hint (3 pulsing dots + label, vanishes on first scroll)
     const hint=document.createElement('div');
     hint.className='swipe-hint';
-    hint.innerHTML='<span class="swipe-hint-dot"></span>SWIPE TO EXPLORE<span class="swipe-hint-dot"></span><span class="swipe-hint-dot"></span>';
+    hint.innerHTML='<div class="swipe-hint-arr sh-l"><span></span><span></span><span></span></div><div class="swipe-hint-label">swipe</div><div class="swipe-hint-arr sh-r"><span></span><span></span><span></span></div>';
     wrap.after(hint);
     el.addEventListener('scroll',()=>{hint.style.opacity='0';hint.style.transition='opacity .4s';setTimeout(()=>hint.remove(),400)},{once:true,passive:true});
   });

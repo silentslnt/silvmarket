@@ -638,6 +638,52 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .h-scroll .pc{min-width:196px;max-width:196px;flex-shrink:0;scroll-snap-align:start}
 .h-scroll .rp{min-width:155px;max-width:155px;flex-shrink:0;scroll-snap-align:start}
 
+/* ── SCROLL WRAP: gradient fades + arrow buttons ────────────── */
+.scroll-wrap{position:relative}
+/* Right-edge fade — always visible until end */
+.scroll-wrap::after{
+  content:'';position:absolute;top:0;right:0;bottom:10px;width:90px;
+  background:linear-gradient(to right,transparent,var(--void) 80%);
+  pointer-events:none;z-index:2;transition:opacity .3s}
+.scroll-wrap.at-end::after{opacity:0}
+/* Left-edge fade — appears after scrolling */
+.scroll-wrap::before{
+  content:'';position:absolute;top:0;left:0;bottom:10px;width:70px;
+  background:linear-gradient(to left,transparent,var(--void) 80%);
+  pointer-events:none;z-index:2;opacity:0;transition:opacity .3s}
+.scroll-wrap.scrolled::before{opacity:1}
+/* Arrow buttons */
+.scroll-arr{
+  position:absolute;top:calc(50% - 5px);transform:translateY(-50%);z-index:3;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(10,4,26,.9);
+  border:1px solid rgba(255,16,240,.45);
+  color:#fff;font-size:22px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px rgba(147,51,234,.4),inset 0 0 8px rgba(147,51,234,.08);
+  transition:all .25s;opacity:0;pointer-events:none}
+.scroll-wrap:hover .scroll-arr:not(.sa-hidden){opacity:1;pointer-events:all}
+.scroll-arr-l{left:7px}
+.scroll-arr-r{right:7px}
+.scroll-arr:hover{background:rgba(147,51,234,.35);border-color:rgba(255,16,240,.75);
+  box-shadow:0 0 28px rgba(255,16,240,.55)}
+.sa-hidden{opacity:0!important;pointer-events:none!important}
+/* Mobile swipe hint */
+.swipe-hint{
+  display:none;align-items:center;justify-content:center;gap:7px;
+  margin-top:9px;padding:5px 0;
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:2.5px;color:rgba(255,255,255,.3);text-transform:uppercase}
+.swipe-hint-dot{width:5px;height:5px;border-radius:50%;
+  background:var(--pink);opacity:.5;
+  animation:sh-pulse 1.4s ease-in-out infinite}
+.swipe-hint-dot:nth-child(2){animation-delay:.2s}
+.swipe-hint-dot:nth-child(3){animation-delay:.4s}
+@keyframes sh-pulse{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.5);opacity:.8}}
+@media(max-width:768px){
+  .swipe-hint{display:flex}
+  .scroll-arr{display:none!important}}
+
 /* ── PRICE SHIMMER & FANCY TEXT ────────────────────────────── */
 @keyframes shimmer-move{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes item-glow{0%,100%{box-shadow:0 10px 36px rgba(0,0,0,.18)}50%{box-shadow:0 0 22px rgba(255,16,240,.28),0 0 0 1px rgba(255,16,240,.15)}}
@@ -2026,12 +2072,14 @@ function renderBF(filter='all'){
 function setFM(name,mode){
   fruitModes[name]=mode;
   renderBF(window._bfFilter||'all');
+  setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
 }
 function filterBF(btn,cat){
   window._bfFilter=cat;
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
   btn.className='jt jtb';
   renderBF(cat);
+  setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
 }
 
 // ── GENERIC CARD ──────────────────────────────────────────────
@@ -4035,6 +4083,47 @@ document.addEventListener('click', function(e){
   if(s) s.addEventListener('animationend',function(e){if(e.animationName==='intro-hide')s.remove();});
 })();
 
+// ── SCROLL WRAPS: fades + arrow buttons ───────────────────────
+function initScrollWraps(){
+  document.querySelectorAll('.h-scroll').forEach(el=>{
+    if(el.parentElement.classList.contains('scroll-wrap')) return;
+    const wrap=document.createElement('div');
+    wrap.className='scroll-wrap';
+    el.parentNode.insertBefore(wrap,el);
+    wrap.appendChild(el);
+
+    // Arrow buttons (desktop)
+    const L=document.createElement('button');
+    L.className='scroll-arr scroll-arr-l sa-hidden';
+    L.innerHTML='&#8249;';L.setAttribute('aria-label','Scroll left');
+    const R=document.createElement('button');
+    R.className='scroll-arr scroll-arr-r';
+    R.innerHTML='&#8250;';R.setAttribute('aria-label','Scroll right');
+    wrap.appendChild(L);wrap.appendChild(R);
+    L.onclick=e=>{e.stopPropagation();el.scrollBy({left:-400,behavior:'smooth'})};
+    R.onclick=e=>{e.stopPropagation();el.scrollBy({left:400,behavior:'smooth'})};
+
+    // Update fade/arrow state
+    function upd(){
+      const atEnd=el.scrollLeft+el.clientWidth>=el.scrollWidth-16;
+      const atStart=el.scrollLeft<=16;
+      wrap.classList.toggle('at-end',atEnd);
+      wrap.classList.toggle('scrolled',!atStart);
+      L.classList.toggle('sa-hidden',atStart);
+      R.classList.toggle('sa-hidden',atEnd);
+    }
+    el.addEventListener('scroll',upd,{passive:true});
+    setTimeout(upd,60);
+
+    // Mobile swipe hint (3 pulsing dots + label, vanishes on first scroll)
+    const hint=document.createElement('div');
+    hint.className='swipe-hint';
+    hint.innerHTML='<span class="swipe-hint-dot"></span>SWIPE TO EXPLORE<span class="swipe-hint-dot"></span><span class="swipe-hint-dot"></span>';
+    wrap.after(hint);
+    el.addEventListener('scroll',()=>{hint.style.opacity='0';hint.style.transition='opacity .4s';setTimeout(()=>hint.remove(),400)},{once:true,passive:true});
+  });
+}
+
 // ── INIT ──────────────────────────────────────────────────────
 function init(){
   renderRobux();renderBF();renderBS();
@@ -4047,6 +4136,7 @@ function init(){
   document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
   buildSearchIndex();
   const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
+  initScrollWraps();
 }
 init();
 

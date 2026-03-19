@@ -789,10 +789,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="nav-right">
     <a id="discNavLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank">
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
-      Discord
+      <span class="disc-label">Discord</span>
     </a>
     <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
-    <button class="cart-btn" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="cBadge">0</span></button>
+    <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
   </div>
 </nav>
 
@@ -1242,6 +1242,52 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 /* View all filter pills */
 .va-filter{padding:7px 16px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;white-space:nowrap}
 .va-filter:hover,.va-filter-active{background:rgba(255,16,240,.15);border-color:rgba(255,16,240,.4);color:#fff}
+
+/* ── MOBILE ─────────────────────────────────────────────────── */
+@media(max-width:480px){
+  /* Nav: stack search below logo+buttons row */
+  nav{flex-wrap:wrap;height:auto;padding:8px 12px 6px;gap:0;row-gap:6px}
+  .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
+  .nav-right{gap:5px}
+  /* Hide text labels, keep icons */
+  .disc-label{display:none}
+  .disc-link{padding:8px 10px}
+  .cart-label{display:none}
+  .cart-btn{padding:9px 12px}
+  #navLoginLabel{display:none}
+  #navLoginBtn{padding:8px 10px}
+  /* Shrink logo */
+  #navLogoImg{height:28px!important;width:28px!important}
+  #navLogoText span:last-child{display:none} /* hide SHOP badge */
+  #navLogoText span{font-size:15px!important;letter-spacing:1px!important}
+  /* Sections */
+  .S{padding:32px 14px}
+  /* Game bar */
+  .game-bar{padding:0 8px}
+  .gb-btn{padding:6px 10px;font-size:11px;gap:4px}
+  /* Jump-row filter tabs */
+  .jump-row{padding:8px 10px;gap:6px}
+  .jt{padding:5px 10px;font-size:11px}
+  /* Reviews: single column */
+  .rv-col:nth-child(2){display:none!important}
+  /* Hero / feat */
+  .feat-r{margin-top:0!important}
+  /* Horizontal scroll cards: slightly narrower */
+  .h-scroll .pc{min-width:168px;max-width:168px}
+  .h-scroll .rp{min-width:140px;max-width:140px}
+  /* Cart sidebar full width */
+  .cart-sb{width:100%}
+  /* View-all overlay padding */
+  #viewAllOverlay .S{padding:16px 12px}
+  /* Account panel inner */
+  #accountPanel>div{padding:14px!important;margin:10px 6px!important;border-radius:14px!important}
+  /* Item detail modal */
+  #itemDetailModal{padding:10px!important}
+  /* Section title */
+  .sec-title{font-size:clamp(17px,5vw,28px)}
+  /* Intro splash */
+  #introSplash h1{font-size:clamp(22px,8vw,52px)!important;letter-spacing:4px!important}
+}
 </style>
 
 <div id="pageModal" style="display:none;position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto" onclick="if(event.target===this)closePageModal()">

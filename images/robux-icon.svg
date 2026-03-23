@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+
+    <!-- === GRADIENTS === -->
+
+    <!-- Main gold gradient (diagonal) -->
+    <linearGradient id="goldMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe066"/>
+      <stop offset="20%"  stop-color="#ffd700"/>
+      <stop offset="45%"  stop-color="#c8900a"/>
+      <stop offset="65%"  stop-color="#b8780a"/>
+      <stop offset="80%"  stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#8b5e08"/>
+    </linearGradient>
+
+    <!-- Inner hex brighter gold -->
+    <linearGradient id="goldInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#fff0a0"/>
+      <stop offset="25%"  stop-color="#ffd700"/>
+      <stop offset="55%"  stop-color="#d4950c"/>
+      <stop offset="80%"  stop-color="#ffc200"/>
+      <stop offset="100%" stop-color="#a06a00"/>
+    </linearGradient>
+
+    <!-- Metallic sheen (top-lit) -->
+    <linearGradient id="sheen" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="28%"  stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="55%"  stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.22"/>
+    </linearGradient>
+
+    <!-- Specular hotspot (upper-left bright flash) -->
+    <radialGradient id="specular" cx="28%" cy="22%" r="55%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="35%"  stop-color="#fffde0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Neon pink glow overlay (subtle theme accent) -->
+    <radialGradient id="neonAccent" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ff10f0" stop-opacity="0.08"/>
+      <stop offset="60%"  stop-color="#9333ea" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#ff10f0" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ambient glow aura -->
+    <radialGradient id="aura" cx="50%" cy="55%" r="50%">
+      <stop offset="0%"   stop-color="#ffd700" stop-opacity="0.35"/>
+      <stop offset="50%"  stop-color="#ff8c00" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ff10f0" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Edge rim light (catches top-left rim) -->
+    <linearGradient id="rimLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#fffaaa" stop-opacity="1"/>
+      <stop offset="40%"  stop-color="#ffd700" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#b8780a" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- === FILTERS === -->
+
+    <!-- Soft outer glow (gold haze) -->
+    <filter id="glowGold" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Tight neon edge glow -->
+    <filter id="glowEdge" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14"
+                    flood-color="#ff8c00" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Inner hex soft glow -->
+    <filter id="glowInner" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Clip path for inner hex (keeps effects contained) -->
+    <clipPath id="innerHexClip">
+      <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"/>
+    </clipPath>
+
+    <!-- Clip path for outer shape -->
+    <clipPath id="outerHexClip">
+      <polygon points="256,36 446,146 446,366 256,476 66,366 66,146"/>
+    </clipPath>
+
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 1 — AMBIENT AURA (behind everything)
+  ═══════════════════════════════════════════════════ -->
+  <ellipse cx="256" cy="290" rx="200" ry="170"
+           fill="url(#aura)" filter="url(#glowGold)" opacity="0.8"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 2 — OUTER RING
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Depth shadow (slightly offset) -->
+  <path d="M256,36 L446,146 L446,366 L256,476 L66,366 L66,146 Z
+           M256,88 L402,172 L402,340 L256,424 L110,340 L110,172 Z"
+        fill="#1a0a00" fill-rule="evenodd" opacity="0.55"
+        transform="translate(0,4)"/>
+
+  <!-- Main gold ring -->
+  <path d="M256,36 L446,146 L446,366 L256,476 L66,366 L66,146 Z
+           M256,88 L402,172 L402,340 L256,424 L110,340 L110,172 Z"
+        fill="url(#goldMain)" fill-rule="evenodd" filter="url(#shadow)"/>
+
+  <!-- Metallic sheen on ring -->
+  <path d="M256,36 L446,146 L446,366 L256,476 L66,366 L66,146 Z
+           M256,88 L402,172 L402,340 L256,424 L110,340 L110,172 Z"
+        fill="url(#sheen)" fill-rule="evenodd" opacity="0.55"/>
+
+  <!-- Specular flash on ring -->
+  <path d="M256,36 L446,146 L446,366 L256,476 L66,366 L66,146 Z
+           M256,88 L402,172 L402,340 L256,424 L110,340 L110,172 Z"
+        fill="url(#specular)" fill-rule="evenodd" opacity="0.45"/>
+
+  <!-- Neon theme accent on ring -->
+  <path d="M256,36 L446,146 L446,366 L256,476 L66,366 L66,146 Z
+           M256,88 L402,172 L402,340 L256,424 L110,340 L110,172 Z"
+        fill="url(#neonAccent)" fill-rule="evenodd"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 3 — RING EDGE LINES
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Outer hex edge glow (neon pink subtle) -->
+  <polygon points="256,36 446,146 446,366 256,476 66,366 66,146"
+           fill="none" stroke="#ff10f0" stroke-width="3" opacity="0.4"
+           filter="url(#glowEdge)"/>
+
+  <!-- Outer hex sharp bright rim -->
+  <polygon points="256,36 446,146 446,366 256,476 66,366 66,146"
+           fill="none" stroke="url(#rimLight)" stroke-width="1.5" opacity="0.9"/>
+
+  <!-- Ring inner edge glow -->
+  <polygon points="256,88 402,172 402,340 256,424 110,340 110,172"
+           fill="none" stroke="#ffd700" stroke-width="2" opacity="0.5"
+           filter="url(#glowEdge)"/>
+
+  <!-- Ring inner sharp rim -->
+  <polygon points="256,88 402,172 402,340 256,424 110,340 110,172"
+           fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 4 — INNER HEXAGON
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Depth shadow -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="#120800" opacity="0.45" transform="translate(0,3)"/>
+
+  <!-- Main inner hex -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="url(#goldInner)" filter="url(#glowInner)"/>
+
+  <!-- Metallic sheen on inner hex -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="url(#sheen)" opacity="0.6"/>
+
+  <!-- Specular on inner hex -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="url(#specular)" opacity="0.55"/>
+
+  <!-- Neon pink accent glow on inner hex -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="url(#neonAccent)" opacity="1.5"/>
+
+  <!-- Crystal facet split lines (depth illusion) -->
+  <line x1="256" y1="116" x2="256" y2="260" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
+  <line x1="256" y1="260" x2="377" y2="186" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <line x1="256" y1="260" x2="135" y2="186" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <line x1="256" y1="260" x2="256" y2="396" stroke="rgba(0,0,0,0.08)"       stroke-width="1"/>
+
+  <!-- Inner hex border glow -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="none" stroke="#ffcc00" stroke-width="2.5" opacity="0.6"
+           filter="url(#glowEdge)"/>
+
+  <!-- Inner hex sharp rim -->
+  <polygon points="256,116 377,186 377,326 256,396 135,326 135,186"
+           fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 5 — WHITE SQUARE
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Square shadow -->
+  <rect x="214" y="217" width="88" height="88" rx="3"
+        fill="rgba(0,0,0,0.5)"/>
+
+  <!-- Main white square -->
+  <rect x="212" y="214" width="88" height="88" rx="3"
+        fill="white"/>
+
+  <!-- Top-left gloss on square -->
+  <rect x="212" y="214" width="88" height="44" rx="3"
+        fill="rgba(255,255,255,0.4)" clip-path="url(#innerHexClip)"/>
+
+  <!-- Subtle gold rim on square -->
+  <rect x="212" y="214" width="88" height="88" rx="3"
+        fill="none" stroke="#ffd700" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 6 — ACCENT HIGHLIGHTS
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Top-left outer edge: brightest highlight -->
+  <line x1="256" y1="36"  x2="66"  y2="146" stroke="rgba(255,255,230,0.80)" stroke-width="2.5"/>
+  <line x1="256" y1="36"  x2="446" y2="146" stroke="rgba(255,255,200,0.40)" stroke-width="1.5"/>
+
+  <!-- Top-left inner hex edges -->
+  <line x1="256" y1="116" x2="135" y2="186" stroke="rgba(255,255,230,0.70)" stroke-width="2"/>
+  <line x1="256" y1="116" x2="377" y2="186" stroke="rgba(255,255,200,0.30)" stroke-width="1"/>
+
+  <!-- Bottom-right shadow edges (opposite of highlight) -->
+  <line x1="256" y1="476" x2="446" y2="366" stroke="rgba(0,0,0,0.30)" stroke-width="2"/>
+  <line x1="256" y1="476" x2="66"  y2="366" stroke="rgba(0,0,0,0.20)" stroke-width="1.5"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 7 — VERTEX SPARKLES
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- Top vertex sparkle (biggest — most lit) -->
+  <circle cx="256" cy="36" r="4.5" fill="white" opacity="0.95"/>
+  <circle cx="256" cy="36" r="10"  fill="white" opacity="0.30" filter="url(#glowEdge)"/>
+
+  <!-- Top-left vertex -->
+  <circle cx="66"  cy="146" r="3"   fill="white" opacity="0.80"/>
+  <circle cx="66"  cy="146" r="7"   fill="white" opacity="0.20" filter="url(#glowEdge)"/>
+
+  <!-- Top-right vertex (less lit) -->
+  <circle cx="446" cy="146" r="2.5" fill="white" opacity="0.55"/>
+
+  <!-- Bottom-right vertex -->
+  <circle cx="446" cy="366" r="2"   fill="rgba(255,200,0,0.5)"/>
+
+  <!-- Inner hex top vertex sparkle -->
+  <circle cx="256" cy="116" r="3"   fill="white" opacity="0.85"/>
+  <circle cx="256" cy="116" r="6"   fill="white" opacity="0.25" filter="url(#glowEdge)"/>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYER 8 — FINAL NEON PINK BLOOM (ties to site theme)
+  ═══════════════════════════════════════════════════ -->
+  <polygon points="256,36 446,146 446,366 256,476 66,366 66,146"
+           fill="none" stroke="#ff10f0" stroke-width="1.5" opacity="0.18"
+           filter="url(#glowGold)"/>
+
+</svg>

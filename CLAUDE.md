@@ -58,6 +58,8 @@ Items live as JS arrays in index.html:
 - `MM2` — Murder Mystery 2 (sub: godly/chroma/bundle)
 - `BRAINROT` — Steal a Brainrot
 - `RIVALS`, `NIGHTS`, `TSUNAMI`
+- `GPO` — Grand Piece Online (sub: fruits/swords/bundles/currency)
+- `SP` — Sailor Piece (sub: fruits/swords/bundles/currency)
 - `BESTSELLERS` — hardcoded featured items
 
 ## Bot Files (silvreview repo)
@@ -88,7 +90,7 @@ Items live as JS arrays in index.html:
 
 ### Shop Editor
 - `!shop` — show editor panel
-- `!listitems <game>` — list items (game keys: bf/gag/am/mm2/brainrot/rivals/nights/tsunami)
+- `!listitems <game>` — list items (game keys: bf/gag/am/mm2/brainrot/rivals/nights/tsunami/gpo/sp)
 - `!additem <game> "<name>" <price> <stock> <emoji> <badge>`
 - `!edititem <game> "<name>"` — guided edit session
 - `!removeitem "<name>"`

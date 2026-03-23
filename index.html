@@ -897,6 +897,12 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="gd-item" onclick="selectGame(this,'Escape Tsunami','🌊','tsunami')" data-key="tsunami">
         <span class="gd-icon">🌊</span><span class="gd-label">Escape Tsunami</span><span class="gd-dot"></span>
       </div>
+      <div class="gd-item" onclick="selectGame(this,'Grand Piece Online','⚓','gpo')" data-key="gpo">
+        <span class="gd-icon">⚓</span><span class="gd-label">Grand Piece Online</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Sailor Piece','🏴‍☠️','sp')" data-key="sp">
+        <span class="gd-icon">🏴‍☠️</span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
+      </div>
     </div>
   </div>
   <span class="gs-divider"></span>
@@ -1143,6 +1149,48 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterTS(this,'currency')">🪙 Currency</button>
   </div>
   <div class="h-scroll" id="tsunamiGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="gpo">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#f97316">⚓ Grand Piece Online</div>
+      <div class="sec-title">Grand Piece Online</div>
+    </div>
+    <button class="view-all" onclick="openViewAll('gpo')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.32);color:#f97316" onclick="filterGPO(this,'all')">⚓ All</button>
+    <button class="jt" onclick="filterGPO(this,'fruits')">🍎 Fruits</button>
+    <button class="jt" onclick="filterGPO(this,'swords')">⚔️ Swords</button>
+    <button class="jt" onclick="filterGPO(this,'bundles')">📦 Bundles</button>
+    <button class="jt" onclick="filterGPO(this,'currency')">🪙 Currency</button>
+  </div>
+  <div class="h-scroll" id="gpoGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="sp">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#06b6d4">🏴‍☠️ Sailor Piece</div>
+      <div class="sec-title">Sailor Piece</div>
+    </div>
+    <button class="view-all" onclick="openViewAll('sp')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
+    <button class="jt" onclick="filterSP(this,'fruits')">🍎 Fruits</button>
+    <button class="jt" onclick="filterSP(this,'swords')">⚔️ Swords</button>
+    <button class="jt" onclick="filterSP(this,'bundles')">📦 Bundles</button>
+    <button class="jt" onclick="filterSP(this,'currency')">🪙 Currency</button>
+  </div>
+  <div class="h-scroll" id="spGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -1984,6 +2032,33 @@ const TSUNAMI = [
   {n:'Tsunami Coins 5k', em:'🪙',p:4.99, sub:'currency',badge:'',    stock:99,bg:'r-uncommon'},
 ];
 
+const GPO = [
+  {n:'Magma Fruit',        em:'🌋',p:8.99, sub:'fruits',   badge:'hot', stock:10,bg:'r-legendary'},
+  {n:'Light Fruit',        em:'✨',p:11.99,sub:'fruits',   badge:'rare',stock:6, bg:'r-mythical'},
+  {n:'Dragon Fruit',       em:'🐉',p:14.99,sub:'fruits',   badge:'best',stock:4, bg:'r-mythical'},
+  {n:'Dark Fruit',         em:'🌑',p:9.99, sub:'fruits',   badge:'hot', stock:8, bg:'r-legendary'},
+  {n:'Quake Fruit',        em:'💥',p:7.99, sub:'fruits',   badge:'',    stock:12,bg:'r-rare'},
+  {n:'Beli 500k',          em:'🪙',p:4.99, sub:'currency', badge:'',    stock:99,bg:'r-rare'},
+  {n:'Beli 1M',            em:'💰',p:8.99, sub:'currency', badge:'hot', stock:99,bg:'r-legendary'},
+  {n:'GPO Starter Bundle', em:'🎁',p:12.99,sub:'bundles',  badge:'new', stock:5, bg:'r-rare'},
+  {n:'GPO Ultimate Pack',  em:'💎',p:24.99,sub:'bundles',  badge:'best',stock:3, bg:'r-mythical'},
+  {n:'Legendary Sword',    em:'⚔️',p:9.99, sub:'swords',   badge:'rare',stock:7, bg:'r-legendary'},
+  {n:'Bisento',            em:'🔱',p:13.99,sub:'swords',   badge:'hot', stock:5, bg:'r-mythical'},
+];
+
+const SP = [
+  {n:'Rubber Fruit',       em:'🍖',p:7.99, sub:'fruits',   badge:'hot', stock:12,bg:'r-rare'},
+  {n:'Phoenix Fruit',      em:'🔥',p:13.99,sub:'fruits',   badge:'rare',stock:5, bg:'r-mythical'},
+  {n:'Ice Fruit',          em:'❄️',p:8.99, sub:'fruits',   badge:'',    stock:10,bg:'r-legendary'},
+  {n:'String Fruit',       em:'🕸️',p:9.99, sub:'fruits',   badge:'new', stock:8, bg:'r-legendary'},
+  {n:'Beri 500k',          em:'🪙',p:4.99, sub:'currency', badge:'',    stock:99,bg:'r-rare'},
+  {n:'Beri 1M',            em:'💰',p:8.49, sub:'currency', badge:'hot', stock:99,bg:'r-legendary'},
+  {n:'SP Starter Bundle',  em:'🎁',p:11.99,sub:'bundles',  badge:'new', stock:6, bg:'r-rare'},
+  {n:'SP Premium Pack',    em:'💎',p:21.99,sub:'bundles',  badge:'best',stock:3, bg:'r-mythical'},
+  {n:'Wado Ichimonji',     em:'⚔️',p:8.99, sub:'swords',   badge:'',    stock:9, bg:'r-rare'},
+  {n:'Yoru Sword',         em:'🖤',p:14.99,sub:'swords',   badge:'rare',stock:4, bg:'r-mythical'},
+];
+
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0;
 let rblxVerified=false, fruitModes={};
@@ -2100,7 +2175,7 @@ function filterBF(btn,cat){
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
   const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece'}[game]||game;
   // Build item data for detail modal (escape for onclick attr)
   const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
   return `
@@ -2146,6 +2221,8 @@ function filterBR(btn,sub){setJtActive(btn);filterGrid('brainrotGrid','sub',sub)
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
 function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
 function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all')document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
+function filterGPO(btn,sub){setJtActive(btn);filterGrid('gpoGrid','sub',sub);if(sub==='all')document.querySelectorAll('#gpoGrid .pc').forEach(c=>c.style.display='');}
+function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(sub==='all')document.querySelectorAll('#spGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');btn.className=btn.className+' jtb';}
 
 // ── BEST SELLERS ─────────────────────────────────────────────
@@ -2901,7 +2978,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','reviews'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','gpo','sp','reviews'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -2912,6 +2989,8 @@ const GAME_SUBS={
   rivals:   [{label:'🥊 All',fn:'filterRIV',val:'all'},{label:'🏆 Boosts',fn:'filterRIV',val:'boost'},{label:'🎭 Skins',fn:'filterRIV',val:'skin'},{label:'💎 Bundles',fn:'filterRIV',val:'bundle'},{label:'🪙 Currency',fn:'filterRIV',val:'currency'}],
   nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
+  gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
+  sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🍎 Fruits',fn:'filterSP',val:'fruits'},{label:'⚔️ Swords',fn:'filterSP',val:'swords'},{label:'📦 Bundles',fn:'filterSP',val:'bundles'},{label:'🪙 Currency',fn:'filterSP',val:'currency'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -2951,7 +3030,7 @@ function applySort(el,type){
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid'].forEach(gid=>{
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid'].forEach(gid=>{
     const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
@@ -3388,7 +3467,9 @@ const VIEW_ALL_CONFIG = {
   brainrot: { title:'🧠 Steal a Brainrot', items:()=>BRAINROT, filters:['all','pets','bundles','packs'] },
   rivals:   { title:'🥊 Rivals',        items:()=>RIVALS, filters:['all','boost','skin','bundle','currency'] },
   nights:   { title:'🌙 99 Nights',     items:()=>NIGHTS, filters:['all','pets','bundles','currency'] },
-  tsunami:  { title:'🌊 Escape Tsunami',items:()=>TSUNAMI,filters:['all','pets','bundles','currency'] },
+  tsunami:  { title:'🌊 Escape Tsunami',   items:()=>TSUNAMI, filters:['all','pets','bundles','currency'] },
+  gpo:      { title:'⚓ Grand Piece Online',items:()=>GPO,    filters:['all','fruits','swords','bundles','currency'] },
+  sp:       { title:'🏴‍☠️ Sailor Piece',     items:()=>SP,     filters:['all','fruits','swords','bundles','currency'] },
 };
 
 function openViewAll(key){
@@ -4148,6 +4229,8 @@ function init(){
   document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');
   document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');
   document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
+  document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');
+  document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');
   buildSearchIndex();
   const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
   initScrollWraps();

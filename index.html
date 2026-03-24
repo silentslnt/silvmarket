@@ -1013,8 +1013,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <span class="jump-label">Jump to:</span>
     <button class="jt jtd" onclick="filterGAG(this,'all')">🌱 All</button>
     <button class="jt" onclick="filterGAG(this,'pets')">🐝 Pets</button>
-    <button class="jt" onclick="filterGAG(this,'tools')">🛠️ Tools</button>
-    <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
+    <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
   </div>
   <div class="h-scroll" id="gagGrid"></div>
 </section>
@@ -1071,17 +1070,15 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#c084fc">🧠 Steal a Brainrot</div>
-      <div class="sec-title">Brainrot Pets</div>
-      <p class="sec-sub">Exclusive bundles, OP pets and ultra packs</p>
+      <div class="sec-title">Brainrot Bases</div>
+      <p class="sec-sub">High-value bases including God-tier and Starter-tier</p>
     </div>
     <button class="view-all" onclick="openViewAll('brainrot')">View All →</button>
   </div>
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt jta" onclick="filterBR(this,'all')">🧠 All</button>
-    <button class="jt" onclick="filterBR(this,'pets')">🐲 Pets</button>
-    <button class="jt" onclick="filterBR(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterBR(this,'packs')">👾 Packs</button>
+    <button class="jt" onclick="filterBR(this,'bases')">🏠 Bases</button>
   </div>
   <div class="h-scroll" id="brainrotGrid"></div>
 </section>
@@ -1936,19 +1933,48 @@ const BF_GP = [
 ];
 
 const GAG = [
-  {n:'Frog',em:'🐸',rar:'rare',p:5.49,badge:'',stock:25,cat:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/frog.jpg'},
-  {n:'Ladybug',em:'🐞',rar:'rare',p:6.99,badge:'',stock:20,cat:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ladybug.jpg'},
-  {n:'Butterfly',em:'🦋',rar:'rare',p:7.99,badge:'hot',stock:15,cat:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/butterfly.jpg'},
-  {n:'Firefly',em:'✨',rar:'legendary',p:14.99,badge:'leg',stock:8,cat:'pets',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/firefly.jpg'},
-  {n:'Dragonfly',em:'🪲',rar:'legendary',p:19.99,badge:'hot',stock:5,cat:'pets',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragonfly.jpg'},
-  {n:'Honey Bee',em:'🍯',rar:'mythical',p:29.99,badge:'myth',stock:3,cat:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/honey_bee.jpg'},
-  {n:'Rainbow Butterfly',em:'🌈',rar:'mythical',p:34.99,badge:'myth',stock:2,cat:'pets',bg:'r-pink',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rainbow_butterfly.jpg'},
-  {n:'Advanced Sprinkler',em:'💦',rar:'rare',p:7.99,badge:'',stock:20,cat:'tools',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/advanced_sprinkler.jpg'},
-  {n:'Auto-Harvest Tool',em:'⚙️',rar:'legendary',p:16.99,badge:'hot',stock:6,cat:'tools',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/auto_harvest_tool.jpg'},
-  {n:'Godly Sprinkler',em:'🌟',rar:'mythical',p:34.99,badge:'myth',stock:2,cat:'tools',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/godly_sprinkler.jpg'},
-  {n:'Garden Tokens 5,000',em:'💰',rar:'rare',p:6.99,badge:'hot',stock:99,cat:'tokens',bg:'r-rare'},
-  {n:'Garden Tokens 15,000',em:'💎',rar:'legendary',p:17.99,badge:'hot',stock:99,cat:'tokens',bg:'r-legendary'},
-  {n:'Token Doubler 24hr',em:'✨',rar:'rare',p:4.99,badge:'',stock:99,cat:'tokens',bg:'r-rare'},
+  {n:'Raccoon',em:'🦝',rar:'rare',p:3.99,badge:'hot',stock:11,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png'},
+  {n:'Dragonfly',em:'🪲',rar:'uncommon',p:0.99,badge:'',stock:99,sub:'pets',bg:'r-uncommon',img:'https://petmart.fun/storage/products/hwyRFo4GSxioWz0vADgJjWpqNjRxape0AnVFOS9G.png'},
+  {n:'Butterfly',em:'🦋',rar:'uncommon',p:1.29,badge:'',stock:13,sub:'pets',bg:'r-uncommon',img:'https://petmart.fun/storage/products/6RCsQGb3SMd6eQsEyFJPmW75paxDM7xXgCNQezy5.png'},
+  {n:'Disco Bee',em:'🐝',rar:'rare',p:2.49,badge:'hot',stock:11,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/luoPCNn01xIHwZiEpeGUKnmK8zS2b7hEVcrurlku.png'},
+  {n:'Queen Bee',em:'👑',rar:'rare',p:3.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/2K4AgaXoDqHuhmtLqf5WMg2ra50Afh8TID1t5EfL.png'},
+  {n:'Red Fox',em:'🦊',rar:'rare',p:3.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/6Do8heK1qektWEYuLnRfamLSMWgGt0qfStddAEBW.png'},
+  {n:'Chicken Zombie',em:'🐔',rar:'rare',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/2KKdalhONPJIIYPWAkxCrVcPxJZXGGe5GHyzlUDB.png'},
+  {n:'Mimic Octopus',em:'🐙',rar:'uncommon',p:1.29,badge:'',stock:99,sub:'pets',bg:'r-uncommon',img:'https://petmart.fun/storage/products/ilytWRjygx3nIRDJVBDGsRdHCnUuv6V0SVoIkUj2.png'},
+  {n:'T-Rex',em:'🦖',rar:'legendary',p:5.99,badge:'hot',stock:99,sub:'pets',bg:'r-legendary',img:'https://petmart.fun/storage/products/KKvVCpDsnHTvpg7fL9B1h9RMn41GMLv9RiwUgCXH.png'},
+  {n:'Brontosaurus',em:'🦕',rar:'rare',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/rCMSQeghxff6akrBHFFUA07YQohlXW1S2zNWn1fx.png'},
+  {n:'Spinosaurus',em:'🦎',rar:'legendary',p:9.99,badge:'hot',stock:99,sub:'pets',bg:'r-legendary',img:'https://petmart.fun/storage/products/Co1jMPOIjf3EzxVovjYCY33eMHID1wKacyZ21Aq7.png'},
+  {n:'Fennec Fox',em:'🦊',rar:'mythical',p:16.99,badge:'rare',stock:99,sub:'pets',bg:'r-mythical',img:'https://petmart.fun/storage/products/KxnbNIrIdyOfondDuIF3FOlE7ekWTM2j3BFk5OLv.png'},
+  {n:'Kitsune',em:'🦊',rar:'rare',p:4.50,badge:'hot',stock:10,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/5xwG54yxhY0tDu7insgv2UzOrqKzKfF4orWqNVQY.png'},
+  {n:'Corrupted Kitsune',em:'🌑',rar:'uncommon',p:0.99,badge:'',stock:99,sub:'pets',bg:'r-dark',img:'https://petmart.fun/storage/products/CHX9M6n7rpCCjNvLIGnaDtGHUcq3vnuhiKKL3Okq.png'},
+  {n:'Kappa',em:'💧',rar:'rare',p:2.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/370BDtRPDejx5mo85IQ1TRdhGfmpvXUqIRuP2KmA.png'},
+  {n:'Corrupted Kodama',em:'🌑',rar:'rare',p:3.99,badge:'',stock:99,sub:'pets',bg:'r-dark',img:'https://petmart.fun/storage/products/ib6SFwzts7fDWuefUx4YFNBqxAGVwgbTTBDH9SbS.png'},
+  {n:'Kodama',em:'🌿',rar:'uncommon',p:1.99,badge:'',stock:99,sub:'pets',bg:'r-uncommon',img:'https://petmart.fun/storage/products/Jux1WFCnhqXCgOS1AVod06QImixrtLEiRyLjWz0h.png'},
+  {n:'French Fry Ferret',em:'🍟',rar:'rare',p:3.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/HCru3QFkU2vorbcArQPKeEvsas6gm1Zw7twdGuMN.png'},
+  {n:'Moon Cat',em:'🌙',rar:'rare',p:2.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/YxekGl8jhLZPwhnNempkrCYHUGubZRU0SdA8GnEg.png'},
+  {n:'Lobster Thermidor',em:'🦞',rar:'legendary',p:5.99,badge:'',stock:99,sub:'pets',bg:'r-legendary',img:'https://petmart.fun/storage/products/w0QdjDKUolYRg3IBvP3kBoNkYbYLFaguB5eSWrEK.png'},
+  {n:'Golden Goose',em:'🥚',rar:'rare',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/U1WmZdI31iKvs0xppQBUmpZS08xlbq7anqze1FR2.png'},
+  {n:'Griffin',em:'🦁',rar:'legendary',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-legendary',img:'https://petmart.fun/storage/products/siGtIfDNy9SJXm72cQAIRDbrKn2NC6rqEtmBwCyP.png'},
+  {n:'Cockatrice',em:'🐓',rar:'rare',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/zaMr0FXWxy42ngsLycPBwR488MuOvI1ZeyXPr56Z.png'},
+  {n:'Phoenix',em:'🔥',rar:'legendary',p:4.99,badge:'hot',stock:99,sub:'pets',bg:'r-legendary',img:'https://petmart.fun/storage/products/zKJuJMUvvsEFZiaO3zFgLT2Rm4wkY4bX1oJLDJum.png'},
+  {n:'Swan',em:'🦢',rar:'rare',p:4.99,badge:'',stock:99,sub:'pets',bg:'r-rare',img:'https://petmart.fun/storage/products/7fyBY48mLTXw45zPf8hQb5aM6P3pIIT3iGuWlbzi.png'},
+  {n:'Bees Bundle',em:'🐝',rar:'rare',p:2.49,badge:'',stock:99,sub:'bundles',bg:'r-rare',img:'https://petmart.fun/storage/products/znBqK6KWnCAcAsxcRBNsv7By0AeiQuC3akN42Zjd.png'},
+  {n:'Classic Buzz Bundle',em:'🐝',rar:'rare',p:4.79,badge:'',stock:99,sub:'bundles',bg:'r-rare',img:'https://petmart.fun/storage/products/p6nla3xSQeiGCGHUP7RgRTJ0fipjRGMnhpXW1A79.png'},
+  {n:'FoxFly Bundle',em:'🦊',rar:'rare',p:4.69,badge:'',stock:99,sub:'bundles',bg:'r-rare',img:'https://petmart.fun/storage/products/WP3O5o1ODUUJaj7PzfcWEJVXqwgIqLALOgxKodi8.png'},
+  {n:'Fortune Duo Bundle',em:'🍀',rar:'uncommon',p:1.99,badge:'',stock:99,sub:'bundles',bg:'r-uncommon',img:'https://petmart.fun/storage/products/0IKdoHNuoE9dABkGmhYpQIl65F8KDRCnYZP8qMRv.png'},
+  {n:'Fortune Trio Bundle',em:'🍀',rar:'rare',p:4.99,badge:'',stock:99,sub:'bundles',bg:'r-rare',img:'https://petmart.fun/storage/products/5anUQgPFbVHzXYRBCT9QqHExhN58KWMMbUbeaCnj.png'},
+  {n:'Foxy Bundle',em:'🦊',rar:'rare',p:4.99,badge:'',stock:99,sub:'bundles',bg:'r-rare',img:'https://petmart.fun/storage/products/HCvWeaQFn2vE9njgfp8SftWeIKsFBNspRlEFjZHL.png'},
+  {n:'Chicken Fox Bundle',em:'🐔',rar:'legendary',p:6.99,badge:'',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/gVdQjGTSGu5ASkrcrX7Ub5iVxHtSsIwcwNDvoe33.png'},
+  {n:'Goated Bundle',em:'🐐',rar:'legendary',p:6.09,badge:'hot',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/xAjypGosZt5qHZHpv4akB4Cvwm9EivZ1nNne57zv.png'},
+  {n:'Kitsune Bundle',em:'🦊',rar:'legendary',p:5.99,badge:'hot',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/4F7IjVZ4iiujlWjaHkzHNLe29uWXpQOR7Ppy9Ecc.png'},
+  {n:'Thief Bundle',em:'🎭',rar:'legendary',p:6.99,badge:'',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/wlx8OyvRsxxBxUCsydmwePGxI6okZV6k0Q3hLGp5.png'},
+  {n:'Zen Era Bundle',em:'🧘',rar:'legendary',p:6.99,badge:'',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/vkuHcMvOQ2OQ9yrUc38c4vmQHVHv8jz5nfXE0BN3.png'},
+  {n:'Big Fox Bundle',em:'🦊',rar:'mythical',p:10.50,badge:'',stock:99,sub:'bundles',bg:'r-mythical',img:'https://petmart.fun/storage/products/loOt7tArii22z1ggAFq8r6GESSKi1Fd8CO5FWuox.png'},
+  {n:'Progress Boosters Bundle',em:'⚡',rar:'legendary',p:12.29,badge:'',stock:99,sub:'bundles',bg:'r-legendary',img:'https://petmart.fun/storage/products/eqBJTCxOylDu5qgwBhi35Cvi1K1Sj8AjXyVFPpga.png'},
+  {n:'Pollinate & Mutate Bundle',em:'🌸',rar:'mythical',p:14.29,badge:'hot',stock:99,sub:'bundles',bg:'r-mythical',img:'https://petmart.fun/storage/products/Uu3z3jqpHi7HgByhg2JpxafVD7Qqrclv7Go3ebDl.png'},
+  {n:'Copycat Bundle',em:'🐱',rar:'mythical',p:15.29,badge:'rare',stock:99,sub:'bundles',bg:'r-mythical',img:'https://petmart.fun/storage/products/X1GduPT9hF7rOiNHSBee0OrGrX39xJ4ox3nxvAwG.png'},
+  {n:'Extinct Dino Bundle',em:'🦕',rar:'mythical',p:15.99,badge:'hot',stock:99,sub:'bundles',bg:'r-mythical',img:'https://petmart.fun/storage/products/wPkL5nZyBgswsVkU6sydfHkXmSZp0CioGelzxO5Y.png'},
+  {n:'Mutation Spreaders Bundle',em:'🧬',rar:'mythical',p:25.99,badge:'rare',stock:99,sub:'bundles',bg:'r-mythical',img:'https://petmart.fun/storage/products/dxS5eQNXy3qMxtJ6vDyafQW82Xug3qtmCGVLr4gP.png'},
 ];
 
 const AM = [
@@ -2010,23 +2036,8 @@ const MM2 = [
 ];
 
 const BRAINROT = [
-  {n:'Tralalero Tralala',em:'🦈',p:8.99,badge:'hot',stock:10,sub:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tralalero_tralala.jpg'},
-  {n:'Bombardino Crocodilo',em:'🐊',p:7.49,badge:'hot',stock:12,sub:'pets',bg:'r-legendary'},
-  {n:'Tung Tung Tung Sahur',em:'🏏',p:12.99,badge:'rare',stock:6,sub:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tung_tung_tung_sahur.jpg'},
-  {n:'Ballerina Cappuccina',em:'🩰',p:9.99,badge:'new',stock:7,sub:'pets',bg:'r-pink',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ballerina_cappuccina.jpg'},
-  {n:'Bombombini Gusini',em:'🪿',p:6.99,badge:'',stock:14,sub:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/bombombini_gusini.jpg'},
-  {n:'Frigo Camelo',em:'🐪',p:5.99,badge:'',stock:16,sub:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/frigo_camelo.jpg'},
-  {n:'Lirili Larila',em:'🌵',p:7.99,badge:'',stock:10,sub:'pets',bg:'r-rare'},
-  {n:'Cappuccino Assassino',em:'☕',p:10.99,badge:'hot',stock:7,sub:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/cappuccino_assassino.jpg'},
-  {n:'Brr Brr Patapim',em:'❄️',p:11.99,badge:'rare',stock:5,sub:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/brr_brr_patapim.jpg'},
-  {n:'La Vaca Saturno Saturnita',em:'🐄',p:8.49,badge:'',stock:9,sub:'pets',bg:'r-legendary'},
-  {n:'Chimpanzini Bananini',em:'🍌',p:6.49,badge:'new',stock:14,sub:'pets',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chimpanzini_bananini.jpg'},
-  {n:'Trippi Troppi',em:'🌀',p:14.99,badge:'rare',stock:4,sub:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/trippi_troppi.jpg'},
-  {n:'Boneca Ambalabu',em:'🎎',p:13.99,badge:'hot',stock:5,sub:'pets',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/boneca_ambalabu.jpg'},
-  {n:'Glorbo Fruttodrillo',em:'🦎',p:9.49,badge:'',stock:8,sub:'pets',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/glorbo_fruttodrillo.jpg'},
-  {n:'Burbaloni Lulilolee',em:'🫧',p:8.99,badge:'new',stock:9,sub:'pets',bg:'r-rare'},
-  {n:'Brainrot Bundle x3',em:'🎁',p:19.99,badge:'best',stock:99,sub:'bundles',bg:'r-mythical'},
-  {n:'Brainrot Bundle x5',em:'💎',p:29.99,badge:'best',stock:99,sub:'bundles',bg:'r-mythical'},
+  {n:"Dragon Cannelloni $250M/s",em:'🐉',rar:'mythical',p:51.99,oldP:99.99,badge:'hot',stock:99,sub:'bases',bg:'r-mythical',img:'https://petmart.fun/storage/products/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png'},
+  {n:'Esok Sekolah $330m/s',em:'🏫',rar:'rare',p:4.99,oldP:null,badge:'',stock:99,sub:'bases',bg:'r-rare',img:'https://petmart.fun/storage/products/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png'},
 ];
 
 const RIVALS = [
@@ -3039,10 +3050,10 @@ const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','r
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
-  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'🛠️ Tools',fn:'filterGAG',val:'tools'},{label:'🪙 Tokens',fn:'filterGAG',val:'tokens'}],
+  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'📦 Bundles',fn:'filterGAG',val:'bundles'}],
   am:       [{label:'🐾 All',fn:'filterAM2',val:'all'},{label:'👑 Legendary',fn:'filterAM2',val:'legendary'},{label:'✨ Neon',fn:'filterAM2',val:'neon'},{label:'🌈 Mega Neon',fn:'filterAM2',val:'mega'}],
   mm2:      [{label:'⚔️ All',fn:'filterMM2',val:'all'},{label:'💀 Godly',fn:'filterMM2',val:'godly'},{label:'🔮 Chroma',fn:'filterMM2',val:'chroma'},{label:'🎁 Bundles',fn:'filterMM2',val:'bundle'}],
-  brainrot: [{label:'🧠 All',fn:'filterBR',val:'all'},{label:'🐾 Pets',fn:'filterBR',val:'pets'},{label:'📦 Bundles',fn:'filterBR',val:'bundles'},{label:'🎒 Packs',fn:'filterBR',val:'packs'}],
+  brainrot: [{label:'🧠 All',fn:'filterBR',val:'all'},{label:'🏠 Bases',fn:'filterBR',val:'bases'}],
   rivals:   [{label:'🥊 All',fn:'filterRIV',val:'all'},{label:'🏆 Boosts',fn:'filterRIV',val:'boost'},{label:'🎭 Skins',fn:'filterRIV',val:'skin'},{label:'💎 Bundles',fn:'filterRIV',val:'bundle'},{label:'🪙 Currency',fn:'filterRIV',val:'currency'}],
   nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
@@ -3518,10 +3529,10 @@ let _viewAllSort     = 'default';
 const VIEW_ALL_CONFIG = {
   bestsellers: { title:'🏆 Best Sellers',        items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
   bf:       { title:'🍎 Blox Fruits',   items:()=>FRUITS, filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
-  gag:      { title:'🌱 Grow a Garden', items:()=>GAG,    filters:['all','pets','tools','tokens'] },
+  gag:      { title:'🌱 Grow a Garden', items:()=>GAG,    filters:['all','pets','bundles'] },
   am:       { title:'🐾 Adopt Me',      items:()=>AM,     filters:['all','legendary','neon','mega'] },
   mm2:      { title:'⚔️ Murder Mystery 2', items:()=>MM2,  filters:['all','godly','chroma','bundle'] },
-  brainrot: { title:'🧠 Steal a Brainrot', items:()=>BRAINROT, filters:['all','pets','bundles','packs'] },
+  brainrot: { title:'🧠 Steal a Brainrot', items:()=>BRAINROT, filters:['all','bases'] },
   rivals:   { title:'🥊 Rivals',        items:()=>RIVALS, filters:['all','boost','skin','bundle','currency'] },
   nights:   { title:'🌙 99 Nights',     items:()=>NIGHTS, filters:['all','pets','bundles','currency'] },
   tsunami:  { title:'🌊 Escape Tsunami',   items:()=>TSUNAMI, filters:['all','pets','bundles','currency'] },

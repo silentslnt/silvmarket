@@ -1012,7 +1012,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt jtd" onclick="filterGAG(this,'all')">🌱 All</button>
-    <button class="jt" onclick="filterGAG(this,'seeds')">🌾 Seeds</button>
     <button class="jt" onclick="filterGAG(this,'pets')">🐝 Pets</button>
     <button class="jt" onclick="filterGAG(this,'tools')">🛠️ Tools</button>
     <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
@@ -1937,20 +1936,6 @@ const BF_GP = [
 ];
 
 const GAG = [
-  {n:'Carrot Seed',em:'🥕',rar:'common',p:1.49,badge:'',stock:99,cat:'seeds',bg:'r-uncommon'},
-  {n:'Strawberry Seed',em:'🍓',rar:'uncommon',p:2.49,badge:'',stock:99,cat:'seeds',bg:'r-uncommon'},
-  {n:'Blueberry Seed',em:'🫐',rar:'uncommon',p:2.99,badge:'',stock:99,cat:'seeds',bg:'r-uncommon'},
-  {n:'Watermelon Seed',em:'🍉',rar:'rare',p:4.49,badge:'',stock:50,cat:'seeds',bg:'r-rare'},
-  {n:'Mango Seed',em:'🥭',rar:'rare',p:4.99,badge:'',stock:40,cat:'seeds',bg:'r-rare'},
-  {n:'Cacao Seed',em:'🍫',rar:'rare',p:5.99,badge:'hot',stock:25,cat:'seeds',bg:'r-rare'},
-  {n:'Dragon Fruit Seed',em:'🐉',rar:'legendary',p:10.99,badge:'leg',stock:12,cat:'seeds',bg:'r-legendary'},
-  {n:'Beanstalk Seed',em:'🌱',rar:'legendary',p:13.99,badge:'leg',stock:8,cat:'seeds',bg:'r-legendary'},
-  {n:'Shadow Mushroom',em:'🍄',rar:'legendary',p:9.99,badge:'',stock:10,cat:'seeds',bg:'r-dark'},
-  {n:'Rainbow Seed',em:'🌈',rar:'mythical',p:22.99,badge:'myth',stock:4,cat:'seeds',bg:'r-mythical'},
-  {n:'Galaxy Seed',em:'🌌',rar:'mythical',p:27.99,badge:'myth',stock:3,cat:'seeds',bg:'r-mythical'},
-  {n:'Crystal Seed',em:'💎',rar:'mythical',p:19.99,badge:'myth',stock:5,cat:'seeds',bg:'r-mythical'},
-  {n:'Bee',em:'🐝',rar:'common',p:1.99,badge:'',stock:99,cat:'pets',bg:'r-uncommon'},
-  {n:'Snail',em:'🐌',rar:'uncommon',p:3.49,badge:'',stock:60,cat:'pets',bg:'r-uncommon'},
   {n:'Frog',em:'🐸',rar:'rare',p:5.49,badge:'',stock:25,cat:'pets',bg:'r-rare'},
   {n:'Ladybug',em:'🐞',rar:'rare',p:6.99,badge:'',stock:20,cat:'pets',bg:'r-rare'},
   {n:'Butterfly',em:'🦋',rar:'rare',p:7.99,badge:'hot',stock:15,cat:'pets',bg:'r-rare'},
@@ -1958,7 +1943,6 @@ const GAG = [
   {n:'Dragonfly',em:'🪲',rar:'legendary',p:19.99,badge:'hot',stock:5,cat:'pets',bg:'r-legendary'},
   {n:'Honey Bee',em:'🍯',rar:'mythical',p:29.99,badge:'myth',stock:3,cat:'pets',bg:'r-mythical'},
   {n:'Rainbow Butterfly',em:'🌈',rar:'mythical',p:34.99,badge:'myth',stock:2,cat:'pets',bg:'r-pink'},
-  {n:'Watering Can',em:'🚿',rar:'common',p:2.99,badge:'',stock:99,cat:'tools',bg:'r-uncommon'},
   {n:'Advanced Sprinkler',em:'💦',rar:'rare',p:7.99,badge:'',stock:20,cat:'tools',bg:'r-rare'},
   {n:'Auto-Harvest Tool',em:'⚙️',rar:'legendary',p:16.99,badge:'hot',stock:6,cat:'tools',bg:'r-legendary'},
   {n:'Godly Sprinkler',em:'🌟',rar:'mythical',p:34.99,badge:'myth',stock:2,cat:'tools',bg:'r-mythical'},
@@ -3055,7 +3039,7 @@ const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','r
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
-  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🌾 Seeds',fn:'filterGAG',val:'seeds'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'🛠️ Tools',fn:'filterGAG',val:'tools'},{label:'🪙 Tokens',fn:'filterGAG',val:'tokens'}],
+  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'🛠️ Tools',fn:'filterGAG',val:'tools'},{label:'🪙 Tokens',fn:'filterGAG',val:'tokens'}],
   am:       [{label:'🐾 All',fn:'filterAM2',val:'all'},{label:'👑 Legendary',fn:'filterAM2',val:'legendary'},{label:'✨ Neon',fn:'filterAM2',val:'neon'},{label:'🌈 Mega Neon',fn:'filterAM2',val:'mega'}],
   mm2:      [{label:'⚔️ All',fn:'filterMM2',val:'all'},{label:'💀 Godly',fn:'filterMM2',val:'godly'},{label:'🔮 Chroma',fn:'filterMM2',val:'chroma'},{label:'🎁 Bundles',fn:'filterMM2',val:'bundle'}],
   brainrot: [{label:'🧠 All',fn:'filterBR',val:'all'},{label:'🐾 Pets',fn:'filterBR',val:'pets'},{label:'📦 Bundles',fn:'filterBR',val:'bundles'},{label:'🎒 Packs',fn:'filterBR',val:'packs'}],
@@ -3534,7 +3518,7 @@ let _viewAllSort     = 'default';
 const VIEW_ALL_CONFIG = {
   bestsellers: { title:'🏆 Best Sellers',        items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
   bf:       { title:'🍎 Blox Fruits',   items:()=>FRUITS, filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
-  gag:      { title:'🌱 Grow a Garden', items:()=>GAG,    filters:['all','seeds','pets','tools','tokens'] },
+  gag:      { title:'🌱 Grow a Garden', items:()=>GAG,    filters:['all','pets','tools','tokens'] },
   am:       { title:'🐾 Adopt Me',      items:()=>AM,     filters:['all','legendary','neon','mega'] },
   mm2:      { title:'⚔️ Murder Mystery 2', items:()=>MM2,  filters:['all','godly','chroma','bundle'] },
   brainrot: { title:'🧠 Steal a Brainrot', items:()=>BRAINROT, filters:['all','pets','bundles','packs'] },

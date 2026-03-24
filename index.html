@@ -2238,7 +2238,7 @@ function mkCard(i,game,gcls){
   return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s"/>`:`<span class="em">${i.em}</span>`}
+      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em}</span>`:`<span class="em">${i.em}</span>`}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -3617,7 +3617,7 @@ function renderViewAllGrid(){
     return `
     <div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
       <div class="pc-img ${i.bg||'r-rare'}">
-        ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1"/>`:`<span class="em">${i.em||'📦'}</span>`}
+        ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
       </div>
       <div class="pc-body">

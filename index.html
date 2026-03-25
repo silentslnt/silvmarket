@@ -118,10 +118,10 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .sr-none{padding:20px;text-align:center;color:rgba(255,255,255,.3);font-size:13px}
 
 .nav-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.tp-nav-wrap{display:flex;align-items:center;background:rgba(0,182,122,.08);border:1px solid rgba(0,182,122,.28);border-radius:9px;padding:6px 12px;gap:7px;cursor:pointer;transition:all .2s;text-decoration:none;flex-shrink:0}
-.tp-nav-wrap:hover{background:rgba(0,182,122,.18);box-shadow:0 0 16px rgba(0,182,122,.35);transform:translateY(-1px)}
-.tp-nav-wrap .trustpilot-widget{pointer-events:none}
-.tp-label{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:rgba(255,255,255,.85);white-space:nowrap}
+.tp-nav-wrap{display:flex;align-items:center;background:rgba(0,182,122,.1);border:1px solid rgba(0,182,122,.35);border-radius:9px;padding:8px 13px;gap:6px;transition:all .2s;text-decoration:none;flex-shrink:0;animation:tpPulse 3s ease-in-out infinite}
+.tp-nav-wrap:hover{background:rgba(0,182,122,.22);box-shadow:0 0 18px rgba(0,182,122,.45);transform:translateY(-1px);animation:none}
+@keyframes tpPulse{0%,100%{box-shadow:0 0 0 rgba(0,182,122,0)}50%{box-shadow:0 0 10px rgba(0,182,122,.3)}}
+.tp-label{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#fff;white-space:nowrap;letter-spacing:.3px}
 .disc-link{display:flex;align-items:center;gap:7px;background:#5865f2;color:#fff;
   padding:8px 14px;border-radius:9px;font-family:'Rajdhani',sans-serif;font-weight:700;
   font-size:13px;text-decoration:none;transition:all .2s;letter-spacing:.3px}
@@ -867,9 +867,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
   <div class="nav-right">
     <a class="tp-nav-wrap" href="https://www.trustpilot.com/review/silvmarket.shop" target="_blank" rel="noopener">
-      <!-- TrustBox widget - Review Collector -->
-      <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="69c3c2a26793686fa3275df3" data-style-height="22px" data-style-width="120px" data-token="b3fed5e0-02f9-43be-a9c7-f79ee925e34f" data-theme="dark"></div>
-      <!-- End TrustBox widget -->
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0l3.09 6.26L22 7.27l-5 4.87 1.18 6.88L12 15.77l-6.18 3.25L7 12.14 2 7.27l6.91-1.01z"/></svg>
+      <span class="tp-label">Trustpilot</span>
     </a>
     <a id="discNavLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank">
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>

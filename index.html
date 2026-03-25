@@ -793,7 +793,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   background-size:300% auto!important;
   -webkit-background-clip:text!important;background-clip:text!important;
   -webkit-text-fill-color:transparent!important;
-  animation:gold-shimmer 2s linear infinite!important}
+  animation:gold-shimmer 2s linear infinite!important;
+  display:inline-block;transform-origin:left center}
+@keyframes price-pop{0%,100%{transform:scale(1)}40%{transform:scale(1.15)}70%{transform:scale(.94)}}
+.price-pop{animation:price-pop .35s cubic-bezier(.34,1.56,.64,1)!important}
 /* ── ADD TO CART BUTTON PULSE ON CLICK ─────────────────────── */
 @keyframes btn-ping{0%{box-shadow:0 0 0 0 rgba(255,16,240,.6)}100%{box-shadow:0 0 0 14px rgba(255,16,240,0)}}
 .pc-btn:active{animation:btn-ping .4s ease-out}
@@ -2407,7 +2410,7 @@ function renderBF(filter='all'){
           <button class="tog${mode==='perm'?' sp':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','perm');event.stopPropagation()">⭐ Perm</button>
         </div>`:''}
         <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">$${dp.toFixed(2)}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${f.em}','Blox Fruits')">🛒 Add to Cart</button>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
       </div>
     </div>`;
   }).join('');
@@ -2446,7 +2449,7 @@ function mkCard(i,game,gcls){
       ${i.oldP?`<div class="pc-price">$${Number(i.p).toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
       ${i.oos
         ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em}','${gameLbl}')">🛒 Add to Cart</button>`
+        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
       }
     </div>
   </div>`;
@@ -2503,7 +2506,7 @@ function renderBS(){
         +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
         +'<div class="pc-n">'+i.n+'</div>'
         +'<div class="pc-price">'+i.p+'</div>'
-        +'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+i.p+'\',\''+i.em+'\',\''+i.game+'\')">🛒 Add to Cart</button>'
+        +'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+i.p+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>'
       +'</div>'
     +'</div>';
   }).join('');
@@ -2846,12 +2849,12 @@ function updatePayBtn(){
 }
 
 // ── CART ──────────────────────────────────────────────────────
-function addToCart(name,priceStr,em,game){
-  const price=parseFloat(priceStr.replace('$',''));
+function addToCart(name,priceStr,em,game,img){
+  const price=parseFloat((priceStr||'').replace('$',''));
   if(isNaN(price)) return;
   const ex=cart.find(c=>c.name===name);
   if(ex) ex.qty++;
-  else cart.push({name,price,em,game,qty:1});
+  else cart.push({name,price,em:em||'📦',game,qty:1,img:img||null});
   updateCartUI();
   openCartSB();
   // Badge pop animation
@@ -2884,7 +2887,7 @@ function updateCartUI(){
   list.innerHTML=cart.map(i=>{
     const safeName=i.name.replace(/'/g,"\\'");
     return `<div class="ci">
-      <div class="ci-em">${i.em}</div>
+      <div class="ci-em">${i.img?`<img src="${i.img}" style="width:38px;height:38px;object-fit:contain;border-radius:6px" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">${i.em||'📦'}</span>`:(i.em||'📦')}</div>
       <div class="ci-info"><div class="ci-n">${i.name}</div><div class="ci-g">${i.game}</div></div>
       <div class="ci-qty">
         <button class="ci-qb" onclick="changeQty('${safeName}',-1)">−</button>
@@ -3682,6 +3685,13 @@ function changeDetailQty(delta){
   const max = _detailItem?.stock ?? 99;
   _detailQty = Math.max(1, Math.min(max||99, _detailQty + delta));
   document.getElementById('detailQty').textContent = _detailQty;
+  const price = Number(_detailItem?.p||0);
+  const priceEl = document.getElementById('itemDetailPrice');
+  priceEl.textContent = `$${(price * _detailQty).toFixed(2)}`;
+  priceEl.classList.remove('price-pop');
+  void priceEl.offsetWidth;
+  priceEl.classList.add('price-pop');
+  setTimeout(()=>priceEl.classList.remove('price-pop'),400);
 }
 
 function addToCartFromDetail(){
@@ -3689,7 +3699,7 @@ function addToCartFromDetail(){
   const i = _detailItem;
   const ps = `$${Number(i.p||0).toFixed(2)}`;
   for(let q=0; q<_detailQty; q++){
-    addToCart(i.n, ps, i.em||'📦', i.game);
+    addToCart(i.n, ps, i.em||'📦', i.game, i.img||null);
   }
   closeItemDetail();
 }
@@ -3823,7 +3833,7 @@ function renderViewAllGrid(){
         ${i.oldP?`<div class="pc-price">$${p.toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
         ${i.oos||i.stock===0
           ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\'")}','${ps}','${i.em||'📦'}','${game}')">🛒 Add to Cart</button>`
+          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\'")}','${ps}','${i.em||'📦'}','${game}','${(i.img||'').replace(/'/g,"\'")}')">🛒 Add to Cart</button>`
         }
       </div>
     </div>`;
@@ -4407,7 +4417,7 @@ function doSearch(q){
     const imgHtml = p.img
       ? `<img src="${p.img}" style="width:32px;height:32px;object-fit:contain;border-radius:6px;flex-shrink:0" onerror="this.style.display='none'">`
       : `<div class="sr-em">${p.em||'📦'}</div>`;
-    return `<div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\'")}','$${price}','${p.em||''}','${p.game}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
+    return `<div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\'")}','$${price}','${p.em||'📦'}','${p.game}','${(p.img||'').replace(/'/g,"\'")}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
       ${imgHtml}
       <div class="sr-info">
         <div class="sr-name">${p.n}</div>

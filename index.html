@@ -917,8 +917,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
     </div>
   </div>
-  <span class="gs-divider"></span>
-  <div class="gs-sub-scroll" id="gsSubScroll"></div>
   <div class="sort-wrap" id="sortWrap">
     <button class="sort-btn" id="sortBtn" onclick="toggleSort()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
@@ -932,8 +930,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     </div>
   </div>
 </div>
-
-<div class="sub-bar" id="subBar"></div>
 
 <div class="content">
 
@@ -955,7 +951,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <section class="S" id="robux">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:var(--yellow)">💎 Roblox Services</div>
+      <div class="sec-ey" style="color:var(--yellow)">Roblox Services</div>
       <div class="sec-title">Robux &amp; More</div>
       <p class="sec-sub" id="robuxSubtitle">$5.50 per 1,000 Robux · Delivered directly to your Roblox account · No middleman</p>
     </div>
@@ -975,7 +971,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <section class="S" id="bf">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:var(--yellow)">🍎 Blox Fruits</div>
+      <div class="sec-ey" style="color:var(--yellow)">Blox Fruits</div>
       <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blox Fruits</div>
       <p class="sec-sub">All top-tier fruits with Normal / ⭐ Permanent toggle · Skins · Gamepasses</p>
     </div>
@@ -1012,73 +1008,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<section class="S" id="gag">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#4ade80">🌱 Grow a Garden</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grow a Garden</div>
-      <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('gag')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtd" onclick="filterGAG(this,'all')">🌱 All</button>
-    <button class="jt" onclick="filterGAG(this,'pets')">🐝 Pets</button>
-    <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
-  </div>
-  <div class="h-scroll" id="gagGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="am">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#ec4899">🐾 Adopt Me</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Adopt Me</div>
-      <p class="sec-sub">Pets from low tier to high tier — all Fly/Ride enabled · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('am')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jta" onclick="filterAM(this,'all')">🐾 All</button>
-    <button class="jt" onclick="filterAM(this,'low-tier')">⭐ Low Tier</button>
-    <button class="jt" onclick="filterAM(this,'mid-tier')">💎 Mid Tier</button>
-    <button class="jt" onclick="filterAM(this,'high-tier')">👑 High Tier</button>
-  </div>
-  <div class="h-scroll" id="amGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="mm2">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#60a5fa">⚔️ Murder Mystery 2</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/mm2.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">MM2</div>
-      <p class="sec-sub">Godly knives, chroma weapons, rare limited items</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('mm2')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtc" onclick="filterMM2(this,'all')">⚔️ All</button>
-    <button class="jt" onclick="filterMM2(this,'chroma')">✨ Chroma</button>
-    <button class="jt" onclick="filterMM2(this,'godly')">⚡ Godly</button>
-    <button class="jt" onclick="filterMM2(this,'bundle')">🎁 Bundles</button>
-  </div>
-  <div class="h-scroll" id="mm2Grid"></div>
-</section>
-
-<div class="div-line"></div>
-
 <section class="S" id="brainrot">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:#c084fc;text-shadow:0 0 16px rgba(192,132,252,.65)">🧠 Steal a Brainrot</div>
+      <div class="sec-ey" style="color:#c084fc;text-shadow:0 0 16px rgba(192,132,252,.65)">Steal a Brainrot</div>
       <div class="sec-title sec-title-shiny" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Brainrots</div>
       <p class="sec-sub">High-value bases — God Tier · Meta · Starter · Radioactive · Rainbow · Galaxy · Yin Yang</p>
     </div>
@@ -1097,7 +1030,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" style="color:#e5e7eb;border-color:rgba(229,231,235,.25)" onclick="filterBR(this,'yin-yang')">☯️ Yin Yang</button>
     <button class="jt" style="color:#a855f7;border-color:rgba(168,85,247,.3)" onclick="filterBR(this,'cursed')">💀 Cursed</button>
   </div>
-  <div class="pgrid" id="brainrotGrid"></div>
+  <div class="h-scroll" id="brainrotGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -1105,7 +1038,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <section class="S" id="rivals">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:#f87171">🥊 Rivals</div>
+      <div class="sec-ey" style="color:#f87171">Rivals</div>
       <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/Rivals.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Rivals</div>
       <p class="sec-sub">Bundles, skin cases and season pass items · Real petmart prices</p>
     </div>
@@ -1123,10 +1056,111 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
+<section class="S" id="mm2">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#60a5fa">Murder Mystery 2</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/mm2.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">MM2</div>
+      <p class="sec-sub">Godly knives, chroma weapons, rare limited items</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('mm2')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt jtc" onclick="filterMM2(this,'all')">⚔️ All</button>
+    <button class="jt" onclick="filterMM2(this,'chroma')">✨ Chroma</button>
+    <button class="jt" onclick="filterMM2(this,'godly')">⚡ Godly</button>
+    <button class="jt" onclick="filterMM2(this,'bundle')">🎁 Bundles</button>
+  </div>
+  <div class="h-scroll" id="mm2Grid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="tsunami">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#38bdf8">Escape Tsunami</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Escape Tsunami</div>
+      <p class="sec-sub">Exclusive items from Escape Tsunami · Real petmart prices</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('tsunami')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt jtc" onclick="filterTS(this,'all')">🌊 All</button>
+    <button class="jt" onclick="filterTS(this,'items')">💎 Items</button>
+  </div>
+  <div class="h-scroll" id="tsunamiGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="sp">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#06b6d4">Sailor Piece</div>
+      <div class="sec-title">Sailor Piece</div>
+    </div>
+    <button class="view-all" onclick="openViewAll('sp')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
+    <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
+    <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
+  </div>
+  <div class="h-scroll" id="spGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="am">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#ec4899">Adopt Me</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Adopt Me</div>
+      <p class="sec-sub">Pets from low tier to high tier — all Fly/Ride enabled · Real petmart prices</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('am')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt jta" onclick="filterAM(this,'all')">🐾 All</button>
+    <button class="jt" onclick="filterAM(this,'low-tier')">⭐ Low Tier</button>
+    <button class="jt" onclick="filterAM(this,'mid-tier')">💎 Mid Tier</button>
+    <button class="jt" onclick="filterAM(this,'high-tier')">👑 High Tier</button>
+  </div>
+  <div class="h-scroll" id="amGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="gag">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#4ade80">Grow a Garden</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grow a Garden</div>
+      <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('gag')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt jtd" onclick="filterGAG(this,'all')">🌱 All</button>
+    <button class="jt" onclick="filterGAG(this,'pets')">🐝 Pets</button>
+    <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
+    <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
+  </div>
+  <div class="h-scroll" id="gagGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
 <section class="S" id="nights">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:#a78bfa">🌙 99 Nights</div>
+      <div class="sec-ey" style="color:#a78bfa">99 Nights</div>
       <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/99_nights.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">99 Nights</div>
       <p class="sec-sub">In-game gems and currency for 99 Nights</p>
     </div>
@@ -1144,29 +1178,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<section class="S" id="tsunami">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#38bdf8">🌊 Escape Tsunami</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Escape Tsunami</div>
-      <p class="sec-sub">Exclusive items from Escape Tsunami · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('tsunami')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtc" onclick="filterTS(this,'all')">🌊 All</button>
-    <button class="jt" onclick="filterTS(this,'items')">💎 Items</button>
-  </div>
-  <div class="h-scroll" id="tsunamiGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
 <section class="S" id="gpo">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey" style="color:#f97316">⚓ Grand Piece Online</div>
+      <div class="sec-ey" style="color:#f97316">Grand Piece Online</div>
       <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grand Piece Online</div>
       <p class="sec-sub">Fruits, weapons, accessories and bundles · Real petmart prices</p>
     </div>
@@ -1181,25 +1196,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterGPO(this,'bundles')">📦 Bundles</button>
   </div>
   <div class="h-scroll" id="gpoGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="sp">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#06b6d4">🏴‍☠️ Sailor Piece</div>
-      <div class="sec-title">Sailor Piece</div>
-    </div>
-    <button class="view-all" onclick="openViewAll('sp')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
-    <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
-    <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
-  </div>
-  <div class="h-scroll" id="spGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -3222,7 +3218,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','gag','am','mm2','brainrot','rivals','nights','tsunami','gpo','sp','reviews'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','reviews'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -3259,15 +3255,6 @@ function selectGame(el,name,icon,key){
     ALL_SECTION_IDS.forEach(id=>{const sec=document.getElementById(id);if(!sec)return;const show=id===key;sec.style.display=show?'':'none';const dl=sec.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
   }
 
-  const scroll=document.getElementById('gsSubScroll');
-  const bar=document.getElementById('subBar');
-  const subs=GAME_SUBS[key]||[];
-  if(subs.length){
-    scroll.innerHTML=subs.map((s,i)=>`<button class="sf-btn${i===0?' sf-active':''}" onclick="${s.fn}(this,'${s.val}')">${s.label}</button>`).join('');
-    bar.classList.add('open');
-  } else {
-    scroll.innerHTML='';bar.classList.remove('open');
-  }
   if(key!=='all'){const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);}
 }
 

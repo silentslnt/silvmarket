@@ -1196,10 +1196,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
-    <button class="jt" onclick="filterSP(this,'fruits')">🍎 Fruits</button>
-    <button class="jt" onclick="filterSP(this,'swords')">⚔️ Swords</button>
-    <button class="jt" onclick="filterSP(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterSP(this,'currency')">🪙 Currency</button>
+    <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
+    <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
   </div>
   <div class="h-scroll" id="spGrid"></div>
 </section>
@@ -2293,23 +2291,19 @@ const GPO = [
 ];
 
 const SP = [
-  {n:'Gura Gura Fruit',em:'💥',p:17.99,sub:'fruits',badge:'hot',stock:4,bg:'r-mythical'},
-  {n:'Tori Tori Fruit',em:'🦅',p:13.99,sub:'fruits',badge:'hot',stock:5,bg:'r-mythical'},
-  {n:'Yami Yami Fruit',em:'🌑',p:14.99,sub:'fruits',badge:'rare',stock:5,bg:'r-mythical'},
-  {n:'Magu Magu Fruit',em:'🌋',p:12.99,sub:'fruits',badge:'rare',stock:6,bg:'r-legendary'},
-  {n:'Pika Pika Fruit',em:'⚡',p:12.99,sub:'fruits',badge:'',stock:7,bg:'r-legendary'},
-  {n:'Ito Ito Fruit',em:'🕸️',p:9.49,sub:'fruits',badge:'',stock:9,bg:'r-rare'},
-  {n:'Hie Hie Fruit',em:'❄️',p:8.99,sub:'fruits',badge:'',stock:10,bg:'r-rare'},
-  {n:'Mera Mera Fruit',em:'🔥',p:6.99,sub:'fruits',badge:'',stock:14,bg:'r-rare'},
-  {n:'Gomu Gomu Fruit',em:'🍖',p:4.99,sub:'fruits',badge:'',stock:20,bg:'r-uncommon'},
-  {n:'Bisento',em:'🔱',p:15.99,sub:'swords',badge:'hot',stock:5,bg:'r-mythical'},
-  {n:'Yoru',em:'🖤',p:13.99,sub:'swords',badge:'rare',stock:5,bg:'r-mythical'},
-  {n:'Wado Ichimonji',em:'⚔️',p:8.99,sub:'swords',badge:'',stock:9,bg:'r-rare'},
-  {n:'Sandai Kitetsu',em:'⚡',p:5.49,sub:'swords',badge:'',stock:16,bg:'r-rare'},
-  {n:'Beri 500k',em:'🪙',p:4.99,sub:'currency',badge:'',stock:99,bg:'r-rare'},
-  {n:'Beri 1M',em:'💰',p:8.49,sub:'currency',badge:'hot',stock:99,bg:'r-legendary'},
-  {n:'SP Starter Bundle',em:'🎁',p:11.99,sub:'bundles',badge:'new',stock:6,bg:'r-rare'},
-  {n:'SP Premium Pack',em:'💎',p:24.99,sub:'bundles',badge:'best',stock:3,bg:'r-mythical'},
+  {n:'x5 Aura Crates',em:'📦',p:1.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'100x Aura Crates',em:'📦',p:20.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'1000 Rush Key',em:'🗝️',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/boss key.png'},
+  {n:'1000 Clan Reroll',em:'🔄',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/clan reroll.png'},
+  {n:'10000 Trait Reroll',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare'},
+  {n:'1000 Mythical Chest',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
+  {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
+  {n:'True Azien Set',em:'⚔️',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set'},
+  {n:'Ichigo Set',em:'🌙',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set'},
+  {n:'Anos',em:'👑',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set'},
+  {n:'Yuji Set',em:'💪',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set'},
+  {n:'Yamato',em:'🔱',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/yamato essence.png',description:'You will receive all the items to obtain that set'},
+  {n:'Saber Alter',em:'⚔️',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set'},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -3722,7 +3716,7 @@ const VIEW_ALL_CONFIG = {
   nights:   { title:'99 Nights',     img:'https://silvmarket.shop/images/99_nights.png', items:()=>NIGHTS, filters:['all','currency'] },
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
-  sp:       { title:'Sailor Piece',   img:null, items:()=>SP, filters:['all','fruits','swords','bundles','currency'] },
+  sp:       { title:'Sailor Piece',   img:null, items:()=>SP, filters:['all','gamepasses','items'] },
 };
 
 function openViewAll(key){

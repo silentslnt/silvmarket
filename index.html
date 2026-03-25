@@ -3013,6 +3013,10 @@ async function openStripeCheckout(rblxUser, email, tot){
   btn.innerHTML = '⏳ Creating checkout…';
   btn.disabled = true;
 
+  // Capture form values now — page will navigate away
+  const emailVal   = document.getElementById('emailIn')?.value.trim() || email;
+  const promoCode  = promoApplied ? (document.getElementById('promoIn')?.value.trim().toUpperCase() || null) : null;
+
   try {
     const orderId  = genOrderId();
     const claimKey = genClaimKey();
@@ -3023,7 +3027,7 @@ async function openStripeCheckout(rblxUser, email, tot){
       headers: { 'Content-Type': 'application/json', 'x-silv-secret': BOT_WEBHOOK_SECRET },
       body: JSON.stringify({
         amount:      tot,
-        email:       email,
+        email:       emailVal,
         orderId:     orderId,
         description: cart.map(i=>i.name).join(', '),
       }),
@@ -3032,22 +3036,29 @@ async function openStripeCheckout(rblxUser, email, tot){
     const data = await resp.json();
 
     if (data.url) {
-      // Open Stripe checkout — do NOT log to bot yet, wait for user to confirm
-      window.open(data.url, '_blank');
-      showPaymentPending(rblxUser, email, tot, 'Debit Card', orderId, claimKey);
+      // Save order context to localStorage — retrieved after Stripe redirects back
+      localStorage.setItem('stripe_pending_' + orderId, JSON.stringify({
+        orderId, claimKey, rblxUser,
+        email: emailVal, tot,
+        cart: JSON.parse(JSON.stringify(cart)),
+        discordUser: discordUser ? {...discordUser} : null,
+        promoApplied, promoCode,
+      }));
+      // Navigate same-tab → Stripe redirects back to ?payment=success&order=...
+      location.href = data.url;
     } else {
       // Fallback to payment link if bot not configured
       console.warn('Stripe session failed, falling back to payment link:', data.error);
-      const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(email);
+      const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(emailVal);
       window.open(stripeUrl, '_blank');
-      showPaymentPending(rblxUser, email, tot, 'Debit Card');
+      showPaymentPending(rblxUser, emailVal, tot, 'Debit Card');
     }
   } catch(err) {
     console.warn('Stripe checkout error:', err);
     // Fallback
-    const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(email);
+    const stripeUrl = PAY_LINKS.dc + '?prefilled_email=' + encodeURIComponent(emailVal);
     window.open(stripeUrl, '_blank');
-    showPaymentPending(rblxUser, email, tot, 'Debit Card');
+    showPaymentPending(rblxUser, emailVal, tot, 'Debit Card');
   }
 }
 
@@ -4500,6 +4511,49 @@ function init(){
   initScrollWraps();
 }
 init();
+
+// ── STRIPE RETURN AUTO-CONFIRM ────────────────────────────────
+// Runs after Stripe redirects back with ?payment=success&order=<id>
+async function checkStripeReturn(){
+  const params = new URLSearchParams(location.search);
+  if(params.get('payment') !== 'success') return;
+  const orderId = params.get('order');
+  // Clean URL immediately
+  history.replaceState({}, '', location.pathname);
+  if(!orderId) return;
+
+  const raw = localStorage.getItem('stripe_pending_' + orderId);
+  if(!raw){
+    // Context lost — show basic success without webhook (edge case: different device/browser)
+    showOrderSuccess(orderId, '', false);
+    return;
+  }
+
+  const ctx = JSON.parse(raw);
+  localStorage.removeItem('stripe_pending_' + orderId);
+
+  // Fire order webhook — payment confirmed by Stripe
+  const botResp = await fireOrderWebhook({
+    robloxUsername: ctx.rblxUser,
+    email:          ctx.email,
+    total:          ctx.tot,
+    paymentMethod:  'Debit Card',
+    paymentStatus:  'completed',
+    items:          ctx.cart,
+    discordUser:    ctx.discordUser,
+    orderId:        ctx.orderId,
+    claimKey:       ctx.claimKey,
+    promoCode:      ctx.promoCode,
+  });
+
+  const finalOrderId  = (botResp && botResp.orderId)  ? botResp.orderId  : ctx.orderId;
+  const finalClaimKey = (botResp && botResp.claimKey) ? botResp.claimKey : ctx.claimKey;
+
+  saveOrderToUser(finalOrderId, finalClaimKey, ctx.cart, ctx.tot, 'Debit Card');
+  cart = []; updateCartUI();
+  showOrderSuccess(finalOrderId, finalClaimKey, false);
+}
+checkStripeReturn();
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();}});
 

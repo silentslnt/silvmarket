@@ -90,12 +90,18 @@ Items live as JS arrays in index.html:
 
 ### Shop Editor
 - `!shop` — show editor panel
-- `!listitems <game>` — list items (game keys: bf/gag/am/mm2/brainrot/rivals/nights/tsunami/gpo/sp)
+- `!listitems <game>` — list items (game keys: bf/gag/am/mm2/brainrot/rivals/nights/tsunami/gpo/sp + any added via !addgame)
 - `!additem <game> "<name>" <price> <stock> <emoji> <badge>`
 - `!edititem <game> "<name>"` — guided edit session
 - `!removeitem "<name>"`
 - `!setprice "<name>" <price>`
 - `!setstock "<name>" <qty>`
+
+### Game Sections (dynamic)
+- `!addgame <key> "<name>" <emoji> <color>` — creates full game section in index.html and registers key in shop-editor.js. e.g. `!addgame gpo2 "Grand Piece 2" ⚓ #f97316`
+- `!addsubcat <game> <subcat> "<emoji> Label"` — adds a subcategory filter to a game section. e.g. `!addsubcat gpo swords "⚔️ Swords"`
+- Bot self-updates shop-editor.js on GitHub so new keys persist on redeploy
+- `!addsubcat` works on games created via `!addgame` and on gpo/sp; not on rivals/nights/tsunami (different filter fn naming)
 
 ### Images
 - `!addimage "<name>"` — upload image → saves to GitHub images/ folder permanently

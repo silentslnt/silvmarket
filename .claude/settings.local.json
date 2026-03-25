@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:petmart.fun)",
+      "WebFetch(domain:blox-fruits.fandom.com)",
+      "WebFetch(domain:blox-fruits.wiki.gg)",
+      "WebFetch(domain:static.wikia.nocookie.net)",
+      "Bash(node --check \"c:/Users/gibbs/Downloads/vsx/projects calude/silvmarket/index.html\")"
+    ]
+  }
+}

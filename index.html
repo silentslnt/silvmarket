@@ -927,7 +927,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         <span class="gd-icon"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Grand Piece Online</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Sailor Piece','🏴‍☠️','sp')" data-key="sp">
-        <span class="gd-icon">🏴‍☠️</span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
       </div>
     </div>
   </div>
@@ -1114,7 +1114,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#06b6d4">Sailor Piece</div>
-      <div class="sec-title">Sailor Piece</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Sailor Piece</div>
     </div>
     <button class="view-all" onclick="openViewAll('sp')">View All →</button>
   </div>
@@ -2318,17 +2318,17 @@ const SP = [
   {n:'5x Cosmetic Crate',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cosmetic Crate.png'},
   {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
   {n:'1000 Tempest Relic',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
-  {n:'True Azien Set',em:'⚔️',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
-  {n:'Ichigo Set',em:'🌙',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ichigo Set.jpg'},
-  {n:'Gilgamesh Set',em:'⚔️',p:7.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gilgamesh set.jpg'},
-  {n:'Rimuru Set',em:'⚔️',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rimuru set.jpg'},
-  {n:'Gojo Set',em:'⚔️',p:2.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gojo Set.jpg'},
-  {n:'Madara Set',em:'⚔️',p:8.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Madara Set.jpg'},
-  {n:'Sung jin woo Set',em:'⚔️',p:2.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sung Jin Woo Set.jpg'},
-  {n:'Madoka Set',em:'⚔️',p:6.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Madoka Set.png'},
-  {n:'Anos Set',em:'👑',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Anos Set.png'},
-  {n:'Shadow Set',em:'👑',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Shadowset.jpg'}, 
-  {n:'Saber Alter Set',em:'⚔️',p:4.00,sub:'items',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Saber Alter Set.png'},
+  {n:'True Azien Set',em:'⚔️',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
+  {n:'Ichigo Set',em:'🌙',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ichigo Set.jpg'},
+  {n:'Gilgamesh Set',em:'⚔️',p:7.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gilgamesh set.jpg'},
+  {n:'Rimuru Set',em:'⚔️',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rimuru set.jpg'},
+  {n:'Gojo Set',em:'⚔️',p:2.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gojo Set.jpg'},
+  {n:'Madara Set',em:'⚔️',p:8.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Madara Set.jpg'},
+  {n:'Sung jin woo Set',em:'⚔️',p:2.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sung Jin Woo Set.jpg'},
+  {n:'Madoka Set',em:'⚔️',p:6.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Madoka Set.png'},
+  {n:'Anos Set',em:'👑',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Anos Set.png'},
+  {n:'Shadow Set',em:'👑',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Shadowset.jpg'}, 
+  {n:'Saber Alter Set',em:'⚔️',p:4.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Saber Alter Set.png'},
 
 ];
 
@@ -3751,7 +3751,7 @@ const VIEW_ALL_CONFIG = {
   nights:   { title:'99 Nights',     img:'https://silvmarket.shop/images/99_nights.png', items:()=>NIGHTS, filters:['all','currency'] },
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
-  sp:       { title:'Sailor Piece',   img:null, items:()=>SP, filters:['all','gamepasses','items'] },
+  sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
 };
 
 function openViewAll(key){

@@ -877,7 +877,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       <span class="disc-label">Discord</span>
     </a>
-    <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
+    <div style="position:relative;display:inline-flex">
+      <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
+      <span id="navNotifBadge" style="display:none;position:absolute;top:-5px;right:-5px;background:#ff0040;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;align-items:center;justify-content:center;box-shadow:0 0 7px #ff0040;pointer-events:none">0</span>
+    </div>
     <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
   </div>
 </nav>
@@ -1530,6 +1533,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">📦 Orders</button>
       <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">⚙️ Settings</button>
       <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">🔒 Security</button>
+      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">🎟️ Referral</button>
     </div>
 
     <!-- OVERVIEW TAB -->
@@ -1597,6 +1601,34 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <!-- Sign out -->
       <button onclick="doLogout()" style="width:100%;padding:11px;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.2);border-radius:10px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px">Sign Out</button>
     </div>
+
+    <!-- REFERRAL TAB -->
+    <div id="apPanel-referral" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">REFERRAL &amp; SILV TOKENS</div>
+
+      <!-- Token balance -->
+      <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,165,0,.05));border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,215,0,.6);letter-spacing:2px;margin-bottom:4px">SILV TOKEN BALANCE</div>
+        <div id="apTokenBalance" style="font-family:'Orbitron',monospace;font-size:28px;font-weight:800;color:#ffd700">0</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">1 token = 10 Robux · 10 tokens = $1</div>
+      </div>
+
+      <!-- Referral code -->
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:8px">🔗 Your Referral Code</div>
+        <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#ff10f0;text-align:center;padding:12px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:9px;margin-bottom:12px;letter-spacing:2px">—</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:10px">Share this code! When someone purchases using it, you earn 5% of their order in Silv Tokens.</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input id="apReferralInput" type="text" placeholder="5–12 characters (letters &amp; numbers)" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Orbitron',monospace;font-size:13px;outline:none"/>
+          <button onclick="saveReferralCode()" style="padding:10px 14px;background:rgba(255,16,240,.2);border:1px solid rgba(255,16,240,.3);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+        </div>
+        <div id="apReferralMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
+      </div>
+
+      <!-- Notifications -->
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:10px">RECENT NOTIFICATIONS</div>
+      <div id="apNotifications" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4)">Loading…</div>
+    </div>
   </div>
 </div>
 
@@ -1654,6 +1686,13 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <button class="promo-go" onclick="applyPromo()">Apply</button>
         </div>
         <div class="promo-ok" id="promoOk"></div>
+
+        <div class="co-lbl" style="margin-top:8px">Referral Code <span style="color:rgba(255,255,255,.25);font-size:11px">(optional — rewards your referrer)</span></div>
+        <div class="promo-row">
+          <input class="promo-inp" id="referralIn" placeholder="Enter referral code…" oninput="this.value=this.value.toUpperCase()"/>
+          <button class="promo-go" onclick="checkReferral()">Check</button>
+        </div>
+        <div id="referralOk" style="font-family:Rajdhani,sans-serif;font-size:12px;margin-top:4px"></div>
 
         <div class="co-lbl">Roblox Username</div>
         <div class="co-inp-w">
@@ -2926,7 +2965,7 @@ function openCO(){
     document.body.style.overflow='hidden';
   },300);
 }
-function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';}
+function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;const rOk=document.getElementById('referralOk');if(rOk)rOk.textContent='';const rIn=document.getElementById('referralIn');if(rIn)rIn.value='';}
 
 function populateCO(){
   document.getElementById('coBody').style.display='';
@@ -2970,6 +3009,43 @@ function applyPromo(){
   }
 }
 
+// ── REFERRAL CODE ─────────────────────────────────────────────
+let _appliedReferralCode = null;
+async function checkReferral(){
+  const code=document.getElementById('referralIn')?.value.trim().toUpperCase();
+  const el=document.getElementById('referralOk');
+  if(!code){ el.textContent=''; _appliedReferralCode=null; return; }
+  // Can't use your own code
+  if(currentUser){
+    const users=loadUsers();
+    const u=users[currentUser.email];
+    if(u?.referralCode?.toUpperCase()===code){
+      el.style.color='#ff4466';
+      el.textContent='❌ Cannot use your own referral code.';
+      _appliedReferralCode=null;
+      return;
+    }
+  }
+  el.style.color='rgba(255,255,255,.4)';
+  el.textContent='Checking…';
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/referral/'+encodeURIComponent(code)));
+    const data=await resp.json();
+    if(data.valid){
+      el.style.color='#00c853';
+      el.textContent=`✅ Valid code — ${data.name} will earn Silv Tokens from your purchase!`;
+      _appliedReferralCode=code;
+    } else {
+      el.style.color='#ff4466';
+      el.textContent='❌ Invalid referral code.';
+      _appliedReferralCode=null;
+    }
+  } catch(e){
+    el.style.color='rgba(255,255,255,.3)';
+    el.textContent='Could not verify code.';
+  }
+}
+
 function selPayMethod(m){
   selectedPayMethod=m;
   ['dc','cr'].forEach(k=>{
@@ -3006,7 +3082,29 @@ function calcTotal(){
 }
 
 // ── PAY NOW ───────────────────────────────────────────────────
-function payNow(){
+async function payNow(){
+  // ── Dev bypass ──────────────────────────────────────────────
+  if(currentUser?.isDev){
+    const u=document.getElementById('rblxIn')?.value.trim();
+    const e=document.getElementById('emailIn')?.value.trim();
+    if(!u||!e){ alert('Fill in Roblox username and email to test.'); return; }
+    if(!discordLinked){ alert('Link Discord to test.'); return; }
+    const tot=calcTotal();
+    const orderId=genOrderId();
+    const claimKey=genClaimKey();
+    const botResp=await fireOrderWebhook({
+      robloxUsername:u, email:e, total:tot,
+      paymentMethod:'Dev Test', paymentStatus:'dev_test',
+      items:cart, discordUser, orderId, claimKey, promoCode:null,
+    });
+    const finalId=(botResp?.orderId)||orderId;
+    const finalKey=(botResp?.claimKey)||claimKey;
+    saveOrderToUser(finalId,finalKey,cart,tot,'Dev Test');
+    cart=[];updateCartUI();closeCO();
+    showOrderSuccess(finalId,finalKey,false);
+    return;
+  }
+  // ── End dev bypass ──────────────────────────────────────────
   if(!discordLinked){ alert('⚠️ Please link your Discord account first!'); return; }
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
@@ -3058,6 +3156,7 @@ async function openStripeCheckout(rblxUser, email, tot){
         cart: JSON.parse(JSON.stringify(cart)),
         discordUser: discordUser ? {...discordUser} : null,
         promoApplied, promoCode,
+        referralCode: _appliedReferralCode || null,
       }));
       // Navigate same-tab → Stripe redirects back to ?payment=success&order=...
       location.href = data.url;
@@ -3155,6 +3254,7 @@ async function finalizePendingOrder(orderId,claimKey,rblxUser,tot,method){
     paymentStatus:'completed',
     items:cart, discordUser, orderId, claimKey,
     promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+    referralCode:_appliedReferralCode||null,
   });
 
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
@@ -3201,6 +3301,7 @@ async function fireOrderWebhook(orderData){
       orderId:        orderData.orderId || null,
       claimKey:       orderData.claimKey || null,
       promoCode:      orderData.promoCode || null,
+      referralCode:   orderData.referralCode || null,
       paymentStatus:  orderData.paymentStatus || 'completed',
       timestamp:      new Date().toISOString(),
     };
@@ -3600,6 +3701,7 @@ async function completeCryptoOrder(rblxUser, email, confirmed=false){
     orderId, claimKey,
     cryptoDetails:{ coin, amount:amt, address:_cryptoCurrent },
     promoCode:promoApplied?document.getElementById('promoIn')?.value.trim().toUpperCase():null,
+    referralCode:_appliedReferralCode||null,
   });
 
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
@@ -4040,7 +4142,7 @@ function closeAccountPanel(){
 
 // ── Account panel tab switcher ────────────────────────────────
 function switchAPTab(tab){
-  ['overview','settings','security'].forEach(t => {
+  ['overview','settings','security','referral'].forEach(t => {
     const panel = document.getElementById('apPanel-'+t);
     const btn   = document.getElementById('apTab-'+t);
     if(panel) panel.style.display = t===tab ? 'block' : 'none';
@@ -4049,6 +4151,7 @@ function switchAPTab(tab){
     }
   });
   if(tab === 'overview') loadAPOrders();
+  if(tab === 'referral') loadReferralTab();
 }
 
 // ── Load orders into overview tab ────────────────────────────
@@ -4177,8 +4280,10 @@ function verify2FACode(){
 }
 
 function showAPMsg(tab, msg, isErr){
-  const el = document.getElementById('apPanel-'+tab+' > #ap'+tab.charAt(0).toUpperCase()+tab.slice(1)+'Msg') ||
-             document.getElementById('ap'+tab.charAt(0).toUpperCase()+tab.slice(1)+'Msg');
+  // Map tab names to their message element IDs
+  const msgIdMap = { settings:'apSettingsMsg', security:'apSecurityMsg', referral:'apReferralMsg' };
+  const elId = msgIdMap[tab] || ('ap'+tab.charAt(0).toUpperCase()+tab.slice(1)+'Msg');
+  const el = document.getElementById(elId);
   if(!el) return;
   el.textContent = msg;
   el.style.display    = 'block';
@@ -4186,6 +4291,78 @@ function showAPMsg(tab, msg, isErr){
   el.style.color      = isErr ? '#ff4466'              : '#00c853';
   el.style.border     = isErr ? '1px solid rgba(255,0,64,.2)' : '1px solid rgba(0,200,83,.2)';
   setTimeout(()=>{ el.style.display='none'; }, 4000);
+}
+
+// ── Referral tab functions ─────────────────────────────────────
+async function loadReferralTab(){
+  if(!currentUser) return;
+  const users=loadUsers();
+  const u=users[currentUser.email];
+  const localCode=u?.referralCode||null;
+  document.getElementById('apReferralCodeDisplay').textContent=localCode||'— No code set —';
+  if(localCode) document.getElementById('apReferralInput').value=localCode;
+  document.getElementById('apNotifications').textContent='Loading…';
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(currentUser.email)),{
+      headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+    const data=await resp.json();
+    if(data.silvTokens!==undefined){
+      document.getElementById('apTokenBalance').textContent=data.silvTokens;
+    }
+    const notifEl=document.getElementById('apNotifications');
+    if(data.notifications&&data.notifications.length>0){
+      notifEl.innerHTML=data.notifications.slice(0,10).map(n=>`
+        <div style="padding:10px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.1);border-radius:9px;margin-bottom:8px">
+          <div style="color:#ffd700;margin-bottom:2px">${n.message}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.25)">${new Date(n.date).toLocaleDateString()}</div>
+        </div>`).join('');
+    } else {
+      notifEl.textContent='No notifications yet. Share your referral code to start earning!';
+    }
+  } catch(e){
+    document.getElementById('apNotifications').textContent='Could not load — try again later.';
+  }
+}
+
+async function saveReferralCode(){
+  const code=document.getElementById('apReferralInput')?.value.trim().toUpperCase();
+  if(!code){ showAPMsg('referral','Enter a referral code.',true); return; }
+  if(!/^[A-Z0-9]{5,12}$/.test(code)){
+    showAPMsg('referral','Code must be 5–12 letters/numbers only.',true); return;
+  }
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/set-referral'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email,code}),
+    });
+    const data=await resp.json();
+    if(data.success){
+      const users=loadUsers();
+      if(users[currentUser.email]){users[currentUser.email].referralCode=code;saveUsers(users);}
+      document.getElementById('apReferralCodeDisplay').textContent=code;
+      showAPMsg('referral','✅ Referral code saved!',false);
+    } else {
+      showAPMsg('referral',data.error||'Could not save code.',true);
+    }
+  } catch(e){
+    showAPMsg('referral','Network error — try again.',true);
+  }
+}
+
+// ── Notification badge on nav ─────────────────────────────────
+async function checkNotificationBadge(){
+  if(!currentUser) return;
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(currentUser.email)),{
+      headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+    const data=await resp.json();
+    const unread=(data.notifications||[]).filter(n=>!n.read).length;
+    const badge=document.getElementById('navNotifBadge');
+    if(badge){ badge.style.display=unread>0?'flex':'none'; badge.textContent=unread>0?unread:''; }
+  } catch(e){}
 }
 
 // ── Save order to account ─────────────────────────────────────
@@ -4217,7 +4394,12 @@ function doLogin(){
   const u = users[email];
   if(!u||u.password!==btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
   err.style.display = 'none';
-  currentUser = { email, name:u.name };
+  const DEV_EMAIL = 'gibbstariq90@gmail.com';
+  if(email === DEV_EMAIL){
+    currentUser = { email, name:u.name, isDev:true };
+  } else {
+    currentUser = { email, name:u.name };
+  }
   saveSession(currentUser);
   closeLoginModal();
   updateNavLogin();
@@ -4248,7 +4430,7 @@ function doSignup(){
     fetch(BOT_WEBHOOK_URL.replace('/order','/account'), {
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({ name, email, discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
+      body:JSON.stringify({ name, email, password:btoa(pass), discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
     }).catch(()=>{});
   } catch(e){}
 }
@@ -4261,10 +4443,20 @@ function doLogout(){
   updateNavLogin();
 }
 
+// ── Seed dev account if not exists ───────────────────────────
+(function seedDevAccount(){
+  const users = loadUsers();
+  const DEV_EMAIL = 'gibbstariq90@gmail.com';
+  if(!users[DEV_EMAIL]){
+    users[DEV_EMAIL] = { name:'Developer', email:DEV_EMAIL, password:btoa('silent9512'), orders:[], twofa:false, createdAt:new Date().toISOString() };
+    saveUsers(users);
+  }
+})();
+
 // ── Restore session on page load ──────────────────────────────
 (function restoreSession(){
   const s = loadSession();
-  if(s){ currentUser = s; updateNavLogin(); }
+  if(s){ currentUser = s; updateNavLogin(); checkNotificationBadge(); }
 })();
 
 
@@ -4559,6 +4751,7 @@ async function checkStripeReturn(){
     orderId:        ctx.orderId,
     claimKey:       ctx.claimKey,
     promoCode:      ctx.promoCode,
+    referralCode:   ctx.referralCode || null,
   });
 
   const finalOrderId  = (botResp && botResp.orderId)  ? botResp.orderId  : ctx.orderId;

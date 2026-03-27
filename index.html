@@ -982,6 +982,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="gd-item" onclick="selectGame(this,'Sailor Piece','🏴‍☠️','sp')" data-key="sp">
         <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
       </div>
+      <div class="gd-item" onclick="selectGame(this,'Blade Ball','⚔️','bb')" data-key="bb">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Blade Ball</span><span class="gd-dot"></span>
+      </div>
     </div>
   </div>
   <div class="sort-wrap" id="sortWrap">
@@ -1556,17 +1559,19 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 /* Game carousel */
 .hm-carousel-wrap{position:relative;z-index:2;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.hm-carousel-track{display:flex;width:max-content;animation:hmScroll 50s linear infinite}
+.hm-carousel-track{display:flex;width:max-content;animation:hmScroll 65s linear infinite}
 .hm-carousel-track:hover{animation-play-state:paused}
 @keyframes hmScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* Game card */
-.hm-gc{width:160px;flex-shrink:0;margin:0 10px;background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:18px;padding:22px 14px;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
-.hm-gc:hover{background:rgba(147,51,234,.14);border-color:rgba(255,16,240,.5);transform:translateY(-6px) scale(1.04);box-shadow:0 16px 48px rgba(147,51,234,.35)}
-.hm-gc-img{width:64px;height:64px;border-radius:14px;object-fit:cover;box-shadow:0 4px 18px rgba(0,0,0,.4)}
-.hm-gc-em{width:64px;height:64px;border-radius:14px;background:rgba(147,51,234,.15);display:flex;align-items:center;justify-content:center;font-size:32px}
-.hm-gc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;line-height:1.3}
-.hm-gc-badge{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;background:rgba(255,16,240,.15);border:1px solid rgba(255,16,240,.3);color:#ff10f0;padding:2px 8px;border-radius:20px;letter-spacing:1px}
+.hm-gc{width:195px;flex-shrink:0;margin:0 10px;background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:18px;padding:0;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:stretch;text-align:left;overflow:hidden}
+.hm-gc:hover{border-color:rgba(255,16,240,.55);transform:translateY(-6px) scale(1.03);box-shadow:0 18px 52px rgba(147,51,234,.38)}
+.hm-gc-img{width:100%;height:120px;object-fit:cover;display:block;flex-shrink:0;transition:transform .3s}
+.hm-gc:hover .hm-gc-img{transform:scale(1.06)}
+.hm-gc-em{width:100%;height:120px;background:rgba(147,51,234,.18);display:flex;align-items:center;justify-content:center;font-size:52px;flex-shrink:0}
+.hm-gc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:800;color:#fff;line-height:1.3;padding:12px 14px 8px}
+.hm-gc-badge{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;background:linear-gradient(135deg,rgba(147,51,234,.28),rgba(255,16,240,.18));border:1px solid rgba(255,16,240,.28);color:#ff10f0;padding:6px 12px;margin:0 12px 14px;border-radius:8px;letter-spacing:1px;display:block;text-align:center;transition:all .2s}
+.hm-gc:hover .hm-gc-badge{background:linear-gradient(135deg,rgba(147,51,234,.5),rgba(255,16,240,.38));border-color:rgba(255,16,240,.65);box-shadow:0 0 14px rgba(255,16,240,.2)}
 
 /* Popular items row (2nd carousel) */
 .hm-items-track{display:flex;width:max-content;animation:hmScroll2 45s linear infinite}
@@ -1589,9 +1594,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   .hm-stats{gap:8px;padding:0 12px}
   .hm-stat{padding:12px 14px;min-width:80px}
   .hm-stat-n{font-size:15px}
-  .hm-gc{width:120px;padding:14px 8px;margin:0 6px}
-  .hm-gc-img,.hm-gc-em{width:48px;height:48px}
-  .hm-gc-name{font-size:11px}
+  .hm-gc{width:148px;margin:0 7px}
+  .hm-gc-img,.hm-gc-em{height:90px}
+  .hm-gc-em{font-size:38px}
+  .hm-gc-name{font-size:13px;padding:9px 11px 6px}
+  .hm-gc-badge{margin:0 9px 11px;padding:5px 10px}
   .hm-rv-card{min-width:140px}
   .hm-rv-section{padding:0 12px}
   .hm-section-label{font-size:10px}
@@ -3597,7 +3604,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','reviews'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','reviews'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -3610,6 +3617,7 @@ const GAME_SUBS={
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
   gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
   sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🍎 Fruits',fn:'filterSP',val:'fruits'},{label:'⚔️ Swords',fn:'filterSP',val:'swords'},{label:'📦 Bundles',fn:'filterSP',val:'bundles'},{label:'🪙 Currency',fn:'filterSP',val:'currency'}],
+  bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🎁 Items',fn:'filterBB',val:'items'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}

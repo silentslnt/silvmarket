@@ -64,13 +64,6 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px)}
 
 
-.ticker-wrap{position:relative;z-index:19;background:rgba(5,2,12,.92);
-  border-bottom:1px solid rgba(255,16,240,.12);padding:7px 0;overflow:hidden}
-.ticker-inner{display:flex;gap:56px;white-space:nowrap;animation:tkr 40s linear infinite}
-.ti{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;
-  color:rgba(255,255,255,.42);font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
-.td{width:5px;height:5px;border-radius:50%;background:var(--pink);box-shadow:0 0 5px var(--pink);flex-shrink:0}
-@keyframes tkr{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   background:rgba(3,1,10,.96);backdrop-filter:blur(22px);
@@ -860,22 +853,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <div class="scan"></div>
 
 
-<div class="ticker-wrap">
-  <div class="ticker-inner" id="ticker">
-    <span class="ti"><span class="td"></span>xX_DragonKing bought Perm Dragon 🐉 — 2m ago</span>
-    <span class="ti"><span class="td"></span>CutiePaws bought Neon FR Unicorn 🦄 — 4m ago</span>
-    <span class="ti"><span class="td"></span>GrindGod bought 5,000 Robux 💎 — 7m ago</span>
-    <span class="ti"><span class="td"></span>SilentBoss bought Tralalero Tralala 🦈 — 10m ago</span>
-    <span class="ti"><span class="td"></span>MM2Pro bought Chroma Laser 🗡️ — 13m ago</span>
-    <span class="ti"><span class="td"></span>GardenKing bought Godly Watering Can 🌿 — 17m ago</span>
-    <span class="ti"><span class="td"></span>RivalsTop1 bought Rivals Ultimate Pack 🥊 — 21m ago</span>
-    <span class="ti"><span class="td"></span>NightStalker bought 99 Nights Bundle 🌙 — 24m ago</span>
-    <span class="ti"><span class="td"></span>xX_DragonKing bought Perm Dragon 🐉 — 2m ago</span>
-    <span class="ti"><span class="td"></span>CutiePaws bought Neon FR Unicorn 🦄 — 4m ago</span>
-    <span class="ti"><span class="td"></span>GrindGod bought Kitsune 🦊 — 7m ago</span>
-    <span class="ti"><span class="td"></span>BrainrotKing bought Bombardino Crocodilo 🐊 — 10m ago</span>
-  </div>
-</div>
 
 <nav>
   <a class="logo" href="#" id="navLogo" onclick="goHome();return false" style="display:flex;align-items:center;gap:10px;text-decoration:none">
@@ -2367,7 +2344,7 @@ const MM2 = [
 const BRAINROT = [
   {n:"La Secret Combinasion $125M/s",p:9.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png"},
   {n:"Esok Sekolah $330m/s",p:5.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png"},
-  {n:"Dragon Cannelloni $250M/s",p:51.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png"},
+  {n:"Dragon Cannelloni $250M/s",p:39.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png"},
   {n:"67 $7.5M/s",p:3.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/3fK1O21e5cHPrcLpzev4aXYKU0Vq5aaVH3YjzxPd.png"},
   {n:"normal Spaghetti Tualetti 90m/s-300m/s",p:4.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XjuWKOdpulD7a4BuDCIBb8xjoM4W1mmGJDK98BII.png"},
   {n:"700m Mieteteira Bicicleteira",p:9.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/86cGvngWMAYE8LaUo3uD1PNWGcbXt51gJTlnxJ1k.png"},

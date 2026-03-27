@@ -2183,7 +2183,7 @@ const FRUITS = [
   {n:'Rubber',em:'🎈',type:'Natural',rar:'rare',norm:2.99,perm:5.99,badge:'rare',stock:20,cat:'rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rubber.png'},
   {n:'Diamond',em:'💎',type:'Logia',rar:'rare',norm:2.49,perm:4.99,badge:'rare',stock:24,cat:'logia',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/diamond.png'},
   {n:'Lightning',em:'⚡',type:'Logia',rar:'rare',norm:3.99,perm:14.99,badge:'rare',stock:99,cat:'logia',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/lightning.png'},
-  {n:'Spider',em:'🕷️',type:'Natural',rar:'rare',norm:3,perm:12,badge:'rare',stock:99,cat:'rare',img:null},
+  {n:'Spider',em:'🕷️',type:'Natural',rar:'rare',norm:3,perm:12,badge:'rare',stock:99,cat:'rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/spider.png'},
 ];
 
 const FRUIT_SKINS = [
@@ -4052,7 +4052,7 @@ let _viewAllSort     = 'default';
 
 const VIEW_ALL_CONFIG = {
   bestsellers: { title:'Best Sellers 🔥',   img:null, items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
-  bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>FRUITS, filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
+  bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP], filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
   gag:      { title:'Grow a Garden', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png', items:()=>GAG, filters:['all','pets','bundles','tokens'] },
   am:       { title:'Adopt Me',      img:'https://silvmarket.shop/images/adopt_me.png', items:()=>AM, filters:['all','low-tier','mid-tier','high-tier'] },
   mm2:      { title:'Murder Mystery 2', img:'https://silvmarket.shop/images/mm2.png', items:()=>MM2, filters:['all','godly','chroma','bundle'] },

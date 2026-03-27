@@ -1287,7 +1287,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
-      <div class="sec-title">⚔️ Blade Ball</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blade Ball</div>
       <p class="sec-sub">Crates, passes, and items for Blade Ball</p>
     </div>
     <button class="view-all" onclick="openViewAll('bb')">View All →</button>
@@ -2471,8 +2471,8 @@ const BRAINROT = [
   {n:"Capitano Moby $160M/s",p:10.49,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
   {n:"Fortunu and Cashuru $162.5M/s - $1B/s",p:40,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/YMK6K7gHiioqyOq4v79rFEIZlL5SWKxJs2idm5WF.png"},
   {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
-  {n:"Strawberry Elephant 1B/s",em:"🍓",p:1800,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:null},
-  {n:"Strawberry Elephant 10B/s",em:"🍓",p:3400,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:null},
+  {n:"Strawberry Elephant 1B/s",em:"🍓",p:1800,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png"},
+  {n:"Strawberry Elephant 10B/s",em:"🍓",p:3400,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png"},
   {n:"Meowl (Base)",em:"🦉",p:599,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
   {n:"Meowl 1B/s",em:"🦉",p:799,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
   {n:"Meowl 8B/s",em:"🦉",p:1000,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
@@ -2582,6 +2582,8 @@ const SP = [
 ];
 
 const BB = [
+  {n:'500 Blade Ball Tokens',em:'⚔️',p:5,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
+  {n:'5000 Blade Ball Tokens',em:'⚔️',p:25,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -4069,7 +4071,7 @@ const VIEW_ALL_CONFIG = {
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
   sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
-  bb:       { title:'Blade Ball',     img:null, items:()=>BB, filters:['all','crates','passes','items'] },
+  bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
 };
 
 function openViewAll(key){
@@ -5156,7 +5158,7 @@ const HM_GAMES = [
   { key:'tsunami',     name:'Escape Tsunami',     em:'🌊',  img:'https://silvmarket.shop/images/escape_tsunami.jpg' },
   { key:'gpo',         name:'Grand Piece Online', em:'⚓',  img:'https://silvmarket.shop/images/gpo.jpg' },
   { key:'sp',          name:'Sailor Piece',       em:'🏴',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png' },
-  { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:null },
+  { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png' },
 ];
 
 function _hmGameCard(g){

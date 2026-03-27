@@ -924,8 +924,26 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
     </div>
     <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
+    <button id="mobMenuBtn" onclick="toggleMobMenu()" aria-label="Menu">☰</button>
   </div>
 </nav>
+
+<!-- Mobile menu panel (slides down below nav on mobile) -->
+<div id="mobMenuPanel">
+  <a class="mob-mi" href="https://www.trustpilot.com/review/silvmarket.shop" target="_blank" rel="noopener">
+    <span class="mob-mi-icon" style="background:rgba(0,182,122,.15)">⭐</span>Trustpilot Reviews
+  </a>
+  <a class="mob-mi" id="mobDiscLink" href="https://discord.gg/brianrots" target="_blank">
+    <span class="mob-mi-icon" style="background:rgba(88,101,242,.2)">💬</span>Join Discord
+  </a>
+  <div class="mob-mi-sep"></div>
+  <button class="mob-mi" id="mobLoginBtn" onclick="closeMobMenu();openLoginModal()">
+    <span class="mob-mi-icon" style="background:rgba(255,16,240,.12)">👤</span><span id="mobLoginLabel">Login / Sign Up</span>
+  </button>
+  <button class="mob-mi" onclick="closeMobMenu();showAffiliatePage()">
+    <span class="mob-mi-icon" style="background:rgba(255,215,0,.1)">🤝</span>Become an Affiliate
+  </button>
+</div>
 
 <div class="game-bar" id="gameBar">
   <div class="gs-wrap" id="gsWrap">
@@ -1340,7 +1358,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     </div>
     <div class="fc"><h4>Our Shop</h4><a href="#" onclick="showPage('about');return false">About Us</a><a href="#" onclick="showPage('how');return false">How it Works</a><a href="#" onclick="showPage('faq');return false">FAQ</a></div>
     <div class="fc"><h4>Help</h4><a href="#" onclick="showPage('privacy');return false">Privacy Policy</a><a href="#" onclick="showPage('terms');return false">Terms of Service</a><a href="#" onclick="showPage('refund');return false">Refund Policy</a></div>
-    <div class="fc"><h4>Affiliates</h4><a href="#" onclick="showPage('affiliate');return false">Become an Affiliate</a><a href="#" onclick="openLoginModal();return false">Affiliate Login</a><a href="#" onclick="openLoginModal();return false">Affiliate Dashboard</a></div>
+    <div class="fc"><h4>Affiliates</h4><a href="#" onclick="showAffiliatePage();return false">Become an Affiliate</a><a href="#" onclick="showAffiliatePage();return false">Affiliate Dashboard</a></div>
   </div>
   <div class="fbot">
     <p>© 2026 Silv Market · Not affiliated with Roblox Corporation</p>
@@ -1441,19 +1459,41 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .va-filter{padding:7px 16px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;white-space:nowrap}
 .va-filter:hover,.va-filter-active{background:rgba(255,16,240,.15);border-color:rgba(255,16,240,.4);color:#fff}
 
+/* ── MOBILE HAMBURGER MENU ──────────────────────────────────── */
+#mobMenuBtn{display:none;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:9px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:#fff;font-size:20px;cursor:pointer;flex-shrink:0;transition:all .2s}
+#mobMenuBtn:hover{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.4)}
+#mobMenuPanel{position:fixed;left:0;right:0;z-index:97;
+  background:rgba(4,1,14,.98);border-bottom:1px solid rgba(147,51,234,.25);
+  backdrop-filter:blur(20px);
+  transform:translateY(-110%);transition:transform .28s cubic-bezier(.22,1,.36,1);
+  padding:10px 0 14px;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+#mobMenuPanel.open{transform:translateY(0)}
+.mob-mi{display:flex;align-items:center;gap:12px;
+  padding:13px 20px;color:rgba(255,255,255,.75);
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;text-decoration:none;border:none;background:transparent;
+  width:100%;text-align:left;transition:background .15s,color .15s;letter-spacing:.3px}
+.mob-mi:hover,.mob-mi:active{background:rgba(147,51,234,.15);color:#fff}
+.mob-mi-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:16px;flex-shrink:0}
+.mob-mi-sep{height:1px;background:rgba(255,255,255,.06);margin:6px 20px}
+
 /* ── MOBILE ─────────────────────────────────────────────────── */
 @media(max-width:480px){
   .game-bar{position:fixed!important;left:0;right:0;top:var(--nav-h)}
   .content{padding-top:calc(var(--gamebar-h) + 4px)}
+  #mobMenuPanel{top:var(--nav-h)}
   /* Nav: stack search below logo+buttons row */
   nav{flex-wrap:wrap;height:auto;padding:8px 12px 6px;gap:0;row-gap:6px}
   .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
   .nav-right{gap:5px}
-  /* Hide text labels, keep icons */
-  .disc-label{display:none}
-  .disc-link{padding:8px 10px}
-  .tp-label{display:none}
-  .tp-nav-wrap{padding:8px 10px;animation:none}
+  /* Hide desktop nav items, show hamburger */
+  .disc-link{display:none!important}
+  .tp-nav-wrap{display:none!important}
+  #mobMenuBtn{display:flex!important}
   .cart-label{display:none}
   .cart-btn{padding:9px 12px}
   #navLoginLabel{display:none}
@@ -1806,6 +1846,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div id="apPanel-referral" class="ap-tab-panel" style="padding:20px;display:none">
       <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:18px">REFERRAL &amp; SILV TOKENS</div>
 
+      <!-- Affiliate status block (dynamic) -->
+      <div id="apAffiliateBlock" style="margin-bottom:16px"></div>
+
       <!-- Token balance -->
       <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,165,0,.05));border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:18px;margin-bottom:16px;text-align:center">
         <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,215,0,.6);letter-spacing:2px;margin-bottom:6px">SILV TOKEN BALANCE</div>
@@ -1813,16 +1856,18 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:6px">1 token = 10 Robux · 10 tokens = $1</div>
       </div>
 
-      <!-- Referral code -->
-      <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.4)">
-        <div class="ap-section-title">🔗 Your Referral Code</div>
-        <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ff10f0;text-align:center;padding:14px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:10px;margin-bottom:12px;letter-spacing:3px">—</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.5">Share this code! When someone purchases using it, you earn 5% in Silv Tokens.</div>
-        <div style="display:flex;gap:8px;margin-bottom:8px">
-          <input id="apReferralInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="ap-input" style="font-family:'Orbitron',monospace;font-size:13px"/>
-          <button onclick="saveReferralCode()" style="padding:11px 16px;background:rgba(255,16,240,.2);border:1px solid rgba(255,16,240,.3);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(255,16,240,.35)'" onmouseout="this.style.background='rgba(255,16,240,.2)'">Save</button>
+      <!-- Referral code (only shown when approved) -->
+      <div id="apReferralCodeBlock" style="display:none">
+        <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.4)">
+          <div class="ap-section-title">🔗 Your Referral Code</div>
+          <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ff10f0;text-align:center;padding:14px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:10px;margin-bottom:12px;letter-spacing:3px">—</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.5">Share this code! When someone purchases using it, you earn 5% in Silv Tokens.</div>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <input id="apReferralInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="ap-input" style="font-family:'Orbitron',monospace;font-size:13px"/>
+            <button onclick="saveReferralCode()" style="padding:11px 16px;background:rgba(255,16,240,.2);border:1px solid rgba(255,16,240,.3);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(255,16,240,.35)'" onmouseout="this.style.background='rgba(255,16,240,.2)'">Save</button>
+          </div>
+          <div id="apReferralMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
         </div>
-        <div id="apReferralMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
       </div>
 
       <!-- Notifications -->
@@ -4378,15 +4423,6 @@ function getPageContent(key){
         <p>Open a ticket in our Discord server within 24 hours of purchase with your Order ID and description of the issue.</p>
         <p style="margin-top:12px">Contact: <a href="mailto:andreaskk112@gmail.com" style="color:#ff10f0">andreaskk112@gmail.com</a></p>
       </div>`,
-    affiliate: `
-      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">Become an Affiliate</div>
-      <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">Earn commissions by promoting Silv Market</p>
-      <div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);border-radius:12px;padding:20px;margin-bottom:16px;text-align:center">
-        <div style="font-size:42px;margin-bottom:10px">🚀</div>
-        <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ffd700;margin-bottom:8px">Affiliate Program Coming Soon</div>
-        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);line-height:1.7">Join our Discord and DM staff to enquire about early affiliate access. Earn a % on every sale you refer.</p>
-      </div>
-      <a href="${disc}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:#5865f2;border-radius:11px;color:#fff;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px">💬 Join Discord to Apply</a>`,
   };
   return pages[key] || '';
 }
@@ -4400,6 +4436,98 @@ function showPage(key){
 function closePageModal(){
   document.getElementById('pageModal').style.display = 'none';
 }
+
+async function showAffiliatePage(){
+  const modal=document.getElementById('pageModal');
+  const content=document.getElementById('pageModalContent');
+  modal.style.display='flex';
+  content.innerHTML=`<div style="text-align:center;padding:40px 20px">
+    <div style="font-size:40px;margin-bottom:12px">🤝</div>
+    <div style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ff10f0">Affiliate Program</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-top:8px">Loading…</div>
+  </div>`;
+
+  if(!currentUser){
+    content.innerHTML=`
+      <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">Become an Affiliate</div>
+      <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px">Earn 5% in Silv Tokens on every sale made with your referral code.</p>
+      <div style="background:rgba(255,16,240,.05);border:1px solid rgba(255,16,240,.2);border-radius:12px;padding:20px;margin-bottom:16px;text-align:center">
+        <div style="font-size:36px;margin-bottom:8px">🔐</div>
+        <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#fff;margin-bottom:8px">Sign In Required</div>
+        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:14px;line-height:1.6">Create a free account or sign in to apply for the affiliate program.</p>
+        <button onclick="closePageModal();openLoginModal()" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer">👤 Sign In / Sign Up</button>
+      </div>`;
+    return;
+  }
+
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(currentUser.email)),{
+      headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+    const data=await resp.json();
+    const status=data.affiliateStatus||null;
+
+    if(status==='approved'){
+      content.innerHTML=`
+        <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">Affiliate Program</div>
+        <div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.25);border-radius:12px;padding:20px;margin-bottom:16px;text-align:center">
+          <div style="font-size:36px;margin-bottom:8px">✅</div>
+          <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#00e676;margin-bottom:8px">YOU'RE APPROVED!</div>
+          <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:14px;line-height:1.6">Your referral code is active. Set or update it in your account panel.</p>
+          <button onclick="closePageModal();openAccountPanel('referral')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer">🔗 Manage Referral Code →</button>
+        </div>`;
+    } else if(status==='pending'){
+      content.innerHTML=`
+        <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:6px">Affiliate Program</div>
+        <div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.25);border-radius:12px;padding:20px;text-align:center">
+          <div style="font-size:36px;margin-bottom:8px">⏳</div>
+          <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ffa500;margin-bottom:8px">APPLICATION PENDING</div>
+          <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Your application is under review. You'll receive a notification once approved.</p>
+        </div>`;
+    } else {
+      // Not applied or denied — show form
+      const isDenied=status==='denied';
+      content.innerHTML=`
+        <div style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;margin-bottom:4px">Become an Affiliate</div>
+        <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:16px">Earn 5% in Silv Tokens on every purchase made with your code.</p>
+        ${isDenied?`<div style="background:rgba(255,0,64,.06);border:1px solid rgba(255,0,64,.2);border-radius:9px;padding:10px 14px;margin-bottom:14px;font-family:'Rajdhani',sans-serif;font-size:12px;color:#ff4466">Your previous application was not approved. You may reapply.</div>`:''}
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:7px">DISCORD USERNAME</div>
+            <input id="affDiscordModalInput" type="text" placeholder="e.g. yourname#1234 or @yourname" class="ap-input" style="width:100%"/>
+          </div>
+          <button onclick="applyAffiliateModal()" style="width:100%;padding:13px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.3);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:.5px">Submit Application →</button>
+          <div id="affModalMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
+        </div>`;
+    }
+  }catch(e){
+    content.innerHTML=`<div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);padding:20px;text-align:center">Could not load — check connection and try again.</div>`;
+  }
+}
+
+async function applyAffiliateModal(){
+  const discord=(document.getElementById('affDiscordModalInput')?.value||'').trim();
+  const msgEl=document.getElementById('affModalMsg');
+  if(msgEl){msgEl.style.display='block';msgEl.style.background='rgba(255,255,255,.05)';msgEl.style.color='rgba(255,255,255,.4)';msgEl.style.border='none';msgEl.textContent='Submitting…';}
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/affiliate-request'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email,discordUsername:discord}),
+    });
+    const data=await resp.json();
+    if(data.success){
+      if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! Our team will review it shortly.';}
+      setTimeout(()=>showAffiliatePage(),1500);
+    } else {
+      if(msgEl){msgEl.style.background='rgba(255,0,64,.1)';msgEl.style.color='#ff4466';msgEl.style.border='1px solid rgba(255,0,64,.2)';msgEl.textContent='❌ '+(data.error||'Could not submit.');}
+    }
+  }catch(e){
+    if(msgEl){msgEl.style.background='rgba(255,0,64,.1)';msgEl.style.color='#ff4466';msgEl.textContent='Network error — try again.';}
+  }
+
+}
+
 
 // ── LOGIN / SIGNUP SYSTEM ────────────────────────────────────
 let currentUser = null;
@@ -4786,20 +4914,18 @@ function showAPMsg(tab, msg, isErr){
 // ── Referral tab functions ─────────────────────────────────────
 async function loadReferralTab(){
   if(!currentUser) return;
-  const users=loadUsers();
-  const u=users[currentUser.email];
-  const localCode=u?.referralCode||null;
-  document.getElementById('apReferralCodeDisplay').textContent=localCode||'— No code set —';
-  if(localCode) document.getElementById('apReferralInput').value=localCode;
   document.getElementById('apNotifications').textContent='Loading…';
+  document.getElementById('apAffiliateBlock').innerHTML='<div style="font-family:Rajdhani,sans-serif;font-size:13px;color:rgba(255,255,255,.3);padding:10px 0">Loading affiliate status…</div>';
   try{
     const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(currentUser.email)),{
       headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
     });
     const data=await resp.json();
-    if(data.silvTokens!==undefined){
-      document.getElementById('apTokenBalance').textContent=data.silvTokens;
-    }
+    if(data.silvTokens!==undefined) document.getElementById('apTokenBalance').textContent=data.silvTokens;
+
+    // Render affiliate status block
+    renderAffiliateBlock(data.affiliateStatus||null, data.referralCode||null, data.referralStats||null);
+
     const notifEl=document.getElementById('apNotifications');
     if(data.notifications&&data.notifications.length>0){
       notifEl.innerHTML=data.notifications.slice(0,10).map(n=>`
@@ -4808,10 +4934,104 @@ async function loadReferralTab(){
           <div style="font-size:11px;color:rgba(255,255,255,.25)">${new Date(n.date).toLocaleDateString()}</div>
         </div>`).join('');
     } else {
-      notifEl.textContent='No notifications yet. Share your referral code to start earning!';
+      notifEl.textContent='No notifications yet.';
     }
   } catch(e){
     document.getElementById('apNotifications').textContent='Could not load — try again later.';
+    renderAffiliateBlock(null, null, null);
+  }
+}
+
+function renderAffiliateBlock(status, code, stats){
+  const el=document.getElementById('apAffiliateBlock');
+  const codeBlock=document.getElementById('apReferralCodeBlock');
+  if(!el) return;
+
+  if(status==='approved'){
+    codeBlock.style.display='block';
+    const disp=document.getElementById('apReferralCodeDisplay');
+    const inp=document.getElementById('apReferralInput');
+    if(disp) disp.textContent=code||'— No code set —';
+    if(inp&&code) inp.value=code;
+    const statsHtml=stats?`<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
+        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">${stats.uses||0}</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">USES</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
+        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">$${(stats.totalSpend||0).toFixed(2)}</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">REFERRED</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
+        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">${stats.totalEarned||0}</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">TOKENS</div>
+      </div>
+    </div>`:'';
+    el.innerHTML=`<div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.25);border-radius:12px;padding:14px 16px;margin-bottom:4px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:26px">✅</span>
+        <div>
+          <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#00e676;letter-spacing:1px">AFFILIATE APPROVED</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">Set your custom referral code below. Earn 5% in Silv Tokens on every sale.</div>
+        </div>
+      </div>
+      ${statsHtml}
+    </div>`;
+  } else if(status==='pending'){
+    codeBlock.style.display='none';
+    el.innerHTML=`<div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.25);border-radius:12px;padding:14px 16px;margin-bottom:4px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:26px">⏳</span>
+      <div>
+        <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ffa500;letter-spacing:1px">APPLICATION PENDING</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">Your affiliate application is under review. You'll be notified once approved.</div>
+      </div>
+    </div>`;
+  } else if(status==='denied'){
+    codeBlock.style.display='none';
+    el.innerHTML=`<div style="background:rgba(255,0,64,.06);border:1px solid rgba(255,0,64,.2);border-radius:12px;padding:14px 16px;margin-bottom:12px">
+      <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ff4466;margin-bottom:8px">APPLICATION NOT APPROVED</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:12px">Your previous application was not approved. You may reapply below.</div>
+      ${buildAffiliateForm()}
+    </div>`;
+  } else {
+    codeBlock.style.display='none';
+    el.innerHTML=`<div style="background:rgba(255,16,240,.05);border:1px solid rgba(255,16,240,.18);border-radius:12px;padding:16px;margin-bottom:4px">
+      <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ff10f0;margin-bottom:6px">🤝 BECOME AN AFFILIATE</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px;line-height:1.6">Earn 5% in Silv Tokens on every sale made with your referral code. Apply below — our team reviews each request.</div>
+      ${buildAffiliateForm()}
+    </div>`;
+  }
+}
+
+function buildAffiliateForm(){
+  return `<div style="display:flex;flex-direction:column;gap:8px">
+    <input id="affDiscordInput" type="text" placeholder="Your Discord username (e.g. user#1234)" class="ap-input" style="width:100%"/>
+    <button onclick="applyAffiliate()" style="width:100%;padding:11px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.3);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px;transition:background .2s">Submit Application →</button>
+    <div id="affApplyMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
+  </div>`;
+}
+
+async function applyAffiliate(){
+  if(!currentUser){openLoginModal();return;}
+  const discord=(document.getElementById('affDiscordInput')?.value||'').trim();
+  const msgEl=document.getElementById('affApplyMsg');
+  if(msgEl){msgEl.style.display='block';msgEl.style.background='rgba(255,255,255,.05)';msgEl.style.color='rgba(255,255,255,.4)';msgEl.textContent='Submitting…';}
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/affiliate-request'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email,discordUsername:discord}),
+    });
+    const data=await resp.json();
+    if(data.success){
+      if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! We\'ll review it shortly.';}
+      // Refresh affiliate block to pending state
+      setTimeout(()=>renderAffiliateBlock('pending',null),1200);
+    } else {
+      if(msgEl){msgEl.style.background='rgba(255,0,64,.1)';msgEl.style.color='#ff4466';msgEl.style.border='1px solid rgba(255,0,64,.2)';msgEl.textContent='❌ '+(data.error||'Could not submit.');}
+    }
+  }catch(e){
+    if(msgEl){msgEl.style.background='rgba(255,0,64,.1)';msgEl.style.color='#ff4466';msgEl.textContent='Network error — try again.';}
   }
 }
 
@@ -5338,7 +5558,49 @@ async function checkStripeReturn(){
 }
 checkStripeReturn();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();closeMobMenu();}});
+
+// ── MOBILE NAV HEIGHT FIX ─────────────────────────────────────
+// On mobile the nav wraps to 2 rows — update --nav-h to match
+function fixMobileNavHeight(){
+  if(window.innerWidth>530) return;
+  const nav=document.querySelector('nav');
+  if(!nav) return;
+  const h=Math.ceil(nav.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--nav-h',h+'px');
+}
+window.addEventListener('resize',fixMobileNavHeight);
+// Run after fonts/images loaded (layout settles)
+window.addEventListener('load',fixMobileNavHeight);
+document.addEventListener('DOMContentLoaded',fixMobileNavHeight);
+
+// ── MOBILE MENU ───────────────────────────────────────────────
+function toggleMobMenu(){
+  const p=document.getElementById('mobMenuPanel');
+  if(!p) return;
+  p.classList.toggle('open');
+  // Update login label in mobile menu
+  const lbl=document.getElementById('mobLoginLabel');
+  if(lbl) lbl.textContent=currentUser?currentUser.name.split(' ')[0]+' (Profile)':'Login / Sign Up';
+}
+function closeMobMenu(){
+  document.getElementById('mobMenuPanel')?.classList.remove('open');
+}
+// Close mobile menu when clicking outside
+document.addEventListener('click',function(e){
+  const panel=document.getElementById('mobMenuPanel');
+  const btn=document.getElementById('mobMenuBtn');
+  if(panel&&panel.classList.contains('open')&&!panel.contains(e.target)&&!btn?.contains(e.target)){
+    panel.classList.remove('open');
+  }
+});
+// Re-measure nav height after login state changes (login button changes size)
+document.addEventListener('DOMContentLoaded',function(){
+  const _orig=window.updateNavLogin;
+  if(typeof _orig==='function'){
+    window.updateNavLogin=function(){_orig.apply(this,arguments);setTimeout(fixMobileNavHeight,60);};
+  }
+});
 
 // ── CARD SPOTLIGHT ─────────────────────────────────────────
 document.addEventListener('mousemove',function(e){

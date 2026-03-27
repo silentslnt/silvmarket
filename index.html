@@ -5257,7 +5257,6 @@ function init(){
   document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');
   document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');
   buildSearchIndex();
-  const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
   initScrollWraps();
 }
 init();

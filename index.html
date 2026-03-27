@@ -678,22 +678,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   padding:0 8px}
 .swipe-hint-arr{
   display:flex;align-items:center;gap:3px}
-.swipe-hint-arr span{
-  display:block;width:6px;height:6px;border-top:1.5px solid var(--pink);border-right:1.5px solid var(--pink);
-  opacity:0}
-/* Left chevrons — point left */
-.swipe-hint-arr.sh-l span{transform:rotate(-135deg)}
-/* Right chevrons — point right */
-.swipe-hint-arr.sh-r span{transform:rotate(45deg)}
-/* Stagger each chevron fading in outward */
-.swipe-hint-arr.sh-l span:nth-child(1){animation:sh-left 1.5s ease-in-out .4s infinite}
-.swipe-hint-arr.sh-l span:nth-child(2){animation:sh-left 1.5s ease-in-out .2s infinite}
-.swipe-hint-arr.sh-l span:nth-child(3){animation:sh-left 1.5s ease-in-out 0s infinite}
-.swipe-hint-arr.sh-r span:nth-child(1){animation:sh-right 1.5s ease-in-out 0s infinite}
-.swipe-hint-arr.sh-r span:nth-child(2){animation:sh-right 1.5s ease-in-out .2s infinite}
-.swipe-hint-arr.sh-r span:nth-child(3){animation:sh-right 1.5s ease-in-out .4s infinite}
-@keyframes sh-left{0%{opacity:0;transform:rotate(-135deg) translate(-3px,-3px)}40%{opacity:.7}100%{opacity:0;transform:rotate(-135deg) translate(3px,3px)}}
-@keyframes sh-right{0%{opacity:0;transform:rotate(45deg) translate(-3px,-3px)}40%{opacity:.7}100%{opacity:0;transform:rotate(45deg) translate(3px,3px)}}
+.swipe-hint-arr{display:none}
 @media(max-width:768px){
   .swipe-hint{display:flex}
   .scroll-arr{display:none!important}}
@@ -1462,6 +1447,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 /* ── MOBILE ─────────────────────────────────────────────────── */
 @media(max-width:480px){
+  .game-bar{position:fixed!important;left:0;right:0;top:var(--nav-h)}
+  .content{padding-top:calc(var(--gamebar-h) + 4px)}
   /* Nav: stack search below logo+buttons row */
   nav{flex-wrap:wrap;height:auto;padding:8px 12px 6px;gap:0;row-gap:6px}
   .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
@@ -1762,6 +1749,18 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
 
       <div id="apSettingsMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:8px"></div>
+    </div>
+
+    <!-- DEV MODE PANEL — only shown for isDev accounts -->
+    <div id="apDevPanel" style="display:none;padding:0 20px 20px">
+      <div style="background:rgba(255,16,240,.07);border:1px solid rgba(255,16,240,.2);border-radius:12px;padding:16px">
+        <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:800;color:var(--pink);letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff">Test Mode</span>
+          <button id="devModeToggle" onclick="toggleDevMode()" style="padding:8px 20px;border-radius:8px;font-family:'Orbitron',monospace;font-size:11px;font-weight:800;cursor:pointer;border:none;transition:all .2s">OFF</button>
+        </div>
+      </div>
     </div>
 
     <!-- SECURITY TAB -->
@@ -2471,15 +2470,9 @@ const BRAINROT = [
   {n:"Capitano Moby $160M/s",p:10.49,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
   {n:"Fortunu and Cashuru $162.5M/s - $1B/s",p:40,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/YMK6K7gHiioqyOq4v79rFEIZlL5SWKxJs2idm5WF.png"},
   {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
-  {n:"Meowl (Base)",em:"🦉",p:599,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
-  {n:"Meowl 1B/s",em:"🦉",p:799,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
-  {n:"Meowl 8B/s",em:"🦉",p:1000,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
-  {n:"Meowl 12B/s",em:"🦉",p:2500,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png"},
-  {n:"Skibidi Toilet (Base)",em:"🚽",p:412,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png"},
-  {n:"Skibidi Toilet 1B/s",em:"🚽",p:499,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png"},
-  {n:"Skibidi Toilet 6B/s",em:"🚽",p:599,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png"},
-  {n:"Strawberry Elephant 1B/s",em:"🍓",p:1800,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png"},
-  {n:"Strawberry Elephant 10B/s",em:"🍓",p:3400,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png"},
+  {n:"Meowl",em:"🦉",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png",speeds:[{label:'Base',p:599},{label:'1B/s',p:799},{label:'8B/s',p:1000},{label:'12B/s',p:2500}]},
+  {n:"Skibidi Toilet",em:"🚽",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png",speeds:[{label:'Base',p:412},{label:'1B/s',p:499},{label:'6B/s',p:599}]},
+  {n:"Strawberry Elephant",em:"🍓",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png",speeds:[{label:'1B/s',p:1800},{label:'10B/s',p:3400}]},
 ];
 
 const RIVALS = [
@@ -2588,7 +2581,7 @@ const BB = [
 
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0;
-let rblxVerified=false, fruitModes={};
+let rblxVerified=false, fruitModes={}, brSpeeds={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
 let _authWindow = null;
@@ -2701,9 +2694,33 @@ function filterBF(btn,cat){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
   const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece'}[game]||game;
-  // Build item data for detail modal (escape for onclick attr)
+  if(i.speeds && game==='brainrot'){
+    const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
+    const sp=i.speeds[idx];
+    const p=sp.p;
+    const ps=`$${Number(p).toFixed(2)}`;
+    const addName=`${i.n} ${sp.label}`;
+    const safeN=i.n.replace(/'/g,"\\'");
+    const iData=encodeURIComponent(JSON.stringify({n:addName,em:i.em,p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
+    const speedBtns=i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setBRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
+    return `
+  <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+    <div class="pc-img ${bg}">
+      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em}</span>`:`<span class="em">${i.em}</span>`}
+      ${bdg(i.badge)}${stk(i.stock)}
+    </div>
+    <div class="pc-body">
+      <div class="pc-g ${gcls}">${gameLbl}</div>
+      <div class="pc-n">${i.n}</div>
+      ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
+      <div class="fruit-tog" style="flex-wrap:wrap;gap:3px;margin-bottom:4px">${speedBtns}</div>
+      <div class="pc-price">${ps}</div>
+      <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+    </div>
+  </div>`;
+  }
+  const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
   const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
   return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
@@ -2744,7 +2761,9 @@ function filterAM(btn,sub){
 }
 function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
-function filterBR(btn,sub){setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
+function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');}
+function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);}
+function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
 function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
 function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all')document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
@@ -2760,6 +2779,8 @@ const BESTSELLERS = [
   {n:'+1 Fruit Storage [2x]',   em:'🐯',p:'$5.19',game:'Blox Fruits',badge:'best',stock:5, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/I11OqWVFGbXYjHjvEkGhwjYGijt3poF95TkznMvz.png'},
   {n:'La Secret Combinasion $125M/s',   em:'💎',p:'$9.99',game:'Rivals',     badge:'best',stock:3, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png'},
   {n:'10,000 Robux',       em:'💎',p:'$55.00',game:'Robux',      badge:'best', stock:99,bg:'r-robux'},
+  {n:'True Azien Set',em:'⚔️',p:'$4.00',game:'Sailor Piece',badge:'hot',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
+  {n:'100x Aura Crates',em:'📦',p:'$20.00',game:'Sailor Piece',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
 ];
 
 function renderBS(){
@@ -3300,7 +3321,7 @@ function calcTotal(){
 // ── PAY NOW ───────────────────────────────────────────────────
 async function payNow(){
   // ── Dev bypass ──────────────────────────────────────────────
-  if(currentUser?.isDev){
+  if(currentUser?.isDev && currentUser?.devActive){
     const u=document.getElementById('rblxIn')?.value.trim();
     const e=document.getElementById('emailIn')?.value.trim();
     if(!u||!e){ alert('Fill in Roblox username and email to test.'); return; }
@@ -4469,6 +4490,8 @@ function openAccountPanel(tab){
   }
   // 2FA toggle visual
   update2FAToggle(twofa);
+  // Dev panel visibility
+  updateDevPanel();
   // Switch to requested or default tab
   switchAPTab(tab||'overview');
   panel.style.display = 'flex';
@@ -4622,6 +4645,40 @@ async function verify2FACode(){
   showAPMsg('security','✅ 2FA enabled successfully!',false);
 }
 
+function toggleDevMode(){
+  if(!currentUser?.isDev) return;
+  currentUser.devActive = !currentUser.devActive;
+  saveSession(currentUser);
+  const btn = document.getElementById('devModeToggle');
+  if(currentUser.devActive){
+    btn.textContent = 'ON';
+    btn.style.background = 'linear-gradient(135deg,#9333ea,#ff10f0)';
+    btn.style.color = '#fff';
+    btn.style.boxShadow = '0 0 16px rgba(255,16,240,.4)';
+  } else {
+    btn.textContent = 'OFF';
+    btn.style.background = 'rgba(255,255,255,.08)';
+    btn.style.color = 'rgba(255,255,255,.5)';
+    btn.style.boxShadow = 'none';
+  }
+}
+function updateDevPanel(){
+  const panel = document.getElementById('apDevPanel');
+  if(!panel) return;
+  if(currentUser?.isDev){
+    panel.style.display = 'block';
+    const btn = document.getElementById('devModeToggle');
+    if(btn){
+      if(currentUser.devActive){
+        btn.textContent='ON';btn.style.background='linear-gradient(135deg,#9333ea,#ff10f0)';btn.style.color='#fff';btn.style.boxShadow='0 0 16px rgba(255,16,240,.4)';
+      } else {
+        btn.textContent='OFF';btn.style.background='rgba(255,255,255,.08)';btn.style.color='rgba(255,255,255,.5)';btn.style.boxShadow='none';
+      }
+    }
+  } else {
+    panel.style.display = 'none';
+  }
+}
 function showAPMsg(tab, msg, isErr){
   // Map tab names to their message element IDs
   const msgIdMap = { settings:'apSettingsMsg', security:'apSecurityMsg', referral:'apReferralMsg' };
@@ -5074,7 +5131,7 @@ function init(){
   document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');
   document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');
   document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');
-  document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');
+  renderBRGrid();
   document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');
   document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');
   document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');

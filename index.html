@@ -4949,6 +4949,41 @@ function doLogout(){
   if(s){ currentUser = s; updateNavLogin(); checkNotificationBadge(); }
 })();
 
+// ── Admin sign-in via ?admin_token= URL param ─────────────────
+(async function checkAdminToken(){
+  const params = new URLSearchParams(location.search);
+  const token = params.get('admin_token');
+  if(!token) return;
+  // Remove param from URL immediately
+  params.delete('admin_token');
+  const newUrl = location.pathname + (params.toString() ? '?' + params.toString() : '');
+  history.replaceState(null,'',newUrl);
+  try {
+    const r = await fetch(BOT_WEBHOOK_URL.replace('/order','/admin-signin?token='+encodeURIComponent(token)));
+    if(!r.ok){ console.warn('Admin sign-in failed:', r.status); return; }
+    const acct = await r.json();
+    if(!acct.email){ return; }
+    // Merge bot's data into localStorage so the account panel shows orders etc.
+    const users = loadUsers();
+    if(!users[acct.email]){
+      users[acct.email] = { name: acct.email.split('@')[0], email: acct.email, password: '', orders: acct.orders||[], silvTokens: acct.silvTokens||0 };
+      saveUsers(users);
+    } else {
+      // Sync orders and tokens from bot
+      users[acct.email].orders     = acct.orders     || users[acct.email].orders || [];
+      users[acct.email].silvTokens = acct.silvTokens || 0;
+      saveUsers(users);
+    }
+    const DEV_EMAIL = 'gibbstariq90@gmail.com';
+    currentUser = acct.email === DEV_EMAIL ? { email: acct.email, name: acct.name, isDev: true } : { email: acct.email, name: acct.name };
+    saveSession(currentUser);
+    updateNavLogin();
+    checkNotificationBadge();
+    openAccountPanel();
+    console.log(`🔐 Admin signed in as: ${acct.email}`);
+  } catch(e){ console.warn('Admin sign-in error:', e.message); }
+})();
+
 
 // ── FORGOT PASSWORD SYSTEM ────────────────────────────────────
 let _fpEmail = '';

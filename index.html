@@ -827,6 +827,45 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════
+     HOME MENU
+     ═══════════════════════════════════════════ -->
+<section id="homeMenu">
+  <!-- Background -->
+  <div class="hm-orb hm-orb1"></div>
+  <div class="hm-orb hm-orb2"></div>
+  <div class="hm-orb hm-orb3"></div>
+  <div class="hm-orb hm-orb4"></div>
+  <div class="hm-orb hm-orb5"></div>
+  <div class="hm-grid"></div>
+
+  <!-- Hero -->
+  <div class="hm-hero">
+    <img src="https://silvmarket.shop/images/logo.png" class="hm-hero-logo" alt="" onerror="this.style.display='none'"/>
+    <div class="hm-hero-title">SILV <span style="-webkit-text-fill-color:transparent;background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;background-clip:text">MARKET</span></div>
+    <div class="hm-hero-sub">Premium Roblox Shop</div>
+    <div class="hm-hero-desc">Blox Fruits · Adopt Me · MM2 · Grow a Garden & more — fast delivery, lowest prices.</div>
+  </div>
+
+  <!-- Recently Viewed -->
+  <div class="hm-rv-section" id="hmRvSection" style="display:none">
+    <div class="hm-rv-title">Recently Viewed</div>
+    <div class="hm-rv-row" id="hmRvRow"></div>
+  </div>
+
+  <!-- Games carousel -->
+  <div class="hm-section-label" style="margin-top:8px">Browse Games</div>
+  <div class="hm-carousel-wrap" style="margin-bottom:36px">
+    <div class="hm-carousel-track" id="hmGameTrack"></div>
+  </div>
+
+  <!-- Popular items carousel -->
+  <div class="hm-section-label">Popular Items</div>
+  <div class="hm-carousel-wrap">
+    <div class="hm-items-track" id="hmItemTrack"></div>
+  </div>
+</section>
+
 <div class="bg"></div>
 <div class="bg-grid"></div>
 <div class="scan"></div>
@@ -851,7 +890,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 </div>
 
 <nav>
-  <a class="logo" href="#" id="navLogo" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+  <a class="logo" href="#" id="navLogo" onclick="goHome();return false" style="display:flex;align-items:center;gap:10px;text-decoration:none">
     <img id="navLogoImg" src="https://silvmarket.shop/images/logo.png"
          style="height:36px;width:36px;border-radius:8px;object-fit:contain;flex-shrink:0"
          alt="Silv Market"
@@ -1427,6 +1466,81 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   #viewAllGrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important;gap:12px!important}
   /* Game dropdown scrollable */
   .gd-drop{max-height:60vh;overflow-y:auto}
+}
+
+/* ═══════════════════════════════════════════
+   HOME MENU
+   ═══════════════════════════════════════════ */
+#homeMenu{position:relative;min-height:calc(100vh - 56px);overflow:hidden;background:#07031a;display:flex;flex-direction:column;align-items:center;padding:0 0 60px}
+#homeMenu.hm-hidden{display:none}
+
+/* Animated background orbs */
+.hm-orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none}
+.hm-orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(147,51,234,.45),transparent 70%);top:-120px;left:-160px;animation:orbDrift1 18s ease-in-out infinite alternate}
+.hm-orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(255,16,240,.35),transparent 70%);top:30%;right:-140px;animation:orbDrift2 22s ease-in-out infinite alternate}
+.hm-orb3{width:400px;height:400px;background:radial-gradient(circle,rgba(99,20,180,.4),transparent 70%);bottom:-80px;left:30%;animation:orbDrift3 16s ease-in-out infinite alternate}
+.hm-orb4{width:300px;height:300px;background:radial-gradient(circle,rgba(255,16,240,.2),transparent 70%);top:20%;left:40%;animation:orbDrift4 25s ease-in-out infinite alternate}
+.hm-orb5{width:250px;height:250px;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 70%);bottom:20%;right:20%;animation:orbDrift1 20s ease-in-out infinite alternate-reverse}
+@keyframes orbDrift1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,80px) scale(1.15)}}
+@keyframes orbDrift2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-80px,60px) scale(1.2)}}
+@keyframes orbDrift3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,-70px) scale(1.1)}}
+@keyframes orbDrift4{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-50px,50px) scale(0.9)}}
+
+/* Grid overlay */
+.hm-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(147,51,234,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(147,51,234,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+
+/* Hero */
+.hm-hero{position:relative;z-index:2;text-align:center;padding:52px 20px 32px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hm-hero-logo{width:80px;height:80px;border-radius:20px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(255,16,240,.7));margin-bottom:8px}
+.hm-hero-title{font-family:'Orbitron',monospace;font-size:clamp(32px,6vw,58px);font-weight:900;letter-spacing:6px;background:linear-gradient(135deg,#fff 0%,#e0aaff 40%,#ff10f0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,16,240,.3))}
+.hm-hero-sub{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,.3);text-transform:uppercase}
+.hm-hero-desc{font-family:'Rajdhani',sans-serif;font-size:16px;color:rgba(255,255,255,.5);margin-top:4px;max-width:500px;line-height:1.5}
+
+/* Recently Viewed */
+.hm-rv-section{position:relative;z-index:2;width:100%;max-width:900px;padding:0 24px;margin-bottom:36px}
+.hm-rv-title{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:14px}
+.hm-rv-row{display:flex;gap:14px;flex-wrap:wrap}
+.hm-rv-card{flex:1;min-width:200px;max-width:280px;background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.25);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.hm-rv-card:hover{background:rgba(147,51,234,.12);border-color:rgba(255,16,240,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(147,51,234,.2)}
+.hm-rv-em{font-size:28px;flex-shrink:0}
+.hm-rv-info{overflow:hidden}
+.hm-rv-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hm-rv-price{font-family:'Orbitron',monospace;font-size:11px;color:#ff10f0;font-weight:700;margin-top:2px}
+
+/* Section label */
+.hm-section-label{position:relative;z-index:2;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:20px;text-align:center}
+
+/* Game carousel */
+.hm-carousel-wrap{position:relative;z-index:2;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.hm-carousel-track{display:flex;width:max-content;animation:hmScroll 50s linear infinite}
+.hm-carousel-track:hover{animation-play-state:paused}
+@keyframes hmScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Game card */
+.hm-gc{width:160px;flex-shrink:0;margin:0 10px;background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:18px;padding:22px 14px;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.hm-gc:hover{background:rgba(147,51,234,.14);border-color:rgba(255,16,240,.5);transform:translateY(-6px) scale(1.04);box-shadow:0 16px 48px rgba(147,51,234,.35)}
+.hm-gc-img{width:64px;height:64px;border-radius:14px;object-fit:cover;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.hm-gc-em{width:64px;height:64px;border-radius:14px;background:rgba(147,51,234,.15);display:flex;align-items:center;justify-content:center;font-size:32px}
+.hm-gc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.hm-gc-badge{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;background:rgba(255,16,240,.15);border:1px solid rgba(255,16,240,.3);color:#ff10f0;padding:2px 8px;border-radius:20px;letter-spacing:1px}
+
+/* Popular items row (2nd carousel) */
+.hm-items-track{display:flex;width:max-content;animation:hmScroll2 45s linear infinite}
+.hm-items-track:hover{animation-play-state:paused}
+@keyframes hmScroll2{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+
+.hm-ic{width:130px;flex-shrink:0;margin:0 8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 10px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.hm-ic:hover{background:rgba(147,51,234,.1);border-color:rgba(147,51,234,.35);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.hm-ic-img{width:56px;height:56px;border-radius:10px;object-fit:cover}
+.hm-ic-em{width:56px;height:56px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:26px}
+.hm-ic-name{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.hm-ic-price{font-family:'Orbitron',monospace;font-size:10px;color:#ff10f0;font-weight:700}
+
+@media(max-width:480px){
+  .hm-hero{padding:36px 16px 24px}
+  .hm-gc{width:130px;padding:16px 10px}
+  .hm-gc-img,.hm-gc-em{width:52px;height:52px}
+  .hm-rv-card{min-width:150px}
 }
 </style>
 
@@ -3810,6 +3924,7 @@ function openItemDetail(encodedData){
 
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  trackRecentlyViewed(i);
 }
 
 function closeItemDetail(){
@@ -4810,6 +4925,103 @@ document.addEventListener('mousemove',function(e){
   c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
   c.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
 });
+
+// ══════════════════════════════════════════════════════════════
+// HOME MENU
+// ══════════════════════════════════════════════════════════════
+
+const HM_GAMES = [
+  { key:'bestsellers', name:'Best Sellers',      em:'🔥',  img:null },
+  { key:'bf',          name:'Blox Fruits',        em:'🍎',  img:'https://silvmarket.shop/images/bloxfruits.png' },
+  { key:'gag',         name:'Grow a Garden',      em:'🌱',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png' },
+  { key:'am',          name:'Adopt Me',           em:'🐾',  img:'https://silvmarket.shop/images/adopt_me.png' },
+  { key:'mm2',         name:'Murder Mystery 2',   em:'⚔️',  img:'https://silvmarket.shop/images/mm2.png' },
+  { key:'brainrot',    name:'Steal a Brainrot',   em:'🧠',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png' },
+  { key:'rivals',      name:'Rivals',             em:'🥊',  img:'https://silvmarket.shop/images/Rivals.png' },
+  { key:'nights',      name:'99 Nights',          em:'🌙',  img:'https://silvmarket.shop/images/99_nights.png' },
+  { key:'tsunami',     name:'Escape Tsunami',     em:'🌊',  img:'https://silvmarket.shop/images/escape_tsunami.jpg' },
+  { key:'gpo',         name:'Grand Piece Online', em:'⚓',  img:'https://silvmarket.shop/images/gpo.jpg' },
+  { key:'sp',          name:'Sailor Piece',       em:'🏴',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png' },
+];
+
+function _hmGameCard(g){
+  const imgHtml = g.img
+    ? `<img class="hm-gc-img" src="${g.img}" alt="${g.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    + `<div class="hm-gc-em" style="display:none">${g.em}</div>`
+    : `<div class="hm-gc-em">${g.em}</div>`;
+  return `<div class="hm-gc" onclick="openViewAll('${g.key}')">${imgHtml}<div class="hm-gc-name">${g.name}</div><div class="hm-gc-badge">SHOP NOW</div></div>`;
+}
+
+function _hmItemCard(i){
+  const price = i.norm ? '$'+i.norm : i.p ? '$'+i.p : '';
+  const imgHtml = i.img
+    ? `<img class="hm-ic-img" src="${i.img}" alt="${i.n}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    + `<div class="hm-ic-em" style="display:none">${i.em||'📦'}</div>`
+    : `<div class="hm-ic-em">${i.em||'📦'}</div>`;
+  const enc = encodeURIComponent(JSON.stringify(i));
+  return `<div class="hm-ic" onclick="openItemDetail('${enc}')">${imgHtml}<div class="hm-ic-name">${i.n}</div><div class="hm-ic-price">${price}</div></div>`;
+}
+
+function renderHomeMenu(){
+  // Game carousel — duplicate for infinite loop
+  const gameHtml = HM_GAMES.map(_hmGameCard).join('');
+  const gt = document.getElementById('hmGameTrack');
+  if(gt) gt.innerHTML = gameHtml + gameHtml;
+
+  // Popular items carousel — pull from BESTSELLERS + top items from each game
+  const popItems = [];
+  if(typeof BESTSELLERS !== 'undefined') popItems.push(...BESTSELLERS.slice(0,6));
+  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>f.rar==='mythical'||f.rar==='legendary').slice(0,4));
+  if(typeof GAG !== 'undefined') popItems.push(...GAG.slice(0,4));
+  if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,4));
+  const itemHtml = popItems.slice(0,20).map(_hmItemCard).join('');
+  const it = document.getElementById('hmItemTrack');
+  if(it && itemHtml) it.innerHTML = itemHtml + itemHtml;
+
+  renderRecentlyViewed();
+}
+
+// ── Recently Viewed ───────────────────────────────────────────
+function trackRecentlyViewed(item){
+  if(!currentUser) return;
+  try {
+    const rv = JSON.parse(localStorage.getItem('silv_rv')||'[]');
+    const filtered = rv.filter(r => r.n !== item.n);
+    filtered.unshift({ n:item.n, em:item.em||'📦', p:item.p||item.norm, img:item.img||null, _enc: encodeURIComponent(JSON.stringify(item)) });
+    localStorage.setItem('silv_rv', JSON.stringify(filtered.slice(0,3)));
+    renderRecentlyViewed();
+  } catch(e){}
+}
+
+function renderRecentlyViewed(){
+  const sec = document.getElementById('hmRvSection');
+  const row = document.getElementById('hmRvRow');
+  if(!sec || !row) return;
+  if(!currentUser){ sec.style.display='none'; return; }
+  try {
+    const rv = JSON.parse(localStorage.getItem('silv_rv')||'[]');
+    if(!rv.length){ sec.style.display='none'; return; }
+    sec.style.display='block';
+    row.innerHTML = rv.map(r=>`
+      <div class="hm-rv-card" onclick="openItemDetail('${r._enc}')">
+        ${r.img ? `<img src="${r.img}" style="width:42px;height:42px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.outerHTML='<div style=\\'font-size:28px\\'>${r.em}</div>'">` : `<div style="font-size:28px">${r.em}</div>`}
+        <div class="hm-rv-info">
+          <div class="hm-rv-name">${r.n}</div>
+          <div class="hm-rv-price">${r.p ? '$'+r.p : ''}</div>
+        </div>
+      </div>`).join('');
+  } catch(e){ sec.style.display='none'; }
+}
+
+// ── Show / Hide Home Menu ─────────────────────────────────────
+function goHome(){
+  window.scrollTo({top:0,behavior:'smooth'});
+  const hm = document.getElementById('homeMenu');
+  if(hm) hm.classList.remove('hm-hidden');
+}
+
+// Init home menu after page data is available
+setTimeout(renderHomeMenu, 0);
 
 // ── BRANDING ──────────────────────────────────────────────────
 (function applyBranding(){

@@ -4353,6 +4353,22 @@ let currentUser = null;
 
 function loadUsers()   { try{ return JSON.parse(localStorage.getItem('silv_users')||'{}'); }catch{ return {}; } }
 function saveUsers(u)  { try{ localStorage.setItem('silv_users', JSON.stringify(u)); }catch{} }
+
+// ── PASSWORD HASHING (PBKDF2-SHA256) ─────────────────────────
+// Replaces plain btoa() — 60k iterations, email as salt, fixed pepper
+async function hashPass(pass, email){
+  try{
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits(
+      { name:'PBKDF2', salt:enc.encode(email.toLowerCase()+'_silv25'), iterations:60000, hash:'SHA-256' },
+      key, 256
+    );
+    return Array.from(new Uint8Array(bits)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  } catch{ return btoa(pass); }  // fallback if crypto unavailable
+}
+// Detect already-hashed passwords (64 hex chars) vs legacy btoa
+function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
 function loadSession() { try{ return JSON.parse(sessionStorage.getItem('silv_session')||'null'); }catch{ return null; } }
 function saveSession(u){ try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{} }
 function clearSession(){ try{ sessionStorage.removeItem('silv_session'); }catch{} }
@@ -4585,7 +4601,7 @@ function updateAccountEmail(){
 }
 
 // ── Security tab actions ──────────────────────────────────────
-function changePassword(){
+async function changePassword(){
   const oldP = document.getElementById('apOldPass')?.value;
   const newP = document.getElementById('apNewPass')?.value;
   if(!oldP||!newP) return showAPMsg('security','Fill in both fields.',true);
@@ -4593,8 +4609,11 @@ function changePassword(){
   const users = loadUsers();
   const u = users[currentUser.email];
   if(!u) return;
-  if(u.password !== btoa(oldP)) return showAPMsg('security','Current password is incorrect.',true);
-  u.password = btoa(newP);
+  const valid = isHashed(u.password)
+    ? (await hashPass(oldP, currentUser.email)) === u.password
+    : btoa(oldP) === u.password;
+  if(!valid) return showAPMsg('security','Current password is incorrect.',true);
+  u.password = await hashPass(newP, currentUser.email);
   saveUsers(users);
   document.getElementById('apOldPass').value = '';
   document.getElementById('apNewPass').value = '';
@@ -4795,14 +4814,23 @@ function saveOrderToUser(orderId, claimKey, items, total, method){
 
 // ── Login ─────────────────────────────────────────────────────
 let _2faLoginEmail = '';
-function doLogin(){
+async function doLogin(){
   const email = document.getElementById('liEmail').value.trim().toLowerCase();
   const pass  = document.getElementById('liPass').value;
   const err   = document.getElementById('liErr');
   if(!email||!pass){ err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
   const users = loadUsers();
   const u = users[email];
-  if(!u||u.password!==btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  if(!u){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  // Verify password — support legacy btoa AND new PBKDF2
+  let ok = false;
+  if(isHashed(u.password)){
+    ok = (await hashPass(pass, email)) === u.password;
+  } else {
+    ok = btoa(pass) === u.password;
+    if(ok){ u.password = await hashPass(pass, email); users[email]=u; saveUsers(users); } // silent migrate
+  }
+  if(!ok){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
   err.style.display = 'none';
   if(u.twofa){
     _2faLoginEmail = email;
@@ -4849,7 +4877,7 @@ function resend2FALogin(){
 }
 
 // ── Signup ────────────────────────────────────────────────────
-function doSignup(){
+async function doSignup(){
   const name  = document.getElementById('suName').value.trim();
   const email = document.getElementById('suEmail').value.trim().toLowerCase();
   const pass  = document.getElementById('suPass').value;
@@ -4859,7 +4887,7 @@ function doSignup(){
   if(pass.length<6){ err.textContent='Password must be at least 6 characters.'; err.style.display='block'; return; }
   const users = loadUsers();
   if(users[email]){ err.textContent='An account with this email already exists.'; err.style.display='block'; return; }
-  users[email] = { name, email, password:btoa(pass), orders:[], twofa:false, createdAt:new Date().toISOString() };
+  users[email] = { name, email, password:await hashPass(pass,email), orders:[], twofa:false, createdAt:new Date().toISOString() };
   saveUsers(users);
   currentUser = { email, name };
   saveSession(currentUser);
@@ -5015,7 +5043,7 @@ async function fpSetPassword(){
     // Update password in localStorage
     const users = loadUsers();
     if(users[_fpEmail]){
-      users[_fpEmail].password = btoa(pass1);
+      users[_fpEmail].password = await hashPass(pass1, _fpEmail);
       saveUsers(users);
     }
 

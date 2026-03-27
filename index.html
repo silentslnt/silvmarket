@@ -916,9 +916,35 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       <span class="disc-label">Discord</span>
     </a>
-    <div style="position:relative;display:inline-flex">
+    <div style="position:relative;display:inline-flex" id="navUserWrap">
       <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
       <span id="navNotifBadge" style="display:none;position:absolute;top:-5px;right:-5px;background:#ff0040;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;align-items:center;justify-content:center;box-shadow:0 0 7px #ff0040;pointer-events:none">0</span>
+      <!-- User dropdown panel -->
+      <div id="userDropdown" style="display:none;position:fixed;top:56px;right:12px;z-index:6000;width:260px;background:linear-gradient(160deg,#110828,#09041f);border:1px solid rgba(147,51,234,.4);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 40px rgba(147,51,234,.15);overflow:hidden">
+        <!-- Profile header -->
+        <div style="padding:18px 16px 14px;background:linear-gradient(135deg,rgba(147,51,234,.18),rgba(255,16,240,.08));border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:12px">
+          <div style="position:relative;flex-shrink:0">
+            <img id="udAvatar" src="" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,16,240,.5);display:none"/>
+            <div id="udAvatarFb" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,16,240,.5)">👤</div>
+          </div>
+          <div style="min-width:0">
+            <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+            <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
+            <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700">🪙 <span id="udTokenVal">0</span> Tokens</div>
+          </div>
+        </div>
+        <!-- Menu -->
+        <div style="padding:6px 0">
+          <button class="ud-item" onclick="udOpen('overview')">📦 <span>Orders</span></button>
+          <button class="ud-item" onclick="udOpen('referral')">🔔 <span>Notifications</span></button>
+          <button class="ud-item" onclick="udOpen('referral')">🎟️ <span>Referral &amp; Tokens</span></button>
+          <button class="ud-item" onclick="udOpen('settings')">⚙️ <span>Account Settings</span></button>
+          <button class="ud-item" onclick="udOpen('security')">🔒 <span>Security &amp; 2FA</span></button>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.06);padding:6px 0 8px">
+          <button class="ud-item ud-logout" onclick="closeUserDropdown();doLogout()">→ <span>Log Out</span></button>
+        </div>
+      </div>
     </div>
     <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
   </div>
@@ -1804,6 +1830,10 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .ap-tab{flex:1;padding:12px 8px;border:none;background:transparent;color:rgba(255,255,255,.4);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s;border-bottom:2px solid transparent}
 .ap-tab:hover{color:rgba(255,255,255,.7)}
 .ap-tab-active{color:#fff!important;border-bottom-color:#ff10f0!important;background:rgba(255,16,240,.05)!important}
+.ud-item{width:100%;padding:10px 18px;background:transparent;border:none;color:rgba(255,255,255,.75);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;transition:background .15s,color .15s}
+.ud-item:hover{background:rgba(147,51,234,.15);color:#fff}
+.ud-logout{color:rgba(255,80,80,.8)!important}
+.ud-logout:hover{background:rgba(255,0,64,.1)!important;color:#ff4466!important}
 </style>
 
 <!-- CART SIDEBAR -->
@@ -2153,6 +2183,7 @@ const FRUITS = [
   {n:'Rubber',em:'🎈',type:'Natural',rar:'rare',norm:2.99,perm:5.99,badge:'rare',stock:20,cat:'rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rubber.png'},
   {n:'Diamond',em:'💎',type:'Logia',rar:'rare',norm:2.49,perm:4.99,badge:'rare',stock:24,cat:'logia',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/diamond.png'},
   {n:'Lightning',em:'⚡',type:'Logia',rar:'rare',norm:3.99,perm:14.99,badge:'rare',stock:99,cat:'logia',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/lightning.png'},
+  {n:'Spider',em:'🕷️',type:'Natural',rar:'rare',norm:3,perm:12,badge:'rare',stock:99,cat:'rare',img:null},
 ];
 
 const FRUIT_SKINS = [
@@ -2438,7 +2469,10 @@ const BRAINROT = [
   {n:"La Secret Combinasion $125M/s - $187M/s",p:3.99,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/hfDo8TxhkRBGRwg9CXDyn7FPGfoKbhM8OUsgftdF.png"},
   {n:"Capitano Moby $160M/s",p:10.49,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
   {n:"Fortunu and Cashuru $162.5M/s - $1B/s",p:40,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/YMK6K7gHiioqyOq4v79rFEIZlL5SWKxJs2idm5WF.png"},
-  {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"}
+  {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
+  {n:"Strawberry Elephant",em:"🍓",p:null,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:null},
+  {n:"Meowl",em:"🦉",p:null,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:null},
+  {n:"Skibidi Toilet",em:"🚽",p:null,oldP:null,badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:null}
 ];
 
 const RIVALS = [
@@ -2522,7 +2556,7 @@ const SP = [
   {n:'1000x Passive Shard',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Passive shard.png'},
   {n:'1000x Mythical Chest',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
   {n:'5x Secret Chest',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/secret chest.png'},
-  {n:'2x Luck',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
+  {n:'2x Luck',em:'🍀',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x Luck.png'},
   {n:'5x Cosmetic Crate',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cosmetic Crate.png'},
   {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
   {n:'1000 Tempest Relic',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
@@ -4109,6 +4143,11 @@ function applySortViewAll(){
   _viewAllFiltered = arr;
 }
 
+function setVAFM(name,mode){
+  fruitModes[name]=mode;
+  renderViewAllGrid();
+}
+
 function renderViewAllGrid(){
   const grid = document.getElementById('viewAllGrid');
   const count = document.getElementById('viewAllCount');
@@ -4120,6 +4159,35 @@ function renderViewAllGrid(){
   }
 
   grid.innerHTML = _viewAllFiltered.map(i => {
+    // BF fruit with perm/norm toggle
+    if(i.perm != null && i.norm != null){
+      const key = i.n;
+      const safeName = key.replace(/'/g,"\\'");
+      const bgC = RAR_BG[i.rar]||'r-rare';
+      const img = i.img||'';
+      const mode = fruitModes[key]||'perm';
+      const dp = mode==='perm' ? i.perm : i.norm;
+      const addName = (mode==='perm'?'Perm ':'')+key;
+      const typeEl = i.type&&i.type!=='Skin'&&i.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[i.type]||'t-nat'}">${i.type}</div>`:'';
+      const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:dp,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:i.cat||''}));
+      return `
+      <div class="pc" data-bf="${i.cat||i.rar}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+        <div class="pc-img ${bgC}">
+          ${img?`<img src="${img}" alt="${key}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
+          ${bdg(i.badge||'')}${stk(i.stock??99)}${typeEl}
+        </div>
+        <div class="pc-body">
+          <div class="pc-n">${key}</div>
+          ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}${i.type?' · '+i.type:''}</div>`:''}
+          <div class="fruit-tog">
+            <button class="tog${mode==='norm'?' sn':''}" onclick="setVAFM('${safeName}','norm');event.stopPropagation()">Normal</button>
+            <button class="tog${mode==='perm'?' sp':''}" onclick="setVAFM('${safeName}','perm');event.stopPropagation()">⭐ Perm</button>
+          </div>
+          <div class="pc-price">$${dp.toFixed(2)}</div>
+          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+        </div>
+      </div>`;
+    }
     const p = Number(i.p||i.norm||i.price||0);
     const ps = `$${p.toFixed(2)}`;
     const game = i.game||'';
@@ -4250,18 +4318,74 @@ function loadSession() { try{ return JSON.parse(sessionStorage.getItem('silv_ses
 function saveSession(u){ try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{} }
 function clearSession(){ try{ sessionStorage.removeItem('silv_session'); }catch{} }
 
-// ── Nav button — shows name if logged in, "Login" if not ──────
+// ── Nav button — shows avatar if logged in, "Login" if not ──────
 function updateNavLogin(){
   const lbl = document.getElementById('navLoginLabel');
   const btn = document.getElementById('navLoginBtn');
   if(!lbl || !btn) return;
   if(currentUser){
     lbl.textContent = currentUser.name.split(' ')[0];
-    btn.onclick = openAccountPanel;
+    btn.onclick = toggleUserDropdown;
+    // Show mini avatar in button if pfp available
+    const customPfp = localStorage.getItem('silv_pfp_' + currentUser.email);
+    const discAvatar = discordUser?.id && discordUser?.avatar
+      ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` : null;
+    const pfp = customPfp || discAvatar;
+    if(pfp && !btn.querySelector('img')){
+      const img = document.createElement('img');
+      img.src = pfp; img.style.cssText='width:22px;height:22px;border-radius:50%;object-fit:cover;flex-shrink:0';
+      btn.insertBefore(img, btn.firstChild);
+      btn.querySelector('span[id]')?.previousSibling?.remove?.();
+    }
   } else {
     lbl.textContent = 'Login';
     btn.onclick = openLoginModal;
   }
+}
+
+function toggleUserDropdown(){
+  const dd = document.getElementById('userDropdown');
+  if(!dd) return;
+  if(dd.style.display==='none'||!dd.style.display){
+    openUserDropdown();
+  } else {
+    closeUserDropdown();
+  }
+}
+function openUserDropdown(){
+  if(!currentUser) return;
+  const dd = document.getElementById('userDropdown');
+  if(!dd) return;
+  // Populate
+  document.getElementById('udName').textContent  = currentUser.name;
+  document.getElementById('udEmail').textContent = currentUser.email;
+  // Avatar
+  const customPfp  = localStorage.getItem('silv_pfp_' + currentUser.email);
+  const discAvatar = discordUser?.id && discordUser?.avatar
+    ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` : null;
+  const pfp = customPfp || discAvatar;
+  const av = document.getElementById('udAvatar'), fb = document.getElementById('udAvatarFb');
+  if(pfp && av){ av.src=pfp; av.style.display='block'; if(fb) fb.style.display='none'; }
+  else { if(av) av.style.display='none'; if(fb) fb.style.display='flex'; }
+  // Tokens
+  const tokens = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+  const tv = document.getElementById('udTokenVal'); if(tv) tv.textContent = tokens;
+  dd.style.display = 'block';
+  setTimeout(()=>document.addEventListener('click', _udOutsideClick, {once:true}), 0);
+}
+function closeUserDropdown(){
+  const dd = document.getElementById('userDropdown');
+  if(dd) dd.style.display = 'none';
+  document.removeEventListener('click', _udOutsideClick);
+}
+function _udOutsideClick(e){
+  const dd = document.getElementById('userDropdown');
+  const wrap = document.getElementById('navUserWrap');
+  if(dd && !dd.contains(e.target) && !wrap?.contains(e.target)) closeUserDropdown();
+}
+function udOpen(tab){
+  closeUserDropdown();
+  openAccountPanel(tab);
 }
 
 // ── Login modal — only opens when NOT logged in ───────────────
@@ -4300,7 +4424,7 @@ function uploadProfilePic(input){
   input.value='';
 }
 
-function openAccountPanel(){
+function openAccountPanel(tab){
   if(!currentUser){ openLoginModal(); return; }
   const panel = document.getElementById('accountPanel');
   if(!panel) return;
@@ -4336,8 +4460,8 @@ function openAccountPanel(){
   }
   // 2FA toggle visual
   update2FAToggle(twofa);
-  // Switch to overview
-  switchAPTab('overview');
+  // Switch to requested or default tab
+  switchAPTab(tab||'overview');
   panel.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }

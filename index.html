@@ -1382,7 +1382,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   /* Hide text labels, keep icons */
   .disc-label{display:none}
   .disc-link{padding:8px 10px}
-  .tp-nav-wrap{display:none}
+  .tp-label{display:none}
+  .tp-nav-wrap{padding:8px 10px;animation:none}
   .cart-label{display:none}
   .cart-btn{padding:9px 12px}
   #navLoginLabel{display:none}
@@ -1461,6 +1462,16 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
       <div id="liErr" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
       <button onclick="doLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">LOGIN</button>
+    </div>
+
+    <!-- ── 2FA Login Challenge ── -->
+    <div id="li2faStep" style="display:none">
+      <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">🔐 Verify It's You</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px;line-height:1.6">A 6-digit code was sent to your email. Enter it below to continue.</div>
+      <input id="li2faCode" type="text" maxlength="6" placeholder="6-digit code" onkeydown="if(event.key==='Enter')verify2FALogin()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:20px;font-weight:800;letter-spacing:8px;margin-bottom:14px;outline:none;box-sizing:border-box;text-align:center"/>
+      <div id="li2faErr" style="display:none;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
+      <button onclick="verify2FALogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer;margin-bottom:10px">VERIFY</button>
+      <button onclick="resend2FALogin()" style="width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:11px;color:rgba(255,255,255,.5);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer">Resend Code</button>
     </div>
 
     <!-- ── Forgot Password Flow ── -->
@@ -4231,12 +4242,11 @@ function changePassword(){
 }
 
 let _2faPendingEnable = false;
-function toggle2FA(){
+async function toggle2FA(){
   const users = loadUsers();
   const u = users[currentUser.email];
   if(!u) return;
   if(u.twofa){
-    // Disable 2FA
     u.twofa = false;
     saveUsers(users);
     update2FAToggle(false);
@@ -4246,12 +4256,14 @@ function toggle2FA(){
     document.getElementById('ap2faVerifySection').style.display = 'none';
     _2faPendingEnable = false;
   } else {
-    // Send verification code to "enable" flow
     _2faPendingEnable = true;
-    const code = Math.floor(100000 + Math.random()*900000).toString();
-    localStorage.setItem('silv_2fa_pending', JSON.stringify({ code, email: currentUser.email, expires: Date.now()+600000 }));
+    showAPMsg('security','Sending code…',false);
+    try {
+      const _2faResp = await fetch(BOT_BASE+'/send-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:currentUser.email,name:currentUser.name})});
+      if(!_2faResp.ok){ showAPMsg('security','Failed to send code (server error). Try again.',true); _2faPendingEnable=false; return; }
+    } catch(e){ showAPMsg('security','Failed to send code (network error). Try again.',true); _2faPendingEnable=false; return; }
     document.getElementById('ap2faVerifySection').style.display = 'block';
-    showAPMsg('security','📧 A 6-digit code has been generated. Check your email (simulated — code: '+code+')',false);
+    showAPMsg('security','📧 A 6-digit code has been sent to your email.',false);
   }
 }
 function update2FAToggle(enabled){
@@ -4261,17 +4273,19 @@ function update2FAToggle(enabled){
   toggle.style.background = enabled ? 'rgba(147,51,234,.6)'  : 'rgba(255,255,255,.1)';
   thumb.style.left        = enabled ? '23px' : '3px';
 }
-function verify2FACode(){
+async function verify2FACode(){
   const entered = document.getElementById('ap2faCode')?.value.trim();
-  const stored  = JSON.parse(localStorage.getItem('silv_2fa_pending')||'null');
-  if(!stored || Date.now() > stored.expires) return showAPMsg('security','Code expired. Toggle again to resend.',true);
-  if(stored.code !== entered) return showAPMsg('security','Incorrect code. Try again.',true);
+  if(!entered) return showAPMsg('security','Enter the code.',true);
+  try {
+    const r = await fetch(BOT_BASE+'/verify-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:currentUser.email,code:entered})});
+    const d = await r.json();
+    if(!d.valid) return showAPMsg('security',d.error||'Incorrect code. Try again.',true);
+  } catch(e){ return showAPMsg('security','Network error. Try again.',true); }
   const users = loadUsers();
   const u = users[currentUser.email];
   if(!u) return;
   u.twofa = true;
   saveUsers(users);
-  localStorage.removeItem('silv_2fa_pending');
   document.getElementById('ap2faVerifySection').style.display = 'none';
   document.getElementById('ap2faCode').value = '';
   update2FAToggle(true);
@@ -4386,6 +4400,7 @@ function saveOrderToUser(orderId, claimKey, items, total, method){
 }
 
 // ── Login ─────────────────────────────────────────────────────
+let _2faLoginEmail = '';
 function doLogin(){
   const email = document.getElementById('liEmail').value.trim().toLowerCase();
   const pass  = document.getElementById('liPass').value;
@@ -4395,16 +4410,48 @@ function doLogin(){
   const u = users[email];
   if(!u||u.password!==btoa(pass)){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
   err.style.display = 'none';
-  const DEV_EMAIL = 'gibbstariq90@gmail.com';
-  if(email === DEV_EMAIL){
-    currentUser = { email, name:u.name, isDev:true };
-  } else {
-    currentUser = { email, name:u.name };
+  if(u.twofa){
+    _2faLoginEmail = email;
+    fetch(BOT_BASE+'/send-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name:u.name})}).catch(()=>{});
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('authTabs').style.display  = 'none';
+    document.getElementById('li2faStep').style.display = 'block';
+    return;
   }
+  _completeLogin(email, u);
+}
+function _completeLogin(email, u){
+  const DEV_EMAIL = 'gibbstariq90@gmail.com';
+  currentUser = email === DEV_EMAIL ? { email, name:u.name, isDev:true } : { email, name:u.name };
   saveSession(currentUser);
   closeLoginModal();
   updateNavLogin();
   openAccountPanel();
+}
+async function verify2FALogin(){
+  const code = document.getElementById('li2faCode').value.trim();
+  const err  = document.getElementById('li2faErr');
+  if(!code){ err.textContent='Enter the code.'; err.style.color='#ff4466'; err.style.display='block'; return; }
+  try {
+    const r = await fetch(BOT_BASE+'/verify-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_2faLoginEmail,code})});
+    const d = await r.json();
+    if(!d.valid){ err.textContent=d.error||'Incorrect code.'; err.style.color='#ff4466'; err.style.display='block'; return; }
+  } catch(e){ err.textContent='Network error. Try again.'; err.style.color='#ff4466'; err.style.display='block'; return; }
+  const users = loadUsers();
+  const u = users[_2faLoginEmail];
+  document.getElementById('li2faStep').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('authTabs').style.display  = 'flex';
+  document.getElementById('li2faCode').value = '';
+  err.style.display = 'none';
+  _completeLogin(_2faLoginEmail, u);
+}
+function resend2FALogin(){
+  const users = loadUsers();
+  const u = users[_2faLoginEmail];
+  fetch(BOT_BASE+'/send-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_2faLoginEmail,name:u?.name||''})}).catch(()=>{});
+  const err = document.getElementById('li2faErr');
+  err.textContent='Code resent to your email.'; err.style.color='#00c853'; err.style.display='block';
 }
 
 // ── Signup ────────────────────────────────────────────────────
@@ -4431,7 +4478,7 @@ function doSignup(){
     fetch(BOT_WEBHOOK_URL.replace('/order','/account'), {
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({ name, email, password:btoa(pass), discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
+      body:JSON.stringify({ name, email, discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
     }).catch(()=>{});
   } catch(e){}
 }
@@ -4444,15 +4491,6 @@ function doLogout(){
   updateNavLogin();
 }
 
-// ── Seed dev account if not exists ───────────────────────────
-(function seedDevAccount(){
-  const users = loadUsers();
-  const DEV_EMAIL = 'gibbstariq90@gmail.com';
-  if(!users[DEV_EMAIL]){
-    users[DEV_EMAIL] = { name:'Developer', email:DEV_EMAIL, password:btoa('silent9512'), orders:[], twofa:false, createdAt:new Date().toISOString() };
-    saveUsers(users);
-  }
-})();
 
 // ── Restore session on page load ──────────────────────────────
 (function restoreSession(){

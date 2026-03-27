@@ -971,7 +971,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         <span class="gd-icon"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Grow a Garden','🌱','gag')" data-key="gag">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Adopt Me','🐾','am')" data-key="am">
         <span class="gd-icon"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Adopt Me</span><span class="gd-dot"></span>
@@ -1190,6 +1190,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
     <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
+    <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
     <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
   </div>
   <div class="h-scroll" id="spGrid"></div>
@@ -1222,7 +1223,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#4ade80">Grow a Garden</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grow a Garden</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grow a Garden</div>
       <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
     </div>
     <button class="view-all" onclick="openViewAll('gag')">View All →</button>
@@ -4053,7 +4054,7 @@ let _viewAllSort     = 'default';
 const VIEW_ALL_CONFIG = {
   bestsellers: { title:'Best Sellers 🔥',   img:null, items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
   bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP], filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass'] },
-  gag:      { title:'Grow a Garden', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png', items:()=>GAG, filters:['all','pets','bundles','tokens'] },
+  gag:      { title:'Grow a Garden', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png', items:()=>GAG, filters:['all','pets','bundles','tokens'] },
   am:       { title:'Adopt Me',      img:'https://silvmarket.shop/images/adopt_me.png', items:()=>AM, filters:['all','low-tier','mid-tier','high-tier'] },
   mm2:      { title:'Murder Mystery 2', img:'https://silvmarket.shop/images/mm2.png', items:()=>MM2, filters:['all','godly','chroma','bundle'] },
   brainrot: { title:'Steal a Brainrot', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png', items:()=>BRAINROT, filters:['all','god-tier','meta-tier','starter-tier','index-base','radioactive','rainbow','galaxy','yin-yang','cursed'] },
@@ -5140,7 +5141,7 @@ document.addEventListener('mousemove',function(e){
 const HM_GAMES = [
   { key:'bestsellers', name:'Best Sellers',      em:'🔥',  img:null },
   { key:'bf',          name:'Blox Fruits',        em:'🍎',  img:'https://silvmarket.shop/images/bloxfruits.png' },
-  { key:'gag',         name:'Grow a Garden',      em:'🌱',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SSlw09u3UVeq7oYWVttYyr6MdTNlcA62SZ16v9OI.png' },
+  { key:'gag',         name:'Grow a Garden',      em:'🌱',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png' },
   { key:'am',          name:'Adopt Me',           em:'🐾',  img:'https://silvmarket.shop/images/adopt_me.png' },
   { key:'mm2',         name:'Murder Mystery 2',   em:'⚔️',  img:'https://silvmarket.shop/images/mm2.png' },
   { key:'brainrot',    name:'Steal a Brainrot',   em:'🧠',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png' },

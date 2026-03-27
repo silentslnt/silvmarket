@@ -1377,7 +1377,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <!-- ═══════════════════════════════════════════════
      ITEM DETAIL MODAL
      ═══════════════════════════════════════════════ -->
-<div id="itemDetailModal" style="display:none;position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeItemDetail()">
+<div id="itemDetailModal" style="display:none;position:fixed;inset:0;z-index:6500;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeItemDetail()">
   <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.3);border-radius:20px;max-width:860px;width:100%;position:relative;overflow:hidden;margin:auto">
     <!-- Back button -->
     <button onclick="closeItemDetail()" style="position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.07)'">
@@ -2582,8 +2582,8 @@ const SP = [
 ];
 
 const BB = [
-  {n:'500 Blade Ball Tokens',em:'⚔️',p:5,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
-  {n:'5000 Blade Ball Tokens',em:'⚔️',p:25,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
+  {n:'500 Blade Ball Tokens',em:'⚔️',p:6.30,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
+  {n:'5000 Blade Ball Tokens',em:'⚔️',p:30,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -5188,7 +5188,7 @@ function renderHomeMenu(){
 
   // Popular items carousel — BF, AM, Rivals, Brainrot, SP only (no GAG)
   const popItems = [];
-  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>f.rar==='mythical'||f.rar==='legendary').slice(0,5));
+  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>(f.rar==='mythical'||f.rar==='legendary')&&f.perm!=null).slice(0,5));
   if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,4));
   if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,4));
   if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,4));

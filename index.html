@@ -62,11 +62,6 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
 .scan{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px)}
 
-.topbar{position:relative;z-index:20;
-  background:linear-gradient(90deg,#ff10f0,#9333ea,#3b82f6,#ff0040,#ffd700);
-  background-size:400%;animation:topMove 7s linear infinite;
-  padding:6px;text-align:center;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#000}
-@keyframes topMove{0%{background-position:0%}100%{background-position:100%}}
 
 .ticker-wrap{position:relative;z-index:19;background:rgba(5,2,12,.92);
   border-bottom:1px solid rgba(255,16,240,.12);padding:7px 0;overflow:hidden}
@@ -847,6 +842,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div class="hm-hero-desc">Blox Fruits · Adopt Me · MM2 · Grow a Garden & more — fast delivery, lowest prices.</div>
   </div>
 
+  <!-- Stats -->
+  <div class="hm-stats">
+    <div class="hm-stat"><div class="hm-stat-n">500+</div><div class="hm-stat-l">Customers</div></div>
+    <div class="hm-stat"><div class="hm-stat-n">⚡</div><div class="hm-stat-l">Instant Delivery</div></div>
+    <div class="hm-stat"><div class="hm-stat-n">24/7</div><div class="hm-stat-l">Support</div></div>
+    <div class="hm-stat"><div class="hm-stat-n">4.9★</div><div class="hm-stat-l">Rating</div></div>
+  </div>
+
   <!-- Recently Viewed -->
   <div class="hm-rv-section" id="hmRvSection" style="display:none">
     <div class="hm-rv-title">Recently Viewed</div>
@@ -870,7 +873,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <div class="bg-grid"></div>
 <div class="scan"></div>
 
-<div class="topbar">⚡ Instant Delivery · 🛡️ 500+ Verified Customers · 💬 24/7 Discord Support</div>
 
 <div class="ticker-wrap">
   <div class="ticker-inner" id="ticker">
@@ -1254,6 +1256,27 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
+<section class="S" id="bb">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
+      <div class="sec-title">⚔️ Blade Ball</div>
+      <p class="sec-sub">Crates, passes, and items for Blade Ball</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('bb')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.32);color:#3b82f6" onclick="filterBB(this,'all')">⚔️ All</button>
+    <button class="jt" onclick="filterBB(this,'crates')">📦 Crates</button>
+    <button class="jt" onclick="filterBB(this,'passes')">🎟️ Passes</button>
+    <button class="jt" onclick="filterBB(this,'items')">💎 Items</button>
+  </div>
+  <div class="h-scroll" id="bbGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
 <section class="S" id="reviews">
   <div style="text-align:center;margin-bottom:32px">
     <div class="sec-ey" style="color:var(--yellow);justify-content:center">⭐ Reviews</div>
@@ -1471,6 +1494,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 /* ═══════════════════════════════════════════
    HOME MENU
    ═══════════════════════════════════════════ */
+/* Stats widgets */
+.hm-stats{position:relative;z-index:2;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;padding:0 20px;margin-bottom:40px}
+.hm-stat{background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:14px;padding:16px 22px;text-align:center;min-width:110px}
+.hm-stat-n{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;background:linear-gradient(135deg,#fff,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hm-stat-l{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:4px}
 #homeMenu{position:relative;min-height:calc(100vh - 56px);overflow:hidden;background:#07031a;display:flex;flex-direction:column;align-items:center;padding:0 0 60px}
 #homeMenu.hm-hidden{display:none}
 
@@ -1488,6 +1516,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 /* Grid overlay */
 .hm-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(147,51,234,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(147,51,234,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+/* Prevent page scroll when swiping carousel horizontally */
+.hm-carousel-wrap{touch-action:pan-x;}
 
 /* Hero */
 .hm-hero{position:relative;z-index:2;text-align:center;padding:52px 20px 32px;display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -1537,10 +1567,20 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .hm-ic-price{font-family:'Orbitron',monospace;font-size:10px;color:#ff10f0;font-weight:700}
 
 @media(max-width:480px){
-  .hm-hero{padding:36px 16px 24px}
-  .hm-gc{width:130px;padding:16px 10px}
-  .hm-gc-img,.hm-gc-em{width:52px;height:52px}
-  .hm-rv-card{min-width:150px}
+  #homeMenu{min-height:calc(100vh - 56px);padding-bottom:40px}
+  .hm-hero{padding:28px 14px 20px}
+  .hm-hero-logo{width:60px;height:60px}
+  .hm-hero-title{font-size:28px;letter-spacing:3px}
+  .hm-hero-desc{font-size:13px}
+  .hm-stats{gap:8px;padding:0 12px}
+  .hm-stat{padding:12px 14px;min-width:80px}
+  .hm-stat-n{font-size:15px}
+  .hm-gc{width:120px;padding:14px 8px;margin:0 6px}
+  .hm-gc-img,.hm-gc-em{width:48px;height:48px}
+  .hm-gc-name{font-size:11px}
+  .hm-rv-card{min-width:140px}
+  .hm-rv-section{padding:0 12px}
+  .hm-section-label{font-size:10px}
 }
 </style>
 
@@ -1645,7 +1685,12 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
     <!-- Profile header -->
     <div style="background:linear-gradient(135deg,rgba(147,51,234,.2),rgba(255,16,240,.1));padding:28px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07)">
-      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.15)">👤</div>
+      <div style="position:relative;width:72px;height:72px;margin:0 auto 12px;cursor:pointer" onclick="document.getElementById('apPfpInput').click()" title="Change photo">
+        <img id="apAvatar" src="" alt="" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.15);display:none"/>
+        <div id="apAvatarFallback" style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:32px;border:3px solid rgba(255,255,255,.15)">👤</div>
+        <div style="position:absolute;bottom:0;right:0;width:22px;height:22px;background:#ff10f0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid #07031a">📷</div>
+      </div>
+      <input type="file" id="apPfpInput" accept="image/*" style="display:none" onchange="uploadProfilePic(this)"/>
       <div id="apName" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:4px"></div>
       <div id="apEmail" style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4)"></div>
       <div id="ap2faStatus" style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700"></div>
@@ -2495,6 +2540,9 @@ const SP = [
 
 ];
 
+const BB = [
+];
+
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0;
 let rblxVerified=false, fruitModes={};
@@ -2659,6 +2707,7 @@ function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);i
 function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all')document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
 function filterGPO(btn,sub){setJtActive(btn);filterGrid('gpoGrid','sub',sub);if(sub==='all')document.querySelectorAll('#gpoGrid .pc').forEach(c=>c.style.display='');}
 function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(sub==='all')document.querySelectorAll('#spGrid .pc').forEach(c=>c.style.display='');}
+function filterBB(btn,sub){setJtActive(btn);filterGrid('bbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bbGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');btn.className=btn.className+' jtb';}
 
 // ── BEST SELLERS ─────────────────────────────────────────────
@@ -3530,7 +3579,7 @@ function applySort(el,type){
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid'].forEach(gid=>{
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid'].forEach(gid=>{
     const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
@@ -3979,6 +4028,7 @@ const VIEW_ALL_CONFIG = {
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
   sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
+  bb:       { title:'Blade Ball',     img:null, items:()=>BB, filters:['all','crates','passes','items'] },
 };
 
 function openViewAll(key){
@@ -4234,6 +4284,22 @@ function switchAuthTab(tab){
 }
 
 // ── Account panel — only opens when logged in ─────────────────
+function uploadProfilePic(input){
+  const file = input.files[0];
+  if(!file || !currentUser) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const b64 = e.target.result;
+    localStorage.setItem('silv_pfp_' + currentUser.email, b64);
+    const avatarEl   = document.getElementById('apAvatar');
+    const fallbackEl = document.getElementById('apAvatarFallback');
+    if(avatarEl){ avatarEl.src=b64; avatarEl.style.display='block'; }
+    if(fallbackEl) fallbackEl.style.display='none';
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
+
 function openAccountPanel(){
   if(!currentUser){ openLoginModal(); return; }
   const panel = document.getElementById('accountPanel');
@@ -4241,6 +4307,22 @@ function openAccountPanel(){
   // Populate header
   document.getElementById('apName').textContent  = currentUser.name;
   document.getElementById('apEmail').textContent = currentUser.email;
+  // Avatar: custom upload > Discord pfp > fallback
+  const avatarEl   = document.getElementById('apAvatar');
+  const fallbackEl = document.getElementById('apAvatarFallback');
+  const customPfp  = localStorage.getItem('silv_pfp_' + currentUser.email);
+  const discordAvatar = discordUser?.id && discordUser?.avatar
+    ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
+    : null;
+  const pfpSrc = customPfp || discordAvatar;
+  if(pfpSrc && avatarEl){
+    avatarEl.src = pfpSrc;
+    avatarEl.style.display = 'block';
+    if(fallbackEl) fallbackEl.style.display = 'none';
+  } else {
+    if(avatarEl) avatarEl.style.display = 'none';
+    if(fallbackEl) fallbackEl.style.display = 'flex';
+  }
   // 2FA status badge
   const users = loadUsers();
   const u = users[currentUser.email];
@@ -4865,6 +4947,7 @@ function init(){
   document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
   document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');
   document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');
+  document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');
   buildSearchIndex();
   const t=document.getElementById('ticker');t.innerHTML+=t.innerHTML;
   initScrollWraps();
@@ -4942,6 +5025,7 @@ const HM_GAMES = [
   { key:'tsunami',     name:'Escape Tsunami',     em:'🌊',  img:'https://silvmarket.shop/images/escape_tsunami.jpg' },
   { key:'gpo',         name:'Grand Piece Online', em:'⚓',  img:'https://silvmarket.shop/images/gpo.jpg' },
   { key:'sp',          name:'Sailor Piece',       em:'🏴',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png' },
+  { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:null },
 ];
 
 function _hmGameCard(g){
@@ -4953,7 +5037,8 @@ function _hmGameCard(g){
 }
 
 function _hmItemCard(i){
-  const price = i.norm ? '$'+i.norm : i.p ? '$'+i.p : '';
+  const rawPrice = i.norm != null ? i.norm : i.p != null ? i.p : '';
+  const price = rawPrice !== '' ? '$'+parseFloat(String(rawPrice).replace(/\$/g,'')) : '';
   const imgHtml = i.img
     ? `<img class="hm-ic-img" src="${i.img}" alt="${i.n}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
     + `<div class="hm-ic-em" style="display:none">${i.em||'📦'}</div>`
@@ -4968,13 +5053,14 @@ function renderHomeMenu(){
   const gt = document.getElementById('hmGameTrack');
   if(gt) gt.innerHTML = gameHtml + gameHtml;
 
-  // Popular items carousel — pull from BESTSELLERS + top items from each game
+  // Popular items carousel — BF, AM, Rivals, Brainrot, SP only (no GAG)
   const popItems = [];
-  if(typeof BESTSELLERS !== 'undefined') popItems.push(...BESTSELLERS.slice(0,6));
-  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>f.rar==='mythical'||f.rar==='legendary').slice(0,4));
-  if(typeof GAG !== 'undefined') popItems.push(...GAG.slice(0,4));
+  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>f.rar==='mythical'||f.rar==='legendary').slice(0,5));
+  if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,4));
+  if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,4));
   if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,4));
-  const itemHtml = popItems.slice(0,20).map(_hmItemCard).join('');
+  if(typeof SP !== 'undefined') popItems.push(...SP.slice(0,4));
+  const itemHtml = popItems.slice(0,24).map(_hmItemCard).join('');
   const it = document.getElementById('hmItemTrack');
   if(it && itemHtml) it.innerHTML = itemHtml + itemHtml;
 

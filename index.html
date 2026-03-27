@@ -1703,7 +1703,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
      ACCOUNT PANEL — shown when logged in
      ═══════════════════════════════════════════ -->
 <div id="accountPanel" style="display:none;position:fixed;inset:0;z-index:4500;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeAccountPanel()">
-  <div style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;max-width:480px;width:100%;position:relative;margin:auto;overflow:hidden">
+  <div class="ap-panel-inner" style="background:linear-gradient(160deg,#0d0520,#07031a);border:1px solid rgba(147,51,234,.35);border-radius:18px;max-width:480px;width:100%;position:relative;margin:auto;overflow:hidden">
     <button onclick="closeAccountPanel()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.07);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2">✕</button>
 
     <!-- Profile header -->
@@ -1728,7 +1728,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     </div>
 
     <!-- OVERVIEW TAB -->
-    <div id="apPanel-overview" style="padding:20px">
+    <div id="apPanel-overview" class="ap-tab-panel" style="padding:20px">
       <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:12px">YOUR ORDER HISTORY</div>
       <div id="apOrdersList" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.5)">No orders yet.</div>
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between">
@@ -1738,26 +1738,32 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     </div>
 
     <!-- SETTINGS TAB -->
-    <div id="apPanel-settings" style="padding:20px;display:none">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">ACCOUNT SETTINGS</div>
+    <div id="apPanel-settings" class="ap-tab-panel" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:18px">ACCOUNT SETTINGS</div>
 
-      <div style="margin-bottom:14px">
-        <label style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);display:block;margin-bottom:6px">DISPLAY NAME</label>
-        <div style="display:flex;gap:8px">
-          <input id="apNewName" type="text" placeholder="New display name" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none"/>
-          <button onclick="updateAccountName()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.4);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+      <div class="ap-section-card">
+        <div class="ap-section-title">✏️ Display Name</div>
+        <div class="ap-field-group">
+          <label>NEW NAME</label>
+          <div style="display:flex;gap:8px">
+            <input id="apNewName" type="text" placeholder="Enter new display name" class="ap-input"/>
+            <button onclick="updateAccountName()" class="ap-save-btn">Save</button>
+          </div>
         </div>
       </div>
 
-      <div style="margin-bottom:14px">
-        <label style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);display:block;margin-bottom:6px">EMAIL ADDRESS</label>
-        <div style="display:flex;gap:8px">
-          <input id="apNewEmail" type="email" placeholder="New email address" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none"/>
-          <button onclick="updateAccountEmail()" style="padding:10px 14px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.4);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+      <div class="ap-section-card">
+        <div class="ap-section-title">📧 Email Address</div>
+        <div class="ap-field-group" style="margin-bottom:0">
+          <label>NEW EMAIL</label>
+          <div style="display:flex;gap:8px">
+            <input id="apNewEmail" type="email" placeholder="Enter new email address" class="ap-input"/>
+            <button onclick="updateAccountEmail()" class="ap-save-btn">Save</button>
+          </div>
         </div>
       </div>
 
-      <div id="apSettingsMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:8px"></div>
+      <div id="apSettingsMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:4px"></div>
     </div>
 
     <!-- DEV MODE PANEL — only shown for isDev accounts -->
@@ -1773,72 +1779,89 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     </div>
 
     <!-- SECURITY TAB -->
-    <div id="apPanel-security" style="padding:20px;display:none">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">SECURITY SETTINGS</div>
+    <div id="apPanel-security" class="ap-tab-panel" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:18px">SECURITY SETTINGS</div>
 
       <!-- Change Password -->
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px">🔑 Change Password</div>
-        <input id="apOldPass" type="password" placeholder="Current password" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:8px;box-sizing:border-box"/>
-        <input id="apNewPass" type="password" placeholder="New password (min 6 chars)" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:10px;box-sizing:border-box"/>
-        <button onclick="changePassword()" style="width:100%;padding:10px;background:rgba(147,51,234,.2);border:1px solid rgba(147,51,234,.35);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Update Password</button>
+      <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.3)">
+        <div class="ap-section-title">🔑 Change Password</div>
+        <input id="apOldPass" type="password" placeholder="Current password" class="ap-input" style="width:100%;margin-bottom:9px"/>
+        <input id="apNewPass" type="password" placeholder="New password (min 6 chars)" class="ap-input" style="width:100%;margin-bottom:12px"/>
+        <button onclick="changePassword()" style="width:100%;padding:11px;background:rgba(147,51,234,.2);border:1px solid rgba(147,51,234,.35);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(147,51,234,.35)'" onmouseout="this.style.background='rgba(147,51,234,.2)'">Update Password</button>
       </div>
 
       <!-- 2FA with email -->
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff">📧 Email 2FA</div>
-          <div id="ap2faToggle" onclick="toggle2FA()" style="width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .3s">
+      <div class="ap-section-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div class="ap-section-title" style="margin-bottom:0">📧 Email 2FA</div>
+          <div id="ap2faToggle" onclick="toggle2FA()" style="width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .3s;flex-shrink:0">
             <div id="ap2faThumb" style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:left .3s"></div>
           </div>
         </div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">When enabled, a verification code will be sent to your email each time you sign in.</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);line-height:1.6">When enabled, a verification code is sent to your email each time you sign in.</div>
         <div id="ap2faVerifySection" style="display:none;margin-top:12px">
-          <input id="ap2faCode" type="text" placeholder="Enter 6-digit code sent to your email" style="width:100%;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:8px;box-sizing:border-box"/>
-          <button onclick="verify2FACode()" style="width:100%;padding:10px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Verify & Enable</button>
+          <input id="ap2faCode" type="text" placeholder="Enter 6-digit code" class="ap-input" style="width:100%;margin-bottom:9px"/>
+          <button onclick="verify2FACode()" style="width:100%;padding:11px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Verify &amp; Enable</button>
         </div>
       </div>
 
-      <div id="apSecurityMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:4px"></div>
+      <div id="apSecurityMsg" style="display:none;padding:10px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-bottom:10px"></div>
 
       <!-- Sign out -->
-      <button onclick="doLogout()" style="width:100%;padding:11px;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.2);border-radius:10px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px">Sign Out</button>
+      <button onclick="doLogout()" style="width:100%;padding:12px;background:rgba(255,0,64,.06);border:1px solid rgba(255,0,64,.18);border-radius:11px;color:#ff4466;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(255,0,64,.14)'" onmouseout="this.style.background='rgba(255,0,64,.06)'">Sign Out</button>
     </div>
 
     <!-- REFERRAL TAB -->
-    <div id="apPanel-referral" style="padding:20px;display:none">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:16px">REFERRAL &amp; SILV TOKENS</div>
+    <div id="apPanel-referral" class="ap-tab-panel" style="padding:20px;display:none">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:18px">REFERRAL &amp; SILV TOKENS</div>
 
       <!-- Token balance -->
-      <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,165,0,.05));border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,215,0,.6);letter-spacing:2px;margin-bottom:4px">SILV TOKEN BALANCE</div>
-        <div id="apTokenBalance" style="font-family:'Orbitron',monospace;font-size:28px;font-weight:800;color:#ffd700">0</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">1 token = 10 Robux · 10 tokens = $1</div>
+      <div style="background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,165,0,.05));border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:18px;margin-bottom:16px;text-align:center">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,215,0,.6);letter-spacing:2px;margin-bottom:6px">SILV TOKEN BALANCE</div>
+        <div id="apTokenBalance" style="font-family:'Orbitron',monospace;font-size:32px;font-weight:800;color:#ffd700;line-height:1">0</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:6px">1 token = 10 Robux · 10 tokens = $1</div>
       </div>
 
       <!-- Referral code -->
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:14px">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:8px">🔗 Your Referral Code</div>
-        <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#ff10f0;text-align:center;padding:12px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:9px;margin-bottom:12px;letter-spacing:2px">—</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:10px">Share this code! When someone purchases using it, you earn 5% of their order in Silv Tokens.</div>
+      <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.4)">
+        <div class="ap-section-title">🔗 Your Referral Code</div>
+        <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ff10f0;text-align:center;padding:14px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:10px;margin-bottom:12px;letter-spacing:3px">—</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.5">Share this code! When someone purchases using it, you earn 5% in Silv Tokens.</div>
         <div style="display:flex;gap:8px;margin-bottom:8px">
-          <input id="apReferralInput" type="text" placeholder="5–12 characters (letters &amp; numbers)" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" style="flex:1;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Orbitron',monospace;font-size:13px;outline:none"/>
-          <button onclick="saveReferralCode()" style="padding:10px 14px;background:rgba(255,16,240,.2);border:1px solid rgba(255,16,240,.3);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save</button>
+          <input id="apReferralInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="ap-input" style="font-family:'Orbitron',monospace;font-size:13px"/>
+          <button onclick="saveReferralCode()" style="padding:11px 16px;background:rgba(255,16,240,.2);border:1px solid rgba(255,16,240,.3);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(255,16,240,.35)'" onmouseout="this.style.background='rgba(255,16,240,.2)'">Save</button>
         </div>
         <div id="apReferralMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px;border-radius:7px;text-align:center"></div>
       </div>
 
       <!-- Notifications -->
-      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:10px">RECENT NOTIFICATIONS</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:10px">RECENT NOTIFICATIONS</div>
       <div id="apNotifications" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4)">Loading…</div>
     </div>
   </div>
 </div>
 
 <style>
-.ap-tab{flex:1;padding:12px 8px;border:none;background:transparent;color:rgba(255,255,255,.4);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s;border-bottom:2px solid transparent}
-.ap-tab:hover{color:rgba(255,255,255,.7)}
-.ap-tab-active{color:#fff!important;border-bottom-color:#ff10f0!important;background:rgba(255,16,240,.05)!important}
+/* ── Account panel animation ── */
+@keyframes apPanelIn{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes apTabIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.ap-panel-inner{animation:apPanelIn .28s cubic-bezier(.22,1,.36,1) both}
+.ap-tab-panel{animation:apTabIn .22s cubic-bezier(.22,1,.36,1) both}
+/* ── Tabs ── */
+.ap-tab{flex:1;padding:12px 8px;border:none;background:transparent;color:rgba(255,255,255,.38);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:color .2s,background .2s,border-color .2s;border-bottom:2px solid transparent;letter-spacing:.5px}
+.ap-tab:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.03)}
+.ap-tab-active{color:#fff!important;border-bottom-color:#ff10f0!important;background:rgba(255,16,240,.07)!important}
+/* ── Settings form controls ── */
+.ap-field-group{margin-bottom:16px}
+.ap-field-group label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.4);display:block;margin-bottom:7px}
+.ap-input{flex:1;padding:11px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;box-sizing:border-box}
+.ap-input:focus{border-color:rgba(147,51,234,.6);box-shadow:0 0 0 3px rgba(147,51,234,.12)}
+.ap-save-btn{padding:11px 16px;background:rgba(147,51,234,.22);border:1px solid rgba(147,51,234,.38);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s;letter-spacing:.5px}
+.ap-save-btn:hover{background:rgba(147,51,234,.38);border-color:rgba(147,51,234,.6)}
+.ap-section-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:18px;margin-bottom:14px;border-left:3px solid rgba(147,51,234,.3);transition:border-color .2s}
+.ap-section-card:hover{border-left-color:rgba(255,16,240,.5)}
+.ap-section-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+/* ── Dropdown items ── */
 .ud-item{width:100%;padding:10px 18px;background:transparent;border:none;color:rgba(255,255,255,.75);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;transition:background .15s,color .15s}
 .ud-item:hover{background:rgba(147,51,234,.15);color:#fff}
 .ud-logout{color:rgba(255,80,80,.8)!important}
@@ -2753,6 +2776,7 @@ function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
 function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');}
 function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);}
+function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
 function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
 function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
@@ -4238,6 +4262,31 @@ function renderViewAllGrid(){
         </div>
       </div>`;
     }
+    // Speed-based item (brainrot multi-speed cards)
+    if(i.speeds && i.speeds.length){
+      const idx = brSpeeds[i.n] !== undefined ? brSpeeds[i.n] : 0;
+      const sp = i.speeds[idx];
+      const p = Number(sp.p);
+      const ps = `$${p.toFixed(2)}`;
+      const safeN = i.n.replace(/'/g,"\\'");
+      const addName = `${i.n} ${sp.label}`;
+      const iData = encodeURIComponent(JSON.stringify({n:addName,em:i.em||'🧠',p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:i.game||'Steal a Brainrot',sub:i.sub||''}));
+      const speedBtns = i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setVABRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
+      return `
+    <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+      <div class="pc-img ${i.bg||'r-rare'}">
+        ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
+        ${bdg(i.badge||'')}${stk(i.stock??99)}
+      </div>
+      <div class="pc-body">
+        <div class="pc-n">${i.n}</div>
+        ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
+        <div class="fruit-tog">${speedBtns}</div>
+        <div class="pc-price">${ps}</div>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'🧠'}','Steal a Brainrot','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+      </div>
+    </div>`;
+    }
     const p = Number(i.p||i.norm||i.price||0);
     const ps = `$${p.toFixed(2)}`;
     const game = i.game||'';
@@ -4494,6 +4543,9 @@ function openAccountPanel(tab){
   if(!currentUser){ openLoginModal(); return; }
   const panel = document.getElementById('accountPanel');
   if(!panel) return;
+  // Re-trigger slide-in animation
+  const inner = panel.querySelector('.ap-panel-inner');
+  if(inner){ inner.classList.remove('ap-panel-inner'); void inner.offsetWidth; inner.classList.add('ap-panel-inner'); }
   // Populate header
   document.getElementById('apName').textContent  = currentUser.name;
   document.getElementById('apEmail').textContent = currentUser.email;
@@ -4544,10 +4596,16 @@ function switchAPTab(tab){
   ['overview','settings','security','referral'].forEach(t => {
     const panel = document.getElementById('apPanel-'+t);
     const btn   = document.getElementById('apTab-'+t);
-    if(panel) panel.style.display = t===tab ? 'block' : 'none';
-    if(btn){
-      btn.classList.toggle('ap-tab-active', t===tab);
+    if(panel){
+      panel.style.display = t===tab ? 'block' : 'none';
+      if(t===tab){
+        // Re-trigger animation by removing and re-adding the class
+        panel.classList.remove('ap-tab-panel');
+        void panel.offsetWidth; // reflow
+        panel.classList.add('ap-tab-panel');
+      }
     }
+    if(btn) btn.classList.toggle('ap-tab-active', t===tab);
   });
   if(tab === 'overview') loadAPOrders();
   if(tab === 'referral') loadReferralTab();

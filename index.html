@@ -2758,7 +2758,7 @@ function mkCard(i,game,gcls){
     return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em}</span>`:`<span class="em">${i.em}</span>`}
+      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -2776,7 +2776,7 @@ function mkCard(i,game,gcls){
   return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em}</span>`:`<span class="em">${i.em}</span>`}
+      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -2841,8 +2841,8 @@ function renderBS(){
     var iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
     var safeName=i.n.replace(/'/g,"\\'");
     var imgHtml=i.img
-      ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+i.em+'</span>')
-      :('<span class="em">'+i.em+'</span>');
+      ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(i.em||'📦')+'</span>')
+      :('<span class="em">'+(i.em||'📦')+'</span>');
     return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\'))openItemDetail(\''+iData+'\')">'
       +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+'</div>'
       +'<div class="pc-body">'
@@ -4341,7 +4341,7 @@ function renderViewAllGrid(){
         ${i.oldP?`<div class="pc-price">$${p.toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
         ${i.oos||i.stock===0
           ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\'")}','${ps}','${i.em||'📦'}','${game}','${(i.img||'').replace(/'/g,"\'")}')">🛒 Add to Cart</button>`
+          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${game}','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
         }
       </div>
     </div>`;
@@ -5418,7 +5418,7 @@ function doSearch(q){
     const emContent = p.img
       ? `<img src="${p.img}" style="width:28px;height:28px;object-fit:contain" onerror="this.outerHTML='${p.em||'📦'}'"/>`
       : (p.em||'📦');
-    return `<div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\'")}','$${price}','${p.em||'📦'}','${p.game}','${(p.img||'').replace(/'/g,"\'")}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
+    return `<div class="sr-item" onclick="addToCart('${p.n.replace(/'/g,"\\'")}','$${price}','${p.em||'📦'}','${p.game}','${(p.img||'').replace(/'/g,"\\'")}');document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open')">
       <div class="sr-em">${emContent}</div>
       <div class="sr-info">
         <div class="sr-name">${p.n}</div>
@@ -5692,7 +5692,7 @@ function renderRecentlyViewed(){
     sec.style.display='block';
     row.innerHTML = rv.map(r=>`
       <div class="hm-rv-card" onclick="openItemDetail('${r._enc}')">
-        ${r.img ? `<img src="${r.img}" style="width:42px;height:42px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.outerHTML='<div style=\\'font-size:28px\\'>${r.em}</div>'">` : `<div style="font-size:28px">${r.em}</div>`}
+        ${r.img ? `<img src="${r.img}" style="width:42px;height:42px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.outerHTML='<div style=\\'font-size:28px\\'>${r.em||'📦'}</div>'">` : `<div style="font-size:28px">${r.em||'📦'}</div>`}
         <div class="hm-rv-info">
           <div class="hm-rv-name">${r.n}</div>
           <div class="hm-rv-price">${r.p ? '$'+r.p : ''}</div>

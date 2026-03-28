@@ -153,7 +153,11 @@
     document.getElementById('icon').textContent='✅';
     document.getElementById('title').textContent='Discord Linked!';
     document.getElementById('title').style.color='#00c853';
-    document.getElementById('msg').textContent='Verified! This window will close shortly.';
+
+    const hasOpener = !!(window.opener && !window.opener.closed);
+    document.getElementById('msg').textContent = hasOpener
+      ? 'Verified! This window will close shortly.'
+      : 'Verified! Returning to shop…';
 
     if(!skipCard && userData.avatar){
       const avImg = document.getElementById('userAvatar');
@@ -165,7 +169,11 @@
       document.getElementById('userCard').classList.add('show');
     }
 
-    setTimeout(()=>{ try{ window.close(); }catch(e){} }, 2200);
+    setTimeout(()=>{
+      try{ window.close(); }catch(e){}
+      // If window.close() didn't work (new tab on mobile), redirect back to the shop
+      setTimeout(()=>{ window.location.replace(window.location.origin); }, 300);
+    }, 2200);
   }
 
   function showError(msg){
@@ -198,8 +206,11 @@ function manualConfirm(){
   document.getElementById('title').textContent='Confirmed!';
   document.getElementById('title').style.color='#00c853';
   document.getElementById('manualBtn').style.display='none';
-  document.getElementById('msg').textContent='Closing window…';
-  setTimeout(()=>{ try{window.close();}catch(e){} },1000);
+  document.getElementById('msg').textContent='Returning to shop…';
+  setTimeout(()=>{
+    try{ window.close(); }catch(e){}
+    setTimeout(()=>{ window.location.replace(window.location.origin); }, 300);
+  }, 1000);
 }
 </script>
 </body>

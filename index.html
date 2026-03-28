@@ -2931,24 +2931,30 @@ function startDiscordAuth(e){
   btn.classList.add('verifying');
   btn.innerHTML = '<span style="animation:spin .7s linear infinite;display:inline-block">⏳</span>&nbsp; Waiting for Discord…';
 
-  // Open the auth popup
-  const w=500, h=720;
-  const left = Math.max(0, (window.screen.width  - w) / 2);
-  const top  = Math.max(0, (window.screen.height - h) / 2);
+  // Open the auth window — use new tab on mobile (popup specs navigate current tab on mobile)
   const authURL = buildVaultcordURL();
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-  _authWindow = window.open(
-    authURL, 'SilvDiscordAuth',
-    `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,menubar=no`
-  );
+  if(isMobile){
+    // On mobile, open as a new tab — no popup specs which would navigate the current tab
+    _authWindow = window.open(authURL, '_blank');
+  } else {
+    const w=500, h=720;
+    const left = Math.max(0, (window.screen.width  - w) / 2);
+    const top  = Math.max(0, (window.screen.height - h) / 2);
+    _authWindow = window.open(authURL, 'SilvDiscordAuth',
+      `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,menubar=no`);
+  }
 
   if(!_authWindow){
-    // Popup was blocked — show a fallback link
+    // Popup was blocked — show a direct tap-to-open link
     btn.classList.remove('verifying');
-    btn.innerHTML = '🔗 Click here to link Discord (popup blocked)';
+    btn.innerHTML = '🔗 Tap here to link Discord';
+    btn.onclick = null;
     btn.href = authURL;
     btn.target = '_blank';
-    // Start polling anyway in case they come back to this tab
+    btn.rel = 'noopener';
+    // Start polling so when they return from the new tab we pick up the auth
     startLocalStoragePolling(btn, null);
     return;
   }

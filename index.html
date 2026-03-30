@@ -1959,6 +1959,14 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         </div>
         <div class="promo-ok" id="promoOk"></div>
 
+        <div id="tokenRedeemBlock" style="display:none;margin-bottom:12px">
+          <div class="co-lbl" style="display:flex;align-items:center;gap:7px">🪙 Silv Tokens <span id="tokenAvailLbl" style="color:rgba(255,215,0,.65);font-size:11px;font-family:Rajdhani,sans-serif;font-weight:400;letter-spacing:0;text-transform:none"></span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button id="tokenRedeemBtn" onclick="toggleTokenRedeem()" style="padding:9px 16px;border-radius:9px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.22);color:#ffd700;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s">Use Tokens</button>
+            <span id="tokenRedeemStatus" style="font-family:Rajdhani,sans-serif;font-size:12px;color:#ffd700;font-weight:600"></span>
+          </div>
+        </div>
+
         <div class="co-lbl">Roblox Username</div>
         <div class="co-inp-w">
           <input class="co-inp" id="rblxIn" placeholder="Your Roblox username…" oninput="doRblx(this.value)" autocomplete="off"/>
@@ -2011,6 +2019,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <hr class="sum-hr"/>
           <div class="sum-r"><span class="sum-lbl">Subtotal</span><span class="sum-val" id="coSub">$0.00</span></div>
           <div class="sum-r"><span class="sum-lbl">Discount</span><span class="sum-val sum-disc" id="coDisc">—</span></div>
+          <div class="sum-r" id="coTokenDiscRow" style="display:none"><span class="sum-lbl">🪙 Tokens</span><span class="sum-val sum-disc" id="coTokenDisc">—</span></div>
           <div class="sum-r"><span class="sum-lbl">Processing 3%</span><span class="sum-val" id="coFeeD">$0.00</span></div>
           <hr class="sum-hr"/>
           <div class="sum-r"><span style="font-size:14px;font-weight:700">Total</span><span class="sum-tot" id="coTot">$0.00</span></div>
@@ -2637,7 +2646,7 @@ const BB = [
 ];
 
 // ── STATE ────────────────────────────────────────────────────
-let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0;
+let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0;
 let rblxVerified=false, fruitModes={}, brSpeeds={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
@@ -3266,9 +3275,16 @@ function openCO(){
     populateCO();
     document.getElementById('coOv').classList.add('open');
     document.body.style.overflow='hidden';
+    _setupTokenRedeemUI();
+    if(window._pendingRefCode){
+      const pIn=document.getElementById('promoIn');
+      if(pIn) pIn.value=window._pendingRefCode;
+      window._pendingRefCode=null;
+      setTimeout(()=>applyCode(),300);
+    }
   },300);
 }
-function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;promoApplied=false;promoPct=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';}
+function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;_referralDiscount=false;promoApplied=false;promoPct=0;_tokensApplied=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';const tBlock=document.getElementById('tokenRedeemBlock');if(tBlock)tBlock.style.display='none';}
 
 function populateCO(){
   document.getElementById('coBody').style.display='';
@@ -3285,10 +3301,14 @@ function populateCO(){
 
 function updateCOSum(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const disc=promoApplied?sub*(promoPct/100):0;
-  const after=sub-disc,fee=after*.03,tot=after+fee;
+  const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
+  const disc=sub*(discPct/100);
+  const tokenDisc=Math.min(_tokensApplied/10,Math.max(0,sub-disc));
+  const after=Math.max(0,sub-disc-tokenDisc),fee=after*.03,tot=after+fee;
   document.getElementById('coSub').textContent='$'+sub.toFixed(2);
   document.getElementById('coDisc').textContent=disc>0?'-$'+disc.toFixed(2):'—';
+  const tRow=document.getElementById('coTokenDiscRow');
+  if(tRow){tRow.style.display=tokenDisc>0?'':'none';const td=document.getElementById('coTokenDisc');if(td)td.textContent='-$'+tokenDisc.toFixed(2)+' ('+_tokensApplied+' tokens)';}
   document.getElementById('coFeeD').textContent='$'+fee.toFixed(2);
   document.getElementById('coTot').textContent='$'+tot.toFixed(2);
   document.getElementById('coSumItems').innerHTML=cart.map(i=>`
@@ -3303,7 +3323,7 @@ async function applyCode(){
   const code=document.getElementById('promoIn').value.trim().toUpperCase();
   if(!code) return;
   // Reset any previously applied code
-  promoApplied=false; promoPct=0; _appliedReferralCode=null;
+  promoApplied=false; promoPct=0; _appliedReferralCode=null; _referralDiscount=false;
 
   // ── 1. Try as promo code ─────────────────────────────────
   // Promo codes require login
@@ -3354,7 +3374,9 @@ async function applyCode(){
     const data=await resp.json();
     if(data.valid){
       _appliedReferralCode=code;
-      _showCodeMsg(el,'ok',`✅ Referral code applied — ${data.name} will earn Silv Tokens!`);
+      _referralDiscount=true;
+      _showCodeMsg(el,'ok',`✅ Referral code applied — you get 5% off & ${data.name} earns Silv Tokens!`);
+      updateCOSum();
       return;
     }
   }catch(e){}
@@ -3377,6 +3399,70 @@ function _showCodeMsg(el,type,text){
   };
   el.style.cssText=(styles[type]||styles.pending)+';border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
   el.textContent=text;
+}
+
+// ── TOKEN REDEMPTION ──────────────────────────────────────────
+function _setupTokenRedeemUI(){
+  if(!currentUser) return;
+  const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+  const block=document.getElementById('tokenRedeemBlock');
+  if(!block) return;
+  if(tokens<10){block.style.display='none';return;}
+  block.style.display='';
+  const lbl=document.getElementById('tokenAvailLbl');
+  if(lbl) lbl.textContent=`(${tokens} available · worth $${(Math.floor(tokens/10)).toFixed(2)})`;
+  const btn=document.getElementById('tokenRedeemBtn');
+  if(btn){btn.textContent='Use Tokens';btn.style.background='rgba(255,215,0,.1)';}
+  document.getElementById('tokenRedeemStatus').textContent='';
+  _tokensApplied=0;
+}
+function toggleTokenRedeem(){
+  if(!currentUser) return;
+  const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
+  const afterDisc=Math.max(0,sub-sub*(discPct/100));
+  const maxTokens=Math.min(tokens,Math.floor(afterDisc*10));
+  const btn=document.getElementById('tokenRedeemBtn');
+  const statusEl=document.getElementById('tokenRedeemStatus');
+  if(_tokensApplied>0){
+    _tokensApplied=0;
+    if(btn){btn.textContent='Use Tokens';btn.style.background='rgba(255,215,0,.1)';}
+    if(statusEl) statusEl.textContent='';
+  } else {
+    _tokensApplied=maxTokens;
+    if(btn){btn.textContent='Remove';btn.style.background='rgba(255,215,0,.22)';}
+    if(statusEl) statusEl.textContent=`−$${(maxTokens/10).toFixed(2)} off`;
+  }
+  updateCOSum();
+}
+
+async function requestPayout(){
+  const type=document.getElementById('payoutType')?.value;
+  const amt=parseInt(document.getElementById('payoutAmt')?.value||'0');
+  const msgEl=document.getElementById('payoutMsg');
+  const balance=parseInt(document.getElementById('apTokenBalance')?.textContent||'0');
+  function _pmsg(text,ok){if(msgEl){msgEl.style.display='block';msgEl.style.cssText=`display:block;margin-top:8px;padding:7px 10px;border-radius:7px;font-family:'Rajdhani',sans-serif;font-size:12px;background:${ok?'rgba(0,200,83,.1)':'rgba(255,0,64,.1)'};color:${ok?'#00c853':'#ff4466'};border:1px solid ${ok?'rgba(0,200,83,.2)':'rgba(255,0,64,.2)'}`; msgEl.textContent=text;}}
+  if(!amt||amt<100){_pmsg('❌ Minimum payout is 100 tokens.',false);return;}
+  if(amt%10!==0){_pmsg('❌ Amount must be a multiple of 10.',false);return;}
+  if(amt>balance){_pmsg('❌ Insufficient token balance.',false);return;}
+  _pmsg('⏳ Submitting request…',true);
+  try{
+    const value=type==='robux'?amt*10:amt/10;
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/payout-request'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email,tokens:amt,type,value}),
+    });
+    const data=await resp.json();
+    if(data.success){
+      _pmsg(`✅ Payout request submitted! Staff will process it shortly.`,true);
+      document.getElementById('apTokenBalance').textContent=Math.max(0,balance-amt);
+      const payInp=document.getElementById('payoutAmt');if(payInp) payInp.value='';
+    } else {
+      _pmsg('❌ '+(data.error||'Could not submit.'),false);
+    }
+  }catch(e){_pmsg('❌ Network error — try again.',false);}
 }
 
 function selPayMethod(m){
@@ -3409,8 +3495,10 @@ function genClaimKey(){
 // ── ORDER TOTAL CALC ──────────────────────────────────────────
 function calcTotal(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const disc=promoApplied?sub*(promoPct/100):0;
-  const after=sub-disc, fee=after*.03;
+  const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
+  const disc=sub*(discPct/100);
+  const tokenDisc=Math.min(_tokensApplied/10, Math.max(0,sub-disc));
+  const after=Math.max(0,sub-disc-tokenDisc), fee=after*.03;
   return Number((after+fee).toFixed(2));
 }
 
@@ -3490,6 +3578,7 @@ async function openStripeCheckout(rblxUser, email, tot){
         discordUser: discordUser ? {...discordUser} : null,
         promoApplied, promoCode,
         referralCode: _appliedReferralCode || null,
+        tokensUsed: _tokensApplied || 0,
       }));
       // Navigate same-tab → Stripe redirects back to ?payment=success&order=...
       location.href = data.url;
@@ -5000,29 +5089,54 @@ function renderAffiliateBlock(status, code, stats){
     const inp=document.getElementById('apReferralInput');
     if(disp) disp.textContent=code||'— No code set —';
     if(inp&&code) inp.value=code;
-    const statsHtml=stats?`<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
-        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">${stats.uses||0}</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">USES</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
-        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">$${(stats.totalSpend||0).toFixed(2)}</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">REFERRED</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;flex:1;min-width:80px;text-align:center">
-        <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">${stats.totalEarned||0}</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:2px">TOKENS</div>
-      </div>
-    </div>`:'';
-    el.innerHTML=`<div style="background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.25);border-radius:12px;padding:14px 16px;margin-bottom:4px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:26px">✅</span>
+    const refLink=code?`${location.origin}?ref=${encodeURIComponent(code)}`:'';
+    const safeLink=refLink.replace(/'/g,"\\'");
+    el.innerHTML=`
+    <div style="background:rgba(0,230,118,.05);border:1px solid rgba(0,230,118,.18);border-radius:14px;padding:16px;margin-bottom:4px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:22px">✅</span>
         <div>
-          <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#00e676;letter-spacing:1px">AFFILIATE APPROVED</div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">Set your custom referral code below. Earn 5% in Silv Tokens on every sale.</div>
+          <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:800;color:#00e676;letter-spacing:1px">AFFILIATE APPROVED</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">You earn 5% tokens per sale · Buyers get 5% off with your code</div>
         </div>
       </div>
-      ${statsHtml}
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ffd700">${stats?.uses||0}</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px">USES</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ffd700">$${((stats?.totalSpend)||0).toFixed(2)}</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px">REFERRED</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ffd700">${stats?.totalEarned||0}</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px">TOKENS</div>
+        </div>
+      </div>
+
+      ${refLink?`<div style="margin-bottom:12px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.28);margin-bottom:6px">SHAREABLE LINK</div>
+        <div style="display:flex;gap:6px;align-items:stretch">
+          <div style="flex:1;font-family:monospace;font-size:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 10px;color:rgba(255,255,255,.45);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${refLink}</div>
+          <button onclick="navigator.clipboard.writeText('${safeLink}').then(()=>{this.textContent='✅ Copied!';setTimeout(()=>this.textContent='Copy',1800)}).catch(()=>{})" style="padding:8px 13px;border-radius:8px;background:rgba(0,230,118,.13);border:1px solid rgba(0,230,118,.22);color:#00e676;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s">Copy</button>
+        </div>
+      </div>`:''}
+
+      <div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.13);border-radius:10px;padding:12px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,215,0,.55);margin-bottom:6px">💸 REQUEST PAYOUT</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;line-height:1.5">100 tokens = $10 store credit &nbsp;·&nbsp; 100 tokens = 1000 Robux</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <select id="payoutType" style="flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px">
+            <option value="robux">Robux</option>
+            <option value="credit">Store Credit</option>
+          </select>
+          <input id="payoutAmt" type="number" placeholder="Tokens (min 100)" min="100" step="10" style="flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px"/>
+          <button onclick="requestPayout()" style="padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,165,0,.12));border:1px solid rgba(255,215,0,.28);color:#ffd700;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">Request</button>
+        </div>
+        <div id="payoutMsg" style="display:none"></div>
+      </div>
     </div>`;
   } else if(status==='pending'){
     codeBlock.style.display='none';
@@ -5071,9 +5185,13 @@ async function applyAffiliate(){
     });
     const data=await resp.json();
     if(data.success){
-      if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! Check your Discord — a ticket has been created for your review.';}
-      // Refresh affiliate block to pending state
-      setTimeout(()=>renderAffiliateBlock('pending',null),1200);
+      if(data.autoApproved){
+        if(msgEl){msgEl.style.background='rgba(0,230,118,.1)';msgEl.style.color='#00e676';msgEl.style.border='1px solid rgba(0,230,118,.2)';msgEl.textContent='🎉 Automatically approved! Go to your Referral tab to set up your code.';}
+        setTimeout(()=>loadReferralTab(),1500);
+      } else {
+        if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! Check your Discord — a ticket has been created for your review.';}
+        setTimeout(()=>renderAffiliateBlock('pending',null),1200);
+      }
     } else {
       if(msgEl){msgEl.style.background='rgba(255,0,64,.1)';msgEl.style.color='#ff4466';msgEl.style.border='1px solid rgba(255,0,64,.2)';msgEl.textContent='❌ '+(data.error||'Could not submit.');}
     }
@@ -5132,7 +5250,7 @@ function markPromoUsed(code){
   if(!u.usedPromos.includes(code)) u.usedPromos.push(code);
   saveUsers(users);
 }
-function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
+function saveOrderToUser(orderId, claimKey, items, total, method, promoCode, tokensUsed=0){
   if(!currentUser) return;
   const users = loadUsers();
   const u = users[currentUser.email];
@@ -5142,6 +5260,14 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
   // Mark promo code as used for this account (1-time use enforcement)
   const usedCode = promoCode || (promoApplied ? document.getElementById('promoIn')?.value.trim().toUpperCase() : null);
   if(usedCode) markPromoUsed(usedCode);
+  // Deduct tokens used
+  const tUsed = tokensUsed || _tokensApplied || 0;
+  if(tUsed > 0){
+    const cur = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+    localStorage.setItem('silv_tokens_'+currentUser.email, Math.max(0, cur-tUsed));
+    fetch(BOT_WEBHOOK_URL.replace('/order','/use-tokens'),{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,tokens:tUsed})}).catch(()=>{});
+    _tokensApplied=0;
+  }
   saveUsers(users);
   // Sync to bot
   try {
@@ -5611,11 +5737,19 @@ async function checkStripeReturn(){
   const finalOrderId  = (botResp && botResp.orderId)  ? botResp.orderId  : ctx.orderId;
   const finalClaimKey = (botResp && botResp.claimKey) ? botResp.claimKey : ctx.claimKey;
 
-  saveOrderToUser(finalOrderId, finalClaimKey, ctx.cart, ctx.tot, 'Debit Card', ctx.promoCode || null);
+  saveOrderToUser(finalOrderId, finalClaimKey, ctx.cart, ctx.tot, 'Debit Card', ctx.promoCode || null, ctx.tokensUsed || 0);
   cart = []; updateCartUI();
   showOrderSuccess(finalOrderId, finalClaimKey, false);
 }
 checkStripeReturn();
+
+// ── ?ref=CODE auto-fill ───────────────────────────────────────
+(function checkRefParam(){
+  const ref=new URLSearchParams(location.search).get('ref');
+  if(!ref) return;
+  history.replaceState({},document.title,location.pathname);
+  window._pendingRefCode=ref.toUpperCase();
+})();
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();closeMobMenu();}});
 

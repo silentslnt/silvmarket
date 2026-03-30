@@ -274,17 +274,19 @@ input{font-family:'Inter',sans-serif}
     <!-- Tokens -->
     <div class="token-block" id="tokenBlock">
       <div class="token-block-row">
-        <span class="token-lbl" id="tokenLbl">0 Tokens available</span>
+        <span class="token-lbl" id="tokenLbl"><img src="https://silvmarket.shop/images/silv token.png" alt="" style="width:14px;height:14px;object-fit:contain;vertical-align:-2px;margin-right:4px" onerror="this.remove()"/>0 Tokens available</span>
         <button class="token-use-btn" id="tokenBtn" onclick="toggleTokens()">Use</button>
       </div>
       <div class="token-status" id="tokenStatus"></div>
     </div>
 
     <!-- CTA -->
-    <button class="checkout-btn" id="checkoutBtn" onclick="doCheckout()" disabled>
-      Place Order →
-    </button>
-    <div class="trust-row">🔒 Encrypted · Verified Staff · Fast Delivery</div>
+    <div id="checkoutBtnWrap">
+      <button class="checkout-btn" id="checkoutBtn" onclick="doCheckout()" disabled>
+        Place Order →
+      </button>
+      <div class="trust-row">🔒 Encrypted · Verified Staff · Fast Delivery</div>
+    </div>
 
   </div><!-- /right-col -->
 
@@ -600,21 +602,23 @@ function selectPayMethod(m){
     const el=document.getElementById('payOpt'+k.charAt(0).toUpperCase()+k.slice(1));
     if(el) el.classList.toggle('active', k===m);
   });
-  const notes={stripe:'Processed via Stripe — no card details stored on our end',crypto:'Send exact amount to the wallet address below',paypal:'Pay via PayPal — opens in a new window'};
+  const notes={stripe:'Processed via Stripe — no card details stored on our end',crypto:'Send the exact amount to the wallet address shown below, then click the button.',paypal:'Pay via PayPal — opens in a new window'};
   document.getElementById('payNote').textContent=notes[m]||'';
   const cryptoPanel=document.getElementById('cryptoPanel');
+  const btnWrap=document.getElementById('checkoutBtnWrap');
   if(m==='crypto'){
     cryptoPanel.style.display='block';
+    btnWrap.style.display='none';
     buildCryptoTabs();
     fetchCryptoRates().then(()=>{ if(_cryptoCoin) updateCryptoAmt(_cryptoCoin); });
     startCryptoTimer();
   } else {
     cryptoPanel.style.display='none';
+    btnWrap.style.display='block';
     stopCryptoTimer();
   }
   const btn=document.getElementById('checkoutBtn');
   if(m==='stripe'){ btn.textContent='Pay with Card →'; btn.className='checkout-btn stripe'; }
-  else if(m==='crypto'){ btn.textContent='I\'ve Sent Crypto ✓'; btn.className='checkout-btn crypto'; }
   else { btn.textContent='Pay via PayPal →'; btn.className='checkout-btn'; }
   updateBtn();
 }
@@ -733,7 +737,7 @@ async function finalizePendingOrder(orderId, claimKey, rblxUser, tot, method, em
 }
 
 async function doCryptoConfirm(rblxUser, email, tot){
-  if(!_cryptoCoin){ alert('Select a coin first.'); return; }
+  if(!_cryptoCoin){ document.getElementById('cryptoStatus').textContent='⚠️ Select a coin first.'; return; }
   const btn=document.getElementById('cryptoSentBtn');
   btn.disabled=true; btn.textContent='⏳ Submitting…';
   const promoCode=promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null;
@@ -929,8 +933,16 @@ function updateTimerDisplay(){
   document.getElementById('cryptoTimerBar').style.background=col;
 }
 function cryptoISent(){
+  const rblxUser=(document.getElementById('rblxInput').value||'').trim();
+  const email=(document.getElementById('emailInput').value||'').trim();
+  if(!rblxUser||!email){
+    document.getElementById('cryptoStatus').textContent='⚠️ Fill in your Roblox username and email first.';
+    document.getElementById('rblxInput').focus();
+    return;
+  }
   document.getElementById('cryptoStatus').textContent='⏳ Submitting your order…';
-  doCheckout();
+  const {tot}=calcTotals();
+  doCryptoConfirm(rblxUser, email, tot);
 }
 
 // ── HELPERS ────────────────────────────────────────────────────

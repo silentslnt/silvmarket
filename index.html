@@ -1952,19 +1952,12 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="co-l">
         <div id="coItems"></div>
 
-        <div class="co-lbl">Promo / Creator Code</div>
+        <div class="co-lbl">Promo / Referral Code <span style="color:rgba(255,255,255,.25);font-size:11px">(optional)</span></div>
         <div class="promo-row">
-          <input class="promo-inp" id="promoIn" placeholder="Enter code…"/>
-          <button class="promo-go" onclick="applyPromo()">Apply</button>
+          <input class="promo-inp" id="promoIn" placeholder="Enter code…" oninput="this.value=this.value.toUpperCase()"/>
+          <button class="promo-go" onclick="applyCode()">Apply</button>
         </div>
         <div class="promo-ok" id="promoOk"></div>
-
-        <div class="co-lbl" style="margin-top:8px">Referral Code <span style="color:rgba(255,255,255,.25);font-size:11px">(optional — rewards your referrer)</span></div>
-        <div class="promo-row">
-          <input class="promo-inp" id="referralIn" placeholder="Enter referral code…" oninput="this.value=this.value.toUpperCase()"/>
-          <button class="promo-go" onclick="checkReferral()">Check</button>
-        </div>
-        <div id="referralOk" style="font-family:Rajdhani,sans-serif;font-size:12px;margin-top:4px"></div>
 
         <div class="co-lbl">Roblox Username</div>
         <div class="co-inp-w">
@@ -3275,7 +3268,7 @@ function openCO(){
     document.body.style.overflow='hidden';
   },300);
 }
-function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;const rOk=document.getElementById('referralOk');if(rOk)rOk.textContent='';const rIn=document.getElementById('referralIn');if(rIn)rIn.value='';}
+function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;promoApplied=false;promoPct=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';}
 
 function populateCO(){
   document.getElementById('coBody').style.display='';
@@ -3303,87 +3296,87 @@ function updateCOSum(){
   return tot;
 }
 
-async function applyPromo(){
+// ── UNIFIED CODE (promo + referral) ───────────────────────────
+let _appliedReferralCode = null;
+async function applyCode(){
   const el=document.getElementById('promoOk');
-  // Must be signed in
-  if(!currentUser){
-    el.style.cssText='display:flex;background:rgba(255,170,0,.08);border:1px solid rgba(255,170,0,.25);color:#ffaa00;border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
-    el.textContent='⚠️ Sign in to use promo codes.';
-    return;
-  }
   const code=document.getElementById('promoIn').value.trim().toUpperCase();
   if(!code) return;
-  // Check if this account already used this code
-  const _users=loadUsers();
-  const _u=_users[currentUser.email];
-  if(_u?.usedPromos?.includes(code)){
-    el.style.cssText='display:flex;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.22);color:var(--red2);border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
-    el.textContent='❌ You\'ve already used this promo code.';
-    setTimeout(()=>el.style.display='none',2500);
-    return;
-  }
-  // Check hardcoded promos first (instant)
-  const localPct=PROMOS[code];
-  if(localPct){ _setPromo(code,localPct,el); return; }
-  // Fallback: check bot's live promos (handles codes added via !addpromo before redeploy)
-  el.style.cssText='display:flex;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
-  el.textContent='⏳ Checking…';
-  try{
-    const base=BOT_WEBHOOK_URL.replace('/order','');
-    const ctrl=new AbortController();
-    const t=setTimeout(()=>ctrl.abort(),5000);
-    const resp=await fetch(base+'/promos',{signal:ctrl.signal});
-    clearTimeout(t);
-    const live=await resp.json();
-    const livePct=live[code];
-    if(livePct){ _setPromo(code,livePct,el); return; }
-  }catch(e){}
-  el.style.cssText='display:flex;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.22);color:var(--red2);border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
-  el.textContent='❌ Invalid promo code.';
-  setTimeout(()=>el.style.display='none',2500);
-}
-function _setPromo(code,pct,el){
-  promoApplied=true;promoPct=pct;
-  el.style.cssText='display:flex;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.22);color:#00c853;border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
-  el.textContent=`✅ "${code}" applied — ${pct}% off!`;
-  updateCOSum();
-}
+  // Reset any previously applied code
+  promoApplied=false; promoPct=0; _appliedReferralCode=null;
 
-// ── REFERRAL CODE ─────────────────────────────────────────────
-let _appliedReferralCode = null;
-async function checkReferral(){
-  const code=document.getElementById('referralIn')?.value.trim().toUpperCase();
-  const el=document.getElementById('referralOk');
-  if(!code){ el.textContent=''; _appliedReferralCode=null; return; }
-  // Can't use your own code
+  // ── 1. Try as promo code ─────────────────────────────────
+  // Promo codes require login
+  const isPromoLocal=!!(PROMOS[code]);
+  if(isPromoLocal||currentUser){
+    if(!currentUser&&isPromoLocal){
+      _showCodeMsg(el,'warn','⚠️ Sign in to use promo codes.');
+      return;
+    }
+    if(currentUser){
+      // Check already-used
+      const _users=loadUsers();
+      const _u=_users[currentUser.email];
+      if(_u?.usedPromos?.includes(code)){
+        _showCodeMsg(el,'err','❌ You\'ve already used this promo code.');
+        setTimeout(()=>el.style.display='none',2500);
+        return;
+      }
+      // Check local hardcoded list
+      if(PROMOS[code]){ _applyPromoCode(code,PROMOS[code],el); return; }
+      // Fallback: check bot live promos
+      _showCodeMsg(el,'pending','⏳ Checking…');
+      try{
+        const base=BOT_WEBHOOK_URL.replace('/order','');
+        const ctrl=new AbortController();
+        const t=setTimeout(()=>ctrl.abort(),5000);
+        const resp=await fetch(base+'/promos',{signal:ctrl.signal});
+        clearTimeout(t);
+        const live=await resp.json();
+        if(live[code]){ _applyPromoCode(code,live[code],el); return; }
+      }catch(e){}
+    }
+  }
+
+  // ── 2. Try as referral code ──────────────────────────────
+  // Can't use your own referral code
   if(currentUser){
     const users=loadUsers();
     const u=users[currentUser.email];
     if(u?.referralCode?.toUpperCase()===code){
-      el.style.color='#ff4466';
-      el.textContent='❌ Cannot use your own referral code.';
-      _appliedReferralCode=null;
+      _showCodeMsg(el,'err','❌ You can\'t use your own referral code.');
       return;
     }
   }
-  el.style.color='rgba(255,255,255,.4)';
-  el.textContent='Checking…';
+  _showCodeMsg(el,'pending','⏳ Checking…');
   try{
     const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/referral/'+encodeURIComponent(code)));
     const data=await resp.json();
     if(data.valid){
-      el.style.color='#00c853';
-      el.textContent=`✅ Valid code — ${data.name} will earn Silv Tokens from your purchase!`;
       _appliedReferralCode=code;
-    } else {
-      el.style.color='#ff4466';
-      el.textContent='❌ Invalid referral code.';
-      _appliedReferralCode=null;
+      _showCodeMsg(el,'ok',`✅ Referral code applied — ${data.name} will earn Silv Tokens!`);
+      return;
     }
-  } catch(e){
-    el.style.color='rgba(255,255,255,.3)';
-    el.textContent='Could not verify code.';
-  }
+  }catch(e){}
+
+  // ── 3. Invalid ───────────────────────────────────────────
+  _showCodeMsg(el,'err','❌ Invalid code.');
+  setTimeout(()=>el.style.display='none',2500);
+}
+function _applyPromoCode(code,pct,el){
+  promoApplied=true; promoPct=pct;
+  _showCodeMsg(el,'ok',`✅ "${code}" applied — ${pct}% off!`);
+  updateCOSum();
+}
+function _showCodeMsg(el,type,text){
+  const styles={
+    ok:     'display:flex;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.22);color:#00c853',
+    err:    'display:flex;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.22);color:var(--red2)',
+    warn:   'display:flex;background:rgba(255,170,0,.08);border:1px solid rgba(255,170,0,.25);color:#ffaa00',
+    pending:'display:flex;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45)',
+  };
+  el.style.cssText=(styles[type]||styles.pending)+';border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
+  el.textContent=text;
 }
 
 function selPayMethod(m){

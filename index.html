@@ -1738,52 +1738,64 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 <!-- ═══════════════════════════════════════════
      ACCOUNT PANEL — shown when logged in
      ═══════════════════════════════════════════ -->
-<div id="accountPanel" style="display:none;position:fixed;inset:0;z-index:4500;background:rgba(0,0,0,.92);backdrop-filter:blur(18px);align-items:flex-start;justify-content:center;padding:20px 16px;overflow-y:auto" onclick="if(event.target===this)closeAccountPanel()">
-  <div class="ap-panel-inner" style="background:linear-gradient(170deg,#110828 0%,#080318 60%,#0a0220 100%);border:1px solid rgba(147,51,234,.28);border-radius:22px;max-width:500px;width:100%;position:relative;margin:auto;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04) inset">
-    <!-- Glow accent top -->
-    <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:260px;height:120px;background:radial-gradient(ellipse,rgba(147,51,234,.35) 0%,transparent 70%);pointer-events:none"></div>
-    <button onclick="closeAccountPanel()" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;z-index:2;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">✕</button>
+<div id="accountPanel" style="display:none;position:fixed;inset:0;z-index:4500;align-items:stretch;justify-content:flex-end" onclick="if(event.target===this)closeAccountPanel()">
+  <!-- Dim backdrop -->
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)"></div>
 
-    <!-- Profile header -->
-    <div style="padding:32px 28px 24px;text-align:center;position:relative">
-      <div style="position:relative;width:80px;height:80px;margin:0 auto 14px;cursor:pointer" onclick="document.getElementById('apPfpInput').click()" title="Change photo">
-        <div style="position:absolute;inset:-3px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);opacity:.7;z-index:0"></div>
-        <img id="apAvatar" src="" alt="" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #07031a;position:relative;z-index:1;display:none"/>
-        <div id="apAvatarFallback" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#1a0840,#2d1060);display:flex;align-items:center;justify-content:center;font-size:34px;border:3px solid #07031a;position:relative;z-index:1">👤</div>
-        <div style="position:absolute;bottom:1px;right:1px;width:22px;height:22px;background:linear-gradient(135deg,#ff10f0,#9333ea);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #07031a;z-index:2">📷</div>
+  <div class="ap-panel-inner" style="background:#0d0d1a;width:100%;max-width:420px;height:100%;overflow-y:auto;position:relative;z-index:1;box-shadow:-20px 0 60px rgba(0,0,0,.8);display:flex;flex-direction:column">
+
+    <!-- Header bar -->
+    <div style="display:flex;align-items:center;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0">
+      <button onclick="closeAccountPanel()" style="background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.7);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;margin-right:12px;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">←</button>
+      <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.3px">My Account</span>
+    </div>
+
+    <!-- Profile section -->
+    <div style="padding:24px 20px 18px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="position:relative;cursor:pointer;flex-shrink:0" onclick="document.getElementById('apPfpInput').click()" title="Change photo">
+          <img id="apAvatar" src="" alt="" style="width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid rgba(147,51,234,.5);display:none"/>
+          <div id="apAvatarFallback" style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1e0a4e,#3a0d8f);display:flex;align-items:center;justify-content:center;font-size:26px;border:2px solid rgba(147,51,234,.5)">👤</div>
+          <div style="position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;background:#9333ea;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;border:2px solid #0d0d1a">📷</div>
+        </div>
+        <input type="file" id="apPfpInput" accept="image/*" style="display:none" onchange="uploadProfilePic(this)"/>
+        <div style="min-width:0">
+          <div id="apName" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+          <div id="apEmail" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.42);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+          <div id="ap2faStatus" style="display:inline-block;margin-top:6px;padding:2px 8px;border-radius:4px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3px"></div>
+        </div>
+        <div style="margin-left:auto;text-align:right;flex-shrink:0">
+          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:4px">Balance</div>
+          <div id="apTotalSpent" style="font-family:'Inter',sans-serif;font-size:15px;font-weight:800;color:#ffd700">$0.00</div>
+        </div>
       </div>
-      <input type="file" id="apPfpInput" accept="image/*" style="display:none" onchange="uploadProfilePic(this)"/>
-      <div id="apName" style="font-family:'Orbitron',monospace;font-size:19px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:.5px"></div>
-      <div id="apEmail" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.38)"></div>
-      <div id="ap2faStatus" style="display:inline-block;margin-top:10px;padding:4px 12px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px"></div>
     </div>
 
     <!-- Tab nav -->
-    <div style="display:flex;margin:0 20px 0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:4px;gap:2px">
-      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">📦 Orders</button>
-      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">⚙️ Settings</button>
-      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">🔒 Security</button>
-      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">🎟️ Referral</button>
+    <div style="display:flex;padding:8px 12px;gap:2px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#0d0d1a">
+      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">Orders</button>
+      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">Settings</button>
+      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">Security</button>
+      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">Referral</button>
     </div>
 
+    <!-- Scrollable content -->
+    <div style="flex:1;overflow-y:auto">
+
     <!-- OVERVIEW TAB -->
-    <div id="apPanel-overview" class="ap-tab-panel" style="padding:20px">
+    <div id="apPanel-overview" class="ap-tab-panel" style="padding:18px">
       <div class="ap-section-label">ORDER HISTORY</div>
-      <div id="apOrdersList" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.45)">No orders yet.</div>
-      <div style="margin-top:16px;padding:14px 16px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.1);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
-        <span style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.45);font-weight:700;letter-spacing:.5px">TOTAL SPENT</span>
-        <span id="apTotalSpent" style="font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#ffd700">$0.00</span>
-      </div>
+      <div id="apOrdersList" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.45)">No orders yet.</div>
     </div>
 
     <!-- SETTINGS TAB -->
-    <div id="apPanel-settings" class="ap-tab-panel" style="padding:20px;display:none">
+    <div id="apPanel-settings" class="ap-tab-panel" style="padding:18px;display:none">
       <div class="ap-section-label">ACCOUNT SETTINGS</div>
 
       <div class="ap-section-card">
-        <div class="ap-section-title">✏️ Display Name</div>
+        <div class="ap-section-title">Display Name</div>
         <div class="ap-field-group">
-          <label>NEW NAME</label>
+          <label>New name</label>
           <div style="display:flex;gap:8px">
             <input id="apNewName" type="text" placeholder="Enter new display name" class="ap-input"/>
             <button onclick="updateAccountName()" class="ap-save-btn">Save</button>
@@ -1792,9 +1804,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       </div>
 
       <div class="ap-section-card">
-        <div class="ap-section-title">📧 Email Address</div>
+        <div class="ap-section-title">Email Address</div>
         <div class="ap-field-group" style="margin-bottom:0">
-          <label>NEW EMAIL</label>
+          <label>New email</label>
           <div style="display:flex;gap:8px">
             <input id="apNewEmail" type="email" placeholder="Enter new email address" class="ap-input"/>
             <button onclick="updateAccountEmail()" class="ap-save-btn">Save</button>
@@ -1802,114 +1814,115 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         </div>
       </div>
 
-      <div id="apSettingsMsg" style="display:none;padding:10px 14px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-top:4px"></div>
+      <div id="apSettingsMsg" style="display:none;padding:10px 13px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;text-align:center;margin-top:4px"></div>
     </div>
 
     <!-- DEV MODE PANEL — only shown for isDev accounts -->
-    <div id="apDevPanel" style="display:none;padding:0 20px 20px">
-      <div style="background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.18);border-radius:14px;padding:16px">
-        <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:800;color:var(--pink);letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</div>
+    <div id="apDevPanel" style="display:none;padding:0 18px 18px">
+      <div style="background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.18);border-radius:10px;padding:14px">
+        <div style="font-family:'Orbitron',monospace;font-size:10px;font-weight:800;color:var(--pink);letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
+        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</div>
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff">Test Mode</span>
-          <button id="devModeToggle" onclick="toggleDevMode()" style="padding:8px 20px;border-radius:8px;font-family:'Orbitron',monospace;font-size:11px;font-weight:800;cursor:pointer;border:none;transition:all .2s">OFF</button>
+          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff">Test Mode</span>
+          <button id="devModeToggle" onclick="toggleDevMode()" style="padding:7px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s">OFF</button>
         </div>
       </div>
     </div>
 
     <!-- SECURITY TAB -->
-    <div id="apPanel-security" class="ap-tab-panel" style="padding:20px;display:none">
-      <div class="ap-section-label">SECURITY SETTINGS</div>
+    <div id="apPanel-security" class="ap-tab-panel" style="padding:18px;display:none">
+      <div class="ap-section-label">SECURITY</div>
 
-      <!-- Change Password -->
-      <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.4)">
-        <div class="ap-section-title">🔑 Change Password</div>
-        <input id="apOldPass" type="password" placeholder="Current password" class="ap-input" style="width:100%;margin-bottom:9px"/>
+      <div class="ap-section-card">
+        <div class="ap-section-title">Change Password</div>
+        <input id="apOldPass" type="password" placeholder="Current password" class="ap-input" style="width:100%;margin-bottom:8px"/>
         <input id="apNewPass" type="password" placeholder="New password (min 6 chars)" class="ap-input" style="width:100%;margin-bottom:12px"/>
         <button onclick="changePassword()" class="ap-action-btn">Update Password</button>
       </div>
 
-      <!-- 2FA with email -->
       <div class="ap-section-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <div class="ap-section-title" style="margin-bottom:0">📧 Email 2FA</div>
-          <div id="ap2faToggle" onclick="toggle2FA()" style="width:46px;height:26px;border-radius:13px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;border:1px solid rgba(255,255,255,.08)">
-            <div id="ap2faThumb" style="width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .3s;box-shadow:0 2px 4px rgba(0,0,0,.4)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div class="ap-section-title" style="margin-bottom:0">Email 2FA</div>
+          <div id="ap2faToggle" onclick="toggle2FA()" style="width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .25s;flex-shrink:0">
+            <div id="ap2faThumb" style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>
           </div>
         </div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.35);line-height:1.6">When enabled, a verification code is sent to your email each time you sign in.</div>
+        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.38);line-height:1.6">Sends a verification code to your email on every sign in.</div>
         <div id="ap2faVerifySection" style="display:none;margin-top:12px">
-          <input id="ap2faCode" type="text" placeholder="Enter 6-digit code" class="ap-input" style="width:100%;margin-bottom:9px"/>
-          <button onclick="verify2FACode()" style="width:100%;padding:12px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px">Verify &amp; Enable</button>
+          <input id="ap2faCode" type="text" placeholder="Enter 6-digit code" class="ap-input" style="width:100%;margin-bottom:8px"/>
+          <button onclick="verify2FACode()" style="width:100%;padding:11px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Verify &amp; Enable</button>
         </div>
       </div>
 
-      <div id="apSecurityMsg" style="display:none;padding:10px 14px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:13px;text-align:center;margin-bottom:10px"></div>
+      <div id="apSecurityMsg" style="display:none;padding:10px 13px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;text-align:center;margin-bottom:12px"></div>
 
-      <!-- Sign out -->
-      <button onclick="doLogout()" style="width:100%;padding:12px;background:rgba(255,0,64,.06);border:1px solid rgba(255,0,64,.15);border-radius:12px;color:#ff5577;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px;transition:background .2s" onmouseover="this.style.background='rgba(255,0,64,.13)'" onmouseout="this.style.background='rgba(255,0,64,.06)'">Sign Out</button>
+      <button onclick="doLogout()" style="width:100%;padding:12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:9px;color:#f87171;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(239,68,68,.15)'" onmouseout="this.style.background='rgba(239,68,68,.08)'">Sign Out</button>
     </div>
 
     <!-- REFERRAL TAB -->
-    <div id="apPanel-referral" class="ap-tab-panel" style="padding:20px;display:none">
-      <div class="ap-section-label">REFERRAL &amp; SILV TOKENS</div>
+    <div id="apPanel-referral" class="ap-tab-panel" style="padding:18px;display:none">
+      <div class="ap-section-label">REFERRAL &amp; TOKENS</div>
 
-      <!-- Affiliate status block (dynamic) -->
-      <div id="apAffiliateBlock" style="margin-bottom:16px"></div>
+      <div id="apAffiliateBlock" style="margin-bottom:14px"></div>
 
       <!-- Token balance -->
-      <div style="background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,165,0,.04));border:1px solid rgba(255,215,0,.18);border-radius:16px;padding:22px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden">
-        <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:radial-gradient(circle,rgba(255,215,0,.1) 0%,transparent 70%);pointer-events:none"></div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,215,0,.5);letter-spacing:2.5px;margin-bottom:8px;font-weight:700">SILV TOKEN BALANCE</div>
-        <div id="apTokenBalance" style="font-family:'Orbitron',monospace;font-size:38px;font-weight:800;color:#ffd700;line-height:1;text-shadow:0 0 30px rgba(255,215,0,.4)">0</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.28);margin-top:8px">1 token = 10 Robux &nbsp;·&nbsp; 10 tokens = $1 store credit</div>
-      </div>
-
-      <!-- Referral code (only shown when approved) -->
-      <div id="apReferralCodeBlock" style="display:none">
-        <div class="ap-section-card" style="border-left-color:rgba(255,16,240,.5)">
-          <div class="ap-section-title">🔗 Your Referral Code</div>
-          <div id="apReferralCodeDisplay" style="font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ff10f0;text-align:center;padding:16px;background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.15);border-radius:12px;margin-bottom:12px;letter-spacing:4px;text-shadow:0 0 20px rgba(255,16,240,.3)">—</div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-bottom:12px;line-height:1.6">Share this code! When someone purchases using it, you earn 5% in Silv Tokens.</div>
-          <div style="display:flex;gap:8px;margin-bottom:8px">
-            <input id="apReferralInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="ap-input" style="font-family:'Orbitron',monospace;font-size:13px"/>
-            <button onclick="saveReferralCode()" class="ap-save-btn">Save</button>
+      <div style="background:#111125;border:1px solid rgba(255,215,0,.15);border-radius:12px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+        <div style="font-size:28px;line-height:1">🪙</div>
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.38);margin-bottom:4px;font-weight:600;letter-spacing:.3px">SILV TOKENS</div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span id="apTokenBalance" style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:#ffd700">0</span>
+            <span style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.3)">tokens</span>
           </div>
-          <div id="apReferralMsg" style="display:none;font-family:Rajdhani,sans-serif;font-size:12px;padding:8px 12px;border-radius:8px;text-align:center"></div>
+          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.25);margin-top:2px">1 token = 10 Robux · 10 tokens = $1</div>
         </div>
       </div>
 
-      <!-- Notifications -->
-      <div class="ap-section-label" style="margin-bottom:10px">RECENT NOTIFICATIONS</div>
-      <div id="apNotifications" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.38)">Loading…</div>
+      <div id="apReferralCodeBlock" style="display:none">
+        <div class="ap-section-card">
+          <div class="ap-section-title">Your Referral Code</div>
+          <div id="apReferralCodeDisplay" style="font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:#a855f7;text-align:center;padding:14px;background:rgba(147,51,234,.08);border:1px solid rgba(147,51,234,.2);border-radius:9px;margin-bottom:12px;letter-spacing:4px">—</div>
+          <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.38);margin-bottom:12px;line-height:1.6">Buyers get 5% off when they use your code. You earn 5% back in Silv Tokens.</div>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <input id="apReferralInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="ap-input" style="font-family:'Inter',monospace;font-size:13px;letter-spacing:1px"/>
+            <button onclick="saveReferralCode()" class="ap-save-btn">Save</button>
+          </div>
+          <div id="apReferralMsg" style="display:none;font-family:'Inter',sans-serif;font-size:12px;padding:8px 12px;border-radius:7px;text-align:center"></div>
+        </div>
+      </div>
+
+      <div class="ap-section-label" style="margin-bottom:10px">NOTIFICATIONS</div>
+      <div id="apNotifications" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.38)">Loading…</div>
     </div>
+
+    </div><!-- end scrollable content -->
   </div>
 </div>
 
 <style>
 /* ── Account panel animation ── */
-@keyframes apPanelIn{from{opacity:0;transform:translateY(32px) scale(.95)}to{opacity:1;transform:none}}
-@keyframes apTabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ap-panel-inner{animation:apPanelIn .3s cubic-bezier(.22,1,.36,1) both}
-.ap-tab-panel{animation:apTabIn .2s cubic-bezier(.22,1,.36,1) both}
+@keyframes apPanelIn{from{opacity:0;transform:translateX(100%)}to{opacity:1;transform:none}}
+@keyframes apTabIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ap-panel-inner{animation:apPanelIn .28s cubic-bezier(.22,1,.36,1) both}
+.ap-tab-panel{animation:apTabIn .18s cubic-bezier(.22,1,.36,1) both}
 /* ── Tabs ── */
-.ap-tab{flex:1;padding:9px 4px;border:none;background:transparent;color:rgba(255,255,255,.38);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;cursor:pointer;transition:color .2s,background .2s;border-radius:8px;letter-spacing:.4px}
-.ap-tab:hover{color:rgba(255,255,255,.72);background:rgba(255,255,255,.05)}
-.ap-tab-active{color:#fff!important;background:linear-gradient(135deg,rgba(147,51,234,.35),rgba(255,16,240,.2))!important;box-shadow:0 2px 8px rgba(147,51,234,.2)!important}
-/* ── Settings form controls ── */
-.ap-section-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,.2);margin-bottom:16px}
-.ap-field-group{margin-bottom:16px}
-.ap-field-group label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.35);display:block;margin-bottom:7px}
-.ap-input{flex:1;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;box-sizing:border-box}
-.ap-input:focus{border-color:rgba(147,51,234,.55);box-shadow:0 0 0 3px rgba(147,51,234,.1);background:rgba(255,255,255,.06)}
-.ap-input::placeholder{color:rgba(255,255,255,.2)}
-.ap-save-btn{padding:12px 18px;background:rgba(147,51,234,.2);border:1px solid rgba(147,51,234,.35);border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
-.ap-save-btn:hover{background:rgba(147,51,234,.38);border-color:rgba(147,51,234,.6);box-shadow:0 4px 12px rgba(147,51,234,.2)}
-.ap-action-btn{width:100%;padding:12px;background:linear-gradient(135deg,rgba(147,51,234,.25),rgba(255,16,240,.15));border:1px solid rgba(147,51,234,.35);border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.5px;transition:all .2s}
-.ap-action-btn:hover{background:linear-gradient(135deg,rgba(147,51,234,.4),rgba(255,16,240,.25));box-shadow:0 4px 16px rgba(147,51,234,.25)}
-.ap-section-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;margin-bottom:14px;border-left:3px solid rgba(147,51,234,.35);transition:border-color .2s,background .2s}
-.ap-section-card:hover{border-left-color:rgba(255,16,240,.55);background:rgba(255,255,255,.035)}
-.ap-section-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.ap-tab{flex:1;padding:10px 4px;border:none;background:transparent;color:rgba(255,255,255,.42);font-family:'Inter',sans-serif;font-weight:600;font-size:11px;cursor:pointer;transition:color .15s,background .15s;border-radius:7px;letter-spacing:.2px}
+.ap-tab:hover{color:rgba(255,255,255,.78);background:rgba(255,255,255,.06)}
+.ap-tab-active{color:#fff!important;background:rgba(255,255,255,.1)!important}
+/* ── Form controls ── */
+.ap-section-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.28);margin-bottom:14px;text-transform:uppercase}
+.ap-field-group{margin-bottom:14px}
+.ap-field-group label{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.5px;color:rgba(255,255,255,.45);display:block;margin-bottom:6px}
+.ap-input{flex:1;padding:11px 13px;background:#1a1a2e;border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .15s,box-shadow .15s;box-sizing:border-box}
+.ap-input:focus{border-color:rgba(147,51,234,.7);box-shadow:0 0 0 2px rgba(147,51,234,.15)}
+.ap-input::placeholder{color:rgba(255,255,255,.22)}
+.ap-save-btn{padding:11px 16px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;transition:background .15s;letter-spacing:.3px}
+.ap-save-btn:hover{background:#a855f7}
+.ap-action-btn{width:100%;padding:12px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.3px;transition:background .15s}
+.ap-action-btn:hover{background:#a855f7}
+.ap-section-card{background:#111125;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:12px;transition:border-color .15s}
+.ap-section-card:hover{border-color:rgba(147,51,234,.4)}
+.ap-section-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:7px}
 /* ── Dropdown items ── */
 .ud-item{width:100%;padding:10px 18px;background:transparent;border:none;color:rgba(255,255,255,.75);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;transition:background .15s,color .15s}
 .ud-item:hover{background:rgba(147,51,234,.15);color:#fff}
@@ -3174,6 +3187,15 @@ function setDiscordLinked(user){
 
   // Remove any inline confirm prompt if present
   document.querySelector('.inline-confirm')?.remove();
+
+  // Sync discord ID to backend so affiliate auto-approve works
+  if(currentUser && user.id){
+    fetch(BOT_WEBHOOK_URL.replace('/order','/update-discord'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email, discordId:user.id, discordUsername:user.username||''}),
+    }).catch(()=>{});
+  }
 
   updatePayBtn();
 }
@@ -4652,12 +4674,13 @@ async function applyAffiliateModal(){
   const msgEl=document.getElementById('affModalMsg');
   if(!discordLinked){if(msgEl){msgEl.style.display='block';msgEl.style.background='rgba(255,165,0,.1)';msgEl.style.color='#ffaa00';msgEl.style.border='1px solid rgba(255,165,0,.2)';msgEl.textContent='⚠️ Please link your Discord first.';}return;}
   const discord=discordUser?.username||'';
+  const discordId=discordUser?.id||'';
   if(msgEl){msgEl.style.display='block';msgEl.style.background='rgba(255,255,255,.05)';msgEl.style.color='rgba(255,255,255,.4)';msgEl.style.border='none';msgEl.textContent='Submitting…';}
   try{
     const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/affiliate-request'),{
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({email:currentUser.email,discordUsername:discord}),
+      body:JSON.stringify({email:currentUser.email,discordUsername:discord,discordId}),
     });
     const data=await resp.json();
     if(data.success){
@@ -5191,13 +5214,14 @@ async function applyAffiliate(){
   if(!currentUser){openLoginModal();return;}
   if(!discordLinked){const el=document.getElementById('affApplyMsg');if(el){el.style.display='block';el.style.background='rgba(255,165,0,.1)';el.style.color='#ffaa00';el.textContent='⚠️ Please link your Discord first.';} return;}
   const discord=discordUser?.username||'';
+  const discordId=discordUser?.id||'';
   const msgEl=document.getElementById('affApplyMsg');
   if(msgEl){msgEl.style.display='block';msgEl.style.background='rgba(255,255,255,.05)';msgEl.style.color='rgba(255,255,255,.4)';msgEl.textContent='Submitting…';}
   try{
     const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/affiliate-request'),{
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({email:currentUser.email,discordUsername:discord}),
+      body:JSON.stringify({email:currentUser.email,discordUsername:discord,discordId}),
     });
     const data=await resp.json();
     if(data.success){

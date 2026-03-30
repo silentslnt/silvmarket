@@ -3304,9 +3304,24 @@ function updateCOSum(){
 }
 
 async function applyPromo(){
-  const code=document.getElementById('promoIn').value.trim().toUpperCase();
   const el=document.getElementById('promoOk');
+  // Must be signed in
+  if(!currentUser){
+    el.style.cssText='display:flex;background:rgba(255,170,0,.08);border:1px solid rgba(255,170,0,.25);color:#ffaa00;border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
+    el.textContent='⚠️ Sign in to use promo codes.';
+    return;
+  }
+  const code=document.getElementById('promoIn').value.trim().toUpperCase();
   if(!code) return;
+  // Check if this account already used this code
+  const _users=loadUsers();
+  const _u=_users[currentUser.email];
+  if(_u?.usedPromos?.includes(code)){
+    el.style.cssText='display:flex;background:rgba(255,0,64,.08);border:1px solid rgba(255,0,64,.22);color:var(--red2);border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-bottom:9px;align-items:center;gap:6px';
+    el.textContent='❌ You\'ve already used this promo code.';
+    setTimeout(()=>el.style.display='none',2500);
+    return;
+  }
   // Check hardcoded promos first (instant)
   const localPct=PROMOS[code];
   if(localPct){ _setPromo(code,localPct,el); return; }
@@ -5114,6 +5129,15 @@ async function checkNotificationBadge(){
 }
 
 // ── Save order to account ─────────────────────────────────────
+function markPromoUsed(code){
+  if(!currentUser || !code) return;
+  const users=loadUsers();
+  const u=users[currentUser.email];
+  if(!u) return;
+  if(!u.usedPromos) u.usedPromos=[];
+  if(!u.usedPromos.includes(code)) u.usedPromos.push(code);
+  saveUsers(users);
+}
 function saveOrderToUser(orderId, claimKey, items, total, method){
   if(!currentUser) return;
   const users = loadUsers();
@@ -5121,6 +5145,11 @@ function saveOrderToUser(orderId, claimKey, items, total, method){
   if(!u) return;
   if(!u.orders) u.orders = [];
   u.orders.unshift({ orderId, claimKey, items:items.map(i=>i.name), total, method, date:new Date().toISOString() });
+  // Mark promo code as used for this account (1-time use enforcement)
+  if(promoApplied){
+    const usedCode=document.getElementById('promoIn')?.value.trim().toUpperCase();
+    if(usedCode) markPromoUsed(usedCode);
+  }
   saveUsers(users);
   // Sync to bot
   try {

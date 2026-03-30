@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Checkout — Silv Market</title>
+<link rel="icon" href="https://silvmarket.shop/images/logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07031a;--surface:#0d0d20;--surface2:#111128;--border:rgba(255,255,255,.07);--purple:#9333ea;--pink:#ff10f0;--yellow:#ffd700;--text:rgba(255,255,255,.85);--muted:rgba(255,255,255,.38);--green:#00c853;--red:#ef4444}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+input{font-family:'Inter',sans-serif}
+
+/* ── TOPBAR ── */
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);transition:color .15s;margin-right:auto;cursor:pointer}
+.topbar-back:hover{color:#fff}
+.topbar-secure{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:600}
+.topbar-secure svg{opacity:.7}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;max-width:960px;margin:0 auto;width:100%;padding:28px 20px;gap:24px;align-items:flex-start}
+.left-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
+.right-col{width:300px;flex-shrink:0;position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:16px}
+
+/* ── INPUTS ── */
+.field-row{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.4px}
+.field-input{background:#0d0d20;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:10px 13px;color:#fff;font-size:13px;font-weight:500;outline:none;transition:border-color .2s}
+.field-input:focus{border-color:rgba(147,51,234,.5);background:rgba(147,51,234,.04)}
+.field-input::placeholder{color:rgba(255,255,255,.22)}
+
+/* ── PAYMENT METHODS ── */
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+.pay-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;font-size:11px;font-weight:700;color:var(--muted)}
+.pay-opt:hover{border-color:rgba(147,51,234,.4);color:#fff;background:rgba(147,51,234,.06)}
+.pay-opt.active{border-color:var(--purple);background:rgba(147,51,234,.12);color:#fff}
+.pay-opt .icon{font-size:20px}
+.pay-note{font-size:10px;color:rgba(255,255,255,.18);margin-top:6px;text-align:center}
+
+/* ── DISCORD CARD ── */
+.disc-row{display:flex;align-items:center;gap:10px}
+.disc-row img{width:32px;height:32px;border-radius:50%;border:2px solid #5865f2}
+.disc-row-info{flex:1;min-width:0}
+.disc-row-name{font-size:13px;font-weight:700;color:#fff}
+.disc-row-sub{font-size:10px;color:var(--muted)}
+.disc-btn{padding:7px 14px;border-radius:8px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
+.disc-btn.connect{background:#5865f2;color:#fff}
+.disc-btn.connect:hover{background:#4752c4}
+.disc-btn.unlink{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid rgba(255,255,255,.08)}
+.disc-btn.unlink:hover{color:var(--red);border-color:rgba(239,68,68,.3)}
+
+/* ── ORDER SUMMARY ── */
+.summary-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.summary-item:last-child{border-bottom:none}
+.item-emoji{font-size:22px;width:32px;text-align:center;flex-shrink:0}
+.item-info{flex:1;min-width:0}
+.item-name{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.item-price{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--yellow);flex-shrink:0}
+.sum-totals{margin-top:12px;border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.sum-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.sum-row .lbl{color:var(--muted)}
+.sum-row .val{font-weight:600;color:#fff}
+.sum-row.total .lbl{font-size:14px;font-weight:700;color:#fff}
+.sum-row.total .val{font-family:'Orbitron',monospace;font-size:15px;font-weight:800;color:var(--yellow)}
+
+/* ── CODE INPUT ── */
+.code-wrap{display:flex;gap:8px}
+.code-input{flex:1;background:#0d0d20;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px 13px;color:#fff;font-size:12px;font-weight:600;outline:none;text-transform:uppercase;transition:border-color .2s}
+.code-input:focus{border-color:rgba(147,51,234,.5)}
+.code-input::placeholder{text-transform:none;color:rgba(255,255,255,.22)}
+.code-btn{padding:9px 16px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.3);border-radius:9px;color:#a855f7;font-size:11px;font-weight:700;transition:all .2s}
+.code-btn:hover{background:rgba(147,51,234,.25);color:#fff}
+.code-msg{font-size:10px;font-weight:600;margin-top:6px;padding:5px 10px;border-radius:6px;display:none}
+
+/* ── CHECKOUT BTN ── */
+.checkout-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:800;letter-spacing:.3px;transition:all .2s;margin-top:4px}
+.checkout-btn:hover:not(:disabled){box-shadow:0 0 24px rgba(147,51,234,.45);transform:translateY(-1px)}
+.checkout-btn:disabled{opacity:.45;cursor:not-allowed}
+.checkout-btn.stripe{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.checkout-btn.crypto{background:linear-gradient(135deg,#d97706,#f59e0b)}
+.trust-row{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;color:rgba(255,255,255,.2);margin-top:8px}
+
+/* ── CRYPTO PANEL ── */
+.crypto-panel{display:none}
+.crypto-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ctab{padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.ctab.active{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.5);color:#fff}
+.wallet-addr-label{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);margin-bottom:6px}
+.wallet-addr{font-family:monospace;font-size:11px;color:#a855f7;background:rgba(147,51,234,.07);border:1px solid rgba(147,51,234,.18);border-radius:8px;padding:9px 12px;word-break:break-all;cursor:pointer;transition:all .2s;margin-bottom:10px}
+.wallet-addr:hover{background:rgba(147,51,234,.14)}
+.qr-wrap{display:flex;justify-content:center;margin-bottom:12px}
+.qr-wrap canvas{border-radius:10px;border:4px solid #fff}
+.crypto-amt{text-align:center;margin-bottom:10px}
+.crypto-amt-big{font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:var(--yellow)}
+.crypto-amt-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.timer-wrap{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.timer-bar-bg{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.timer-bar-fill{height:100%;background:var(--yellow);border-radius:4px;transition:width 1s linear}
+.timer-val{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--yellow);width:40px;text-align:right}
+.crypto-sent-btn{width:100%;padding:12px;background:rgba(0,200,83,.1);border:1px solid rgba(0,200,83,.25);border-radius:10px;color:#00c853;font-size:13px;font-weight:700;transition:all .2s}
+.crypto-sent-btn:hover:not(:disabled){background:rgba(0,200,83,.18)}
+.crypto-sent-btn:disabled{opacity:.45;cursor:not-allowed}
+.crypto-status{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;min-height:16px}
+
+/* ── SUCCESS SCREEN ── */
+.success-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:32px 20px}
+.success-icon{font-size:56px;margin-bottom:16px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-title{font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:var(--green);margin-bottom:8px}
+.success-sub{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.order-id-box{background:rgba(0,200,83,.06);border:1px solid rgba(0,200,83,.2);border-radius:10px;padding:12px 18px;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--green);cursor:pointer;transition:all .2s;margin-bottom:16px;word-break:break-all}
+.order-id-box:hover{background:rgba(0,200,83,.12)}
+.disc-join-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:#5865f2;border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.disc-join-btn:hover{background:#4752c4}
+
+/* ── PENDING NOTE ── */
+.pending-note{background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:14px;text-align:center;font-size:11px;color:rgba(255,200,100,.7);line-height:1.7;margin-top:12px}
+.pending-note strong{color:var(--yellow)}
+
+/* ── EMPTY CART ── */
+.empty-cart{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-cart .icon{font-size:48px;margin-bottom:12px}
+.empty-cart p{font-size:14px;margin-bottom:16px}
+.back-btn{display:inline-block;padding:10px 22px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.3);border-radius:10px;color:#a855f7;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.back-btn:hover{background:rgba(147,51,234,.25);color:#fff}
+
+/* ── TOKEN BLOCK ── */
+.token-block{background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.12);border-radius:10px;padding:12px 14px;margin-bottom:4px;display:none}
+.token-block-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.token-lbl{font-size:11px;color:rgba(255,215,0,.7);font-weight:600}
+.token-use-btn{padding:5px 12px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:7px;color:var(--yellow);font-size:10px;font-weight:700;transition:all .2s}
+.token-use-btn:hover{background:rgba(255,215,0,.18)}
+.token-use-btn.remove{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--muted)}
+.token-status{font-size:10px;color:var(--muted);margin-top:6px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .layout{flex-direction:column;padding:16px}
+  .right-col{width:100%;position:static}
+  .pay-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="topbar-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Shop
+  </a>
+  <span class="topbar-logo">SILV MARKET</span>
+  <div class="topbar-secure">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Secure Checkout
+  </div>
+</div>
+
+<div class="layout" id="mainLayout">
+
+  <!-- ── LEFT ── -->
+  <div class="left-col" id="leftCol">
+
+    <!-- Roblox / Email -->
+    <div class="card">
+      <div class="card-title">Delivery Info</div>
+      <div class="field-row">
+        <label class="field-label">Roblox Username</label>
+        <input class="field-input" id="rblxInput" placeholder="Your exact Roblox username" autocomplete="off"/>
+      </div>
+      <div class="field-row" style="margin-bottom:0">
+        <label class="field-label">Email Address</label>
+        <input class="field-input" id="emailInput" type="email" placeholder="For order confirmation"/>
+      </div>
+    </div>
+
+    <!-- Discord -->
+    <div class="card">
+      <div class="card-title">Discord (Optional)</div>
+      <div id="discNotLinked">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Link Discord to get notified in DMs when your order is delivered.</p>
+        <button class="disc-btn connect" onclick="startDiscordAuth(event)">
+          <svg style="width:14px;height:14px;margin-right:6px;vertical-align:-2px" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.079.11 18.1.128 18.115a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Connect Discord
+        </button>
+      </div>
+      <div id="discLinked" style="display:none">
+        <div class="disc-row">
+          <img id="discAvatar" src="" alt="" onerror="this.style.display='none'"/>
+          <div class="disc-row-info">
+            <div class="disc-row-name" id="discName">Discord User</div>
+            <div class="disc-row-sub">Discord linked ✓</div>
+          </div>
+          <button class="disc-btn unlink" onclick="unlinkDiscord()">Unlink</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="card">
+      <div class="card-title">Payment Method</div>
+      <div class="pay-grid">
+        <div class="pay-opt active" id="payOptStripe" onclick="selectPayMethod('stripe')">
+          <span class="icon">💳</span>
+          <span>Card</span>
+        </div>
+        <div class="pay-opt" id="payOptCrypto" onclick="selectPayMethod('crypto')">
+          <span class="icon">₿</span>
+          <span>Crypto</span>
+        </div>
+        <div class="pay-opt" id="payOptPaypal" onclick="selectPayMethod('paypal')">
+          <span class="icon">🅿️</span>
+          <span>PayPal</span>
+        </div>
+      </div>
+      <div class="pay-note" id="payNote">Processed via Stripe — no card details stored on our end</div>
+
+      <!-- Crypto panel -->
+      <div class="crypto-panel" id="cryptoPanel">
+        <div class="crypto-tabs" id="cryptoTabs"></div>
+        <div class="wallet-addr-label" id="cryptoCoinLabel">BTC ADDRESS</div>
+        <div class="wallet-addr" id="cryptoAddr" onclick="copyWallet()">—</div>
+        <div class="qr-wrap"><canvas id="qrCanvas"></canvas></div>
+        <div class="crypto-amt">
+          <div class="crypto-amt-big" id="cryptoAmtBig">—</div>
+          <div class="crypto-amt-sub" id="cryptoAmtSub">Loading price…</div>
+        </div>
+        <div class="timer-wrap">
+          <div class="timer-bar-bg"><div class="timer-bar-fill" id="cryptoTimerBar" style="width:100%"></div></div>
+          <div class="timer-val" id="cryptoTimerVal">10:00</div>
+        </div>
+        <button class="crypto-sent-btn" id="cryptoSentBtn" onclick="cryptoISent()" disabled>✅ I've Sent the Crypto</button>
+        <div class="crypto-status" id="cryptoStatus"></div>
+      </div>
+    </div>
+
+  </div><!-- /left-col -->
+
+  <!-- ── RIGHT ── -->
+  <div class="right-col" id="rightCol">
+
+    <!-- Order Summary -->
+    <div class="card">
+      <div class="card-title">Order Summary</div>
+      <div id="summaryItems"><!-- filled by JS --></div>
+      <div class="sum-totals">
+        <div class="sum-row"><span class="lbl">Subtotal</span><span class="val" id="sumSub">—</span></div>
+        <div class="sum-row" id="sumDiscRow" style="display:none"><span class="lbl" id="sumDiscLbl">Discount</span><span class="val" style="color:#00c853" id="sumDisc">—</span></div>
+        <div class="sum-row" id="sumTokenRow" style="display:none"><span class="lbl">Tokens</span><span class="val" style="color:var(--yellow)" id="sumToken">—</span></div>
+        <div class="sum-row"><span class="lbl">Service fee (3%)</span><span class="val" id="sumFee">—</span></div>
+        <div class="sum-row total"><span class="lbl">Total</span><span class="val" id="sumTotal">—</span></div>
+      </div>
+    </div>
+
+    <!-- Promo / Referral -->
+    <div class="card">
+      <div class="card-title">Promo / Referral Code</div>
+      <div class="code-wrap">
+        <input class="code-input" id="codeInput" placeholder="Enter code…" onkeydown="if(event.key==='Enter')applyCode()"/>
+        <button class="code-btn" onclick="applyCode()">Apply</button>
+      </div>
+      <div class="code-msg" id="codeMsg"></div>
+    </div>
+
+    <!-- Tokens -->
+    <div class="token-block" id="tokenBlock">
+      <div class="token-block-row">
+        <span class="token-lbl" id="tokenLbl">0 Tokens available</span>
+        <button class="token-use-btn" id="tokenBtn" onclick="toggleTokens()">Use</button>
+      </div>
+      <div class="token-status" id="tokenStatus"></div>
+    </div>
+
+    <!-- CTA -->
+    <button class="checkout-btn" id="checkoutBtn" onclick="doCheckout()" disabled>
+      Place Order →
+    </button>
+    <div class="trust-row">🔒 Encrypted · Verified Staff · Fast Delivery</div>
+
+  </div><!-- /right-col -->
+
+</div><!-- /layout -->
+
+<!-- ── EMPTY CART (shown instead of layout when cart is empty) ── -->
+<div class="empty-cart" id="emptyCart" style="display:none">
+  <div class="icon">🛒</div>
+  <p>Your cart is empty.</p>
+  <a href="/" class="back-btn">← Browse Items</a>
+</div>
+
+<!-- ── SUCCESS SCREEN ── -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">🎉</div>
+  <div class="success-title">Order Placed!</div>
+  <div class="success-sub" id="successSub">Your order has been submitted.<br>Staff will deliver to your Roblox account shortly.</div>
+  <div class="order-id-box" id="successIdBox" onclick="copyOrderId()" title="Click to copy">
+    <div style="font-size:9px;color:rgba(0,200,83,.6);margin-bottom:4px;letter-spacing:2px">ORDER ID · CLAIM KEY</div>
+    <span id="successIdText">—</span>
+  </div>
+  <div style="font-size:10px;color:var(--muted);margin-bottom:16px">Keep this safe — you'll need it to claim your items</div>
+  <button class="disc-join-btn" onclick="joinDiscord()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.079.11 18.1.128 18.115a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+    Join Discord Server
+  </button>
+  <div style="margin-top:16px">
+    <a href="/" class="back-btn">← Continue Shopping</a>
+  </div>
+</div>
+
+<!-- QR lib -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+<script>
+// ── CONSTANTS ─────────────────────────────────────────────────
+const DISCORD_INVITE    = 'https://discord.gg/brianrots';
+const VAULTCORD_CLIENT_ID = '1481122330041258141';
+const BOT_BASE          = 'https://silvreview-production.up.railway.app';
+const BOT_WEBHOOK_URL   = BOT_BASE + '/order';
+const BOT_WEBHOOK_SECRET= 'sltnslntslnt';
+const CRYPTO_WALLETS    = {
+  BTC:  '3FkxDcXY593Sc7Q3VHyntWNwxp12dR6oy4',
+  ETH:  '0x967E3480014cb8f1008fB8b72236d358c6C58bDD',
+  SOL:  'HnjpMmfooCSzNecbbRmQsFRJWSZLryGJH2HswKzPCggH',
+  USDT: '0x416934936d3F5186759E1AC2feA7DA6D89279d52',
+  LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',
+};
+const PAY_STRIPE_LINK   = 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f';
+const PAYPAL_USERNAME   = 'silvmarket';
+const PROMOS            = {SILVISTHEBEST:10,WSILV:5};
+const COIN_IDS          = {BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tether',LTC:'litecoin'};
+
+// ── STATE ──────────────────────────────────────────────────────
+let cart        = [];
+let currentUser = null;
+let discordUser = null;
+let payMethod   = 'stripe'; // stripe | crypto | paypal
+let promoApplied = false, promoPct = 0;
+let _refCode = null, _refDiscount = false;
+let _tokensApplied = 0;
+let _cryptoRates = {};
+let _cryptoCoin  = '';
+let _cryptoAddr  = '';
+let _cryptoTimer = null, _cryptoSecs = 600;
+let _orderSubmitted = false;
+
+// ── INIT ───────────────────────────────────────────────────────
+(function init(){
+  loadSession();
+  restoreDiscordSession();
+  loadCart();
+  handleStripeReturn();
+})();
+
+function loadCart(){
+  try{
+    const raw = localStorage.getItem('silv_checkout_cart');
+    if(raw) cart = JSON.parse(raw);
+  }catch{}
+  if(!cart.length){
+    document.getElementById('mainLayout').style.display='none';
+    document.getElementById('emptyCart').style.display='block';
+    return;
+  }
+  renderSummary();
+  setupTokenBlock();
+  updateBtn();
+
+  // Pre-fill from session
+  if(currentUser){
+    document.getElementById('emailInput').value = currentUser.email || '';
+  }
+  // Pre-fill ref code from localStorage
+  const ref = localStorage.getItem('silv_checkout_ref');
+  if(ref){
+    document.getElementById('codeInput').value = ref;
+    localStorage.removeItem('silv_checkout_ref');
+    setTimeout(()=>applyCode(), 400);
+  }
+
+  // Listen for Discord auth from popup
+  window.addEventListener('message', e=>{
+    if(e.data?.type==='DISCORD_AUTH') setDiscordLinked(e.data);
+  });
+}
+
+// ── SESSION ────────────────────────────────────────────────────
+function loadSession(){
+  try{
+    let s = sessionStorage.getItem('silv_session');
+    if(!s){
+      const ls = localStorage.getItem('silv_ls_session');
+      if(ls){ const p=JSON.parse(ls); if(p.exp>Date.now()) s=JSON.stringify(p.data); }
+    }
+    if(s) currentUser = JSON.parse(s);
+  }catch{}
+}
+function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
+  if(!currentUser) return;
+  try{
+    const users = JSON.parse(localStorage.getItem('silv_users')||'{}');
+    const u = users[currentUser.email];
+    if(!u) return;
+    if(!u.orders) u.orders=[];
+    u.orders.unshift({orderId,claimKey,items:items.map(i=>i.name),total,method,date:new Date().toISOString()});
+    if(promoCode && PROMOS[promoCode]){
+      if(!u.usedPromos) u.usedPromos=[];
+      if(!u.usedPromos.includes(promoCode)) u.usedPromos.push(promoCode);
+    }
+    if(_tokensApplied>0){
+      const cur=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+      localStorage.setItem('silv_tokens_'+currentUser.email, Math.max(0,cur-_tokensApplied));
+      fetch(BOT_BASE+'/use-tokens',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,tokens:_tokensApplied})}).catch(()=>{});
+    }
+    localStorage.setItem('silv_users', JSON.stringify(users));
+    // Sync to bot
+    fetch(BOT_BASE+'/account/order',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,orderId,total,items:items.map(i=>({name:i.name})),paymentMethod:method})}).catch(()=>{});
+  }catch{}
+}
+
+// ── DISCORD ────────────────────────────────────────────────────
+function restoreDiscordSession(){
+  try{
+    const raw = localStorage.getItem('silv_discord_auth');
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    if(d && d.verified && d.timestamp && Date.now()-d.timestamp < 30*24*60*60*1000){
+      setDiscordLinked(d, /*quiet=*/true);
+    }
+  }catch{}
+}
+function startDiscordAuth(e){
+  if(e) e.preventDefault();
+  const redirect = encodeURIComponent(window.location.origin+'/auth-callback');
+  const url = `https://api.vaultcord.com/oauth?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirect}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
+  const w=560,h=680,l=Math.round(screen.width/2-w/2),t=Math.round(screen.height/2-h/2);
+  window.open(url,'discordAuth',`width=${w},height=${h},left=${l},top=${t},resizable=yes,scrollbars=yes`);
+}
+function setDiscordLinked(data, quiet){
+  discordUser = data;
+  try{ localStorage.setItem('silv_discord_auth',JSON.stringify({...data,timestamp:data.timestamp||Date.now()}));
+       localStorage.setItem('silv_discord_verified','1'); }catch{}
+  document.getElementById('discNotLinked').style.display='none';
+  document.getElementById('discLinked').style.display='block';
+  if(data.avatar) document.getElementById('discAvatar').src=data.avatar;
+  document.getElementById('discName').textContent=data.username||'Discord User';
+}
+function unlinkDiscord(){
+  discordUser=null;
+  try{ localStorage.removeItem('silv_discord_auth'); localStorage.removeItem('silv_discord_verified'); }catch{}
+  document.getElementById('discLinked').style.display='none';
+  document.getElementById('discNotLinked').style.display='';
+}
+
+// ── RENDER SUMMARY ─────────────────────────────────────────────
+function renderSummary(){
+  const el = document.getElementById('summaryItems');
+  el.innerHTML = cart.map(i=>`
+    <div class="summary-item">
+      <span class="item-emoji">${i.em||'🎮'}</span>
+      <div class="item-info">
+        <div class="item-name">${i.name}</div>
+        <div class="item-sub">${i.game||''} · qty: ${i.qty||1}</div>
+      </div>
+      <span class="item-price">$${((i.price||0)*(i.qty||1)).toFixed(2)}</span>
+    </div>`).join('');
+  updateTotals();
+}
+function calcTotals(){
+  const sub = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+  const discPct = promoApplied ? promoPct : (_refDiscount ? 5 : 0);
+  const disc = sub*(discPct/100);
+  const tokenDisc = Math.min(_tokensApplied/10, Math.max(0, sub-disc));
+  const after = Math.max(0, sub-disc-tokenDisc);
+  const fee = after*0.03;
+  const tot = after+fee;
+  return {sub, disc, discPct, tokenDisc, fee, tot};
+}
+function updateTotals(){
+  const {sub,disc,discPct,tokenDisc,fee,tot} = calcTotals();
+  document.getElementById('sumSub').textContent='$'+sub.toFixed(2);
+  const discRow=document.getElementById('sumDiscRow');
+  if(disc>0){ discRow.style.display=''; document.getElementById('sumDisc').textContent='-$'+disc.toFixed(2); document.getElementById('sumDiscLbl').textContent='Discount ('+discPct+'%)'; }
+  else discRow.style.display='none';
+  const tokenRow=document.getElementById('sumTokenRow');
+  if(tokenDisc>0){ tokenRow.style.display=''; document.getElementById('sumToken').textContent='-$'+tokenDisc.toFixed(2)+' ('+_tokensApplied+' tokens)'; }
+  else tokenRow.style.display='none';
+  document.getElementById('sumFee').textContent='$'+fee.toFixed(2);
+  document.getElementById('sumTotal').textContent='$'+tot.toFixed(2);
+  // Update crypto amount if visible
+  if(payMethod==='crypto' && _cryptoCoin) updateCryptoAmt(_cryptoCoin);
+  updateBtn();
+  return tot;
+}
+
+// ── TOKEN BLOCK ────────────────────────────────────────────────
+function setupTokenBlock(){
+  if(!currentUser) return;
+  const tokens = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+  if(tokens<10) return;
+  const block=document.getElementById('tokenBlock');
+  block.style.display='block';
+  document.getElementById('tokenLbl').textContent=tokens+' Silv Tokens available (~$'+Math.floor(tokens/10).toFixed(2)+' off)';
+}
+function toggleTokens(){
+  if(!currentUser) return;
+  const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+  const btn=document.getElementById('tokenBtn');
+  const status=document.getElementById('tokenStatus');
+  if(_tokensApplied>0){
+    _tokensApplied=0;
+    btn.textContent='Use'; btn.classList.remove('remove');
+    status.textContent='';
+  } else {
+    const {sub,disc} = calcTotals();
+    const afterDisc = Math.max(0,sub-disc);
+    const max = Math.min(tokens, Math.floor(afterDisc*10));
+    if(max<10){ status.textContent='Not enough tokens for this order.'; return; }
+    _tokensApplied=max;
+    btn.textContent='Remove'; btn.classList.add('remove');
+    status.textContent=max+' tokens applied';
+  }
+  updateTotals();
+}
+
+// ── PROMO / REFERRAL ───────────────────────────────────────────
+async function applyCode(){
+  const el=document.getElementById('codeMsg');
+  const code=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(!code) return;
+  promoApplied=false; promoPct=0; _refCode=null; _refDiscount=false;
+  updateTotals();
+
+  // Check promo
+  if(PROMOS[code]){
+    if(!currentUser){ showCodeMsg('warn','⚠️ Sign in to use promo codes.'); return; }
+    try{
+      const users=JSON.parse(localStorage.getItem('silv_users')||'{}');
+      const u=users[currentUser.email];
+      if(u?.usedPromos?.includes(code)){ showCodeMsg('err','❌ Already used this promo.'); return; }
+    }catch{}
+    promoApplied=true; promoPct=PROMOS[code];
+    showCodeMsg('ok',`✅ "${code}" — ${PROMOS[code]}% off!`);
+    updateTotals(); return;
+  }
+  // Try live promos from bot
+  if(currentUser){
+    showCodeMsg('pending','⏳ Checking…');
+    try{
+      const r=await fetch(BOT_BASE+'/promos',{signal:AbortSignal.timeout(5000)});
+      const live=await r.json();
+      if(live[code]){
+        promoApplied=true; promoPct=live[code];
+        showCodeMsg('ok',`✅ "${code}" — ${live[code]}% off!`);
+        updateTotals(); return;
+      }
+    }catch{}
+  }
+  // Try referral
+  if(currentUser){
+    try{
+      const users=JSON.parse(localStorage.getItem('silv_users')||'{}');
+      const u=users[currentUser.email];
+      if(u?.referralCode?.toUpperCase()===code){ showCodeMsg('err','❌ Can\'t use your own code.'); return; }
+    }catch{}
+  }
+  showCodeMsg('pending','⏳ Checking referral…');
+  try{
+    const r=await fetch(BOT_BASE+'/referral/'+encodeURIComponent(code),{signal:AbortSignal.timeout(5000)});
+    const d=await r.json();
+    if(d.valid){
+      _refCode=code; _refDiscount=true;
+      showCodeMsg('ok',`✅ Referral applied — 5% off & ${d.name} earns tokens!`);
+      updateTotals(); return;
+    }
+  }catch{}
+  showCodeMsg('err','❌ Invalid code.');
+}
+function showCodeMsg(type,text){
+  const el=document.getElementById('codeMsg');
+  const bg={ok:'rgba(0,200,83,.08)',err:'rgba(239,68,68,.08)',warn:'rgba(255,170,0,.08)',pending:'rgba(255,255,255,.05)'};
+  const bc={ok:'rgba(0,200,83,.22)',err:'rgba(239,68,68,.22)',warn:'rgba(255,170,0,.25)',pending:'rgba(255,255,255,.1)'};
+  const col={ok:'#00c853',err:'#ef4444',warn:'#ffaa00',pending:'rgba(255,255,255,.45)'};
+  el.style.cssText=`display:block;background:${bg[type]};border:1px solid ${bc[type]};color:${col[type]};border-radius:7px;padding:6px 11px;font-size:11px;font-weight:600;margin-top:6px`;
+  el.textContent=text;
+}
+
+// ── PAYMENT METHOD ─────────────────────────────────────────────
+function selectPayMethod(m){
+  payMethod=m;
+  ['stripe','crypto','paypal'].forEach(k=>{
+    const el=document.getElementById('payOpt'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(el) el.classList.toggle('active', k===m);
+  });
+  const notes={stripe:'Processed via Stripe — no card details stored on our end',crypto:'Send exact amount to the wallet address below',paypal:'Pay via PayPal — opens in a new window'};
+  document.getElementById('payNote').textContent=notes[m]||'';
+  const cryptoPanel=document.getElementById('cryptoPanel');
+  if(m==='crypto'){
+    cryptoPanel.style.display='block';
+    buildCryptoTabs();
+    fetchCryptoRates().then(()=>{ if(_cryptoCoin) updateCryptoAmt(_cryptoCoin); });
+    startCryptoTimer();
+  } else {
+    cryptoPanel.style.display='none';
+    stopCryptoTimer();
+  }
+  const btn=document.getElementById('checkoutBtn');
+  if(m==='stripe'){ btn.textContent='Pay with Card →'; btn.className='checkout-btn stripe'; }
+  else if(m==='crypto'){ btn.textContent='I\'ve Sent Crypto ✓'; btn.className='checkout-btn crypto'; }
+  else { btn.textContent='Pay via PayPal →'; btn.className='checkout-btn'; }
+  updateBtn();
+}
+
+// ── CHECKOUT ───────────────────────────────────────────────────
+function updateBtn(){
+  const rblx=(document.getElementById('rblxInput')?.value||'').trim();
+  const email=(document.getElementById('emailInput')?.value||'').trim();
+  const btn=document.getElementById('checkoutBtn');
+  if(btn) btn.disabled=!(rblx&&email&&cart.length);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('rblxInput')?.addEventListener('input',updateBtn);
+  document.getElementById('emailInput')?.addEventListener('input',updateBtn);
+});
+
+async function doCheckout(){
+  const rblxUser=(document.getElementById('rblxInput').value||'').trim();
+  const email=(document.getElementById('emailInput').value||'').trim();
+  if(!rblxUser||!email){ alert('Please fill in your Roblox username and email.'); return; }
+
+  const {tot} = calcTotals();
+  const orderId=genOrderId(), claimKey=genClaimKey();
+
+  if(payMethod==='stripe'){
+    await doStripeCheckout(rblxUser, email, tot, orderId, claimKey);
+  } else if(payMethod==='crypto'){
+    await doCryptoConfirm(rblxUser, email, tot);
+  } else {
+    doPaypalCheckout(rblxUser, email, tot, orderId, claimKey);
+  }
+}
+
+async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
+  const btn=document.getElementById('checkoutBtn');
+  btn.disabled=true; btn.textContent='Redirecting…';
+  try{
+    const resp=await fetch(BOT_BASE+'/create-checkout',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({
+        amount:tot, email, orderId,
+        description:cart.map(i=>i.name).join(', '),
+        successUrl: window.location.origin+'/checkout?payment=success&order='+orderId,
+        cancelUrl:  window.location.origin+'/checkout',
+      }),
+    });
+    const data=await resp.json();
+    if(data.url){
+      localStorage.setItem('stripe_pending_'+orderId, JSON.stringify({
+        orderId,claimKey,rblxUser,email,tot,
+        cart:JSON.parse(JSON.stringify(cart)),
+        discordUser:discordUser?{...discordUser}:null,
+        promoApplied, promoCode:promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null,
+        referralCode:_refCode||null, tokensUsed:_tokensApplied||0,
+      }));
+      location.href=data.url;
+      return;
+    }
+  }catch(err){ console.warn('Stripe session error:', err); }
+  // Fallback
+  window.open(PAY_STRIPE_LINK+'?prefilled_email='+encodeURIComponent(email),'_blank');
+  btn.disabled=false; btn.textContent='Pay with Card →';
+  showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, 'Debit Card');
+}
+
+function doPaypalCheckout(rblxUser, email, tot, orderId, claimKey){
+  window.open('https://paypal.me/'+PAYPAL_USERNAME+'/'+tot.toFixed(2),'_blank');
+  showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, 'PayPal');
+}
+
+function showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, method){
+  const btn=document.getElementById('checkoutBtn');
+  btn.textContent='⏳ Awaiting payment…';
+  btn.disabled=true;
+
+  // Create confirm block below btn
+  const existing=document.getElementById('pendingConfirmBlock');
+  if(existing) existing.remove();
+  const block=document.createElement('div');
+  block.id='pendingConfirmBlock';
+  block.innerHTML=`<div class="pending-note">
+    Complete payment then click below.<br>
+    <strong>${orderId}</strong><br>
+    Send exactly <strong>$${tot.toFixed(2)}</strong> via ${method}
+  </div>
+  <button onclick="finalizePendingOrder('${orderId}','${claimKey}','${rblxUser}',${tot},'${method}','${email}')"
+    style="width:100%;margin-top:8px;padding:13px;background:rgba(0,200,83,.12);border:1px solid rgba(0,200,83,.25);border-radius:10px;color:#00c853;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s">
+    ✅ I've Completed the ${method} Payment
+  </button>
+  <button onclick="resetCheckoutUI()" style="width:100%;margin-top:6px;padding:9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;color:rgba(255,255,255,.35);font-size:11px;font-weight:700;cursor:pointer">← Change method</button>`;
+  btn.parentNode.insertBefore(block, btn.nextSibling);
+}
+
+function resetCheckoutUI(){
+  document.getElementById('pendingConfirmBlock')?.remove();
+  selectPayMethod(payMethod);
+  updateBtn();
+}
+
+async function finalizePendingOrder(orderId, claimKey, rblxUser, tot, method, email){
+  const block=document.getElementById('pendingConfirmBlock');
+  if(block){ const b=block.querySelector('button'); if(b){b.disabled=true;b.textContent='⏳ Processing…';} }
+
+  const promoCode = promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null;
+  const botResp = await fireWebhook({
+    robloxUsername:rblxUser, email, total:tot, paymentMethod:method,
+    paymentStatus:'completed', items:cart, discordUser, orderId, claimKey,
+    promoCode, referralCode:_refCode||null,
+  });
+  const fOrderId=(botResp?.orderId)||orderId;
+  const fClaimKey=(botResp?.claimKey)||claimKey;
+  saveOrderToUser(fOrderId, fClaimKey, cart, tot, method, promoCode);
+  try{ localStorage.removeItem('silv_checkout_cart'); }catch{}
+  showSuccess(fOrderId, fClaimKey, false);
+}
+
+async function doCryptoConfirm(rblxUser, email, tot){
+  if(!_cryptoCoin){ alert('Select a coin first.'); return; }
+  const btn=document.getElementById('cryptoSentBtn');
+  btn.disabled=true; btn.textContent='⏳ Submitting…';
+  const promoCode=promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null;
+  const orderId=genOrderId(), claimKey=genClaimKey();
+  const botResp=await fireWebhook({
+    robloxUsername:rblxUser, email, total:tot, paymentMethod:'Crypto ('+_cryptoCoin+')',
+    paymentStatus:'pending_verification', items:cart, discordUser, orderId, claimKey,
+    promoCode, referralCode:_refCode||null,
+  });
+  const fOrderId=(botResp?.orderId)||orderId;
+  const fClaimKey=(botResp?.claimKey)||claimKey;
+  saveOrderToUser(fOrderId, fClaimKey, cart, tot, 'Crypto', promoCode);
+  try{ localStorage.removeItem('silv_checkout_cart'); }catch{}
+  showSuccess(fOrderId, fClaimKey, true);
+}
+
+// ── STRIPE RETURN HANDLER ─────────────────────────────────────
+function handleStripeReturn(){
+  const qs=new URLSearchParams(window.location.search);
+  if(qs.get('payment')!=='success') return;
+  const orderId=qs.get('order');
+  if(!orderId) return;
+  const raw=localStorage.getItem('stripe_pending_'+orderId);
+  if(!raw) return;
+  try{
+    const pending=JSON.parse(raw);
+    localStorage.removeItem('stripe_pending_'+orderId);
+    // Update cart from stored state
+    cart=pending.cart||[];
+    discordUser=pending.discordUser||null;
+    promoApplied=pending.promoApplied||false;
+    promoPct=0;
+    _refCode=pending.referralCode||null;
+    _refDiscount=!!_refCode;
+    _tokensApplied=pending.tokensUsed||0;
+
+    (async()=>{
+      const promoCode=pending.promoCode||null;
+      const botResp=await fireWebhook({
+        robloxUsername:pending.rblxUser,
+        email:pending.email,
+        total:pending.tot,
+        paymentMethod:'Debit Card (Stripe)',
+        paymentStatus:'completed',
+        items:pending.cart,
+        discordUser:pending.discordUser||null,
+        orderId:pending.orderId,
+        claimKey:pending.claimKey,
+        promoCode,
+        referralCode:pending.referralCode||null,
+      });
+      const fOrderId=(botResp?.orderId)||pending.orderId;
+      const fClaimKey=(botResp?.claimKey)||pending.claimKey;
+      saveOrderToUser(fOrderId, fClaimKey, pending.cart, pending.tot, 'Debit Card (Stripe)', promoCode);
+      localStorage.removeItem('silv_checkout_cart');
+      showSuccess(fOrderId, fClaimKey, false);
+    })();
+  }catch(err){ console.error('Stripe return error:', err); }
+}
+
+// ── WEBHOOK ────────────────────────────────────────────────────
+async function fireWebhook(data){
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({
+        robloxUsername:data.robloxUsername,
+        email:data.email,
+        total:data.total,
+        paymentMethod:data.paymentMethod,
+        items:data.items.map(i=>({name:i.name,game:i.game,qty:i.qty,price:i.price})),
+        discordId:data.discordUser?.id||null,
+        discordUsername:data.discordUser?.username||null,
+        orderId:data.orderId||null,
+        claimKey:data.claimKey||null,
+        promoCode:data.promoCode||null,
+        referralCode:data.referralCode||null,
+        paymentStatus:data.paymentStatus||'completed',
+        timestamp:new Date().toISOString(),
+      }),
+    });
+    if(resp.ok) return await resp.json();
+  }catch(err){ console.error('Webhook error:', err); }
+  return null;
+}
+
+// ── SUCCESS ────────────────────────────────────────────────────
+function showSuccess(orderId, claimKey, pending){
+  document.getElementById('mainLayout').style.display='none';
+  document.getElementById('emptyCart').style.display='none';
+  const sc=document.getElementById('successScreen');
+  sc.style.display='flex';
+  document.getElementById('successIdText').textContent=orderId+' · '+claimKey;
+  document.getElementById('successSub').textContent=pending
+    ? 'Your payment is being verified by staff.\nYou\'ll be notified on Discord once confirmed.'
+    : 'Your order has been submitted. Staff will deliver to your Roblox account shortly.';
+}
+function copyOrderId(){
+  navigator.clipboard.writeText(document.getElementById('successIdText').textContent).then(()=>{
+    const b=document.getElementById('successIdBox');
+    const orig=b.querySelector('span').textContent;
+    b.style.background='rgba(0,200,83,.15)';
+    setTimeout(()=>{ b.style.background=''; },1200);
+  }).catch(()=>{});
+}
+function joinDiscord(){ window.open(DISCORD_INVITE,'_blank'); }
+
+// ── CRYPTO ─────────────────────────────────────────────────────
+async function fetchCryptoRates(){
+  const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
+  const ids=coins.map(c=>COIN_IDS[c]).filter(Boolean).join(',');
+  try{
+    const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`);
+    const data=await r.json();
+    coins.forEach(c=>{ const id=COIN_IDS[c]; if(id&&data[id]) _cryptoRates[c]=data[id].usd; });
+    _cryptoRates.USDT=1;
+  }catch{
+    Object.assign(_cryptoRates,{BTC:65000,ETH:3200,SOL:140,USDT:1,LTC:85});
+  }
+}
+function getCryptoAmt(coin, usd){
+  const rate=_cryptoRates[coin]; if(!rate) return null;
+  const amt=usd/rate;
+  if(coin==='BTC'||coin==='LTC') return amt.toFixed(6);
+  if(coin==='ETH') return amt.toFixed(5);
+  if(coin==='SOL') return amt.toFixed(4);
+  if(coin==='USDT') return amt.toFixed(2);
+  return amt.toFixed(6);
+}
+function buildCryptoTabs(){
+  const tabs=document.getElementById('cryptoTabs');
+  const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
+  if(!coins.length){ tabs.innerHTML='<div style="font-size:12px;color:var(--muted)">No wallets configured.</div>'; return; }
+  tabs.innerHTML=coins.map((c,i)=>`<button class="ctab${i===0?' active':''}" onclick="selectCoin('${c}',this)">${c}</button>`).join('');
+  if(coins[0]) selectCoin(coins[0], tabs.children[0]);
+}
+function selectCoin(coin, btn){
+  _cryptoCoin=coin; _cryptoAddr=CRYPTO_WALLETS[coin]||'';
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('cryptoCoinLabel').textContent=coin+' ADDRESS';
+  document.getElementById('cryptoAddr').textContent=_cryptoAddr||'No address set';
+  drawQR(_cryptoAddr);
+  updateCryptoAmt(coin);
+  document.getElementById('cryptoSentBtn').disabled=false;
+}
+function updateCryptoAmt(coin){
+  const {tot}=calcTotals();
+  const amt=getCryptoAmt(coin,tot);
+  document.getElementById('cryptoAmtBig').textContent=amt?amt+' '+coin:'Loading…';
+  document.getElementById('cryptoAmtSub').textContent=amt?'= $'+tot.toFixed(2)+' USD':'';
+}
+function copyWallet(){
+  if(!_cryptoAddr) return;
+  navigator.clipboard.writeText(_cryptoAddr).then(()=>{
+    const el=document.getElementById('cryptoAddr');
+    const orig=el.textContent;
+    el.textContent='✅ Copied!';
+    setTimeout(()=>el.textContent=orig,1500);
+  }).catch(()=>{});
+}
+function drawQR(addr){
+  const canvas=document.getElementById('qrCanvas');
+  if(!addr||typeof QRCode==='undefined'){ canvas.style.display='none'; return; }
+  canvas.style.display='block';
+  QRCode.toCanvas(canvas,addr,{width:140,margin:2,color:{dark:'#000',light:'#fff'}});
+}
+function startCryptoTimer(){
+  stopCryptoTimer();
+  _cryptoSecs=600;
+  updateTimerDisplay();
+  _cryptoTimer=setInterval(()=>{
+    _cryptoSecs--;
+    updateTimerDisplay();
+    if(_cryptoSecs<=0){
+      stopCryptoTimer();
+      document.getElementById('cryptoTimerVal').textContent='EXP';
+      document.getElementById('cryptoTimerBar').style.width='0%';
+      document.getElementById('cryptoSentBtn').disabled=true;
+      document.getElementById('cryptoStatus').textContent='⏰ Payment window expired. Please restart.';
+    }
+  },1000);
+}
+function stopCryptoTimer(){ clearInterval(_cryptoTimer); }
+function updateTimerDisplay(){
+  const m=Math.floor(_cryptoSecs/60),s=_cryptoSecs%60;
+  document.getElementById('cryptoTimerVal').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  const pct=(_cryptoSecs/600)*100;
+  document.getElementById('cryptoTimerBar').style.width=pct+'%';
+  const col=pct>50?'#ffd700':pct>20?'#ff9900':'#ff0040';
+  document.getElementById('cryptoTimerVal').style.color=col;
+  document.getElementById('cryptoTimerBar').style.background=col;
+}
+function cryptoISent(){
+  document.getElementById('cryptoStatus').textContent='⏳ Submitting your order…';
+  doCheckout();
+}
+
+// ── HELPERS ────────────────────────────────────────────────────
+function genOrderId(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let id='SM-'; for(let i=0;i<8;i++) id+=c[Math.floor(Math.random()*c.length)]; return id;
+}
+function genClaimKey(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let k=''; for(let i=0;i<16;i++){if(i===4||i===8||i===12)k+='-'; k+=c[Math.floor(Math.random()*c.length)];} return k;
+}
+</script>
+</body>
+</html>

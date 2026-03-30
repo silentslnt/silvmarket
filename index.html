@@ -1948,7 +1948,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <span style="font-weight:700;color:#fff;font-size:14px">Total</span>
       <span class="cs-tot" id="cTot">$0.00</span>
     </div>
-    <button class="co-btn" id="mainCoBtn" onclick="openCO()" disabled>Proceed to Checkout →</button>
+    <button class="co-btn" id="mainCoBtn" onclick="goToCheckout()" disabled>Proceed to Checkout →</button>
   </div>
 </div>
 
@@ -3294,6 +3294,13 @@ function openCartSB(){document.getElementById('cartSb').classList.add('open');do
 function toggleCart(){const sb=document.getElementById('cartSb'),ov=document.getElementById('cartOv');const o=sb.classList.toggle('open');ov.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
 
 // ── CHECKOUT ──────────────────────────────────────────────────
+function goToCheckout(){
+  if(!cart.length) return;
+  try{ localStorage.setItem('silv_checkout_cart', JSON.stringify(cart)); }catch{}
+  if(window._pendingRefCode) try{ localStorage.setItem('silv_checkout_ref', window._pendingRefCode); }catch{}
+  toggleCart();
+  window.location.href = '/checkout';
+}
 function openCO(){
   toggleCart();
   setTimeout(()=>{
@@ -4717,9 +4724,19 @@ async function hashPass(pass, email){
 }
 // Detect already-hashed passwords (64 hex chars) vs legacy btoa
 function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
-function loadSession() { try{ return JSON.parse(sessionStorage.getItem('silv_session')||'null'); }catch{ return null; } }
-function saveSession(u){ try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{} }
-function clearSession(){ try{ sessionStorage.removeItem('silv_session'); }catch{} }
+function loadSession() {
+  try{ const s=sessionStorage.getItem('silv_session'); if(s) return JSON.parse(s); }catch{}
+  try{ const l=localStorage.getItem('silv_ls_session'); if(l){ const d=JSON.parse(l); if(Date.now()-d._ts<7*864e5) return d; } }catch{}
+  return null;
+}
+function saveSession(u){
+  try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{}
+  try{ localStorage.setItem('silv_ls_session', JSON.stringify({...u, _ts:Date.now()})); }catch{}
+}
+function clearSession(){
+  try{ sessionStorage.removeItem('silv_session'); }catch{}
+  try{ localStorage.removeItem('silv_ls_session'); }catch{}
+}
 
 // ── Nav button — shows avatar if logged in, "Login" if not ──────
 function updateNavLogin(){
@@ -4829,12 +4846,14 @@ function uploadProfilePic(input){
 
 function openAccountPanel(tab){
   if(!currentUser){ openLoginModal(); return; }
+  // Navigate to dedicated account page
+  window.location.href = '/account' + (tab && tab!=='overview' ? '?tab='+tab : '');
+}
+function _openAccountPanelInline(tab){
   const panel = document.getElementById('accountPanel');
   if(!panel) return;
-  // Re-trigger slide-in animation
   const inner = panel.querySelector('.ap-panel-inner');
   if(inner){ inner.classList.remove('ap-panel-inner'); void inner.offsetWidth; inner.classList.add('ap-panel-inner'); }
-  // Populate header
   document.getElementById('apName').textContent  = currentUser.name;
   document.getElementById('apEmail').textContent = currentUser.email;
   // Avatar: custom upload > Discord pfp > fallback

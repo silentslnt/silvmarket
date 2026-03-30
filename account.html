@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>My Account — Silv Market</title>
+<link rel="icon" href="https://silvmarket.shop/images/logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07031a;--surface:#0d0d20;--surface2:#111128;--border:rgba(255,255,255,.07);--purple:#9333ea;--pink:#ff10f0;--text:rgba(255,255,255,.85);--muted:rgba(255,255,255,.38);--red:rgba(239,68,68,.85)}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+
+/* ── TOP BAR ── */
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);transition:color .15s;margin-right:auto}
+.topbar-back:hover{color:#fff}
+.topbar-back svg{opacity:.6}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;max-width:1100px;margin:0 auto;width:100%;padding:28px 20px;gap:24px;align-items:flex-start}
+
+/* ── SIDEBAR ── */
+.sidebar{width:240px;flex-shrink:0;position:sticky;top:84px}
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:12px;text-align:center}
+.pfp-wrap{position:relative;width:64px;height:64px;margin:0 auto 12px;cursor:pointer}
+.pfp-wrap img,.pfp-fallback{width:64px;height:64px;border-radius:12px;object-fit:cover;border:2px solid rgba(147,51,234,.4)}
+.pfp-fallback{background:linear-gradient(135deg,#1e0a4e,#3a0d8f);display:flex;align-items:center;justify-content:center;font-size:28px}
+.pfp-edit{position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;background:#9333ea;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:8px;border:2px solid var(--bg)}
+.profile-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.profile-email{font-size:11px;color:var(--muted);margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.twofa-badge{display:inline-block;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.3px}
+.balance-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.balance-label{font-size:11px;color:var(--muted);font-weight:600}
+.balance-val{font-size:16px;font-weight:800;color:#ffd700}
+
+.sidenav{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.nav-section-title{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);padding:12px 16px 6px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--muted);transition:all .15s;border-left:2px solid transparent;cursor:pointer}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.04)}
+.nav-item.active{color:#fff;background:rgba(147,51,234,.12);border-left-color:#9333ea}
+.nav-item .icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+
+.disc-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px}
+.disc-card-title{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);margin-bottom:10px}
+.disc-linked-row{display:flex;align-items:center;gap:8px}
+.disc-linked-row img{width:28px;height:28px;border-radius:50%;border:2px solid #5865f2}
+.disc-linked-name{font-size:13px;font-weight:700;flex:1}
+.disc-linked-check{font-size:11px;color:#00c853;font-weight:700}
+.disc-unlink{background:none;border:1px solid rgba(255,255,255,.12);color:var(--muted);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;transition:all .15s}
+.disc-unlink:hover{border-color:rgba(239,68,68,.4);color:#f87171}
+.disc-link-btn{width:100%;padding:10px;background:rgba(88,101,242,.14);border:1px solid rgba(88,101,242,.3);border-radius:9px;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}
+.disc-link-btn:hover{background:rgba(88,101,242,.26)}
+
+.signout-btn{width:100%;padding:10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.15);border-radius:10px;color:#f87171;font-size:13px;font-weight:700;transition:background .15s}
+.signout-btn:hover{background:rgba(239,68,68,.14)}
+
+/* ── CONTENT ── */
+.content{flex:1;min-width:0}
+.section{display:none}
+.section.active{display:block}
+.section-header{font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:rgba(255,255,255,.25);letter-spacing:2px;margin-bottom:20px;text-transform:uppercase}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
+.card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
+.field-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.3px;display:block;margin-bottom:6px}
+.field-row{display:flex;gap:8px}
+.inp{flex:1;padding:11px 13px;background:#111128;border:1px solid rgba(255,255,255,.09);border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .15s,box-shadow .15s;box-sizing:border-box}
+.inp:focus{border-color:rgba(147,51,234,.6);box-shadow:0 0 0 2px rgba(147,51,234,.12)}
+.inp::placeholder{color:rgba(255,255,255,.2)}
+.inp.full{width:100%;margin-bottom:9px}
+.save-btn{padding:11px 18px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.3px;transition:background .15s;white-space:nowrap}
+.save-btn:hover{background:#a855f7}
+.action-btn{width:100%;padding:12px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-size:13px;font-weight:700;letter-spacing:.3px;transition:background .15s}
+.action-btn:hover{background:#a855f7}
+.msg{padding:10px 13px;border-radius:8px;font-size:12px;text-align:center;margin-top:8px;display:none}
+.msg.ok{background:rgba(0,200,83,.1);color:#00c853;border:1px solid rgba(0,200,83,.2)}
+.msg.err{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+
+/* toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.toggle{width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .25s;border:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.toggle-thumb{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)}
+
+/* orders */
+.order-row{padding:12px 0;border-bottom:1px solid var(--border)}
+.order-row:last-child{border-bottom:none}
+.order-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.order-id{font-family:'Orbitron',monospace;font-size:11px;color:rgba(255,255,255,.55)}
+.order-total{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:#ffd700}
+.order-items{font-size:12px;color:var(--muted);margin-bottom:3px}
+.order-meta{font-size:11px;color:rgba(255,255,255,.22)}
+.empty-state{padding:24px 0;text-align:center;color:var(--muted);font-size:13px}
+
+/* tokens */
+.token-hero{background:#111128;border:1px solid rgba(255,215,0,.15);border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.token-icon{font-size:32px}
+.token-num{font-size:32px;font-weight:800;color:#ffd700;line-height:1}
+.token-label{font-size:11px;color:var(--muted);margin-top:3px}
+.token-rate{font-size:11px;color:rgba(255,255,255,.25);margin-top:2px}
+
+/* referral code display */
+.ref-code-display{font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#a855f7;text-align:center;padding:16px;background:rgba(147,51,234,.08);border:1px solid rgba(147,51,234,.2);border-radius:10px;margin-bottom:12px;letter-spacing:4px}
+
+/* affiliate */
+.aff-approved{background:rgba(0,230,118,.05);border:1px solid rgba(0,230,118,.18);border-radius:12px;padding:16px;margin-bottom:14px}
+.aff-pending{background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.22);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.aff-none{background:rgba(255,16,240,.05);border:1px solid rgba(255,16,240,.18);border-radius:12px;padding:16px;margin-bottom:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px;text-align:center}
+.stat-num{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#ffd700}
+.stat-lbl{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+.shareable-link{display:flex;gap:6px;align-items:center;margin-bottom:12px}
+.link-text{flex:1;font-family:monospace;font-size:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:8px 10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{padding:8px 13px;border-radius:7px;background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.2);color:#00e676;font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
+.copy-btn:hover{background:rgba(0,230,118,.22)}
+.payout-row{display:flex;gap:6px;flex-wrap:wrap}
+.payout-sel,.payout-inp{flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 10px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;outline:none}
+.payout-sel option{background:#111128}
+.payout-req-btn{padding:9px 14px;border-radius:8px;background:rgba(255,215,0,.13);border:1px solid rgba(255,215,0,.25);color:#ffd700;font-size:13px;font-weight:700;white-space:nowrap;transition:background .15s}
+.payout-req-btn:hover{background:rgba(255,215,0,.22)}
+.payout-msg{margin-top:8px;font-size:12px;padding:8px 10px;border-radius:7px;display:none}
+
+/* notifs */
+.notif-item{padding:10px 12px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.1);border-radius:9px;margin-bottom:8px}
+.notif-msg{color:#ffd700;font-size:13px;margin-bottom:3px}
+.notif-date{font-size:11px;color:rgba(255,255,255,.25)}
+
+/* dev panel */
+.dev-panel{background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.18);border-radius:12px;padding:16px;margin-bottom:14px}
+
+/* mobile */
+@media(max-width:700px){
+  .layout{flex-direction:column;padding:16px}
+  .sidebar{width:100%;position:static;display:flex;flex-direction:column;gap:8px}
+  .sidenav{display:none}
+  .mobile-tabs{display:flex!important}
+  .topbar{padding:0 14px}
+}
+.mobile-tabs{display:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;gap:2px;flex-wrap:wrap}
+.mobile-tab{flex:1;min-width:70px;padding:8px 4px;border:none;background:transparent;color:var(--muted);font-size:11px;font-weight:600;border-radius:8px;transition:all .15s}
+.mobile-tab.active{background:rgba(147,51,234,.25);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="topbar-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Shop
+  </a>
+  <span class="topbar-logo">SILV MARKET</span>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="profile-card">
+      <div class="pfp-wrap" onclick="document.getElementById('pfpFile').click()" title="Change photo">
+        <img id="pfpImg" src="" alt="" style="display:none"/>
+        <div id="pfpFallback" class="pfp-fallback">👤</div>
+        <div class="pfp-edit">📷</div>
+      </div>
+      <input type="file" id="pfpFile" accept="image/*" style="display:none" onchange="uploadPfp(this)"/>
+      <div class="profile-name" id="sidebarName">—</div>
+      <div class="profile-email" id="sidebarEmail">—</div>
+      <span class="twofa-badge" id="sidebarTwofa"></span>
+      <div class="balance-row">
+        <span class="balance-label">TOTAL SPENT</span>
+        <span class="balance-val" id="sidebarBalance">$0.00</span>
+      </div>
+    </div>
+
+    <div class="sidenav">
+      <div class="nav-section-title">Account</div>
+      <div class="nav-item active" onclick="showSection('orders')" id="nav-orders"><span class="icon">📦</span>Orders</div>
+      <div class="nav-item" onclick="showSection('tokens')" id="nav-tokens"><span class="icon">🪙</span>Tokens & Referral</div>
+      <div class="nav-section-title" style="margin-top:4px">Settings</div>
+      <div class="nav-item" onclick="showSection('settings')" id="nav-settings"><span class="icon">⚙️</span>Account Settings</div>
+      <div class="nav-item" onclick="showSection('security')" id="nav-security"><span class="icon">🔒</span>Security</div>
+    </div>
+
+    <!-- Mobile tabs -->
+    <div class="mobile-tabs" id="mobileTabs">
+      <button class="mobile-tab active" onclick="showSection('orders')">📦 Orders</button>
+      <button class="mobile-tab" onclick="showSection('tokens')">🪙 Tokens</button>
+      <button class="mobile-tab" onclick="showSection('settings')">⚙️ Settings</button>
+      <button class="mobile-tab" onclick="showSection('security')">🔒 Security</button>
+    </div>
+
+    <!-- Discord status -->
+    <div class="disc-card">
+      <div class="disc-card-title">DISCORD</div>
+      <div id="discSidebarLinked" style="display:none">
+        <div class="disc-linked-row">
+          <img id="discSidebarAvatar" src="" alt="" onerror="this.style.display='none'"/>
+          <div class="disc-linked-name" id="discSidebarName">—</div>
+          <span class="disc-linked-check">✅</span>
+          <button class="disc-unlink" onclick="unlinkDiscord()">Unlink</button>
+        </div>
+      </div>
+      <div id="discSidebarUnlinked">
+        <button class="disc-link-btn" onclick="startDiscordAuth(event)">
+          <svg width="14" height="11" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
+          Link Discord
+        </button>
+      </div>
+    </div>
+
+    <button class="signout-btn" onclick="doLogout()">Sign Out</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ORDERS -->
+    <div class="section active" id="section-orders">
+      <div class="section-header">Order History</div>
+      <div class="card">
+        <div id="ordersList"><div class="empty-state">No orders yet.</div></div>
+      </div>
+    </div>
+
+    <!-- TOKENS & REFERRAL -->
+    <div class="section" id="section-tokens">
+      <div class="section-header">Tokens &amp; Referral</div>
+
+      <div class="token-hero">
+        <div class="token-icon">🪙</div>
+        <div>
+          <div class="token-num" id="tokenBal">0</div>
+          <div class="token-label">Silv Tokens</div>
+          <div class="token-rate">1 token = 10 Robux &nbsp;·&nbsp; 10 tokens = $1 store credit</div>
+        </div>
+      </div>
+
+      <div id="affiliateBlock"></div>
+
+      <div id="referralCodeBlock" style="display:none">
+        <div class="card">
+          <div class="card-title">🔗 Your Referral Code</div>
+          <div class="ref-code-display" id="refCodeDisplay">—</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Buyers get 5% off with your code. You earn 5% back in Silv Tokens on every sale.</p>
+          <div class="field-row" style="margin-bottom:6px">
+            <input id="refCodeInput" type="text" placeholder="5–12 letters &amp; numbers" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" class="inp" style="font-family:'Orbitron',monospace;font-size:13px;letter-spacing:1px"/>
+            <button onclick="saveReferralCode()" class="save-btn">Save</button>
+          </div>
+          <div id="refCodeMsg" class="msg"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔔 Notifications</div>
+        <div id="notifList"><div class="empty-state">No notifications yet.</div></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="section" id="section-settings">
+      <div class="section-header">Account Settings</div>
+
+      <div id="devPanelWrap" style="display:none">
+        <div class="dev-panel">
+          <div style="font-family:'Orbitron',monospace;font-size:10px;font-weight:800;color:#ff10f0;letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13px;font-weight:700">Test Mode</span>
+            <button id="devModeBtn" onclick="toggleDevMode()" style="padding:7px 18px;border-radius:7px;font-size:11px;font-weight:700;border:none;transition:all .2s">OFF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Display Name</div>
+        <span class="field-label">New name</span>
+        <div class="field-row">
+          <input id="newName" type="text" placeholder="Enter display name" class="inp"/>
+          <button onclick="updateName()" class="save-btn">Save</button>
+        </div>
+        <div id="nameMsg" class="msg"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Email Address</div>
+        <span class="field-label">New email</span>
+        <div class="field-row">
+          <input id="newEmail" type="email" placeholder="Enter new email" class="inp"/>
+          <button onclick="updateEmail()" class="save-btn">Save</button>
+        </div>
+        <div id="emailMsg" class="msg"></div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="section" id="section-security">
+      <div class="section-header">Security</div>
+
+      <div class="card">
+        <div class="card-title">Change Password</div>
+        <input id="oldPass" type="password" placeholder="Current password" class="inp full"/>
+        <input id="newPass" type="password" placeholder="New password (min 6 chars)" class="inp full"/>
+        <button onclick="changePassword()" class="action-btn">Update Password</button>
+        <div id="passMsg" class="msg"></div>
+      </div>
+
+      <div class="card">
+        <div class="toggle-row">
+          <div class="card-title" style="margin-bottom:0">Email 2FA</div>
+          <div id="twoFAToggle" onclick="toggle2FA()" class="toggle">
+            <div id="twoFAThumb" class="toggle-thumb"></div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.6">Sends a 6-digit code to your email every time you sign in.</p>
+        <div id="twoFAVerify" style="display:none;margin-top:12px">
+          <input id="twoFACode" type="text" placeholder="Enter 6-digit code" class="inp full"/>
+          <button onclick="verify2FACode()" class="action-btn" style="margin-top:0">Verify &amp; Enable</button>
+        </div>
+        <div id="twoFAMsg" class="msg"></div>
+      </div>
+
+      <button onclick="doLogout()" class="signout-btn" style="margin-top:4px">Sign Out</button>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end layout -->
+
+<script>
+// ── CONSTANTS ──────────────────────────────────────────────────
+const BOT_WEBHOOK_URL    = 'https://silvreview-production.up.railway.app/order';
+const BOT_WEBHOOK_SECRET = 'sltnslntslnt';
+const BOT_BASE           = BOT_WEBHOOK_URL.replace('/order','');
+const VAULTCORD_CLIENT_ID = '1481122330041258141';
+
+// ── STATE ──────────────────────────────────────────────────────
+let currentUser  = null;
+let discordLinked = false;
+let discordUser   = {};
+let _2faPendingEnable = false;
+
+// ── SESSION ────────────────────────────────────────────────────
+function loadSession(){
+  try{ const s=sessionStorage.getItem('silv_session'); if(s) return JSON.parse(s); }catch{}
+  try{ const l=localStorage.getItem('silv_ls_session'); if(l){ const d=JSON.parse(l); if(Date.now()-d._ts<7*864e5) return d; } }catch{}
+  return null;
+}
+function saveSession(u){
+  try{ sessionStorage.setItem('silv_session', JSON.stringify(u)); }catch{}
+  try{ localStorage.setItem('silv_ls_session', JSON.stringify({...u,_ts:Date.now()})); }catch{}
+}
+function clearSession(){
+  try{ sessionStorage.removeItem('silv_session'); }catch{}
+  try{ localStorage.removeItem('silv_ls_session'); }catch{}
+}
+function loadUsers(){ try{ return JSON.parse(localStorage.getItem('silv_users')||'{}'); }catch{ return {}; } }
+function saveUsers(u){ try{ localStorage.setItem('silv_users', JSON.stringify(u)); }catch{} }
+
+// ── HASHING ────────────────────────────────────────────────────
+async function hashPass(pass, email){
+  try{
+    const enc=new TextEncoder();
+    const key=await crypto.subtle.importKey('raw',enc.encode(pass),'PBKDF2',false,['deriveBits']);
+    const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(email.toLowerCase()+'_silv25'),iterations:60000,hash:'SHA-256'},key,256);
+    return Array.from(new Uint8Array(bits)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch{ return btoa(pass); }
+}
+function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
+
+// ── INIT ───────────────────────────────────────────────────────
+(function init(){
+  currentUser = loadSession();
+  if(!currentUser){ window.location.href='/?login=1'; return; }
+
+  // Restore Discord session
+  try{
+    const ds=localStorage.getItem('silv_discord_session');
+    if(ds){ const d=JSON.parse(ds); if(d.verified && Date.now()-d.timestamp<2592000000) setDiscordLinked(d); }
+  }catch{}
+
+  renderSidebar();
+
+  // Check tab param
+  const tab = new URLSearchParams(location.search).get('tab') || 'orders';
+  showSection(tab);
+  loadSectionData(tab);
+
+  // Handle Stripe return on this page too
+  const params = new URLSearchParams(location.search);
+  if(params.get('payment')==='success') handleStripeReturn(params.get('order'));
+})();
+
+function renderSidebar(){
+  document.getElementById('sidebarName').textContent  = currentUser.name;
+  document.getElementById('sidebarEmail').textContent = currentUser.email;
+
+  const users  = loadUsers();
+  const u      = users[currentUser.email];
+  const twofa  = u?.twofa || false;
+  const badge  = document.getElementById('sidebarTwofa');
+  badge.textContent   = twofa ? '🔒 2FA Enabled' : '⚠️ 2FA Disabled';
+  badge.style.cssText = twofa
+    ? 'background:rgba(0,200,83,.12);color:#00c853;border:1px solid rgba(0,200,83,.25)'
+    : 'background:rgba(255,100,0,.12);color:#ff6600;border:1px solid rgba(255,100,0,.25)';
+  update2FAToggle(twofa);
+
+  // Avatar
+  const custom   = localStorage.getItem('silv_pfp_'+currentUser.email);
+  const discAv   = discordUser?.id && discordUser?.avatar
+    ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png` : null;
+  const src      = custom || discAv;
+  const img      = document.getElementById('pfpImg');
+  const fb       = document.getElementById('pfpFallback');
+  if(src){ img.src=src; img.style.display='block'; fb.style.display='none'; }
+  else { img.style.display='none'; fb.style.display='flex'; }
+
+  // Balance
+  const orders   = u?.orders || [];
+  const total    = orders.reduce((s,o)=>s+Number(o.total||0),0);
+  document.getElementById('sidebarBalance').textContent = '$'+total.toFixed(2);
+
+  // Dev panel
+  if(currentUser.isDev){
+    document.getElementById('devPanelWrap').style.display='block';
+    const btn=document.getElementById('devModeBtn');
+    if(btn){ btn.textContent=currentUser.devActive?'ON':'OFF'; btn.style.background=currentUser.devActive?'linear-gradient(135deg,#9333ea,#ff10f0)':'rgba(255,255,255,.08)'; btn.style.color=currentUser.devActive?'#fff':'rgba(255,255,255,.5)'; }
+  }
+}
+
+// ── SECTION ROUTING ────────────────────────────────────────────
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.mobile-tab').forEach(t=>t.classList.remove('active'));
+  const sec = document.getElementById('section-'+id);
+  if(sec) sec.classList.add('active');
+  const nav = document.getElementById('nav-'+id);
+  if(nav) nav.classList.add('active');
+  document.querySelectorAll('.mobile-tab').forEach(t=>{ if(t.textContent.toLowerCase().includes(id.slice(0,4))) t.classList.add('active'); });
+  loadSectionData(id);
+  history.replaceState({},'', id==='orders'?'/account':'/account?tab='+id);
+}
+
+function loadSectionData(id){
+  if(id==='orders')   loadOrders();
+  if(id==='tokens')   loadTokensTab();
+}
+
+// ── ORDERS ─────────────────────────────────────────────────────
+function loadOrders(){
+  const users  = loadUsers();
+  const u      = users[currentUser.email];
+  const orders = u?.orders || [];
+  const el     = document.getElementById('ordersList');
+  const total  = orders.reduce((s,o)=>s+Number(o.total||0),0);
+  document.getElementById('sidebarBalance').textContent = '$'+total.toFixed(2);
+  if(!orders.length){ el.innerHTML='<div class="empty-state">No orders yet. Head to the shop and grab something!</div>'; return; }
+  el.innerHTML = orders.slice(0,20).map(o=>`
+    <div class="order-row">
+      <div class="order-top">
+        <span class="order-id">${o.orderId}</span>
+        <span class="order-total">$${o.total}</span>
+      </div>
+      <div class="order-items">${(o.items||[]).join(', ')||'—'}</div>
+      <div class="order-meta">${o.method} &nbsp;·&nbsp; ${new Date(o.date).toLocaleDateString()}</div>
+    </div>`).join('');
+}
+
+// ── TOKENS & REFERRAL ──────────────────────────────────────────
+async function loadTokensTab(){
+  document.getElementById('affiliateBlock').innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0">Loading…</div>';
+  try{
+    const r = await fetch(BOT_BASE+'/notifications/'+encodeURIComponent(currentUser.email),{headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}});
+    const d = await r.json();
+    document.getElementById('tokenBal').textContent = d.silvTokens ?? 0;
+    renderAffiliateBlock(d.affiliateStatus||null, d.referralCode||null, d.referralStats||null);
+    const notifEl = document.getElementById('notifList');
+    if(d.notifications?.length){
+      notifEl.innerHTML = d.notifications.slice(0,10).map(n=>`
+        <div class="notif-item">
+          <div class="notif-msg">${n.message}</div>
+          <div class="notif-date">${new Date(n.date).toLocaleDateString()}</div>
+        </div>`).join('');
+    } else { notifEl.innerHTML='<div class="empty-state">No notifications yet.</div>'; }
+  }catch(e){
+    document.getElementById('affiliateBlock').innerHTML='<div style="font-size:13px;color:var(--muted)">Could not load — check connection.</div>';
+  }
+}
+
+function renderAffiliateBlock(status, code, stats){
+  const el=document.getElementById('affiliateBlock');
+  const codeBlock=document.getElementById('referralCodeBlock');
+  if(!el) return;
+
+  if(status==='approved'){
+    codeBlock.style.display='block';
+    const disp=document.getElementById('refCodeDisplay');
+    if(disp) disp.textContent=code||'— Set a code below —';
+    const inp=document.getElementById('refCodeInput');
+    if(inp&&code) inp.value=code;
+    const refLink=code?`${location.origin}?ref=${encodeURIComponent(code)}`:'';
+    el.innerHTML=`
+    <div class="aff-approved">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:20px">✅</span>
+        <div>
+          <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:800;color:#00e676;letter-spacing:1px">AFFILIATE APPROVED</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">You earn 5% tokens per sale · Buyers get 5% off</div>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="stat-num">${stats?.uses||0}</div><div class="stat-lbl">USES</div></div>
+        <div class="stat-box"><div class="stat-num">$${((stats?.totalSpend)||0).toFixed(2)}</div><div class="stat-lbl">REFERRED</div></div>
+        <div class="stat-box"><div class="stat-num">${stats?.totalEarned||0}</div><div class="stat-lbl">TOKENS</div></div>
+      </div>
+      ${refLink?`<div class="shareable-link">
+        <div class="link-text">${refLink}</div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('${refLink.replace(/'/g,"\\'")}').then(()=>{this.textContent='✅ Copied!';setTimeout(()=>this.textContent='Copy',1800)})">Copy</button>
+      </div>`:''}
+      <div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.13);border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,215,0,.55);margin-bottom:6px">💸 REQUEST PAYOUT</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">100 tokens = $10 credit &nbsp;·&nbsp; 100 tokens = 1000 Robux</div>
+        <div class="payout-row">
+          <select id="payoutType" class="payout-sel"><option value="robux">Robux</option><option value="credit">Store Credit</option></select>
+          <input id="payoutAmt" type="number" placeholder="Tokens (min 100)" min="100" step="10" class="payout-inp"/>
+          <button onclick="requestPayout()" class="payout-req-btn">Request</button>
+        </div>
+        <div id="payoutMsg" class="payout-msg"></div>
+      </div>
+    </div>`;
+  } else if(status==='pending'){
+    codeBlock.style.display='none';
+    el.innerHTML=`<div class="aff-pending"><span style="font-size:26px">⏳</span><div><div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ffa500;letter-spacing:1px">APPLICATION PENDING</div><div style="font-size:12px;color:var(--muted);margin-top:3px">Under review — check your Discord ticket for updates.</div></div></div>`;
+  } else {
+    codeBlock.style.display='none';
+    el.innerHTML=`<div class="aff-none">
+      <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ff10f0;margin-bottom:8px">🤝 BECOME AN AFFILIATE</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Earn 5% in Silv Tokens on every sale made with your referral code. Apply below — our team reviews each request.</p>
+      ${buildAffiliateForm()}
+    </div>`;
+  }
+}
+
+function buildAffiliateForm(){
+  const discBlock = discordLinked && discordUser?.username
+    ? `<div style="display:flex;align-items:center;gap:10px;background:rgba(88,101,242,.1);border:1px solid rgba(88,101,242,.3);border-radius:9px;padding:10px 14px">
+        ${discordUser.avatar?`<img src="${discordUser.avatar}" onerror="this.style.display='none'" style="width:26px;height:26px;border-radius:50%;border:2px solid #5865f2"/>`:''}<div style="font-size:13px;font-weight:700">${discordUser.username}</div>
+        <div style="margin-left:auto;font-size:11px;color:#00c853;font-weight:700">✅ Linked</div></div>`
+    : `<button onclick="startDiscordAuth(event)" style="width:100%;padding:10px;background:rgba(88,101,242,.14);border:1px solid rgba(88,101,242,.3);border-radius:9px;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px">💬 Link Discord First</button>`;
+  return `<div style="display:flex;flex-direction:column;gap:8px">
+    ${discBlock}
+    <button onclick="applyAffiliate()" style="width:100%;padding:11px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.3);border-radius:9px;color:#fff;font-size:13px;font-weight:700;cursor:pointer">Submit Application →</button>
+    <div id="affMsg" style="display:none;font-size:12px;padding:8px 10px;border-radius:7px;text-align:center"></div>
+  </div>`;
+}
+
+async function applyAffiliate(){
+  if(!discordLinked){ const el=document.getElementById('affMsg'); if(el){el.style.cssText='display:block;background:rgba(255,165,0,.1);color:#ffaa00;border:1px solid rgba(255,165,0,.2)';el.textContent='⚠️ Link Discord first.';} return; }
+  const msgEl=document.getElementById('affMsg');
+  if(msgEl){msgEl.style.cssText='display:block;background:rgba(255,255,255,.05);color:var(--muted)';msgEl.textContent='Submitting…';}
+  try{
+    const r=await fetch(BOT_BASE+'/affiliate-request',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,discordUsername:discordUser?.username||'',discordId:discordUser?.id||''})});
+    const d=await r.json();
+    if(d.success){
+      if(msgEl){msgEl.style.cssText='display:block;background:rgba(0,200,83,.1);color:#00c853;border:1px solid rgba(0,200,83,.2)';msgEl.textContent=d.autoApproved?'🎉 Approved! Set your referral code below.':'✅ Application submitted! Check your Discord.';}
+      setTimeout(()=>loadTokensTab(),1500);
+    } else {
+      if(msgEl){msgEl.style.cssText='display:block;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)';msgEl.textContent='❌ '+(d.error||'Could not submit.');}
+    }
+  }catch(e){ if(msgEl){msgEl.style.cssText='display:block;background:rgba(239,68,68,.1);color:#f87171';msgEl.textContent='Network error.';} }
+}
+
+async function saveReferralCode(){
+  const code=document.getElementById('refCodeInput')?.value.trim().toUpperCase();
+  if(!code||!/^[A-Z0-9]{5,12}$/.test(code)){ showMsg('refCodeMsg','Code must be 5–12 letters/numbers.',true); return; }
+  try{
+    const r=await fetch(BOT_BASE+'/set-referral',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,code})});
+    const d=await r.json();
+    if(d.success){ document.getElementById('refCodeDisplay').textContent=code; showMsg('refCodeMsg','✅ Code saved!',false); }
+    else showMsg('refCodeMsg',d.error||'Could not save.',true);
+  }catch(e){ showMsg('refCodeMsg','Network error.',true); }
+}
+
+async function requestPayout(){
+  const type=document.getElementById('payoutType')?.value;
+  const amt=parseInt(document.getElementById('payoutAmt')?.value||'0');
+  const balance=parseInt(document.getElementById('tokenBal')?.textContent||'0');
+  function pmsg(t,ok){const el=document.getElementById('payoutMsg');if(el){el.style.cssText=`display:block;background:${ok?'rgba(0,200,83,.1)':'rgba(239,68,68,.1)'};color:${ok?'#00c853':'#f87171'};border:1px solid ${ok?'rgba(0,200,83,.2)':'rgba(239,68,68,.2)'}`;el.textContent=t;}}
+  if(!amt||amt<100){pmsg('❌ Min 100 tokens.',false);return;}
+  if(amt%10!==0){pmsg('❌ Must be multiple of 10.',false);return;}
+  if(amt>balance){pmsg('❌ Insufficient balance.',false);return;}
+  pmsg('⏳ Submitting…',true);
+  try{
+    const r=await fetch(BOT_BASE+'/payout-request',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,tokens:amt,type,value:type==='robux'?amt*10:amt/10})});
+    const d=await r.json();
+    if(d.success){pmsg('✅ Request submitted! Staff will process it.',true);document.getElementById('tokenBal').textContent=Math.max(0,balance-amt);}
+    else pmsg('❌ '+(d.error||'Failed.'),false);
+  }catch(e){pmsg('❌ Network error.',false);}
+}
+
+// ── SETTINGS ───────────────────────────────────────────────────
+function updateName(){
+  const val=document.getElementById('newName')?.value.trim();
+  if(!val){ showMsg('nameMsg','Name cannot be empty.',true); return; }
+  const users=loadUsers();
+  if(!users[currentUser.email]){ showMsg('nameMsg','Account data missing.',true); return; }
+  users[currentUser.email].name=val;
+  saveUsers(users);
+  currentUser.name=val;
+  saveSession(currentUser);
+  document.getElementById('sidebarName').textContent=val;
+  document.getElementById('newName').value='';
+  showMsg('nameMsg','✅ Name updated!',false);
+}
+function updateEmail(){
+  const val=document.getElementById('newEmail')?.value.trim().toLowerCase();
+  if(!val||!val.includes('@')){ showMsg('emailMsg','Enter a valid email.',true); return; }
+  const users=loadUsers();
+  if(users[val]&&val!==currentUser.email){ showMsg('emailMsg','Email already in use.',true); return; }
+  const ud=users[currentUser.email];
+  delete users[currentUser.email];
+  users[val]={...ud,email:val};
+  saveUsers(users);
+  currentUser.email=val;
+  saveSession(currentUser);
+  document.getElementById('sidebarEmail').textContent=val;
+  document.getElementById('newEmail').value='';
+  showMsg('emailMsg','✅ Email updated!',false);
+}
+function toggleDevMode(){
+  if(!currentUser?.isDev) return;
+  currentUser.devActive=!currentUser.devActive;
+  saveSession(currentUser);
+  const btn=document.getElementById('devModeBtn');
+  if(btn){btn.textContent=currentUser.devActive?'ON':'OFF';btn.style.background=currentUser.devActive?'linear-gradient(135deg,#9333ea,#ff10f0)':'rgba(255,255,255,.08)';btn.style.color=currentUser.devActive?'#fff':'rgba(255,255,255,.5)';}
+}
+
+// ── SECURITY ───────────────────────────────────────────────────
+async function changePassword(){
+  const oldP=document.getElementById('oldPass')?.value;
+  const newP=document.getElementById('newPass')?.value;
+  if(!oldP||!newP){ showMsg('passMsg','Fill in both fields.',true); return; }
+  if(newP.length<6){ showMsg('passMsg','New password must be 6+ chars.',true); return; }
+  const users=loadUsers(); const u=users[currentUser.email]; if(!u) return;
+  const valid=isHashed(u.password)?(await hashPass(oldP,currentUser.email))===u.password:btoa(oldP)===u.password;
+  if(!valid){ showMsg('passMsg','Current password is incorrect.',true); return; }
+  u.password=await hashPass(newP,currentUser.email);
+  saveUsers(users);
+  document.getElementById('oldPass').value='';
+  document.getElementById('newPass').value='';
+  showMsg('passMsg','✅ Password updated!',false);
+}
+
+async function toggle2FA(){
+  const users=loadUsers(); const u=users[currentUser.email]; if(!u) return;
+  if(u.twofa){
+    u.twofa=false; saveUsers(users); update2FAToggle(false);
+    showMsg('twoFAMsg','2FA disabled.',false);
+    document.getElementById('twoFAVerify').style.display='none';
+    _2faPendingEnable=false;
+    renderSidebar();
+  } else {
+    _2faPendingEnable=true;
+    showMsg('twoFAMsg','Sending code…',false);
+    try{
+      const r=await fetch(BOT_BASE+'/send-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:currentUser.email,name:currentUser.name})});
+      if(!r.ok){ showMsg('twoFAMsg','Failed to send code. Try again.',true); _2faPendingEnable=false; return; }
+    }catch(e){ showMsg('twoFAMsg','Network error. Try again.',true); _2faPendingEnable=false; return; }
+    document.getElementById('twoFAVerify').style.display='block';
+    showMsg('twoFAMsg','📧 A 6-digit code was sent to your email.',false);
+  }
+}
+function update2FAToggle(on){
+  const t=document.getElementById('twoFAToggle'); const th=document.getElementById('twoFAThumb');
+  if(!t||!th) return;
+  t.style.background=on?'rgba(147,51,234,.6)':'rgba(255,255,255,.1)';
+  th.style.left=on?'23px':'2px';
+}
+async function verify2FACode(){
+  const code=document.getElementById('twoFACode')?.value.trim();
+  if(!code){ showMsg('twoFAMsg','Enter the code.',true); return; }
+  try{
+    const r=await fetch(BOT_BASE+'/verify-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:currentUser.email,code})});
+    const d=await r.json();
+    if(!d.valid){ showMsg('twoFAMsg',d.error||'Incorrect code.',true); return; }
+  }catch(e){ showMsg('twoFAMsg','Network error.',true); return; }
+  const users=loadUsers(); const u=users[currentUser.email]; if(!u) return;
+  u.twofa=true; saveUsers(users); _2faPendingEnable=false;
+  document.getElementById('twoFAVerify').style.display='none';
+  document.getElementById('twoFACode').value='';
+  update2FAToggle(true);
+  showMsg('twoFAMsg','✅ 2FA enabled!',false);
+  renderSidebar();
+}
+
+// ── UPLOAD PFP ─────────────────────────────────────────────────
+function uploadPfp(input){
+  if(!input.files?.[0]) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const b64=e.target.result;
+    localStorage.setItem('silv_pfp_'+currentUser.email,b64);
+    const img=document.getElementById('pfpImg');
+    const fb=document.getElementById('pfpFallback');
+    if(img){img.src=b64;img.style.display='block';} if(fb)fb.style.display='none';
+  };
+  reader.readAsDataURL(input.files[0]);
+  input.value='';
+}
+
+// ── LOGOUT ─────────────────────────────────────────────────────
+function doLogout(){
+  clearSession();
+  window.location.href='/';
+}
+
+// ── MSG HELPER ─────────────────────────────────────────────────
+function showMsg(id, text, isErr){
+  const el=document.getElementById(id); if(!el) return;
+  el.className='msg '+(isErr?'err':'ok');
+  el.style.display='block';
+  el.textContent=text;
+  setTimeout(()=>{el.style.display='none';},4000);
+}
+
+// ── DISCORD OAUTH ──────────────────────────────────────────────
+let _authCheckInterval=null, _authWindow=null;
+function buildVaultcordURL(){
+  const base='https://discord.com/oauth2/authorize';
+  const redirectUri=encodeURIComponent(location.origin+'/auth-callback.html');
+  return `${base}?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
+}
+function startDiscordAuth(e){
+  if(e) e.preventDefault();
+  try{ localStorage.removeItem('silv_discord_auth'); localStorage.removeItem('silv_discord_verified'); }catch{}
+  const url=buildVaultcordURL();
+  const w=600,h=700,l=(screen.width-w)/2,t=(screen.height-h)/2;
+  _authWindow=window.open(url,'DiscordAuth',`width=${w},height=${h},left=${l},top=${t},menubar=no,toolbar=no,location=no`);
+  if(!_authWindow){ _authWindow=window.open(url,'_blank'); }
+  if(_authCheckInterval) clearInterval(_authCheckInterval);
+  _authCheckInterval=setInterval(()=>{
+    try{
+      const stored=localStorage.getItem('silv_discord_auth');
+      if(stored){
+        const data=JSON.parse(stored);
+        const age=Date.now()-(data.timestamp||0);
+        if(age<300000 && data.verified===true){
+          clearInterval(_authCheckInterval);
+          try{localStorage.removeItem('silv_discord_auth');localStorage.removeItem('silv_discord_verified');}catch{}
+          if(_authWindow&&!_authWindow.closed) try{_authWindow.close();}catch{}
+          setDiscordLinked(data);
+        }
+      }
+    }catch{}
+    if(_authWindow?.closed) clearInterval(_authCheckInterval);
+  },600);
+}
+window.addEventListener('message',e=>{
+  const d=e.data;
+  if(d&&(d.type==='DISCORD_AUTH'||d.verified)){
+    clearInterval(_authCheckInterval);
+    if(_authWindow&&!_authWindow.closed) try{_authWindow.close();}catch{}
+    setDiscordLinked({id:d.id||d.discord_id||'',username:d.username||d.discord_username||'Discord User',discriminator:d.discriminator||'0',avatar:d.avatar||d.avatar_url||'',verified:true});
+  }
+});
+function setDiscordLinked(user){
+  discordLinked=true; discordUser=user;
+  try{ localStorage.setItem('silv_discord_session',JSON.stringify({...user,timestamp:Date.now()})); }catch{}
+  if(currentUser&&user.id){
+    fetch(BOT_BASE+'/update-discord',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,discordId:user.id,discordUsername:user.username||''})}).catch(()=>{});
+  }
+  // Update sidebar
+  const linkedEl=document.getElementById('discSidebarLinked');
+  const unlinkedEl=document.getElementById('discSidebarUnlinked');
+  if(linkedEl) linkedEl.style.display='block';
+  if(unlinkedEl) unlinkedEl.style.display='none';
+  const avEl=document.getElementById('discSidebarAvatar');
+  if(avEl&&user.avatar){
+    let src=user.avatar;
+    if(!src.startsWith('http')&&user.id) src=`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+    avEl.src=src;
+  }
+  const nameEl=document.getElementById('discSidebarName');
+  if(nameEl) nameEl.textContent=user.username||'Discord User';
+  // Also update pfp
+  renderSidebar();
+}
+function unlinkDiscord(){
+  discordLinked=false; discordUser={};
+  try{ localStorage.removeItem('silv_discord_session'); }catch{}
+  document.getElementById('discSidebarLinked').style.display='none';
+  document.getElementById('discSidebarUnlinked').style.display='block';
+  renderSidebar();
+}
+
+// ── STRIPE RETURN ──────────────────────────────────────────────
+async function handleStripeReturn(orderId){
+  history.replaceState({},'','/account');
+  if(!orderId) return;
+  const raw=localStorage.getItem('stripe_pending_'+orderId);
+  if(!raw){ showSection('orders'); return; }
+  try{
+    const ctx=JSON.parse(raw);
+    localStorage.removeItem('stripe_pending_'+orderId);
+    const users=loadUsers();
+    const u=users[currentUser?.email];
+    if(u){
+      if(!u.orders) u.orders=[];
+      u.orders.unshift({orderId:ctx.orderId,claimKey:ctx.claimKey,items:(ctx.cart||[]).map(i=>i.name),total:ctx.tot,method:'Card',date:new Date().toISOString()});
+      saveUsers(users);
+    }
+    renderSidebar();
+    showSection('orders');
+    alert('✅ Order '+ctx.orderId+' placed! Check your Discord ticket for delivery.');
+  }catch(e){ showSection('orders'); }
+}
+</script>
+</body>
+</html>

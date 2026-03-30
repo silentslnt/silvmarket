@@ -1814,19 +1814,19 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
         </div>
       </div>
 
-      <div id="apSettingsMsg" style="display:none;padding:10px 13px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;text-align:center;margin-top:4px"></div>
-    </div>
-
-    <!-- DEV MODE PANEL — only shown for isDev accounts -->
-    <div id="apDevPanel" style="display:none;padding:0 18px 18px">
-      <div style="background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.18);border-radius:10px;padding:14px">
-        <div style="font-family:'Orbitron',monospace;font-size:10px;font-weight:800;color:var(--pink);letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
-        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff">Test Mode</span>
-          <button id="devModeToggle" onclick="toggleDevMode()" style="padding:7px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s">OFF</button>
+      <!-- DEV MODE — only shown for isDev accounts, inside Settings tab -->
+      <div id="apDevPanel" style="display:none">
+        <div style="background:rgba(255,16,240,.06);border:1px solid rgba(255,16,240,.18);border-radius:10px;padding:14px">
+          <div style="font-family:'Orbitron',monospace;font-size:10px;font-weight:800;color:var(--pink);letter-spacing:2px;margin-bottom:8px">⚗️ DEVELOPER TEST MODE</div>
+          <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.45);margin-bottom:12px">When enabled, checkout completes instantly with no real payment. Orders are marked as Dev Test.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff">Test Mode</span>
+            <button id="devModeToggle" onclick="toggleDevMode()" style="padding:7px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all .2s">OFF</button>
+          </div>
         </div>
       </div>
+
+      <div id="apSettingsMsg" style="display:none;padding:10px 13px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;text-align:center;margin-top:4px"></div>
     </div>
 
     <!-- SECURITY TAB -->

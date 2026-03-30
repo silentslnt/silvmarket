@@ -4509,7 +4509,8 @@ async function showAffiliatePage(){
         <div style="background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.25);border-radius:12px;padding:20px;text-align:center">
           <div style="font-size:36px;margin-bottom:8px">⏳</div>
           <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#ffa500;margin-bottom:8px">APPLICATION PENDING</div>
-          <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Your application is under review. You'll receive a notification once approved.</p>
+          <p style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Your application is under review. A ticket has been created in our Discord server — check there for updates from staff.</p>
+          <a href="https://discord.gg/brianrots" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:10px 20px;background:rgba(88,101,242,.2);border:1px solid rgba(88,101,242,.4);border-radius:9px;color:#7289da;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-decoration:none">💬 Go to Discord →</a>
         </div>`;
     } else {
       // Not applied or denied — show form
@@ -5010,7 +5011,7 @@ function renderAffiliateBlock(status, code, stats){
       <span style="font-size:26px">⏳</span>
       <div>
         <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ffa500;letter-spacing:1px">APPLICATION PENDING</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">Your affiliate application is under review. You'll be notified once approved.</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.4);margin-top:3px">Under review — check your Discord ticket for updates from staff.</div>
       </div>
     </div>`;
   } else if(status==='denied'){
@@ -5051,7 +5052,7 @@ async function applyAffiliate(){
     });
     const data=await resp.json();
     if(data.success){
-      if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! We\'ll review it shortly.';}
+      if(msgEl){msgEl.style.background='rgba(0,200,83,.1)';msgEl.style.color='#00c853';msgEl.style.border='1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Application submitted! Check your Discord — a ticket has been created for your review.';}
       // Refresh affiliate block to pending state
       setTimeout(()=>renderAffiliateBlock('pending',null),1200);
     } else {

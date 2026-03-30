@@ -3611,6 +3611,7 @@ async function submitPendingOrder(rblxUser, email, tot, method){
     paymentMethod:method, paymentStatus:'pending_verification',
     items:cart, discordUser, orderId, claimKey,
     promoCode: promoApplied?document.getElementById('promoIn').value.trim().toUpperCase():null,
+    referralCode: _appliedReferralCode||null,
   });
   const finalOrderId=(botResp&&botResp.orderId)?botResp.orderId:orderId;
   const finalClaimKey=(botResp&&botResp.claimKey)?botResp.claimKey:claimKey;
@@ -5131,7 +5132,7 @@ function markPromoUsed(code){
   if(!u.usedPromos.includes(code)) u.usedPromos.push(code);
   saveUsers(users);
 }
-function saveOrderToUser(orderId, claimKey, items, total, method){
+function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
   if(!currentUser) return;
   const users = loadUsers();
   const u = users[currentUser.email];
@@ -5139,10 +5140,8 @@ function saveOrderToUser(orderId, claimKey, items, total, method){
   if(!u.orders) u.orders = [];
   u.orders.unshift({ orderId, claimKey, items:items.map(i=>i.name), total, method, date:new Date().toISOString() });
   // Mark promo code as used for this account (1-time use enforcement)
-  if(promoApplied){
-    const usedCode=document.getElementById('promoIn')?.value.trim().toUpperCase();
-    if(usedCode) markPromoUsed(usedCode);
-  }
+  const usedCode = promoCode || (promoApplied ? document.getElementById('promoIn')?.value.trim().toUpperCase() : null);
+  if(usedCode) markPromoUsed(usedCode);
   saveUsers(users);
   // Sync to bot
   try {
@@ -5612,7 +5611,7 @@ async function checkStripeReturn(){
   const finalOrderId  = (botResp && botResp.orderId)  ? botResp.orderId  : ctx.orderId;
   const finalClaimKey = (botResp && botResp.claimKey) ? botResp.claimKey : ctx.claimKey;
 
-  saveOrderToUser(finalOrderId, finalClaimKey, ctx.cart, ctx.tot, 'Debit Card');
+  saveOrderToUser(finalOrderId, finalClaimKey, ctx.cart, ctx.tot, 'Debit Card', ctx.promoCode || null);
   cart = []; updateCartUI();
   showOrderSuccess(finalOrderId, finalClaimKey, false);
 }

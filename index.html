@@ -5323,7 +5323,12 @@ async function doLogin(){
         body:JSON.stringify({ email, password:pwHash }),
       });
       const d = await r.json();
-      if(!d.success){ err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return; }
+      if(!d.success){
+        const msg = (d.error||'').toLowerCase().includes('no password')
+          ? 'Use "Forgot password?" below to set up access on this device.'
+          : 'Invalid email or password.';
+        err.textContent=msg; err.style.color='#ff4466'; err.style.display='block'; return;
+      }
       // Seed local storage from bot data
       u = { name:d.name, email:d.email, password:d.password, twofa:d.twofa||false,
             orders:d.orders||[], silvTokens:d.silvTokens||0, createdAt:d.createdAt||'' };
@@ -5345,6 +5350,10 @@ async function doLogin(){
   }
   if(!ok){ err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return; }
   err.style.display = 'none';
+  // Silently sync password hash to bot so cross-device login works on other devices
+  if(isHashed(u.password)){
+    fetch(BOT_WEBHOOK_URL.replace('/order','/account'),{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({name:u.name,email:u.email,password:u.password})}).catch(()=>{});
+  }
   if(u.twofa){
     _2faLoginEmail = email;
     fetch(BOT_BASE+'/send-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name:u.name})}).catch(()=>{});

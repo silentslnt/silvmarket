@@ -8,14 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#07031a;--surface:#0d0d20;--surface2:#111128;--border:rgba(255,255,255,.07);--purple:#9333ea;--pink:#ff10f0;--yellow:#ffd700;--text:rgba(255,255,255,.85);--muted:rgba(255,255,255,.38);--green:#00c853;--red:#ef4444}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+:root{--bg:#07031a;--surface:rgba(13,10,30,.82);--surface2:rgba(17,13,38,.88);--border:rgba(255,255,255,.08);--purple:#9333ea;--pink:#ff10f0;--yellow:#ffd700;--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.38);--green:#00c853;--red:#ef4444}
+html{background:url('https://silvmarket.shop/images/silvmarket%20wallpaper.jpg') center/cover fixed}
+body{background:rgba(7,3,26,.7);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;font-family:'Inter',sans-serif}
 input{font-family:'Inter',sans-serif}
 
 /* ── TOPBAR ── */
-.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.topbar{height:56px;background:rgba(7,3,22,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-logo{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
 .topbar-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);transition:color .15s;margin-right:auto;cursor:pointer}
 .topbar-back:hover{color:#fff}
@@ -28,23 +29,25 @@ input{font-family:'Inter',sans-serif}
 .right-col{width:300px;flex-shrink:0;position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 
 /* ── CARDS ── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px}
-.card-title{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:16px}
+.card{background:rgba(13,10,30,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+.card-title{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card-title svg{opacity:.5}
 
 /* ── INPUTS ── */
 .field-row{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .field-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.4px}
-.field-input{background:#0d0d20;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:10px 13px;color:#fff;font-size:13px;font-weight:500;outline:none;transition:border-color .2s}
-.field-input:focus{border-color:rgba(147,51,234,.5);background:rgba(147,51,234,.04)}
-.field-input::placeholder{color:rgba(255,255,255,.22)}
+.field-input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:11px 14px;color:#fff;font-size:13px;font-weight:500;outline:none;transition:border-color .2s,background .2s}
+.field-input:focus{border-color:rgba(147,51,234,.6);background:rgba(147,51,234,.06)}
+.field-input::placeholder{color:rgba(255,255,255,.2)}
 
 /* ── PAYMENT METHODS ── */
-.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-.pay-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:12px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;font-size:11px;font-weight:700;color:var(--muted)}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.pay-opt{display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;font-size:12px;font-weight:700;color:var(--muted)}
 .pay-opt:hover{border-color:rgba(147,51,234,.4);color:#fff;background:rgba(147,51,234,.06)}
 .pay-opt.active{border-color:var(--purple);background:rgba(147,51,234,.12);color:#fff}
-.pay-opt .icon{font-size:20px}
-.pay-note{font-size:10px;color:rgba(255,255,255,.18);margin-top:6px;text-align:center}
+.pay-opt svg{opacity:.6;transition:opacity .2s;flex-shrink:0}
+.pay-opt.active svg{opacity:1}
+.pay-note{font-size:10px;color:rgba(255,255,255,.18);margin-top:8px;padding:0 2px}
 
 /* ── DISCORD CARD ── */
 .disc-row{display:flex;align-items:center;gap:10px}
@@ -75,11 +78,11 @@ input{font-family:'Inter',sans-serif}
 
 /* ── CODE INPUT ── */
 .code-wrap{display:flex;gap:8px}
-.code-input{flex:1;background:#0d0d20;border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px 13px;color:#fff;font-size:12px;font-weight:600;outline:none;text-transform:uppercase;transition:border-color .2s}
+.code-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;color:#fff;font-size:12px;font-weight:600;outline:none;text-transform:uppercase;transition:border-color .2s}
 .code-input:focus{border-color:rgba(147,51,234,.5)}
-.code-input::placeholder{text-transform:none;color:rgba(255,255,255,.22)}
-.code-btn{padding:9px 16px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.3);border-radius:9px;color:#a855f7;font-size:11px;font-weight:700;transition:all .2s}
-.code-btn:hover{background:rgba(147,51,234,.25);color:#fff}
+.code-input::placeholder{text-transform:none;color:rgba(255,255,255,.2)}
+.code-btn{padding:10px 16px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.3);border-radius:10px;color:#a855f7;font-size:11px;font-weight:700;transition:all .2s}
+.code-btn:hover{background:rgba(147,51,234,.28);color:#fff}
 .code-msg{font-size:10px;font-weight:600;margin-top:6px;padding:5px 10px;border-radius:6px;display:none}
 
 /* ── CHECKOUT BTN ── */
@@ -172,7 +175,7 @@ input{font-family:'Inter',sans-serif}
 
     <!-- Roblox / Email -->
     <div class="card">
-      <div class="card-title">Delivery Info</div>
+      <div class="card-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Delivery Info</div>
       <div class="field-row">
         <label class="field-label">Roblox Username</label>
         <input class="field-input" id="rblxInput" placeholder="Your exact Roblox username" autocomplete="off"/>
@@ -185,7 +188,7 @@ input{font-family:'Inter',sans-serif}
 
     <!-- Discord -->
     <div class="card">
-      <div class="card-title">Discord (Optional)</div>
+      <div class="card-title"><svg width="13" height="11" viewBox="0 0 71 55" fill="currentColor" style="opacity:.5"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>Discord <span style="font-size:9px;font-weight:500;opacity:.6">(Optional)</span></div>
       <div id="discNotLinked">
         <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Link Discord to get notified in DMs when your order is delivered.</p>
         <button class="disc-btn connect" onclick="startDiscordAuth(event)">
@@ -207,14 +210,14 @@ input{font-family:'Inter',sans-serif}
 
     <!-- Payment Method -->
     <div class="card">
-      <div class="card-title">Payment Method</div>
+      <div class="card-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Payment Method</div>
       <div class="pay-grid">
         <div class="pay-opt active" id="payOptStripe" onclick="selectPayMethod('stripe')">
-          <span class="icon">💳</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           <span>Card</span>
         </div>
         <div class="pay-opt" id="payOptCrypto" onclick="selectPayMethod('crypto')">
-          <span class="icon">₿</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 8h5a2 2 0 0 1 0 4H9m0 0h5.5a2 2 0 0 1 0 4H9M9 8v8"/></svg>
           <span>Crypto</span>
         </div>
       </div>
@@ -234,7 +237,7 @@ input{font-family:'Inter',sans-serif}
           <div class="timer-bar-bg"><div class="timer-bar-fill" id="cryptoTimerBar" style="width:100%"></div></div>
           <div class="timer-val" id="cryptoTimerVal">10:00</div>
         </div>
-        <button class="crypto-sent-btn" id="cryptoSentBtn" onclick="cryptoISent()" disabled>✅ I've Sent the Crypto</button>
+        <button class="crypto-sent-btn" id="cryptoSentBtn" onclick="cryptoISent()" disabled>I've Sent the Crypto</button>
         <div class="crypto-status" id="cryptoStatus"></div>
       </div>
     </div>
@@ -246,7 +249,7 @@ input{font-family:'Inter',sans-serif}
 
     <!-- Order Summary -->
     <div class="card">
-      <div class="card-title">Order Summary</div>
+      <div class="card-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Order Summary</div>
       <div id="summaryItems"><!-- filled by JS --></div>
       <div class="sum-totals">
         <div class="sum-row"><span class="lbl">Subtotal</span><span class="val" id="sumSub">—</span></div>
@@ -259,7 +262,7 @@ input{font-family:'Inter',sans-serif}
 
     <!-- Promo / Referral -->
     <div class="card">
-      <div class="card-title">Promo / Referral Code</div>
+      <div class="card-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Promo / Referral Code</div>
       <div class="code-wrap">
         <input class="code-input" id="codeInput" placeholder="Enter code…" onkeydown="if(event.key==='Enter')applyCode()"/>
         <button class="code-btn" onclick="applyCode()">Apply</button>

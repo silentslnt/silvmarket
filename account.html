@@ -88,14 +88,37 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 .toggle-thumb{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)}
 
 /* orders */
-.order-row{padding:12px 0;border-bottom:1px solid var(--border)}
-.order-row:last-child{border-bottom:none}
-.order-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.order-id{font-family:'Orbitron',monospace;font-size:11px;color:rgba(255,255,255,.55)}
-.order-total{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:#ffd700}
-.order-items{font-size:12px;color:var(--muted);margin-bottom:3px}
-.order-meta{font-size:11px;color:rgba(255,255,255,.22)}
-.empty-state{padding:24px 0;text-align:center;color:var(--muted);font-size:13px}
+.orders-toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.orders-filter{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none;position:relative}
+.orders-filter:hover,.orders-filter.active{border-color:rgba(147,51,234,.4);color:#fff;background:rgba(147,51,234,.08)}
+.orders-filter svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.filter-dropdown{position:absolute;top:calc(100%+6px);left:0;min-width:160px;background:#111128;border:1px solid rgba(147,51,234,.25);border-radius:10px;z-index:20;box-shadow:0 8px 32px rgba(0,0,0,.5);display:none}
+.filter-dropdown.open{display:block}
+.filter-option{padding:9px 14px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .12s}
+.filter-option:hover{background:rgba(147,51,234,.1);color:#fff}
+.filter-option.selected{color:#a855f7}
+.orders-table{width:100%;border-collapse:collapse}
+.orders-table th{font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.2);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+.orders-table th:last-child,.orders-table td:last-child{text-align:right}
+.orders-table td{padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.orders-table tr:last-child td{border-bottom:none}
+.orders-table tr:hover td{background:rgba(255,255,255,.02)}
+.order-item-cell{display:flex;align-items:center;gap:10px}
+.order-icon{width:38px;height:38px;border-radius:8px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.order-name{font-size:12px;font-weight:700;color:#fff;line-height:1.4;max-width:200px}
+.order-id-small{font-family:'Orbitron',monospace;font-size:9px;color:rgba(255,255,255,.25);margin-top:2px}
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
+.status-badge.completed{background:rgba(0,200,83,.12);color:#00c853;border:1px solid rgba(0,200,83,.2)}
+.status-badge.pending{background:rgba(255,165,0,.12);color:#ffa500;border:1px solid rgba(255,165,0,.2)}
+.status-badge.delivered{background:rgba(88,101,242,.12);color:#818cf8;border:1px solid rgba(88,101,242,.2)}
+.col-price{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:#ffd700}
+.col-disc{font-size:11px;color:rgba(0,200,83,.8);font-weight:600}
+.col-method{font-size:11px;color:var(--muted);font-weight:600}
+.col-date{font-size:11px;color:rgba(255,255,255,.3);white-space:nowrap}
+.claim-copy{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);border-radius:6px;font-size:10px;font-weight:700;color:#a855f7;cursor:pointer;transition:all .15s;white-space:nowrap}
+.claim-copy:hover{background:rgba(147,51,234,.2);color:#fff}
+.empty-state{padding:40px 0;text-align:center;color:var(--muted);font-size:13px}
+.empty-state-icon{font-size:36px;margin-bottom:10px;opacity:.4}
 
 /* tokens */
 .token-hero{background:#111128;border:1px solid rgba(255,215,0,.15);border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:14px}
@@ -234,8 +257,49 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
     <!-- ORDERS -->
     <div class="section active" id="section-orders">
       <div class="section-header">Order History</div>
-      <div class="card">
-        <div id="ordersList"><div class="empty-state">No orders yet.</div></div>
+
+      <!-- Toolbar -->
+      <div class="orders-toolbar">
+        <div class="orders-filter" id="statusFilter" onclick="toggleFilterDrop('statusDrop',this)">
+          <span id="statusFilterLabel">All statuses</span>
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="filter-dropdown" id="statusDrop">
+            <div class="filter-option selected" onclick="setStatusFilter('all',this)">All statuses</div>
+            <div class="filter-option" onclick="setStatusFilter('completed',this)">Completed</div>
+            <div class="filter-option" onclick="setStatusFilter('pending',this)">Pending</div>
+          </div>
+        </div>
+        <div class="orders-filter" id="sortFilter" onclick="toggleFilterDrop('sortDrop',this)">
+          <span id="sortFilterLabel">Recent</span>
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="filter-dropdown" id="sortDrop">
+            <div class="filter-option selected" onclick="setSortFilter('recent',this)">Recent</div>
+            <div class="filter-option" onclick="setSortFilter('oldest',this)">Oldest</div>
+            <div class="filter-option" onclick="setSortFilter('highest',this)">Highest price</div>
+            <div class="filter-option" onclick="setSortFilter('lowest',this)">Lowest price</div>
+          </div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;color:var(--muted);display:flex;align-items:center" id="orderCount"></div>
+      </div>
+
+      <!-- Table wrapper (scrollable on mobile) -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;overflow-x:auto">
+        <table class="orders-table" id="ordersTable">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Payment</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Discount</th>
+              <th>Claim Key</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTbody">
+            <tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">🛒</div>No orders yet. Head to the shop!</div></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -463,23 +527,146 @@ function loadSectionData(id){
 }
 
 // ── ORDERS ─────────────────────────────────────────────────────
+let _allOrders = [];
+let _orderStatusFilter = 'all';
+let _orderSortFilter   = 'recent';
+
 function loadOrders(){
   const users  = loadUsers();
   const u      = users[currentUser.email];
-  const orders = u?.orders || [];
-  const el     = document.getElementById('ordersList');
-  const total  = orders.reduce((s,o)=>s+Number(o.total||0),0);
+  _allOrders   = u?.orders || [];
+  const total  = _allOrders.reduce((s,o)=>s+Number(o.total||0),0);
   document.getElementById('sidebarBalance').textContent = '$'+total.toFixed(2);
-  if(!orders.length){ el.innerHTML='<div class="empty-state">No orders yet. Head to the shop and grab something!</div>'; return; }
-  el.innerHTML = orders.slice(0,20).map(o=>`
-    <div class="order-row">
-      <div class="order-top">
-        <span class="order-id">${o.orderId}</span>
-        <span class="order-total">$${o.total}</span>
-      </div>
-      <div class="order-items">${(o.items||[]).join(', ')||'—'}</div>
-      <div class="order-meta">${o.method} &nbsp;·&nbsp; ${new Date(o.date).toLocaleDateString()}</div>
-    </div>`).join('');
+  renderOrdersTable();
+}
+
+function renderOrdersTable(){
+  const tbody  = document.getElementById('ordersTbody');
+  const countEl= document.getElementById('orderCount');
+
+  let orders = [..._allOrders];
+
+  // Filter
+  if(_orderStatusFilter !== 'all'){
+    orders = orders.filter(o=>{
+      const s = (o.status||'completed').toLowerCase();
+      return s.includes(_orderStatusFilter);
+    });
+  }
+
+  // Sort
+  if(_orderSortFilter==='oldest')  orders.reverse();
+  else if(_orderSortFilter==='highest') orders.sort((a,b)=>Number(b.total||0)-Number(a.total||0));
+  else if(_orderSortFilter==='lowest')  orders.sort((a,b)=>Number(a.total||0)-Number(b.total||0));
+  // 'recent' is default (newest first = as stored)
+
+  countEl.textContent = orders.length + ' order' + (orders.length!==1?'s':'');
+
+  if(!orders.length){
+    tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">🛒</div>${_orderStatusFilter!=='all'?'No orders match this filter.':'No orders yet. Head to the shop!'}</div></td></tr>`;
+    return;
+  }
+
+  // Game icon guessing from item names
+  const GAME_ICONS = {
+    'blox fruit':'🍎','blox fruits':'🍎','bloxfruits':'🍎',
+    'adopt me':'🐾','grow a garden':'🌱','murder mystery':'🔪','mm2':'🔪',
+    'brainrot':'🧠','rivals':'⚔️','grand piece':'☠️','gpo':'☠️',
+    'sailor piece':'⚓','sp':'⚓','nights':'🌙','tsunami':'🌊',
+  };
+  function guessIcon(items){
+    const str = (items||[]).join(' ').toLowerCase();
+    for(const [key,icon] of Object.entries(GAME_ICONS)){
+      if(str.includes(key)) return icon;
+    }
+    return '🎮';
+  }
+  function statusBadge(order){
+    const s = (order.status||'completed').toLowerCase();
+    if(s.includes('pending'))   return `<span class="status-badge pending">⏳ Pending</span>`;
+    if(s.includes('delivered')) return `<span class="status-badge delivered">📦 Delivered</span>`;
+    return `<span class="status-badge completed">✓ Completed</span>`;
+  }
+  function formatDate(d){
+    if(!d) return '—';
+    const dt = new Date(d);
+    return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+', '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  }
+  function shortMethod(m){
+    if(!m) return '—';
+    if(m.toLowerCase().includes('stripe')||m.toLowerCase().includes('card')) return '💳 Card';
+    if(m.toLowerCase().includes('paypal')) return '🅿️ PayPal';
+    if(m.toLowerCase().includes('crypto')||m.toLowerCase().includes('btc')||m.toLowerCase().includes('eth')) return '₿ Crypto';
+    return m;
+  }
+
+  tbody.innerHTML = orders.map(o=>{
+    const icon    = guessIcon(o.items);
+    const names   = (o.items||[]).slice(0,2).join(', ')+(o.items?.length>2?` +${o.items.length-2} more`:'') || '—';
+    const disc    = Number(o.discount||0);
+    const claimKey= o.claimKey||'—';
+    const safeKey = claimKey.replace(/'/g,"\\'");
+    return `<tr>
+      <td>
+        <div class="order-item-cell">
+          <div class="order-icon">${icon}</div>
+          <div>
+            <div class="order-name">${names}</div>
+            <div class="order-id-small">${o.orderId||''}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="col-method">${shortMethod(o.method)}</span></td>
+      <td><span class="col-date">${formatDate(o.date)}</span></td>
+      <td>${statusBadge(o)}</td>
+      <td><span class="col-price">$${Number(o.total||0).toFixed(2)}</span></td>
+      <td><span class="col-disc">${disc>0?'-$'+disc.toFixed(2):'$0.00'}</span></td>
+      <td>
+        <span class="claim-copy" onclick="copyClaimKey('${safeKey}',this)" title="${claimKey}">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Key
+        </span>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function copyClaimKey(key, el){
+  navigator.clipboard.writeText(key).then(()=>{
+    const orig=el.innerHTML;
+    el.textContent='✅ Copied!';
+    el.style.color='#00c853';
+    setTimeout(()=>{ el.innerHTML=orig; el.style.color=''; },1800);
+  }).catch(()=>{});
+}
+
+// Filter/sort controls
+function toggleFilterDrop(id, btn){
+  event.stopPropagation();
+  const drop=document.getElementById(id);
+  const wasOpen=drop.classList.contains('open');
+  document.querySelectorAll('.filter-dropdown').forEach(d=>d.classList.remove('open'));
+  if(!wasOpen) drop.classList.add('open');
+}
+document.addEventListener('click',()=>document.querySelectorAll('.filter-dropdown').forEach(d=>d.classList.remove('open')));
+
+function setStatusFilter(val, el){
+  event.stopPropagation();
+  _orderStatusFilter=val;
+  document.getElementById('statusFilterLabel').textContent=el.textContent;
+  el.closest('.filter-dropdown').querySelectorAll('.filter-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.closest('.filter-dropdown').classList.remove('open');
+  renderOrdersTable();
+}
+function setSortFilter(val, el){
+  event.stopPropagation();
+  _orderSortFilter=val;
+  document.getElementById('sortFilterLabel').textContent=el.textContent;
+  el.closest('.filter-dropdown').querySelectorAll('.filter-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.closest('.filter-dropdown').classList.remove('open');
+  renderOrdersTable();
 }
 
 // ── TOKENS & REFERRAL ──────────────────────────────────────────

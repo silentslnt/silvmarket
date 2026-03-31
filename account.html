@@ -114,7 +114,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 .col-disc{font-size:11px;color:rgba(0,200,83,.8);font-weight:600}
 .col-method{font-size:11px;color:var(--muted);font-weight:600}
 .col-date{font-size:11px;color:rgba(255,255,255,.3);white-space:nowrap}
-.claim-copy{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);border-radius:6px;font-size:10px;font-weight:700;color:#a855f7;cursor:pointer;transition:all .15s;white-space:nowrap}
+.claim-copy{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);border-radius:6px;font-size:10px;font-weight:700;color:#a855f7;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'Inter',sans-serif}
 .claim-copy:hover{background:rgba(147,51,234,.2);color:#fff}
 .empty-state{padding:40px 0;text-align:center;color:var(--muted);font-size:13px}
 .empty-state-icon{font-size:36px;margin-bottom:10px;opacity:.4}
@@ -622,44 +622,44 @@ function renderOrdersTable(){
     return m;
   }
 
-  tbody.innerHTML = orders.map(o=>{
-    const icon    = guessIcon(o.items);
-    const names   = (o.items||[]).slice(0,2).join(', ')+(o.items?.length>2?` +${o.items.length-2} more`:'') || '—';
-    const disc    = Number(o.discount||0);
-    const claimKey= o.claimKey||'—';
-    const safeKey = claimKey.replace(/'/g,"\\'");
-    return `<tr>
-      <td>
-        <div class="order-item-cell">
-          <div class="order-icon">${icon}</div>
-          <div>
-            <div class="order-name">${names}</div>
-            <div class="order-id-small">${o.orderId||''}</div>
+  const rows = [];
+  for(let i=0;i<orders.length;i++){
+    try{
+      const o = orders[i];
+      const icon    = guessIcon(o.items);
+      const names   = (o.items||[]).slice(0,2).join(', ') + (o.items&&o.items.length>2?' +'+( o.items.length-2)+' more':'') || '—';
+      const disc    = Number(o.discount||0);
+      const claimKey= String(o.claimKey||'—');
+      const orderId = String(o.orderId||'');
+      rows.push(`<tr>
+        <td>
+          <div class="order-item-cell">
+            <div class="order-icon">${icon}</div>
+            <div>
+              <div class="order-name">${names}</div>
+              <div class="order-id-small">${orderId}</div>
+            </div>
           </div>
-        </div>
-      </td>
-      <td><span class="col-method">${shortMethod(o.method)}</span></td>
-      <td><span class="col-date">${formatDate(o.date)}</span></td>
-      <td>${statusBadge(o)}</td>
-      <td><span class="col-price">$${Number(o.total||0).toFixed(2)}</span></td>
-      <td><span class="col-disc">${disc>0?'-$'+disc.toFixed(2):'$0.00'}</span></td>
-      <td>
-        <span class="claim-copy" onclick="copyClaimKey('${safeKey}',this)" title="${claimKey}">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy Key
-        </span>
-      </td>
-    </tr>`;
-  }).join('');
+        </td>
+        <td><span class="col-method">${shortMethod(o.method)}</span></td>
+        <td><span class="col-date">${formatDate(o.date)}</span></td>
+        <td>${statusBadge(o)}</td>
+        <td><span class="col-price">$${Number(o.total||0).toFixed(2)}</span></td>
+        <td><span class="col-disc">${disc>0?'-$'+disc.toFixed(2):'$0.00'}</span></td>
+        <td><button class="claim-copy" data-key="${claimKey.replace(/"/g,'&quot;')}" onclick="copyClaimKey(this.dataset.key,this)">⎘ Copy Key</button></td>
+      </tr>`);
+    }catch(e){ console.warn('Order render error:', e); }
+  }
+  tbody.innerHTML = rows.join('');
 }
 
 function copyClaimKey(key, el){
   navigator.clipboard.writeText(key).then(()=>{
-    const orig=el.innerHTML;
+    const orig=el.textContent;
     el.textContent='✅ Copied!';
     el.style.color='#00c853';
-    setTimeout(()=>{ el.innerHTML=orig; el.style.color=''; },1800);
-  }).catch(()=>{});
+    setTimeout(()=>{ el.textContent=orig; el.style.color=''; },1800);
+  }).catch(()=>{ el.textContent=key; });
 }
 
 // Filter/sort controls

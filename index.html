@@ -896,66 +896,67 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div style="position:relative;display:inline-flex" id="navUserWrap">
       <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
       <span id="navNotifBadge" style="display:none;position:absolute;top:-5px;right:-5px;background:#ff0040;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;align-items:center;justify-content:center;box-shadow:0 0 7px #ff0040;pointer-events:none">0</span>
-      <!-- User dropdown panel -->
-      <div id="userDropdown" style="display:none;position:fixed;top:56px;right:12px;z-index:6000;width:260px;background:linear-gradient(160deg,#110828,#09041f);border:1px solid rgba(147,51,234,.4);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 40px rgba(147,51,234,.15);overflow:hidden">
-        <!-- Profile header -->
-        <div style="padding:18px 16px 14px;background:linear-gradient(135deg,rgba(147,51,234,.18),rgba(255,16,240,.08));border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:12px">
-          <div style="position:relative;flex-shrink:0">
-            <img id="udAvatar" src="" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,16,240,.5);display:none"/>
-            <div id="udAvatarFb" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,16,240,.5)">👤</div>
-          </div>
-          <div style="min-width:0">
-            <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-            <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
-            <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700"><img src="https://silvmarket.shop/images/silv token.png" alt="" style="width:13px;height:13px;object-fit:contain" onerror="this.remove()"/> <span id="udTokenVal">0</span> Tokens</div>
-          </div>
-        </div>
-        <!-- Menu -->
-        <div style="padding:6px 0">
-          <button class="ud-item" onclick="udOpen('overview')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            <span>Orders</span>
-          </button>
-          <button class="ud-item" onclick="udOpen('referral')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            <span>Referral &amp; Tokens</span>
-          </button>
-          <button class="ud-item" onclick="udOpen('settings')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-            <span>Account Settings</span>
-          </button>
-          <button class="ud-item" onclick="window.open('https://www.trustpilot.com/review/silvmarket.shop','_blank');closeUserDropdown()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>Feedback</span>
-          </button>
-        </div>
-        <div style="border-top:1px solid rgba(255,255,255,.06);padding:6px 0 8px">
-          <button class="ud-item ud-logout" onclick="closeUserDropdown();doLogout()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            <span>Log Out</span>
-          </button>
-        </div>
-      </div>
     </div>
     <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
     <button id="mobMenuBtn" onclick="toggleMobMenu()" aria-label="Menu">☰</button>
   </div>
 </nav>
 
+<!-- User dropdown panel — OUTSIDE nav to fix iOS backdrop-filter fixed-position scroll bug -->
+<div id="userDropdown" style="display:none;position:fixed;top:56px;right:12px;z-index:6000;width:260px;background:linear-gradient(160deg,#110828,#09041f);border:1px solid rgba(147,51,234,.4);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 40px rgba(147,51,234,.15);overflow:hidden">
+  <!-- Profile header -->
+  <div style="padding:18px 16px 14px;background:linear-gradient(135deg,rgba(147,51,234,.18),rgba(255,16,240,.08));border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:12px">
+    <div style="position:relative;flex-shrink:0">
+      <img id="udAvatar" src="" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,16,240,.5);display:none"/>
+      <div id="udAvatarFb" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,16,240,.5)">👤</div>
+    </div>
+    <div style="min-width:0">
+      <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+      <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
+      <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700"><img src="https://silvmarket.shop/images/silv token.png" alt="" style="width:13px;height:13px;object-fit:contain" onerror="this.remove()"/> <span id="udTokenVal">0</span> Tokens</div>
+    </div>
+  </div>
+  <!-- Menu -->
+  <div style="padding:6px 0">
+    <button class="ud-item" onclick="udOpen('overview')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>Orders</span>
+    </button>
+    <button class="ud-item" onclick="udOpen('referral')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <span>Referral &amp; Tokens</span>
+    </button>
+    <button class="ud-item" onclick="udOpen('settings')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      <span>Account Settings</span>
+    </button>
+    <button class="ud-item" onclick="window.open('https://www.trustpilot.com/review/silvmarket.shop','_blank');closeUserDropdown()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Feedback</span>
+    </button>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.06);padding:6px 0 8px">
+    <button class="ud-item ud-logout" onclick="closeUserDropdown();doLogout()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <span>Log Out</span>
+    </button>
+  </div>
+</div>
+
 <!-- Mobile menu panel (slides down below nav on mobile) -->
 <div id="mobMenuPanel">
   <a class="mob-mi" href="https://www.trustpilot.com/review/silvmarket.shop" target="_blank" rel="noopener">
-    <span class="mob-mi-icon" style="background:rgba(0,182,122,.15)">⭐</span>Trustpilot Reviews
+    <span class="mob-mi-icon" style="background:rgba(0,182,122,.15)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00b67a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Trustpilot Reviews
   </a>
   <a class="mob-mi" id="mobDiscLink" href="https://discord.gg/brianrots" target="_blank">
-    <span class="mob-mi-icon" style="background:rgba(88,101,242,.2)">💬</span>Join Discord
+    <span class="mob-mi-icon" style="background:rgba(88,101,242,.2)"><svg width="15" height="13" viewBox="0 0 71 55" fill="#5865f2"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg></span>Join Discord
   </a>
   <div class="mob-mi-sep"></div>
   <button class="mob-mi" id="mobLoginBtn" onclick="closeMobMenu();openLoginModal()">
-    <span class="mob-mi-icon" style="background:rgba(255,16,240,.12)">👤</span><span id="mobLoginLabel">Login / Sign Up</span>
+    <span class="mob-mi-icon" style="background:rgba(255,16,240,.12)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span id="mobLoginLabel">Login / Sign Up</span>
   </button>
   <button class="mob-mi" onclick="closeMobMenu();showAffiliatePage()">
-    <span class="mob-mi-icon" style="background:rgba(255,215,0,.1)">🤝</span>Become an Affiliate
+    <span class="mob-mi-icon" style="background:rgba(255,215,0,.1)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Become an Affiliate
   </button>
 </div>
 
@@ -1680,8 +1681,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div id="loginForm">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Welcome Back</div>
       <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Sign in to view your orders and profile</div>
-      <input id="liEmail" type="email" placeholder="Email address" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
-      <input id="liPass" type="password" placeholder="Password" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
+      <input id="liEmail" type="email" placeholder="Email address" autocorrect="off" autocapitalize="none" spellcheck="false" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
+      <input id="liPass" type="password" placeholder="Password" autocorrect="off" autocapitalize="none" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
       <div style="text-align:right;margin-bottom:12px">
         <button onclick="openForgotPassword()" style="background:none;border:none;color:rgba(255,16,240,.8);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer;padding:0;text-decoration:underline">Forgot Password?</button>
       </div>
@@ -5361,9 +5362,33 @@ async function doLogin(){
   const pass  = document.getElementById('liPass').value;
   const err   = document.getElementById('liErr');
   if(!email||!pass){ err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
+
   const users = loadUsers();
-  const u = users[email];
-  if(!u){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  let u = users[email];
+
+  if(!u){
+    // Not in localStorage — try bot for cross-device login
+    err.textContent='Checking account…'; err.style.color='rgba(255,255,255,.5)'; err.style.display='block';
+    try {
+      const pwHash = await hashPass(pass, email);
+      const r = await fetch(BOT_WEBHOOK_URL.replace('/order','/login'), {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+        body:JSON.stringify({ email, password:pwHash }),
+      });
+      const d = await r.json();
+      if(!d.success){ err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return; }
+      // Seed local storage from bot data
+      u = { name:d.name, email:d.email, password:d.password, twofa:d.twofa||false,
+            orders:d.orders||[], silvTokens:d.silvTokens||0, createdAt:d.createdAt||'' };
+      users[email] = u;
+      saveUsers(users);
+    } catch(e){
+      err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return;
+    }
+  }
+
+  err.style.display = 'none';
   // Verify password — support legacy btoa AND new PBKDF2
   let ok = false;
   if(isHashed(u.password)){
@@ -5372,7 +5397,7 @@ async function doLogin(){
     ok = btoa(pass) === u.password;
     if(ok){ u.password = await hashPass(pass, email); users[email]=u; saveUsers(users); } // silent migrate
   }
-  if(!ok){ err.textContent='Invalid email or password.'; err.style.display='block'; return; }
+  if(!ok){ err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return; }
   err.style.display = 'none';
   if(u.twofa){
     _2faLoginEmail = email;
@@ -5437,12 +5462,13 @@ async function doSignup(){
   closeLoginModal();
   updateNavLogin();
   openAccountPanel();
-  // Log to bot
+  // Log to bot (include password hash so cross-device login works)
   try {
+    const pwHash = users[email]?.password || '';
     fetch(BOT_WEBHOOK_URL.replace('/order','/account'), {
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({ name, email, discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
+      body:JSON.stringify({ name, email, password:pwHash, discordId:discordUser?.id||null, discordUsername:discordUser?.username||null }),
     }).catch(()=>{});
   } catch(e){}
 }

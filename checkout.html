@@ -440,7 +440,7 @@ function restoreDiscordSession(){
 function startDiscordAuth(e){
   if(e) e.preventDefault();
   const redirect = encodeURIComponent(window.location.origin+'/auth-callback');
-  const url = `https://api.vaultcord.com/oauth?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirect}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
+  const url = `https://discord.com/oauth2/authorize?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirect}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
   const w=560,h=680,l=Math.round(screen.width/2-w/2),t=Math.round(screen.height/2-h/2);
   window.open(url,'discordAuth',`width=${w},height=${h},left=${l},top=${t},resizable=yes,scrollbars=yes`);
 }

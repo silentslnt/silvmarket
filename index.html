@@ -714,15 +714,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .b-hot{background-image:linear-gradient(135deg,#ff6d00 0%,#ff0040 50%,#ff6d00 100%)!important;background-size:200% auto!important;animation:shimmer-move 2s linear infinite!important}
 .b-best{background-image:linear-gradient(135deg,#ff6d00 0%,#ff0040 50%,#ff8800 100%)!important;background-size:200% auto!important;animation:shimmer-move 2.2s linear infinite!important}
 
-/* ── REVIEWS ANIMATED COLUMNS ──────────────────────────────── */
-.rv-cols{display:flex;gap:13px;max-height:560px;overflow:hidden;
-  -webkit-mask-image:linear-gradient(to bottom,transparent,black 12%,black 88%,transparent);
-  mask-image:linear-gradient(to bottom,transparent,black 12%,black 88%,transparent)}
-.rv-col{flex:1;min-width:0;overflow:hidden}
-.rv-col-inner{display:flex;flex-direction:column;gap:13px;animation:rv-up 20s linear infinite}
-.rv-col-inner.rv-slow{animation-duration:28s}
-.rv-col-inner.rv-med{animation-duration:23s}
-@keyframes rv-up{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 
 /* ── CART ENHANCEMENTS ─────────────────────────────────────── */
 .cart-clear-btn{background:rgba(255,0,64,.07);border:1px solid rgba(255,0,64,.22);
@@ -1317,50 +1308,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
 <div class="div-line"></div>
 
-<section class="S" id="reviews">
-  <div style="text-align:center;margin-bottom:32px">
-    <div class="sec-ey" style="color:var(--yellow);justify-content:center">⭐ Reviews</div>
-    <div class="sec-title">What Players Say</div>
-  </div>
-  <div class="rv-cols">
-    <!-- Column 1 -->
-    <div class="rv-col">
-      <div class="rv-col-inner rv-slow">
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Got Perm Dragon in 5 mins fr. Super legit, already told my whole friend group 🔥</p><div class="rv-bot"><div class="rv-av">🎮</div><div><div class="rv-name">xX_DragonKing</div><div class="rv-meta">Blox Fruits · 2d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Tiger delivered in under 2 min. No cap this is the fastest shop on the internet 🐯</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">GAG Godly Watering Can delivered instantly. My garden is goated now 🌱</p><div class="rv-bot"><div class="rv-av">🌱</div><div><div class="rv-name">GardenGod</div><div class="rv-meta">Grow a Garden · 1d ago</div></div></div></div>
-        <!-- duplicate for infinite scroll -->
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Got Perm Dragon in 5 mins fr. Super legit, already told my whole friend group 🔥</p><div class="rv-bot"><div class="rv-av">🎮</div><div><div class="rv-name">xX_DragonKing</div><div class="rv-meta">Blox Fruits · 2d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Perm Tiger delivered in under 2 min. No cap this is the fastest shop on the internet 🐯</p><div class="rv-bot"><div class="rv-av">🐆</div><div><div class="rv-name">LeopardGod99</div><div class="rv-meta">Blox Fruits · 1d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">GAG Godly Watering Can delivered instantly. My garden is goated now 🌱</p><div class="rv-bot"><div class="rv-av">🌱</div><div><div class="rv-name">GardenGod</div><div class="rv-meta">Grow a Garden · 1d ago</div></div></div></div>
-      </div>
-    </div>
-    <!-- Column 2 -->
-    <div class="rv-col">
-      <div class="rv-col-inner rv-med">
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Shadow Dragon super fast. Way cheaper than every other site. 100% trusted 💯</p><div class="rv-bot"><div class="rv-av">🦄</div><div><div class="rv-name">CutiePaws99</div><div class="rv-meta">Adopt Me · 4d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Tralalero Tralala + Bombardino Crocodilo both instant. My whole Discord buys here now 🦈</p><div class="rv-bot"><div class="rv-av">🧠</div><div><div class="rv-name">BrainrotGod</div><div class="rv-meta">Brainrot · 3d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Staff are so helpful. Got my items and even got a bonus tip. These guys are unmatched 🙏</p><div class="rv-bot"><div class="rv-av">✅</div><div><div class="rv-name">TrustBro22</div><div class="rv-meta">Blox Fruits · 6h ago</div></div></div></div>
-        <!-- duplicate -->
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Shadow Dragon super fast. Way cheaper than every other site. 100% trusted 💯</p><div class="rv-bot"><div class="rv-av">🦄</div><div><div class="rv-name">CutiePaws99</div><div class="rv-meta">Adopt Me · 4d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Tralalero Tralala + Bombardino Crocodilo both instant. My whole Discord buys here now 🦈</p><div class="rv-bot"><div class="rv-av">🧠</div><div><div class="rv-name">BrainrotGod</div><div class="rv-meta">Brainrot · 3d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Staff are so helpful. Got my items and even got a bonus tip. These guys are unmatched 🙏</p><div class="rv-bot"><div class="rv-av">✅</div><div><div class="rv-name">TrustBro22</div><div class="rv-meta">Blox Fruits · 6h ago</div></div></div></div>
-      </div>
-    </div>
-    <!-- Column 3 (hidden on mobile via CSS) -->
-    <div class="rv-col">
-      <div class="rv-col-inner">
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Bought 10k Robux super easy, delivered same day. No scam fr 💎</p><div class="rv-bot"><div class="rv-av">💎</div><div><div class="rv-name">RobuxKing</div><div class="rv-meta">Robux · 3d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Rivals pack was legit and fast. Silv Market is the only shop I trust no cap ✅</p><div class="rv-bot"><div class="rv-av">🥊</div><div><div class="rv-name">RivalsTop1</div><div class="rv-meta">Rivals · 5d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Ordered 3 times already, every time flawless. The Discord staff respond in seconds 🔥</p><div class="rv-bot"><div class="rv-av">🌙</div><div><div class="rv-name">NightStalker</div><div class="rv-meta">99 Nights · 2d ago</div></div></div></div>
-        <!-- duplicate -->
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Bought 10k Robux super easy, delivered same day. No scam fr 💎</p><div class="rv-bot"><div class="rv-av">💎</div><div><div class="rv-name">RobuxKing</div><div class="rv-meta">Robux · 3d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Rivals pack was legit and fast. Silv Market is the only shop I trust no cap ✅</p><div class="rv-bot"><div class="rv-av">🥊</div><div><div class="rv-name">RivalsTop1</div><div class="rv-meta">Rivals · 5d ago</div></div></div></div>
-        <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-text">Ordered 3 times already, every time flawless. The Discord staff respond in seconds 🔥</p><div class="rv-bot"><div class="rv-av">🌙</div><div><div class="rv-name">NightStalker</div><div class="rv-meta">99 Nights · 2d ago</div></div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="fg">
@@ -3832,7 +3779,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','reviews'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],

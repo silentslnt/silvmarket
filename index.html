@@ -907,19 +907,37 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <div style="min-width:0">
             <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
             <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
-            <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700">🪙 <span id="udTokenVal">0</span> Tokens</div>
+            <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700"><img src="https://silvmarket.shop/images/silv token.png" alt="" style="width:13px;height:13px;object-fit:contain" onerror="this.remove()"/> <span id="udTokenVal">0</span> Tokens</div>
           </div>
         </div>
         <!-- Menu -->
         <div style="padding:6px 0">
-          <button class="ud-item" onclick="udOpen('overview')">📦 <span>Orders</span></button>
-          <button class="ud-item" onclick="udOpen('referral')">🔔 <span>Notifications</span></button>
-          <button class="ud-item" onclick="udOpen('referral')">🎟️ <span>Referral &amp; Tokens</span></button>
-          <button class="ud-item" onclick="udOpen('settings')">⚙️ <span>Account Settings</span></button>
-          <button class="ud-item" onclick="udOpen('security')">🔒 <span>Security &amp; 2FA</span></button>
+          <button class="ud-item" onclick="udOpen('overview')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span>Orders</span>
+          </button>
+          <button class="ud-item" onclick="udOpen('referral')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Notifications</span>
+          </button>
+          <button class="ud-item" onclick="udOpen('referral')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span>Referral &amp; Tokens</span>
+          </button>
+          <button class="ud-item" onclick="udOpen('settings')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            <span>Account Settings</span>
+          </button>
+          <button class="ud-item" onclick="udOpen('security')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Security &amp; 2FA</span>
+          </button>
         </div>
         <div style="border-top:1px solid rgba(255,255,255,.06);padding:6px 0 8px">
-          <button class="ud-item ud-logout" onclick="closeUserDropdown();doLogout()">→ <span>Log Out</span></button>
+          <button class="ud-item ud-logout" onclick="closeUserDropdown();doLogout()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Log Out</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1924,10 +1942,12 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .ap-section-card:hover{border-color:rgba(147,51,234,.4)}
 .ap-section-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:7px}
 /* ── Dropdown items ── */
-.ud-item{width:100%;padding:10px 18px;background:transparent;border:none;color:rgba(255,255,255,.75);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;transition:background .15s,color .15s}
-.ud-item:hover{background:rgba(147,51,234,.15);color:#fff}
-.ud-logout{color:rgba(255,80,80,.8)!important}
-.ud-logout:hover{background:rgba(255,0,64,.1)!important;color:#ff4466!important}
+.ud-item{width:100%;padding:10px 18px;background:transparent;border:none;color:rgba(255,255,255,.65);font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:11px;text-align:left;transition:background .15s,color .15s}
+.ud-item svg{opacity:.55;flex-shrink:0;transition:opacity .15s}
+.ud-item:hover{background:rgba(147,51,234,.12);color:#fff}
+.ud-item:hover svg{opacity:1}
+.ud-logout{color:rgba(255,80,80,.7)!important}
+.ud-logout:hover{background:rgba(255,0,64,.08)!important;color:#ff4466!important}
 </style>
 
 <!-- CART SIDEBAR -->

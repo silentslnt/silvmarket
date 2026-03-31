@@ -772,7 +772,9 @@ function renderAffiliateBlock(status, code, stats){
         </div>
         <div id="payoutMsg" class="payout-msg"></div>
       </div>
-    </div>`;
+    </div>
+    <button onclick="leaveAffiliate()" id="leaveAffBtn" style="width:100%;margin-top:10px;padding:9px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:9px;color:#f87171;font-size:12px;font-weight:700;cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(239,68,68,.14)'" onmouseout="this.style.background='rgba(239,68,68,.07)'">Leave Affiliate Program</button>
+    <div id="leaveAffMsg" style="display:none;font-size:12px;padding:6px 10px;border-radius:7px;margin-top:6px;text-align:center"></div>`;
   } else if(status==='pending'){
     codeBlock.style.display='none';
     el.innerHTML=`<div class="aff-pending"><span style="font-size:26px">⏳</span><div style="flex:1"><div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#ffa500;letter-spacing:1px">APPLICATION PENDING</div><div style="font-size:12px;color:var(--muted);margin-top:3px">Under review — check your Discord ticket for updates.</div></div></div>
@@ -834,6 +836,28 @@ async function cancelAffiliate(){
     } else {
       if(btn) btn.disabled=false;
       if(msgEl){msgEl.style.cssText='display:block;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)';msgEl.textContent='❌ '+(d.error||'Could not cancel.');}
+    }
+  }catch(e){
+    if(btn) btn.disabled=false;
+    if(msgEl){msgEl.style.cssText='display:block;background:rgba(239,68,68,.1);color:#f87171';msgEl.textContent='Network error.';}
+  }
+}
+
+async function leaveAffiliate(){
+  const btn=document.getElementById('leaveAffBtn');
+  const msgEl=document.getElementById('leaveAffMsg');
+  if(!confirm('Are you sure you want to leave the affiliate program? Your referral code and stats will be removed.')) return;
+  if(btn) btn.disabled=true;
+  if(msgEl){msgEl.style.cssText='display:block;background:rgba(255,255,255,.05);color:var(--muted)';msgEl.textContent='Removing…';}
+  try{
+    const r=await fetch(BOT_BASE+'/cancel-affiliate',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email})});
+    const d=await r.json();
+    if(d.success){
+      if(msgEl){msgEl.style.cssText='display:block;background:rgba(0,200,83,.1);color:#00c853;border:1px solid rgba(0,200,83,.2)';msgEl.textContent='✅ Removed from affiliate program.';}
+      setTimeout(()=>loadTokensTab(),1200);
+    } else {
+      if(btn) btn.disabled=false;
+      if(msgEl){msgEl.style.cssText='display:block;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)';msgEl.textContent='❌ '+(d.error||'Could not remove.');}
     }
   }catch(e){
     if(btn) btn.disabled=false;
@@ -1058,7 +1082,7 @@ function setDiscordLinked(user){
 }
 function unlinkDiscord(){
   discordLinked=false; discordUser={};
-  try{ localStorage.removeItem('silv_discord_session'); }catch{}
+  try{ localStorage.removeItem('silv_discord_session'); localStorage.removeItem('silv_discord_auth'); localStorage.removeItem('silv_discord_verified'); }catch{}
   document.getElementById('discSidebarLinked').style.display='none';
   document.getElementById('discSidebarUnlinked').style.display='block';
   renderSidebar();

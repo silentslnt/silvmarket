@@ -475,7 +475,7 @@ function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
 
   // Restore Discord session
   try{
-    const ds=localStorage.getItem('silv_discord_session');
+    const ds=localStorage.getItem('silv_discord_session')||localStorage.getItem('silv_discord_auth');
     if(ds){ const d=JSON.parse(ds); if(d.verified && Date.now()-d.timestamp<2592000000) setDiscordLinked(d); }
   }catch{}
 
@@ -1036,7 +1036,7 @@ window.addEventListener('message',e=>{
 });
 function setDiscordLinked(user){
   discordLinked=true; discordUser=user;
-  try{ localStorage.setItem('silv_discord_session',JSON.stringify({...user,timestamp:Date.now()})); }catch{}
+  try{ const s=JSON.stringify({...user,timestamp:Date.now()}); localStorage.setItem('silv_discord_session',s); localStorage.setItem('silv_discord_auth',s); }catch{}
   if(currentUser&&user.id){
     fetch(BOT_BASE+'/update-discord',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,discordId:user.id,discordUsername:user.username||''})}).catch(()=>{});
   }

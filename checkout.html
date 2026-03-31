@@ -217,10 +217,6 @@ input{font-family:'Inter',sans-serif}
           <span class="icon">₿</span>
           <span>Crypto</span>
         </div>
-        <div class="pay-opt" id="payOptPaypal" onclick="selectPayMethod('paypal')">
-          <span class="icon">🅿️</span>
-          <span>PayPal</span>
-        </div>
       </div>
       <div class="pay-note" id="payNote">Processed via Stripe — no card details stored on our end</div>
 
@@ -336,7 +332,6 @@ const CRYPTO_WALLETS    = {
   LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',
 };
 const PAY_STRIPE_LINK   = 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f';
-const PAYPAL_USERNAME   = 'silvmarket';
 const PROMOS            = {SILVISTHEBEST:10,WSILV:5};
 const COIN_IDS          = {BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tether',LTC:'litecoin'};
 
@@ -344,7 +339,7 @@ const COIN_IDS          = {BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tethe
 let cart        = [];
 let currentUser = null;
 let discordUser = null;
-let payMethod   = 'stripe'; // stripe | crypto | paypal
+let payMethod   = 'stripe'; // stripe | crypto
 let promoApplied = false, promoPct = 0;
 let _refCode = null, _refDiscount = false;
 let _tokensApplied = 0;
@@ -598,11 +593,11 @@ function showCodeMsg(type,text){
 // ── PAYMENT METHOD ─────────────────────────────────────────────
 function selectPayMethod(m){
   payMethod=m;
-  ['stripe','crypto','paypal'].forEach(k=>{
+  ['stripe','crypto'].forEach(k=>{
     const el=document.getElementById('payOpt'+k.charAt(0).toUpperCase()+k.slice(1));
     if(el) el.classList.toggle('active', k===m);
   });
-  const notes={stripe:'Processed via Stripe — no card details stored on our end',crypto:'Send the exact amount to the wallet address shown below, then click the button.',paypal:'Pay via PayPal — opens in a new window'};
+  const notes={stripe:'Processed via Stripe — no card details stored on our end',crypto:'Send the exact amount to the wallet address shown below, then click the button.'};
   document.getElementById('payNote').textContent=notes[m]||'';
   const cryptoPanel=document.getElementById('cryptoPanel');
   const btnWrap=document.getElementById('checkoutBtnWrap');
@@ -618,8 +613,7 @@ function selectPayMethod(m){
     stopCryptoTimer();
   }
   const btn=document.getElementById('checkoutBtn');
-  if(m==='stripe'){ btn.textContent='Pay with Card →'; btn.className='checkout-btn stripe'; }
-  else { btn.textContent='Pay via PayPal →'; btn.className='checkout-btn'; }
+  btn.textContent='Pay with Card →'; btn.className='checkout-btn stripe';
   updateBtn();
 }
 
@@ -647,8 +641,6 @@ async function doCheckout(){
     await doStripeCheckout(rblxUser, email, tot, orderId, claimKey);
   } else if(payMethod==='crypto'){
     await doCryptoConfirm(rblxUser, email, tot);
-  } else {
-    doPaypalCheckout(rblxUser, email, tot, orderId, claimKey);
   }
 }
 
@@ -685,10 +677,6 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
   showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, 'Debit Card');
 }
 
-function doPaypalCheckout(rblxUser, email, tot, orderId, claimKey){
-  window.open('https://paypal.me/'+PAYPAL_USERNAME+'/'+tot.toFixed(2),'_blank');
-  showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, 'PayPal');
-}
 
 function showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, method){
   const btn=document.getElementById('checkoutBtn');

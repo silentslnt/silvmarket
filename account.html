@@ -421,8 +421,6 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
         </div>
         <div id="twoFAMsg" class="msg"></div>
       </div>
-
-      <button onclick="doLogout()" class="signout-btn" style="margin-top:4px">Sign Out</button>
     </div>
 
   </div><!-- end content -->
@@ -470,7 +468,7 @@ async function hashPass(pass, email){
 function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
 
 // ── INIT ───────────────────────────────────────────────────────
-(function init(){
+(async function init(){
   currentUser = loadSession();
   if(!currentUser){ window.location.href='/?login=1'; return; }
 
@@ -480,17 +478,38 @@ function isHashed(s){ return /^[0-9a-f]{64}$/.test(s||''); }
     if(ds){ const d=JSON.parse(ds); if(d.verified && Date.now()-d.timestamp<2592000000) setDiscordLinked(d); }
   }catch{}
 
+  // Sync account data from bot (orders, tokens, etc.) — fixes cross-device & stale localStorage
+  await syncAccountFromBot();
+
   renderSidebar();
 
   // Check tab param
   const tab = new URLSearchParams(location.search).get('tab') || 'orders';
   showSection(tab);
-  loadSectionData(tab);
 
   // Handle Stripe return on this page too
   const params = new URLSearchParams(location.search);
   if(params.get('payment')==='success') handleStripeReturn(params.get('order'));
 })();
+
+async function syncAccountFromBot(){
+  try{
+    const url = BOT_BASE+'/account-data?email='+encodeURIComponent(currentUser.email)+'&secret='+encodeURIComponent(BOT_WEBHOOK_SECRET);
+    const r = await fetch(url, { headers:{'x-silv-secret':BOT_WEBHOOK_SECRET} });
+    if(!r.ok) return;
+    const d = await r.json();
+    if(!d.found) return;
+    // Merge bot data into localStorage
+    const users = loadUsers();
+    if(!users[currentUser.email]) users[currentUser.email] = { name:d.name||currentUser.name, email:currentUser.email, password:'', orders:[], twofa:false };
+    const u = users[currentUser.email];
+    u.orders      = d.orders      || u.orders      || [];
+    u.silvTokens  = d.silvTokens  != null ? d.silvTokens  : (u.silvTokens||0);
+    u.referralCode= d.referralCode!= null ? d.referralCode: (u.referralCode||null);
+    if(d.name && !u.name) u.name = d.name;
+    saveUsers(users);
+  }catch(e){ /* silent — offline or bot down */ }
+}
 
 function renderSidebar(){
   document.getElementById('sidebarName').textContent  = currentUser.name;

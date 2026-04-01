@@ -1906,7 +1906,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="cart-list" id="cartList"><div class="cart-empty"><div class="cart-empty-i">🛒</div><p>Your cart is empty!</p></div></div>
   <div class="cart-ft">
     <div class="csr"><span>Subtotal</span><span id="cSub">$0.00</span></div>
-    <div class="csr"><span>Processing (3%)</span><span id="cFee">$0.00</span></div>
+    <div class="csr"><span>Processing Fee</span><span id="cFee">$0.00</span></div>
     <div class="csr" style="border-top:1px solid rgba(255,255,255,.07);padding-top:8px;margin-top:4px">
       <span style="font-weight:700;color:#fff;font-size:14px">Total</span>
       <span class="cs-tot" id="cTot">$0.00</span>
@@ -2003,7 +2003,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
           <div class="sum-r"><span class="sum-lbl">Subtotal</span><span class="sum-val" id="coSub">$0.00</span></div>
           <div class="sum-r"><span class="sum-lbl">Discount</span><span class="sum-val sum-disc" id="coDisc">—</span></div>
           <div class="sum-r" id="coTokenDiscRow" style="display:none"><span class="sum-lbl">🪙 Tokens</span><span class="sum-val sum-disc" id="coTokenDisc">—</span></div>
-          <div class="sum-r"><span class="sum-lbl">Processing 3%</span><span class="sum-val" id="coFeeD">$0.00</span></div>
+          <div class="sum-r"><span class="sum-lbl">Processing Fee</span><span class="sum-val" id="coFeeD">$0.00</span></div>
           <hr class="sum-hr"/>
           <div class="sum-r"><span style="font-size:14px;font-weight:700">Total</span><span class="sum-tot" id="coTot">$0.00</span></div>
         </div>
@@ -3226,7 +3226,7 @@ function changeQty(name,delta){
 }
 function updateCartUI(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const fee=sub*.03,tot=sub+fee;
+  const fee=sub*.08,tot=sub+fee;
   const cnt=cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('cBadge').textContent=cnt;
   document.getElementById('cartCnt').textContent=cnt+' item'+(cnt!==1?'s':'');
@@ -3299,7 +3299,7 @@ function updateCOSum(){
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const disc=sub*(discPct/100);
   const tokenDisc=Math.min(_tokensApplied/10,Math.max(0,sub-disc));
-  const after=Math.max(0,sub-disc-tokenDisc),fee=after*.03,tot=after+fee;
+  const after=Math.max(0,sub-disc-tokenDisc),fee=after*.08,tot=after+fee;
   document.getElementById('coSub').textContent='$'+sub.toFixed(2);
   document.getElementById('coDisc').textContent=disc>0?'-$'+disc.toFixed(2):'—';
   const tRow=document.getElementById('coTokenDiscRow');

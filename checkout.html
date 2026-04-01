@@ -255,12 +255,16 @@ input{font-family:'Inter',sans-serif}
         <div class="sum-row"><span class="lbl">Subtotal</span><span class="val" id="sumSub">—</span></div>
         <div class="sum-row" id="sumDiscRow" style="display:none"><span class="lbl" id="sumDiscLbl">Discount</span><span class="val" style="color:#00c853" id="sumDisc">—</span></div>
         <div class="sum-row" id="sumTokenRow" style="display:none"><span class="lbl">Tokens</span><span class="val" style="color:var(--yellow)" id="sumToken">—</span></div>
-        <div class="sum-row"><span class="lbl">Service fee (3%)</span><span class="val" id="sumFee">—</span></div>
+        <div class="sum-row"><span class="lbl">Service fee (5%)</span><span class="val" id="sumFee">—</span></div>
         <div class="sum-row total"><span class="lbl">Total</span><span class="val" id="sumTotal">—</span></div>
       </div>
       <div style="margin-top:14px;padding:10px 12px;background:rgba(88,101,242,.08);border:1px solid rgba(88,101,242,.18);border-radius:9px;display:flex;align-items:flex-start;gap:9px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6">Items are delivered via a <span style="color:#818cf8;font-weight:600">Discord ticket</span>. A staff member will contact you once your order is confirmed.</div>
+      </div>
+      <div style="margin-top:8px;padding:10px 12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:9px;display:flex;align-items:flex-start;gap:9px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6"><span style="color:#f87171;font-weight:600">No refunds.</span> All sales are final. By placing an order you agree to our <span style="color:rgba(255,255,255,.7)">no refund policy</span>.</div>
       </div>
     </div>
 
@@ -484,7 +488,7 @@ function calcTotals(){
   const disc = sub*(discPct/100);
   const tokenDisc = Math.min(_tokensApplied/10, Math.max(0, sub-disc));
   const after = Math.max(0, sub-disc-tokenDisc);
-  const fee = after*0.03;
+  const fee = after*0.05;
   const tot = after+fee;
   return {sub, disc, discPct, tokenDisc, fee, tot};
 }

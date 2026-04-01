@@ -1002,6 +1002,9 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
       <div class="gd-item" onclick="selectGame(this,'Blade Ball','⚔️','bb')" data-key="bb">
         <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Blade Ball</span><span class="gd-dot"></span>
       </div>
+      <div class="gd-item" onclick="selectGame(this,'Anime Vanguards','⚡','av')" data-key="av">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime vanguards.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Anime Vanguards</span><span class="gd-dot"></span>
+      </div>
     </div>
   </div>
   <div class="sort-wrap" id="sortWrap">
@@ -1306,6 +1309,27 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterBB(this,'items')">💎 Items</button>
   </div>
   <div class="h-scroll" id="bbGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="av">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#a78bfa">Anime Vanguards</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime vanguards.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Anime Vanguards</div>
+      <p class="sec-sub">Units, shiny variants and exclusive characters · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('av')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.32);color:#a78bfa" onclick="filterAV(this,'all')">⚡ All</button>
+    <button class="jt" onclick="filterAV(this,'units')">🗡️ Units</button>
+    <button class="jt" onclick="filterAV(this,'shiny')">✨ Shiny</button>
+    <button class="jt" onclick="filterAV(this,'exclusive')">👑 Exclusive</button>
+  </div>
+  <div class="h-scroll" id="avGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -2626,6 +2650,26 @@ const BB = [
   {n:'5000 Blade Ball Tokens',em:'⚔️',p:30,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
 ];
 
+const AV = [
+  {n:'Shiny Seban (Seven)',        p:45.00,badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Soburo (Contract)',    p:40.00,badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Divalo (Requiem)',           p:35.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Legendary Super Brolzi',p:33.00,badge:'hot',stock:99,sub:'shiny',   rar:'mythical', bg:'r-mythical'},
+  {n:'Octopus (Ikalgo)',           p:18.00,badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Isdead (Romantic)',    p:17.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Koguro (Unsealed)',    p:16.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Rogita (Super 4)',     p:15.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Renguko (Purgatory)',  p:8.00, badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Seban (Seven)',              p:8.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Alocard (Vampire King)',     p:7.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Igros (Elite Knight)',       p:6.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Tuji (Sorcerer Killer)',     p:5.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Legendary Super Brolzi',     p:5.00, badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Renguko (Purgatory)',        p:4.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Lich King (Ruler)',          p:3.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Soburo (Contract)',          p:2.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+];
+
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0;
 let rblxVerified=false, fruitModes={}, brSpeeds={};
@@ -2743,7 +2787,7 @@ function filterBF(btn,cat){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',av:'Anime Vanguards'}[game]||game;
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
     const sp=i.speeds[idx];
@@ -2820,6 +2864,7 @@ function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);
 function filterGPO(btn,sub){setJtActive(btn);filterGrid('gpoGrid','sub',sub);if(sub==='all')document.querySelectorAll('#gpoGrid .pc').forEach(c=>c.style.display='');}
 function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(sub==='all')document.querySelectorAll('#spGrid .pc').forEach(c=>c.style.display='');}
 function filterBB(btn,sub){setJtActive(btn);filterGrid('bbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bbGrid .pc').forEach(c=>c.style.display='');}
+function filterAV(btn,sub){setJtActive(btn);filterGrid('avGrid','sub',sub);if(sub==='all')document.querySelectorAll('#avGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');btn.className=btn.className+' jtb';}
 
 // ── BEST SELLERS ─────────────────────────────────────────────
@@ -3781,7 +3826,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -3795,6 +3840,7 @@ const GAME_SUBS={
   gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
   sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🍎 Fruits',fn:'filterSP',val:'fruits'},{label:'⚔️ Swords',fn:'filterSP',val:'swords'},{label:'📦 Bundles',fn:'filterSP',val:'bundles'},{label:'🪙 Currency',fn:'filterSP',val:'currency'}],
   bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🎁 Items',fn:'filterBB',val:'items'}],
+  av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -3828,7 +3874,7 @@ function applySort(el,type){
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid'].forEach(gid=>{
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid'].forEach(gid=>{
     const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
@@ -4307,6 +4353,7 @@ const VIEW_ALL_CONFIG = {
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
   sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
   bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
+  av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime vanguards.png', items:()=>AV, filters:['all','units','shiny','exclusive'] },
 };
 
 function openViewAll(key){
@@ -5643,6 +5690,7 @@ function buildSearchIndex(){
   push(TSUNAMI,  'Escape Tsunami');
   push(GPO,      'Grand Piece Online');
   push(SP,       'Sailor Piece');
+  push(AV,       'Anime Vanguards');
   ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'💎', p:r.p, game:'Robux', img:null}));
 }
 
@@ -5752,6 +5800,7 @@ function init(){
   document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');
   document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');
   document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');
+  document.getElementById('avGrid').innerHTML=AV.map(i=>mkCard(i,'av','g-av')).join('');
   buildSearchIndex();
   initScrollWraps();
 }
@@ -5879,6 +5928,7 @@ const HM_GAMES = [
   { key:'gpo',         name:'Grand Piece Online', em:'⚓',  img:'https://silvmarket.shop/images/gpo.jpg' },
   { key:'sp',          name:'Sailor Piece',       em:'🏴',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png' },
   { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png' },
+  { key:'av',          name:'Anime Vanguards',    em:'⚡',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime vanguards.png' },
 ];
 
 function _hmGameCard(g){

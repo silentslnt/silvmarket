@@ -1300,7 +1300,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blade Ball</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blade Ball</div>
       <p class="sec-sub">Crates, passes, and items for Blade Ball</p>
     </div>
     <button class="view-all" onclick="openViewAll('bb')">View All →</button>
@@ -1332,6 +1332,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <button class="jt" onclick="filterAV(this,'units')">🗡️ Units</button>
     <button class="jt" onclick="filterAV(this,'shiny')">✨ Shiny</button>
     <button class="jt" onclick="filterAV(this,'exclusive')">👑 Exclusive</button>
+    <button class="jt" onclick="filterAV(this,'gamepass')">🎮 Gamepass</button>
   </div>
   <div class="h-scroll" id="avGrid"></div>
 </section>
@@ -1350,9 +1351,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.32);color:#ef4444" onclick="filterBL(this,'all')">🩸 All</button>
-    <button class="jt" onclick="filterBL(this,'rare')">💎 Rare</button>
-    <button class="jt" onclick="filterBL(this,'legendary')">👑 Legendary</button>
-    <button class="jt" onclick="filterBL(this,'mythical')">✨ Mythical</button>
+    <button class="jt" onclick="filterBL(this,'eyes')">👁️ Eyes</button>
+    <button class="jt" onclick="filterBL(this,'souls')">🌀 Souls</button>
+    <button class="jt" onclick="filterBL(this,'schematics')">📜 Schematics</button>
+    <button class="jt" onclick="filterBL(this,'rings')">💍 Rings</button>
+    <button class="jt" onclick="filterBL(this,'items')">🗡️ Items</button>
   </div>
   <div class="h-scroll" id="blGrid"></div>
 </section>
@@ -2689,119 +2692,120 @@ const SP = [
 ];
 
 const BB = [
-  {n:'500 Blade Ball Tokens',em:'⚔️',p:6.30,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
-  {n:'5000 Blade Ball Tokens',em:'⚔️',p:30,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade Ball Tokens.png'},
+  {n:'500 Blade Ball Tokens',em:'⚔️',p:6.30,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  {n:'5000 Blade Ball Tokens',em:'⚔️',p:30,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
 ];
 
 const AV = [
-  {n:'Shiny Seban (Seven)',        p:50.00,badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Soburo (Contract)',    p:200.00,badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Divalo (Requiem)',           p:190.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Shiny Divalo (Requiem)',           p:1800.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Shiny Lich King Ruler',           p:75.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Shiny FRIRAN',           p:58.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Shiny Vanguard Escanor ',    p:60.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny katakuri ',    p:63.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Diego ',    p:68.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Rem & Rin ',    p:6.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Ishtar ',    p:40.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Gilgamesh ',    p:32.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Monkey King ',    p:58.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Kaguya ',    p:47.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Dio ',    p:5.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Dante ',    p:13.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Vergil ',    p:13.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Slime ',    p:19.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Rogita Super 4',    p:50.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Octopus (Ikalgo)',           p:46.00,badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Shiny Isdead (Romantic)',    p:52.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Hunter ',    p:10.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Tuji ',    p:15.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Leo ',    p:7.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Luce ',    p:12.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Rengoku ',    p:8.99,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny OKORUN ',    p:18.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Regnaw Rage ',    p:30.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Rogita (Super 4)',     p:15.00,badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Shiny Renguko (Purgatory)',  p:8.00, badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
-  {n:'Seban (Seven)',              p:33.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
-  {n:'Alocard (Vampire King)',     p:19.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
-  {n:'Igros (Elite Knight)',       p:10.00, badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
-  {n:'Tuji (Sorcerer Killer)',     p:5.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'Rogita (Super 4)',     p:8.00, badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
-  {n:'Renguko (Purgatory)',        p:8.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'Lich King (Ruler)',          p:14.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'Soburo (Contract)',          p:5.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'10 Trait Rerolls',          p:8.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'100 Trait Rerolls',          p:49.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'200 Trait Rerolls',          p:75.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'1000 Trait Rerolls',          p:700.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'SKip 10 Levels',          p:8.00, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'500 gems',          p:2.50, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'2500 gems',          p:7.50, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'6000 gems',          p:13.50, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'25000 gems',          p:32.99, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'5x Random Birb',          p:2.50, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'BIRB (ALL GOOD STATS) 90-100%+',          p:18.99, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'Memoria Shard',          p:1.50, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'50 Memoria Shard',          p:40.99, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'100 Memoria Shard',          p:60.99, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'200 Memoria Shard',          p:80.99, badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
-
-
-
-
+  {n:'Shiny Seban (Seven)',            em:'✨',p:50.00,  badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Soburo (Contract)',        em:'✨',p:200.00, badge:'hot', stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Divalo (Requiem)',               em:'👑',p:190.00, badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Divalo (Requiem)',         em:'✨',p:1800.00,badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Lich King Ruler',          em:'✨',p:75.00,  badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny FRIRAN',                   em:'✨',p:58.00,  badge:'best',stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Vanguard Escanor',         em:'✨',p:60.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny katakuri',                 em:'✨',p:63.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Diego',                    em:'✨',p:68.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Rem & Rin',                em:'✨',p:6.00,   badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Ishtar',                   em:'✨',p:40.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Gilgamesh',                em:'✨',p:32.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Monkey King',              em:'✨',p:58.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Kaguya',                   em:'✨',p:47.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Dio',                      em:'✨',p:5.00,   badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Dante',                    em:'✨',p:13.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Vergil',                   em:'✨',p:13.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Slime',                    em:'✨',p:19.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Rogita Super 4',           em:'✨',p:50.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Octopus (Ikalgo)',               em:'👑',p:46.00,  badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Shiny Isdead (Romantic)',        em:'✨',p:52.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Hunter',                   em:'✨',p:10.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Tuji',                     em:'✨',p:15.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Leo',                      em:'✨',p:7.00,   badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Luce',                     em:'✨',p:12.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Rengoku',                  em:'✨',p:8.99,   badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny OKORUN',                   em:'✨',p:18.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Regnaw Rage',              em:'✨',p:30.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Rogita (Super 4)',         em:'✨',p:15.00,  badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Shiny Renguko (Purgatory)',      em:'✨',p:8.00,   badge:'',    stock:99,sub:'shiny',    rar:'mythical', bg:'r-mythical'},
+  {n:'Seban (Seven)',                  em:'⚔️',p:33.00,  badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Alocard (Vampire King)',         em:'⚔️',p:19.00,  badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Igros (Elite Knight)',           em:'⚔️',p:10.00,  badge:'',    stock:99,sub:'units',    rar:'rare',     bg:'r-rare'},
+  {n:'Tuji (Sorcerer Killer)',         em:'⚔️',p:5.00,   badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Rogita (Super 4)',               em:'👑',p:8.00,   badge:'',    stock:99,sub:'exclusive',rar:'legendary',bg:'r-legendary'},
+  {n:'Renguko (Purgatory)',            em:'⚔️',p:8.00,   badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Lich King (Ruler)',              em:'⚔️',p:14.00,  badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Soburo (Contract)',              em:'⚔️',p:5.00,   badge:'',    stock:99,sub:'units',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'10 Trait Rerolls',              em:'🎲',p:8.00,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'100 Trait Rerolls',             em:'🎲',p:49.00,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'200 Trait Rerolls',             em:'🎲',p:75.00,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'1000 Trait Rerolls',            em:'🎲',p:700.00, badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Skip 10 Levels',                em:'⬆️',p:8.00,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'500 gems',                       em:'💎',p:2.50,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'2500 gems',                      em:'💎',p:7.50,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'6000 gems',                      em:'💎',p:13.50,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'25000 gems',                     em:'💎',p:32.99,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'5x Random Birb',                 em:'🐦',p:2.50,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'BIRB (ALL GOOD STATS) 90-100%+', em:'🐦',p:18.99,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Memoria Shard',                  em:'🔮',p:1.50,   badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'50 Memoria Shard',               em:'🔮',p:40.99,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'100 Memoria Shard',              em:'🔮',p:60.99,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
+  {n:'200 Memoria Shard',              em:'🔮',p:80.99,  badge:'',    stock:99,sub:'gamepass', rar:'uncommon', bg:'r-uncommon'},
 ];
 
 const BLOODLINES = [
-  {n:'Rinnegan Eye + Mangekyou Eye',em:'👁️',p:65.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Byakugan Eye',   em:'🌑',p:15.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',  em:'🌀',p:49.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Shisui MS',  em:'🌀',p:25.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Pain Rinnegan Eye',     em:'🔴',p:42.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Sasuke Rinnegan Eye',     em:'🔴',p:39.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Rinnegan Eye',     em:'🔴',p:35.00,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Mysterious Eyes',    em:'⚡',p:5.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ketsuryugan Eyes',    em:'⚡',p:8.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Surgical Kit',    em:'⚡',p:13.00,badge:'',    stock:99,sub:'mythical', rar:'mythical',bg:'r-mythical'},
-  {n:'Shukaku Soul',  em:'🌀',p:22.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Shukaku Soul',  em:'🌀',p:22.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Memory Soul',   em:'🪨',p:3.20, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Reanimated soul',   em:'🪨',p:3.99, badge:'',    stock:99,sub:'mythical',      rar:'mythical',     bg:'r-mythical'},
-  {n:'Matatabi Soul',   em:'🐍',p:20.50, badge:'',    stock:99,sub:'mythical',      rar:'mythical',     bg:'r-mythical'},
-  {n:'Samurai Soul',   em:'🐍',p:4.50, badge:'',    stock:99,sub:'mythical',      rar:'mythical',     bg:'r-mythical'},
-  {n:'Isobu Soul',      em:'🐉',p:33.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Raijin Schematics',  em:'🌀',p:20.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Sharingan',    em:'⚡',p:15.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring Of Resistance +4',    em:'⚡',p:6.99,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring Of Favor +4',    em:'⚡',p:6.59,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring Of Vitality',    em:'⚡',p:2.59,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring Of Neoncat',    em:'⚡',p:2.59,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring Of Dexterity',    em:'⚡',p:5.59,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Ring of dexteily',   em:'🐍',p:6.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ring Of Beauty',     em:'❄️',p:2.69, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ring Of Nourishment',     em:'❄️',p:2.59, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ring Of Schematics',     em:'❄️',p:5.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Bloodbite Ring',   em:'🪨',p:2.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ring of Remedy',   em:'🐍',p:3.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ring Of Favor',     em:'❄️',p:4.59, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Any Ring Fully Upgraded',    em:'⚡',p:20.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'}, 
-  {n:'3 Trait Scroll',    em:'⚡',p:15.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'3 Life Fruit + 5OOO Ryo',    em:'⚡',p:15.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Gunbai Schematics',    em:'⚡',p:13.00,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Sauna Leaf', em:'🔥',p:5.99, badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Extraction Spoon',   em:'🐍',p:2.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Samehada Schematic',   em:'🐍',p:7.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'}, 
-  {n:'Evergreen Heart',       em:'🦷',p:7.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Ice Heart',    em:'👣',p:5.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Life Fruit',    em:'⚡',p:2.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Chakra Fruit',       em:'⭐',p:5.49,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},  
-  {n:'Fruit Of Forgetfulness',   em:'🪨',p:2.10, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Trait Scroll',   em:'🪨',p:4.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Master Scroll',   em:'🪨',p:2.29, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Scalpel',   em:'🪨',p:2.50, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Summoning scroll',   em:'🪨',p:3.50, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'5000 Ryo',   em:'🪨',p:9.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  // ── EYES ──────────────────────────────────────────────────────
+  {n:'Rinnegan Eye + Mangekyou Eye',                em:'👁️',p:65.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Byakugan Eye',                                em:'🌑',p:15.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Shisui MS',                                   em:'🌀',p:25.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Pain Rinnegan Eye',                           em:'🔴',p:42.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Sasuke Rinnegan Eye',                         em:'🔴',p:39.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Rinnegan Eye',                                em:'🔴',p:35.00,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Mysterious Eyes',                             em:'👁️',p:5.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
+  {n:'Ketsuryugan Eyes',                            em:'👁️',p:8.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
+  {n:'Sharingan',                                   em:'⚡',p:15.00,badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
+  // ── SOULS ─────────────────────────────────────────────────────
+  {n:'Shukaku Soul',                                em:'🌀',p:22.99,badge:'',    stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  {n:'Shukaku Soul',                                em:'🌀',p:22.99,badge:'',    stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  {n:'Memory Soul',                                 em:'🪨',p:3.20, badge:'',    stock:99,sub:'souls',      rar:'rare',     bg:'r-rare'},
+  {n:'Reanimated soul',                             em:'🪨',p:3.99, badge:'',    stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  {n:'Matatabi Soul',                               em:'🐍',p:20.50,badge:'',    stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  {n:'Samurai Soul',                                em:'🐍',p:4.50, badge:'',    stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  {n:'Isobu Soul',                                  em:'🐉',p:33.99,badge:'hot', stock:99,sub:'souls',      rar:'mythical', bg:'r-mythical'},
+  // ── SCHEMATICS ────────────────────────────────────────────────
+  {n:'Raijin Schematics',                           em:'🌀',p:20.99,badge:'',    stock:99,sub:'schematics', rar:'mythical', bg:'r-mythical'},
+  {n:'Gunbai Schematics',                           em:'⚡',p:13.00,badge:'',    stock:99,sub:'schematics', rar:'legendary',bg:'r-legendary'},
+  {n:'Samehada Schematic',                          em:'🐍',p:7.99, badge:'',    stock:99,sub:'schematics', rar:'rare',     bg:'r-rare'},
+  {n:'Ring Of Schematics',                          em:'❄️',p:5.99, badge:'',    stock:99,sub:'schematics', rar:'rare',     bg:'r-rare'},
+  // ── RINGS ─────────────────────────────────────────────────────
+  {n:'Ring Of Resistance +4',                       em:'⚡',p:6.99, badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Favor +4',                            em:'⚡',p:6.59, badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Vitality',                            em:'⚡',p:2.59, badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Neoncat',                             em:'⚡',p:2.59, badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Dexterity',                           em:'⚡',p:5.59, badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  {n:'Ring of dexteily',                            em:'🐍',p:6.99, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Ring Of Beauty',                              em:'❄️',p:2.69, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Ring Of Nourishment',                         em:'❄️',p:2.59, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Bloodbite Ring',                              em:'🪨',p:2.99, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Ring of Remedy',                              em:'🐍',p:3.99, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Ring Of Favor',                               em:'❄️',p:4.59, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
+  {n:'Any Ring Fully Upgraded',                     em:'⚡',p:20.00,badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
+  // ── ITEMS ─────────────────────────────────────────────────────
+  {n:'Surgical Kit',                                em:'⚡',p:13.00,badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical'},
+  {n:'3 Trait Scroll',                              em:'⚡',p:15.00,badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
+  {n:'3 Life Fruit + 5OOO Ryo',                     em:'⚡',p:15.00,badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
+  {n:'Sauna Leaf',                                  em:'🔥',p:5.99, badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
+  {n:'Extraction Spoon',                            em:'🐍',p:2.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Evergreen Heart',                             em:'🦷',p:7.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Ice Heart',                                   em:'👣',p:5.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Life Fruit',                                  em:'⚡',p:2.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Chakra Fruit',                                em:'⭐',p:5.49, badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
+  {n:'Fruit Of Forgetfulness',                      em:'🪨',p:2.10, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Trait Scroll',                                em:'🪨',p:4.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Master Scroll',                               em:'🪨',p:2.29, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Scalpel',                                     em:'🪨',p:2.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'Summoning scroll',                            em:'🪨',p:3.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
+  {n:'5000 Ryo',                                    em:'🪨',p:9.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -2922,7 +2926,7 @@ function filterBF(btn,cat){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',av:'Anime Vanguards',bl:'Bloodlines'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
@@ -3006,13 +3010,16 @@ function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEa
 
 // ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
-  {n:'Permanent Dragon',  em:'🐉',p:'$32.49',game:'Blox Fruits',badge:'best',stock:3, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png'},
-  {n:"Skin Case 3 [3x]",      em:'🔪',p:'$4.69',game:'MM2',        badge:'hot', stock:2, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ee0x7vzf3IEZEOByWogs8sxVniiu4I4cljFqXld3.png'},
-  {n:'+1 Fruit Storage [2x]',   em:'🐯',p:'$5.19',game:'Blox Fruits',badge:'best',stock:5, bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/I11OqWVFGbXYjHjvEkGhwjYGijt3poF95TkznMvz.png'},
-  {n:'La Secret Combinasion $125M/s',   em:'💎',p:'$5.99',game:'Rivals',     badge:'best',stock:3, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png'},
-  {n:'10,000 Robux',       em:'💎',p:'$55.00',game:'Robux',      badge:'best', stock:99,bg:'r-robux'},
-  {n:'True Azien Set',em:'⚔️',p:'$4.00',game:'Sailor Piece',badge:'hot',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
-  {n:'100x Aura Crates',em:'📦',p:'$20.00',game:'Sailor Piece',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'Permanent Dragon',             em:'🐉',p:'$32.49', game:'Blox Fruits',        badge:'best',stock:3,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png'},
+  {n:'Owl',                          em:'🦉',p:'$99.09', game:'Adopt Me',           badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/TOHPHsudhz98RnjFfomvk16wn7IgBxu3baySnSSJ.png'},
+  {n:'Skin Case 3 [3x]',             em:'🔪',p:'$4.69',  game:'MM2',               badge:'hot', stock:2,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ee0x7vzf3IEZEOByWogs8sxVniiu4I4cljFqXld3.png'},
+  {n:'La Secret Combinasion $125M/s',em:'💎',p:'$5.99',  game:'Steal a Brainrot',  badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png'},
+  {n:'Standard Weapons Bundle!',     em:'⚔️',p:'$6.79',  game:'Rivals',            badge:'hot', stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/D2XfpEsls8yUdYCnyYKupbZNpzXtKoekZIzC9SA6.png'},
+  {n:'All Seeing Egg',               em:'👁️',p:'$39.99', game:'Grand Piece Online', badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bc3ww77MqEe32yi3XcNptJorpwYMP9Y85WkCeA6a.png'},
+  {n:'True Azien Set',               em:'⚔️',p:'$4.00',  game:'Sailor Piece',       badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen%20Set.jpg'},
+  {n:'500 Blade Ball Tokens',        em:'⚔️',p:'$6.30',  game:'Blade Ball',         badge:'',    stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  {n:'Shiny Seban (Seven)',          em:'✨',p:'$50.00', game:'Anime Vanguards',    badge:'hot', stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/anime%20vangaurds.png'},
+  {n:'10,000 Robux',                 em:'💎',p:'$55.00', game:'Robux',              badge:'best',stock:99, bg:'r-robux',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png'},
 ];
 
 function renderBS(){
@@ -4490,9 +4497,9 @@ const VIEW_ALL_CONFIG = {
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
   sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
-  bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
-  av:       { title:'Anime Vanguards',img:'https://silvmarket.shop/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive'] },
-  bl:       { title:'Bloodlines',     img:'https://silvmarket.shop/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','rare','legendary','mythical'] },
+  bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
+  av:       { title:'Anime Vanguards',img:'https://silvmarket.shop/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
+  bl:       { title:'Bloodlines',     img:'https://silvmarket.shop/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','eyes','souls','schematics','rings','items'] },
 };
 
 function openViewAll(key){

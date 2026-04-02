@@ -2410,10 +2410,10 @@ const AM = [
 ];
 
 const MM2 = [
-  {n:'Chroma Seer',em:'👁️',type:'knife',p:4.99,oldP:null,badge:'rare',stock:2,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_seer.jpg'},
+  {n:'Chroma Seer',em:'👁️',type:'knife',p:1.99,oldP:null,badge:'rare',stock:2,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_seer.jpg'},
   {n:'Corrupt',type:'knife',p:17.99,oldP:null,badge:'hot',stock:3,sub:'godly',rar:'legendary',bg:'r-mythical',img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zmdRvKgAAbd7G3ucfHX6IuFtnGiZQEqTj91kSdV3.png"},
-  {n:'Chroma Gemstone',em:'💎',type:'knife',p:3.99,oldP:null,badge:'hot',stock:3,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_gemstone.jpg'},
-  {n:'Chroma Saw',em:'🩸',type:'knife',p:3.99,oldP:null,badge:'rare',stock:3,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_saw.jpg'},
+  {n:'Chroma Gemstone',em:'💎',type:'knife',p:1.99,oldP:null,badge:'hot',stock:3,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_gemstone.jpg'},
+  {n:'Chroma Saw',em:'🩸',type:'knife',p:2.99,oldP:null,badge:'rare',stock:3,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_saw.jpg'},
   {n:'Eternal',em:'⚡',type:'knife',p:2.99,oldP:null,badge:'rare',stock:4,sub:'godly',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eternal.jpg'},
   {n:'Chroma Tides',em:'🌊',type:'knife',p:8.99,oldP:18.99,badge:'sale',stock:4,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_tides.jpg'},
   {n:'Chroma Laser',em:'🌟',type:'gun',p:4.99,oldP:null,badge:'hot',stock:5,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_laser.jpg'},
@@ -2673,9 +2673,6 @@ const SP = [
   {n:'Atomic',em:'🧳',p:12.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Atomic.webp'},
   {n:'Escanor',em:'🧳',p:9.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
   {n:'Bundle - 2X Money + 2X Gems + 2X EXP + 2X Luck',em:'🧳',p:11.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
-  
-  
-  
   {n:'True Azien Set',em:'⚔️',p:3.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
   {n:'Ichigo Set',em:'🌙',p:2.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ichigo Set.jpg'},
   {n:'Gilgamesh Set',em:'⚔️',p:3.00,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gilgamesh set.jpg'},
@@ -3748,7 +3745,12 @@ async function openStripeCheckout(rblxUser, email, tot){
       body: JSON.stringify({
         amount:      tot,
         email:       emailVal,
-        orderId:     orderId,
+        orderId,
+        claimKey,
+        rblxUser,
+        discordUser: discordUser ? { id: discordUser.id, username: discordUser.username } : null,
+        cart:        cart.map(i => ({ name: i.name, price: i.price, qty: i.qty || 1, game: i.game || '' })),
+        promoCode:   promoCode || null,
         description: cart.map(i=>i.name).join(', '),
       }),
     });

@@ -6107,12 +6107,16 @@ function renderHomeMenu(){
 
   // Popular items carousel — BF, AM, Rivals, Brainrot, SP only (no GAG)
   const popItems = [];
-  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>(f.rar==='mythical'||f.rar==='legendary')&&f.perm!=null).slice(0,5));
-  if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,4));
-  if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,4));
-  if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,4));
-  if(typeof SP !== 'undefined') popItems.push(...SP.slice(0,4));
-  const itemHtml = popItems.slice(0,24).map(_hmItemCard).join('');
+  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>(f.rar==='mythical'||f.rar==='legendary')&&f.perm!=null).slice(0,4));
+  if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,3));
+  if(typeof MM2 !== 'undefined') popItems.push(...MM2.slice(0,3));
+  if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,3));
+  if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,3));
+  if(typeof GPO !== 'undefined') popItems.push(...GPO.slice(0,3));
+  if(typeof SP !== 'undefined') popItems.push(...SP.slice(0,3));
+  if(typeof BB !== 'undefined') popItems.push(...BB.slice(0,2));
+  if(typeof AV !== 'undefined') popItems.push(...AV.filter(i=>i.sub==='shiny'||i.sub==='exclusive').slice(0,3));
+  const itemHtml = popItems.slice(0,30).map(_hmItemCard).join('');
   const it = document.getElementById('hmItemTrack');
   if(it && itemHtml) it.innerHTML = itemHtml + itemHtml;
 

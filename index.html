@@ -2696,22 +2696,25 @@ const AV = [
 ];
 
 const BLOODLINES = [
-  {n:'Ryugan',          em:'🐉',p:49.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Eternal Mangekyou',em:'👁️',p:44.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Lunar Eclipse',   em:'🌑',p:39.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Void Bloodline',  em:'🌀',p:34.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Crimson God',     em:'🔴',p:29.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
-  {n:'Divine Dragon',   em:'🩸',p:24.99,badge:'best',stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
+  {n:'Isobu Soul',      em:'🐉',p:33.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
+  {n:'Rinnegan Eye + Mangekyou Eye',em:'👁️',p:62.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
+  {n:'Byakugan Eye',   em:'🌑',p:15.99,badge:'hot', stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
+  {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',  em:'🌀',p:39.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
+  {n:'Rinnegan Eye',     em:'🔴',p:39.99,badge:'',    stock:99,sub:'mythical',  rar:'mythical', bg:'r-mythical'},
+  {n:'Mangekyo Eye',   em:'🩸',p:35.99,badge:'best',stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
   {n:'Shadow Monarch',  em:'🖤',p:19.99,badge:'best',stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Celestial',       em:'⭐',p:14.99,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Storm Warden',    em:'⚡',p:12.99,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Blazing Phoenix', em:'🔥',p:9.99, badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
-  {n:'Frost Drake',     em:'❄️',p:7.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Blood Serpent',   em:'🐍',p:6.49, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Iron Fang',       em:'🦷',p:4.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Phantom Step',    em:'👣',p:3.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Thunder Claw',    em:'⚡',p:2.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
-  {n:'Stone Breaker',   em:'🪨',p:1.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Chakra Fruit',       em:'⭐',p:5.49,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Resistance',    em:'⚡',p:6.59,badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
+  {n:'Sauna Leaf', em:'🔥',p:5.99, badge:'',    stock:99,sub:'legendary', rar:'legendary',bg:'r-legendary'},
+  {n:'Ring Of Favor',     em:'❄️',p:6.59, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Ring of dexteily',   em:'🐍',p:6.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Evergreen Heart',       em:'🦷',p:7.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Ice Heart',    em:'👣',p:5.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Life Fruit',    em:'⚡',p:2.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Summoning scroll',   em:'🪨',p:3.50, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+  {n:'Trait Scroll',   em:'🪨',p:3.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
+
+  {n:'5000 Ryo',   em:'🪨',p:9.99, badge:'',    stock:99,sub:'rare',      rar:'rare',     bg:'r-rare'},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -2740,8 +2743,9 @@ const RAR_COL={common:'rc-common',uncommon:'rc-uncommon',rare:'rc-rare',legendar
 const RAR_LBL={common:'Common',uncommon:'Uncommon',rare:'Rare',legendary:'Legendary',mythical:'Mythical'};
 const TYPE_CLS={Natural:'t-nat',Logia:'t-log',Beast:'t-bst'};
 
-function mkImgEl(name,em,img){
-  if(img) return `<img src="${img}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='block')"/><span class="em" style="display:none">${em}</span>`;
+function mkImgEl(name,em,img,fallback){
+  const src=img||(fallback||'');
+  if(src) return `<img src="${src}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='block')"/><span class="em" style="display:none">${em}</span>`;
   return `<span class="em">${em}</span>`;
 }
 
@@ -2832,6 +2836,7 @@ function filterBF(btn,cat){
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
   const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',av:'Anime Vanguards',bl:'Bloodlines'}[game]||game;
+  const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
     const sp=i.speeds[idx];
@@ -2844,7 +2849,7 @@ function mkCard(i,game,gcls){
     return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
+      ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -2853,16 +2858,16 @@ function mkCard(i,game,gcls){
       ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
       <div class="fruit-tog" style="flex-wrap:wrap;gap:3px;margin-bottom:4px">${speedBtns}</div>
       <div class="pc-price">${ps}</div>
-      <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+      <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
     </div>
   </div>`;
   }
   const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
-  const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
+  const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||gameIcon||null,game:gameLbl,sub:i.sub||''}));
   return `
   <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1;transition:transform .3s" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
+      ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
     </div>
     <div class="pc-body">
@@ -2872,7 +2877,7 @@ function mkCard(i,game,gcls){
       ${i.oldP?`<div class="pc-price">$${Number(i.p).toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
       ${i.oos
         ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
+        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
       }
     </div>
   </div>`;

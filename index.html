@@ -2753,8 +2753,8 @@ const BLOODLINES = [
   // ── EYES ──────────────────────────────────────────────────────
   {n:'Rinnegan Eye + Mangekyou Eye',                em:'👁️',p:65.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Byakugan Eye',                                em:'🌑',p:15.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
-  {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
-  {n:'Madara MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:47.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Madara MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:52.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Itcahi MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Shisui MS',                                   em:'🌀',p:25.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Pain Rinnegan Eye',                           em:'🔴',p:45.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
@@ -5273,7 +5273,10 @@ async function loadReferralTab(){
       headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
     });
     const data=await resp.json();
-    if(data.silvTokens!==undefined) document.getElementById('apTokenBalance').textContent=data.silvTokens;
+    if(data.silvTokens!==undefined){
+      document.getElementById('apTokenBalance').textContent=data.silvTokens;
+      try{localStorage.setItem('silv_tokens_'+currentUser.email, data.silvTokens);}catch{}
+    }
 
     // Render affiliate status block
     renderAffiliateBlock(data.affiliateStatus||null, data.referralCode||null, data.referralStats||null);
@@ -5573,6 +5576,12 @@ function _completeLogin(email, u){
   saveSession(currentUser);
   closeLoginModal();
   updateNavLogin();
+  // Sync server-side token balance to localStorage so checkout redemption is accurate
+  fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(email)),{
+    headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+  }).then(r=>r.json()).then(d=>{
+    if(d.silvTokens!==undefined) try{localStorage.setItem('silv_tokens_'+email, d.silvTokens);}catch{}
+  }).catch(()=>{});
   openAccountPanel();
 }
 async function verify2FALogin(){

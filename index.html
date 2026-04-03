@@ -3625,25 +3625,28 @@ function toggleTokenRedeem(){
 async function requestPayout(){
   const type=document.getElementById('payoutType')?.value;
   const amt=parseInt(document.getElementById('payoutAmt')?.value||'0');
+  const details=(document.getElementById('payoutDetails')?.value||'').trim();
   const msgEl=document.getElementById('payoutMsg');
   const balance=parseInt(document.getElementById('apTokenBalance')?.textContent||'0');
   function _pmsg(text,ok){if(msgEl){msgEl.style.display='block';msgEl.style.cssText=`display:block;margin-top:8px;padding:7px 10px;border-radius:7px;font-family:'Rajdhani',sans-serif;font-size:12px;background:${ok?'rgba(0,200,83,.1)':'rgba(255,0,64,.1)'};color:${ok?'#00c853':'#ff4466'};border:1px solid ${ok?'rgba(0,200,83,.2)':'rgba(255,0,64,.2)'}`; msgEl.textContent=text;}}
   if(!amt||amt<100){_pmsg('❌ Minimum payout is 100 tokens.',false);return;}
   if(amt%10!==0){_pmsg('❌ Amount must be a multiple of 10.',false);return;}
   if(amt>balance){_pmsg('❌ Insufficient token balance.',false);return;}
+  if(!details){_pmsg(`❌ Enter your ${type==='robux'?'Roblox username':'Discord tag'}.`,false);return;}
   _pmsg('⏳ Submitting request…',true);
   try{
     const value=type==='robux'?amt*10:amt/10;
     const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/payout-request'),{
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({email:currentUser.email,tokens:amt,type,value}),
+      body:JSON.stringify({email:currentUser.email,tokens:amt,type,value,paymentDetails:details}),
     });
     const data=await resp.json();
     if(data.success){
-      _pmsg(`✅ Payout request submitted! Staff will process it shortly.`,true);
+      _pmsg(`✅ Request submitted! Staff will send your ${type==='robux'?'Robux':'store credit'} shortly.`,true);
       document.getElementById('apTokenBalance').textContent=Math.max(0,balance-amt);
       const payInp=document.getElementById('payoutAmt');if(payInp) payInp.value='';
+      const detInp=document.getElementById('payoutDetails');if(detInp) detInp.value='';
     } else {
       _pmsg('❌ '+(data.error||'Could not submit.'),false);
     }
@@ -5346,14 +5349,15 @@ function renderAffiliateBlock(status, code, stats){
       <div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.13);border-radius:10px;padding:12px">
         <div style="font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,215,0,.55);margin-bottom:6px">💸 REQUEST PAYOUT</div>
         <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;line-height:1.5">100 tokens = $10 store credit &nbsp;·&nbsp; 100 tokens = 1000 Robux</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <select id="payoutType" style="flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
+          <select id="payoutType" onchange="document.getElementById('payoutDetails').placeholder=this.value==='robux'?'Your Roblox username':'Your Discord tag (e.g. user#0001)'" style="flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px">
             <option value="robux">Robux</option>
             <option value="credit">Store Credit</option>
           </select>
           <input id="payoutAmt" type="number" placeholder="Tokens (min 100)" min="100" step="10" style="flex:1;min-width:110px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px"/>
-          <button onclick="requestPayout()" style="padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,165,0,.12));border:1px solid rgba(255,215,0,.28);color:#ffd700;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">Request</button>
         </div>
+        <input id="payoutDetails" type="text" placeholder="Your Roblox username" maxlength="80" style="width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;margin-bottom:6px"/>
+        <button onclick="requestPayout()" style="width:100%;padding:9px 14px;border-radius:8px;background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,165,0,.12));border:1px solid rgba(255,215,0,.28);color:#ffd700;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Request Payout</button>
         <div id="payoutMsg" style="display:none"></div>
       </div>
     </div>`;

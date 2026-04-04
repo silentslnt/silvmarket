@@ -6116,10 +6116,17 @@ function _hmGameCard(g){
 function _hmItemCard(i){
   const rawPrice = i.norm != null ? i.norm : i.p != null ? i.p : '';
   const price = rawPrice !== '' ? '$'+parseFloat(String(rawPrice).replace(/\$/g,'')) : '';
-  const imgHtml = i.img
-    ? `<img class="hm-ic-img" src="${i.img}" alt="${i.n}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-    + `<div class="hm-ic-em" style="display:none">${i.em||'📦'}</div>`
-    : `<div class="hm-ic-em">${i.em||'📦'}</div>`;
+  const gi = i._gi||'';
+  const src = i.img||gi;
+  let imgHtml;
+  if(src){
+    const errH = (i.img&&gi)
+      ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex'};this.src='${gi.replace(/'/g,"\\'")}'`
+      : `this.style.display='none';this.nextElementSibling.style.display='flex'`;
+    imgHtml = `<img class="hm-ic-img" src="${src}" alt="${i.n}" onerror="${errH}"><div class="hm-ic-em" style="display:none">${i.em||'📦'}</div>`;
+  } else {
+    imgHtml = `<div class="hm-ic-em">${i.em||'📦'}</div>`;
+  }
   const enc = encodeURIComponent(JSON.stringify(i));
   return `<div class="hm-ic" onclick="openItemDetail('${enc}')">${imgHtml}<div class="hm-ic-name">${i.n}</div><div class="hm-ic-price">${price}</div></div>`;
 }
@@ -6130,17 +6137,18 @@ function renderHomeMenu(){
   const gt = document.getElementById('hmGameTrack');
   if(gt) gt.innerHTML = gameHtml + gameHtml;
 
-  // Popular items carousel — BF, AM, Rivals, Brainrot, SP only (no GAG)
+  // Popular items carousel — tag each item with its game icon for fallback
+  const _gi=k=>VIEW_ALL_CONFIG[k]?.img||'';
   const popItems = [];
-  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>(f.rar==='mythical'||f.rar==='legendary')&&f.perm!=null).slice(0,4));
-  if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,3));
-  if(typeof MM2 !== 'undefined') popItems.push(...MM2.slice(0,3));
-  if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,3));
-  if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,3));
-  if(typeof GPO !== 'undefined') popItems.push(...GPO.slice(0,3));
-  if(typeof SP !== 'undefined') popItems.push(...SP.slice(0,3));
-  if(typeof BB !== 'undefined') popItems.push(...BB.slice(0,2));
-  if(typeof AV !== 'undefined') popItems.push(...AV.filter(i=>i.sub==='shiny'||i.sub==='exclusive').slice(0,3));
+  if(typeof FRUITS !== 'undefined') popItems.push(...FRUITS.filter(f=>(f.rar==='mythical'||f.rar==='legendary')&&f.perm!=null).slice(0,4).map(i=>({...i,_gi:_gi('bf')})));
+  if(typeof AM !== 'undefined') popItems.push(...AM.slice(0,3).map(i=>({...i,_gi:_gi('am')})));
+  if(typeof MM2 !== 'undefined') popItems.push(...MM2.slice(0,3).map(i=>({...i,_gi:_gi('mm2')})));
+  if(typeof BRAINROT !== 'undefined') popItems.push(...BRAINROT.slice(0,3).map(i=>({...i,_gi:_gi('brainrot')})));
+  if(typeof RIVALS !== 'undefined') popItems.push(...RIVALS.slice(0,3).map(i=>({...i,_gi:_gi('rivals')})));
+  if(typeof GPO !== 'undefined') popItems.push(...GPO.slice(0,3).map(i=>({...i,_gi:_gi('gpo')})));
+  if(typeof SP !== 'undefined') popItems.push(...SP.slice(0,3).map(i=>({...i,_gi:_gi('sp')})));
+  if(typeof BB !== 'undefined') popItems.push(...BB.slice(0,2).map(i=>({...i,_gi:_gi('bb')})));
+  if(typeof AV !== 'undefined') popItems.push(...AV.filter(i=>i.sub==='shiny'||i.sub==='exclusive').slice(0,3).map(i=>({...i,_gi:_gi('av')})));
   const itemHtml = popItems.slice(0,30).map(_hmItemCard).join('');
   const it = document.getElementById('hmItemTrack');
   if(it && itemHtml) it.innerHTML = itemHtml + itemHtml;

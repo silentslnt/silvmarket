@@ -2835,8 +2835,12 @@ const TYPE_CLS={Natural:'t-nat',Logia:'t-log',Beast:'t-bst'};
 
 function mkImgEl(name,em,img,fallback){
   const src=img||(fallback||'');
-  if(src) return `<img src="${src}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='block')"/><span class="em" style="display:none">${em}</span>`;
-  return `<span class="em">${em}</span>`;
+  if(!src) return `<span class="em">${em}</span>`;
+  // If item has its own img AND a game-icon fallback: try img → game icon → emoji
+  const errHandler = (img&&fallback)
+    ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='block'};this.src='${fallback.replace(/'/g,"\\'")}'`
+    : `this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='block')`;
+  return `<img src="${src}" alt="${name}" loading="lazy" onerror="${errHandler}"><span class="em" style="display:none">${em}</span>`;
 }
 
 // ── RENDER ROBUX / SOCIAL ─────────────────────────────────────

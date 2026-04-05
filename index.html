@@ -2569,9 +2569,9 @@ const BRAINROT = [
   {n:"Capitano Moby $160M/s",p:20.49,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
   {n:"Fortunu and Cashuru $162.5M/s - $1B/s",p:40,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/YMK6K7gHiioqyOq4v79rFEIZlL5SWKxJs2idm5WF.png"},
   {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
-  {n:"Meowl",em:"🦉",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png",speeds:[{label:'Base',p:599},{label:'1B/s',p:799},{label:'8B/s',p:1000},{label:'12B/s',p:2500}]},
-  {n:"Skibidi Toilet",em:"🚽",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png",speeds:[{label:'Base',p:412},{label:'1B/s',p:499},{label:'6B/s',p:599}]},
-  {n:"Strawberry Elephant",em:"🍓",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png",speeds:[{label:'Base',p:950},{label:'1B/s',p:1800},{label:'10B/s',p:3400}]},
+  {n:"Meowl",em:"🦉",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Meowl.png",speeds:[{label:'Base',p:499},{label:'1B/s',p:599},{label:'8B/s',p:1000},{label:'12B/s',p:2500}]},
+  {n:"Skibidi Toilet",em:"🚽",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png",speeds:[{label:'Base',p:399},{label:'1B/s',p:459},{label:'6B/s',p:599}]},
+  {n:"Strawberry Elephant",em:"🍓",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Strawberry Elephant.png",speeds:[{label:'Base',p:600},{label:'1B/s',p:690},{label:'10B/s',p:3500}]},
 ];
 
 const RIVALS = [
@@ -2806,6 +2806,37 @@ const BLOODLINES = [
   {n:'Summoning scroll',                            em:'🪨',p:3.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
   {n:'5000 Ryo',                                    em:'🪨',p:9.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
 ];
+
+const _dcBoostImg = 'https://silvmarket.shop/images/discord boost.png';
+const _dcNitroImg = 'https://silvmarket.shop/images/discord nitro.png';
+const _dcDecoImg  = 'https://silvmarket.shop/images/discord decorations.png';
+const DISCORD_ITEMS = [
+  // ── BOOSTS ───────────────────────────────────────────────────
+  {n:'1 Server Boost (1 Month)', em:'🚀',p:0.60, badge:'',    stock:99,sub:'boosts',rar:'uncommon',bg:'r-uncommon',img:_dcBoostImg},
+  {n:'1 Server Boost (3 Month)', em:'🚀',p:0.90, badge:'',    stock:99,sub:'boosts',rar:'uncommon',bg:'r-uncommon',img:_dcBoostImg},
+  {n:'14 Server Boosts (1 Month)',em:'🚀',p:5.20, badge:'hot', stock:99,sub:'boosts',rar:'rare',    bg:'r-rare',    img:_dcBoostImg},
+  {n:'14 Server Boosts (3 Month)',em:'🚀',p:11,   badge:'hot', stock:99,sub:'boosts',rar:'rare',    bg:'r-rare',    img:_dcBoostImg},
+  {n:'28 Server Boosts (1 Month)',em:'🚀',p:12,   badge:'best',stock:99,sub:'boosts',rar:'legendary',bg:'r-legendary',img:_dcBoostImg},
+  {n:'28 Server Boosts (3 Month)',em:'🚀',p:21,   badge:'best',stock:99,sub:'boosts',rar:'legendary',bg:'r-legendary',img:_dcBoostImg},
+  // ── NITRO ────────────────────────────────────────────────────
+  {n:'Nitro Basic (1 Month)', em:'💜',p:2.50, badge:'',    stock:99,sub:'nitro',rar:'rare',    bg:'r-rare',    img:_dcNitroImg,_nitro:'basic-month'},
+  {n:'Nitro Basic (1 Year)',  em:'💜',p:26,   badge:'',    stock:99,sub:'nitro',rar:'legendary',bg:'r-legendary',img:_dcNitroImg,_nitro:'basic-year'},
+  {n:'Nitro Premium (1 Month)',em:'💜',p:7,   badge:'hot', stock:99,sub:'nitro',rar:'legendary',bg:'r-legendary',img:_dcNitroImg,_nitro:'prem-month'},
+  {n:'Nitro Premium (1 Year)', em:'💜',p:55,  badge:'best',stock:99,sub:'nitro',rar:'mythical', bg:'r-mythical', img:_dcNitroImg,_nitro:'prem-year'},
+  // ── DECORATIONS ──────────────────────────────────────────────
+  {n:'Any Decoration ($4.99 value)', em:'🎨',p:2.50,badge:'',    stock:99,sub:'decorations',rar:'uncommon',bg:'r-uncommon',img:_dcDecoImg},
+  {n:'Any Decoration ($7.99 value)', em:'🎨',p:3,   badge:'',    stock:99,sub:'decorations',rar:'rare',    bg:'r-rare',    img:_dcDecoImg},
+  {n:'Any Decoration ($9.99 value)', em:'🎨',p:3.80, badge:'',   stock:99,sub:'decorations',rar:'rare',    bg:'r-rare',    img:_dcDecoImg},
+  {n:'Any Decoration ($12.99 value)',em:'🎨',p:5.50,badge:'hot', stock:99,sub:'decorations',rar:'legendary',bg:'r-legendary',img:_dcDecoImg},
+  {n:'Any Decoration ($15.99 value)',em:'🎨',p:6,   badge:'hot', stock:99,sub:'decorations',rar:'legendary',bg:'r-legendary',img:_dcDecoImg},
+];
+const _NITRO_DESC_BASE = `✅ This is a top-up, not a gift code.<br><br><strong>What do you need?</strong><br>1. Please send your Discord login info (Email &amp; Password). <em>(Required!)</em><br><br>⚠️ <strong>Important:</strong><br>• If you do not have an active subscription, you can order.<br>• If you have 1 year premium and the subscription has not expired, do not order.`;
+const DISCORD_NITRO_DESCS = {
+  'basic-month': `After your purchase, you'll receive <strong>1 Month Nitro Basic</strong>. ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Nitro Basic experience for 1 month!`,
+  'basic-year':  `After your purchase, you'll receive <strong>1 Year Nitro Basic</strong>. ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Nitro Basic experience for 1 whole year!`,
+  'prem-month':  `After your purchase, you'll receive <strong>1 Month Premium Nitro</strong> (not Basic). ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Premium Nitro experience for 1 month!`,
+  'prem-year':   `After your purchase, you'll receive <strong>1 Year Premium Nitro with 2 Boosts</strong> (not Basic). ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Premium Nitro experience for 1 whole year!`,
+};
 
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0;
@@ -4449,8 +4480,10 @@ function openItemDetail(encodedData){
     '99 Nights': `A 99 Nights item. Delivered directly to your account via our Discord delivery team.`,
     'Escape Tsunami': `An Escape Tsunami item. Our staff will deliver to your account via Discord.`,
     'Robux': `Robux delivered directly to your Roblox account — fast and secure.`,
+    'Discord': `Discord top-up delivered to your account by our staff. Order processed through our Discord server.`,
   };
-  const desc = DESCRIPTIONS[i.game] || `Premium ${i.game} item. Delivered instantly via our Discord server after payment.`;
+  const nitroDesc = i._nitro && typeof DISCORD_NITRO_DESCS !== 'undefined' ? DISCORD_NITRO_DESCS[i._nitro] : null;
+  const desc = nitroDesc || DESCRIPTIONS[i.game] || `Premium ${i.game} item. Delivered instantly via our Discord server after payment.`;
   document.getElementById('itemDetailDesc').innerHTML = `<strong style="color:rgba(255,255,255,.7)">Description</strong><br><span style="color:rgba(255,255,255,.5)">${desc}</span>`;
 
   // Stock
@@ -4537,6 +4570,7 @@ const VIEW_ALL_CONFIG = {
   bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
   av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
   bl:       { title:'Bloodlines',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','eyes','souls','schematics','rings','items'] },
+  discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
 };
 
 function openViewAll(key){
@@ -4693,7 +4727,7 @@ function renderViewAllGrid(){
     const game = i.game||'';
     const vaGameIcon = (VIEW_ALL_CONFIG[_viewAllKey]&&VIEW_ALL_CONFIG[_viewAllKey].img)||'';
     const vaImg = i.img || vaGameIcon || '';
-    const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:vaImg||null,game,sub:i.sub||''}));
+    const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:vaImg||null,game,sub:i.sub||'',_nitro:i._nitro||null}));
     return `
     <div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
       <div class="pc-img ${i.bg||'r-rare'}">
@@ -6128,6 +6162,7 @@ const HM_GAMES = [
   { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png' },
   { key:'av',          name:'Anime Vanguards',    em:'⚡',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png' },
   { key:'bl',          name:'Bloodlines',         em:'🩸',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg' },
+  { key:'discord',     name:'Discord',            em:'💜',  img:'https://silvmarket.shop/images/discord.png' },
 ];
 
 function _hmGameCard(g){

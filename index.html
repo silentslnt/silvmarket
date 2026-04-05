@@ -2807,9 +2807,9 @@ const BLOODLINES = [
   {n:'5000 Ryo',                                    em:'🪨',p:9.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
 ];
 
-const _dcBoostImg = 'https://silvmarket.shop/images/discord boost.png';
-const _dcNitroImg = 'https://silvmarket.shop/images/discord nitro.png';
-const _dcDecoImg  = 'https://silvmarket.shop/images/discord decorations.png';
+const _dcBoostImg = 'https://silvmarket.shop/images/discord%20boost.png';
+const _dcNitroImg = 'https://silvmarket.shop/images/discord%20nitro.png';
+const _dcDecoImg  = 'https://silvmarket.shop/images/discord%20decorations.png';
 const DISCORD_ITEMS = [
   // ── BOOSTS ───────────────────────────────────────────────────
   {n:'1 Server Boost (1 Month)', em:'🚀',p:0.60, badge:'',    stock:99,sub:'boosts',rar:'uncommon',bg:'r-uncommon',img:_dcBoostImg},
@@ -6148,7 +6148,6 @@ document.addEventListener('mousemove',function(e){
 // ══════════════════════════════════════════════════════════════
 
 const HM_GAMES = [
-  { key:'bestsellers', name:'Best Sellers',      em:'🔥',  img:null },
   { key:'bf',          name:'Blox Fruits',        em:'🍎',  img:'https://silvmarket.shop/images/bloxfruits.png' },
   { key:'gag',         name:'Grow a Garden',      em:'🌱',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png' },
   { key:'am',          name:'Adopt Me',           em:'🐾',  img:'https://silvmarket.shop/images/adopt_me.png' },
@@ -6162,12 +6161,12 @@ const HM_GAMES = [
   { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png' },
   { key:'av',          name:'Anime Vanguards',    em:'⚡',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png' },
   { key:'bl',          name:'Bloodlines',         em:'🩸',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg' },
-  { key:'discord',     name:'Discord',            em:'💜',  img:'https://silvmarket.shop/images/discord.png' },
+  { key:'discord',     name:'Discord',            em:'💜',  img:'https://silvmarket.shop/images/discord.png', imgStyle:'object-fit:contain;background:#5865F2;padding:18px' },
 ];
 
 function _hmGameCard(g){
   const imgHtml = g.img
-    ? `<img class="hm-gc-img" src="${g.img}" alt="${g.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    ? `<img class="hm-gc-img" src="${g.img}" alt="${g.name}"${g.imgStyle?' style="'+g.imgStyle+'"':''} onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
     + `<div class="hm-gc-em" style="display:none">${g.em}</div>`
     : `<div class="hm-gc-em">${g.em}</div>`;
   return `<div class="hm-gc" onclick="openViewAll('${g.key}')">${imgHtml}<div class="hm-gc-name">${g.name}</div><div class="hm-gc-badge">SHOP NOW</div></div>`;

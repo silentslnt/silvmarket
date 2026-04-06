@@ -23,12 +23,9 @@
 <meta name="keywords" content="buy blox fruits permanent, buy perm dragon blox fruits, blox fruits shop, roblox items shop, buy grow a garden pets, grow a garden seeds shop, buy mm2 godly cheap, murder mystery 2 godly, adopt me legendary pets, steal a brainrot shop, grand piece online fruits, roblox trading shop, cheap roblox items, instant roblox delivery, trusted roblox marketplace, legit roblox shop, safe roblox items, silvmarket, silv market"/>
 <meta name="robots" content="index, follow"/>
 <meta name="theme-color" content="#ff10f0"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Silv Market — Buy Blox Fruits, Grow a Garden, MM2 & Roblox Items</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- TrustBox script -->
-<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<!-- End TrustBox script -->
 <style>
 :root{
   --void:#03010a;--deep:#07030f;
@@ -567,7 +564,10 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   border-radius:10px;padding:12px 14px;color:#fff;font-size:13px;font-family:'Inter',sans-serif;
   transition:all .2s;outline:none;margin-bottom:16px}
 .em-inp:focus{border-color:rgba(147,51,234,.42)}
+.em-inp.invalid{border-color:rgba(255,0,64,.55)!important;box-shadow:0 0 0 3px rgba(255,0,64,.1)}
 .em-inp::placeholder{color:rgba(255,255,255,.17)}
+.em-err{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--red2);margin-top:-8px;margin-bottom:10px;display:none;align-items:center;gap:5px}
+.em-err.show{display:flex}
 .co-succ{display:none;flex-direction:column;align-items:center;justify-content:center;padding:64px 28px;text-align:center}
 .co-succ.show{display:flex}
 .succ-ic{font-size:70px;margin-bottom:18px;animation:spi .5s cubic-bezier(.34,1.56,.64,1)}
@@ -856,6 +856,30 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;margin-bottom:10px;transition:all .2s}
 .os-close-btn{width:100%;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:rgba(255,255,255,.4);cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px}
 
+/* ── TOAST NOTIFICATIONS ───────────────────────────────────── */
+#toastStack{position:fixed;bottom:24px;right:24px;z-index:99999;
+  display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:10px;
+  background:rgba(12,5,28,.97);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:12px 16px;
+  box-shadow:0 8px 32px rgba(0,0,0,.6),0 0 0 1px rgba(147,51,234,.1);
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;
+  backdrop-filter:blur(12px);pointer-events:all;
+  transform:translateX(120%);opacity:0;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .3s ease;
+  min-width:200px;max-width:300px;white-space:nowrap}
+.toast.show{transform:translateX(0);opacity:1}
+.toast.hide{transform:translateX(120%);opacity:0}
+.toast-icon{flex-shrink:0;display:flex;align-items:center}
+.toast-msg{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.toast-success .toast-icon{color:#00c853}
+.toast-info .toast-icon{color:var(--pink)}
+.toast-warn .toast-icon{color:var(--yellow)}
+@media(max-width:768px){
+  #toastStack{bottom:80px;right:12px;left:12px}
+  .toast{max-width:100%}
+}
+
 /* ── FOCUS-VISIBLE — keyboard navigation ───────────────────── */
 :focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:4px}
 button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
@@ -946,10 +970,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <span class="disc-label">Discord</span>
     </a>
     <div style="position:relative;display:inline-flex" id="navUserWrap">
-      <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px">👤 <span id="navLoginLabel">Login</span></button>
+      <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span id="navLoginLabel">Login</span></button>
     </div>
-    <button class="cart-btn" onclick="toggleCart()">🛒 <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
-    <button id="mobMenuBtn" onclick="toggleMobMenu()" aria-label="Menu">☰</button>
+    <button class="cart-btn" onclick="toggleCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> <span class="cart-label">Cart </span><span class="cbadge" id="cBadge">0</span></button>
+    <button id="mobMenuBtn" onclick="toggleMobMenu()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" width="18" height="18"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
 </nav>
 
@@ -959,7 +983,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div style="padding:18px 16px 14px;background:linear-gradient(135deg,rgba(147,51,234,.18),rgba(255,16,240,.08));border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:12px">
     <div style="position:relative;flex-shrink:0">
       <img id="udAvatar" src="" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,16,240,.5);display:none"/>
-      <div id="udAvatarFb" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,16,240,.5)">👤</div>
+      <div id="udAvatarFb" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,16,240,.5)"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     </div>
     <div style="min-width:0">
       <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
@@ -1063,11 +1087,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 
   <!-- Stats bar -->
-  <div class="hm-stats">
-    <div class="hm-stat"><div class="hm-stat-n">500+</div><div class="hm-stat-l">Happy Customers</div></div>
-    <div class="hm-stat"><div class="hm-stat-n">15+</div><div class="hm-stat-l">Games Supported</div></div>
-    <div class="hm-stat"><div class="hm-stat-n">4.9★</div><div class="hm-stat-l">Trustpilot Rating</div></div>
-    <div class="hm-stat"><div class="hm-stat-n">24/7</div><div class="hm-stat-l">Support</div></div>
+  <div class="hm-stats" id="hmStats">
+    <div class="hm-stat"><div class="hm-stat-n" data-count="500" data-suffix="+">0</div><div class="hm-stat-l">Happy Customers</div></div>
+    <div class="hm-stat"><div class="hm-stat-n" data-count="15" data-suffix="+">0</div><div class="hm-stat-l">Games Supported</div></div>
+    <div class="hm-stat"><div class="hm-stat-n" data-count="4.9" data-suffix="★" data-decimals="1">0</div><div class="hm-stat-l">Trustpilot Rating</div></div>
+    <div class="hm-stat"><div class="hm-stat-n" data-static="24/7">24/7</div><div class="hm-stat-l">Support</div></div>
   </div>
 
   <!-- Recently Viewed -->
@@ -1123,46 +1147,46 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         <span class="gd-icon">🏆</span><span class="gd-label">All Games</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Robux','','robux')" data-key="robux">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Robux</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Robux</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Blox Fruits','🍎','bf')" data-key="bf">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Blox Fruits</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Grow a Garden','🌱','gag')" data-key="gag">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Grow a Garden</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Adopt Me','🐾','am')" data-key="am">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Adopt Me</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Adopt Me</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Murder Mystery 2','⚔️','mm2')" data-key="mm2">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/mm2.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Murder Mystery 2</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/mm2.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Murder Mystery 2</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Steal a Brainrot','🧠','brainrot')" data-key="brainrot">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Steal a Brainrot</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Steal a Brainrot</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Rivals','🥊','rivals')" data-key="rivals">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/Rivals.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Rivals</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/Rivals.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Rivals</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'99 Nights','🌙','nights')" data-key="nights">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/99_nights.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">99 Nights</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/99_nights.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">99 Nights</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Escape Tsunami','🌊','tsunami')" data-key="tsunami">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Escape Tsunami</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Escape Tsunami</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Grand Piece Online','⚓','gpo')" data-key="gpo">
-        <span class="gd-icon"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Grand Piece Online</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Grand Piece Online</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Sailor Piece','🏴‍☠️','sp')" data-key="sp">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Sailor Piece</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Blade Ball','⚔️','bb')" data-key="bb">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Blade Ball</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Blade Ball</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Anime Vanguards','⚡','av')" data-key="av">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Anime Vanguards</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Anime Vanguards</span><span class="gd-dot"></span>
       </div>
       <div class="gd-item" onclick="selectGame(this,'Bloodlines','🩸','bl')" data-key="bl">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"></span><span class="gd-label">Bloodlines</span><span class="gd-dot"></span>
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Bloodlines</span><span class="gd-dot"></span>
       </div>
     </div>
   </div>
@@ -1205,7 +1229,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:var(--yellow)">Blox Fruits</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blox Fruits</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Blox Fruits</div>
       <p class="sec-sub">All top-tier fruits with Normal / ⭐ Permanent toggle · Skins · Gamepasses</p>
     </div>
     <button class="view-all" onclick="openViewAll('bf')">View All →</button>
@@ -1245,7 +1269,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#c084fc;text-shadow:0 0 16px rgba(192,132,252,.65)">Steal a Brainrot</div>
-      <div class="sec-title sec-title-shiny" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Brainrots</div>
+      <div class="sec-title sec-title-shiny" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Brainrots</div>
       <p class="sec-sub">High-value bases — God Tier · Meta · Starter · Radioactive · Rainbow · Galaxy · Yin Yang</p>
     </div>
     <button class="view-all" onclick="openViewAll('brainrot')">View All →</button>
@@ -1272,7 +1296,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#f87171">Rivals</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/Rivals.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Rivals</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/Rivals.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Rivals</div>
       <p class="sec-sub">Bundles, skin cases and season pass items · Real petmart prices</p>
     </div>
     <button class="view-all" onclick="openViewAll('rivals')">View All →</button>
@@ -1293,7 +1317,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#60a5fa">Murder Mystery 2</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/mm2.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">MM2</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/mm2.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">MM2</div>
       <p class="sec-sub">Godly knives, chroma weapons, rare limited items</p>
     </div>
     <button class="view-all" onclick="openViewAll('mm2')">View All →</button>
@@ -1315,7 +1339,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#38bdf8">Escape Tsunami</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Escape Tsunami</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Escape Tsunami</div>
       <p class="sec-sub">Exclusive items from Escape Tsunami · Real petmart prices</p>
     </div>
     <button class="view-all" onclick="openViewAll('tsunami')">View All →</button>
@@ -1334,7 +1358,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#06b6d4">Sailor Piece</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Sailor Piece</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Sailor Piece</div>
     </div>
     <button class="view-all" onclick="openViewAll('sp')">View All →</button>
   </div>
@@ -1354,7 +1378,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#ec4899">Adopt Me</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Adopt Me</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Adopt Me</div>
       <p class="sec-sub">Pets from low tier to high tier — all Fly/Ride enabled · Real petmart prices</p>
     </div>
     <button class="view-all" onclick="openViewAll('am')">View All →</button>
@@ -1375,7 +1399,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#4ade80">Grow a Garden</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grow a Garden</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Grow a Garden</div>
       <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
     </div>
     <button class="view-all" onclick="openViewAll('gag')">View All →</button>
@@ -1396,7 +1420,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#a78bfa">99 Nights</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/99_nights.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">99 Nights</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/99_nights.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">99 Nights</div>
       <p class="sec-sub">In-game gems and currency for 99 Nights</p>
     </div>
     <button class="view-all" onclick="openViewAll('nights')">View All →</button>
@@ -1417,7 +1441,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#f97316">Grand Piece Online</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Grand Piece Online</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Grand Piece Online</div>
       <p class="sec-sub">Fruits, weapons, accessories and bundles · Real petmart prices</p>
     </div>
     <button class="view-all" onclick="openViewAll('gpo')">View All →</button>
@@ -1439,7 +1463,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Blade Ball</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Blade Ball</div>
       <p class="sec-sub">Crates, passes, and items for Blade Ball</p>
     </div>
     <button class="view-all" onclick="openViewAll('bb')">View All →</button>
@@ -1460,7 +1484,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#a78bfa">Anime Vanguards</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Anime Vanguards</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Anime Vanguards</div>
       <p class="sec-sub">Units, shiny variants and exclusive characters · Delivered via Discord</p>
     </div>
     <button class="view-all" onclick="openViewAll('av')">View All →</button>
@@ -1482,7 +1506,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#ef4444">Bloodlines</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">Bloodlines</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bloodlines</div>
       <p class="sec-sub">Rare, legendary and mythical bloodlines · Delivered via Discord</p>
     </div>
     <button class="view-all" onclick="openViewAll('bl')">View All →</button>
@@ -1556,7 +1580,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
             <button onclick="changeDetailQty(1)" style="padding:8px 14px;background:none;border:none;color:#fff;font-size:18px;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(255,255,255,.08)'" onmouseleave="this.style.background='none'">+</button>
           </div>
         </div>
-        <button id="itemDetailAddBtn" onclick="addToCartFromDetail()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#ff10f0);color:#fff;font-family:'Orbitron',monospace;font-size:13px;font-weight:800;border:none;cursor:pointer;box-shadow:0 0 24px rgba(255,16,240,.25);transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px">🛒 Add to Cart</button>
+        <button id="itemDetailAddBtn" onclick="addToCartFromDetail()" style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#ff10f0);color:#fff;font-family:'Orbitron',monospace;font-size:13px;font-weight:800;border:none;cursor:pointer;box-shadow:0 0 24px rgba(255,16,240,.25);transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to Cart</button>
         <!-- Trust badges -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px">
           <div style="text-align:center;padding:10px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)"><div style="margin-bottom:4px;display:flex;justify-content:center"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div style="font-family:'Rajdhani',sans-serif;font-size:10px;color:rgba(255,255,255,.4)">Fast Delivery</div></div>
@@ -2113,7 +2137,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="cart-hd">
     <h2>🛒 Cart <span id="cartCnt" style="font-size:12px;color:rgba(255,255,255,.32)">0 items</span></h2>
     <div style="display:flex;align-items:center;gap:8px">
-      <button class="cart-clear-btn" onclick="clearCart()" id="cartClearBtn" style="display:none">🗑 Clear</button>
+      <button class="cart-clear-btn" onclick="clearCart()" id="cartClearBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg> Clear</button>
       <button class="xb" onclick="toggleCart()">✕</button>
     </div>
   </div>
@@ -2206,7 +2230,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         </div>
 
         <div class="co-lbl">Email (order confirmation)</div>
-        <input class="em-inp" id="emailIn" placeholder="your@email.com" type="email"/>
+        <input class="em-inp" id="emailIn" placeholder="your@email.com" type="email" oninput="validateEmailInline(this)"/>
+        <div class="em-err" id="emailErr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Enter a valid email address</div>
       </div>
 
       <div class="co-r">
@@ -3131,6 +3156,7 @@ function filterBF(btn,cat){
   window._bfFilter=cat;
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
   btn.className='jt jtb';
+  btn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
   renderBF(cat);
   setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
 }
@@ -3218,7 +3244,11 @@ function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(su
 function filterBB(btn,sub){setJtActive(btn);filterGrid('bbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bbGrid .pc').forEach(c=>c.style.display='');}
 function filterAV(btn,sub){setJtActive(btn);filterGrid('avGrid','sub',sub);if(sub==='all')document.querySelectorAll('#avGrid .pc').forEach(c=>c.style.display='');}
 function filterBL(btn,sub){setJtActive(btn);filterGrid('blGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blGrid .pc').forEach(c=>c.style.display='');}
-function setJtActive(btn){btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');btn.className=btn.className+' jtb';}
+function setJtActive(btn){
+  btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
+  btn.className=btn.className+' jtb';
+  btn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+}
 
 // ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
@@ -3631,6 +3661,26 @@ function updatePayBtn(){
 }
 
 // ── CART ──────────────────────────────────────────────────────
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg, type='info', duration=2400){
+  const stack=document.getElementById('toastStack');
+  if(!stack) return;
+  const icons={
+    success:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+    warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>'
+  };
+  const t=document.createElement('div');
+  t.className=`toast toast-${type}`;
+  t.innerHTML=`<span class="toast-icon">${icons[type]||icons.info}</span><span class="toast-msg">${msg}</span>`;
+  stack.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  const remove=()=>{t.classList.replace('show','hide');setTimeout(()=>t.remove(),320);};
+  setTimeout(remove, duration);
+  t.addEventListener('click', remove);
+}
+
 function addToCart(name,priceStr,em,game,img){
   const price=parseFloat((priceStr||'').replace('$',''));
   if(isNaN(price)) return;
@@ -3639,6 +3689,7 @@ function addToCart(name,priceStr,em,game,img){
   else cart.push({name,price,em:em||'📦',game,qty:1,img:img||null});
   updateCartUI();
   openCartSB();
+  showToast(`${name} added to cart`, 'info');
   // Badge pop animation
   const badge=document.getElementById('cBadge');
   if(badge){badge.classList.remove('cbadge-pop');void badge.offsetWidth;badge.classList.add('cbadge-pop');setTimeout(()=>badge.classList.remove('cbadge-pop'),400);}
@@ -3955,8 +4006,16 @@ async function payNow(){
   if(!discordLinked){ alert('⚠️ Please link your Discord account first!'); return; }
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
-  if(!u){ alert('⚠️ Enter your Roblox username first.'); return; }
-  if(!e||!e.includes('@')){ alert('⚠️ Enter a valid email address.'); return; }
+  if(!u){ showToast('Enter your Roblox username first', 'warn'); return; }
+  if(!e||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){
+    const inp=document.getElementById('emailIn');
+    const err=document.getElementById('emailErr');
+    inp.classList.add('invalid');
+    if(err) err.classList.add('show');
+    inp.focus();
+    showToast('Enter a valid email address', 'warn');
+    return;
+  }
   if(selectedPayMethod==='cr'){ openCryptoModal(); return; }
   const tot=calcTotal();
 
@@ -3967,10 +4026,17 @@ async function payNow(){
   }
 }
 
+function validateEmailInline(inp){
+  const err=document.getElementById('emailErr');
+  const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
+  inp.classList.toggle('invalid',!!inp.value&&!valid);
+  if(err) err.classList.toggle('show',!!inp.value&&!valid);
+}
+
 // ── STRIPE CHECKOUT — creates session via bot with exact amount ──
 async function openStripeCheckout(rblxUser, email, tot){
   const btn = document.getElementById('payNow');
-  btn.innerHTML = '⏳ Creating checkout…';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="animation:spin .7s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Creating checkout…';
   btn.disabled = true;
 
   // Capture form values now — page will navigate away
@@ -4210,6 +4276,7 @@ function copyOrderId(){
   navigator.clipboard.writeText(txt).then(()=>{
     const btn=document.getElementById('copyOrderIdBtn');
     btn.textContent='Copied!';
+    showToast('Order ID copied!', 'copy');
     setTimeout(()=>{btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy ID';},2000);
   });
 }
@@ -4425,6 +4492,7 @@ function copyCryptoAddr(){
     const btn=document.getElementById('cryptoCopyBtn');
     btn.textContent='Copied!';
     btn.style.background='rgba(0,200,100,.25)';
+    showToast('Address copied!', 'copy');
     setTimeout(()=>{btn.innerHTML=_clipSVG+' Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
   });
 }
@@ -4436,6 +4504,7 @@ function copyCryptoAmt(){
   navigator.clipboard.writeText(amt).then(()=>{
     const btn=document.getElementById('cryptoCopyAmtBtn');
     btn.textContent='Copied!';
+    showToast('Amount copied!', 'copy');
     setTimeout(()=>{btn.innerHTML=_clipSVG+' Copy Amount';},2000);
   });
 }
@@ -4849,7 +4918,7 @@ function renderViewAllGrid(){
   count.textContent = `${_viewAllFiltered.length} item${_viewAllFiltered.length!==1?'s':''}`;
 
   if(!_viewAllFiltered.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:rgba(255,255,255,.3);font-family:'Rajdhani',sans-serif;font-size:16px">No items found.</div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;display:flex;flex-direction:column;align-items:center;gap:14px"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg><div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1px">No items found</div><div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.18)">Try a different filter or check back later</div></div>`;
     return;
   }
 
@@ -6471,6 +6540,32 @@ document.addEventListener('click', e => {
 // Init home menu after page data is available
 setTimeout(renderHomeMenu, 0);
 
+// ── STAT COUNT-UP (IntersectionObserver) ─────────────────────
+(function initStatCountUp(){
+  const stats=document.getElementById('hmStats');
+  if(!stats) return;
+  let done=false;
+  const run=()=>{
+    if(done) return; done=true;
+    stats.querySelectorAll('[data-count]').forEach(el=>{
+      const target=parseFloat(el.dataset.count);
+      const suffix=el.dataset.suffix||'';
+      const dec=parseInt(el.dataset.decimals||0);
+      const dur=1200, fps=60, steps=Math.round(dur/1000*fps);
+      let i=0;
+      const t=setInterval(()=>{
+        i++;
+        const val=target*(i/steps);
+        el.textContent=(dec?val.toFixed(dec):Math.round(val))+suffix;
+        if(i>=steps){el.textContent=target+(dec?'':'')+suffix;clearInterval(t);}
+      },1000/fps);
+    });
+  };
+  if('IntersectionObserver' in window){
+    new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){run();o.disconnect();}},{threshold:.3}).observe(stats);
+  } else run();
+})();
+
 // ── CAROUSEL: pause on touch, resume on touchend ──────────────
 (function initCarouselTouch(){
   function pauseTrack(el){if(el) el.style.animationPlayState='paused';}
@@ -6494,5 +6589,6 @@ setTimeout(renderHomeMenu, 0);
   document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
 })();
 </script>
+<div id="toastStack"></div>
 </body>
 </html>

@@ -1366,9 +1366,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
     <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
-    <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
-    <button class="jt" onclick="filterSP(this,'bundles')">📦 Bundles</button>
+    <button class="jt" onclick="filterSP(this,'keys')">🗝️ Keys</button>
     <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
+    <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
   </div>
   <div class="h-scroll" id="spGrid"></div>
 </section>
@@ -2836,36 +2836,50 @@ const GPO = [
 ];
 
 const SP = [
+  // — Gamepasses —
   {n:'x5 Aura Crates',em:'📦',p:1.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
   {n:'20x Aura Crates',em:'📦',p:4.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
   {n:'100x Aura Crates',em:'📦',p:15.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
-  {n:'1000x Boss Key',em:'🗝️',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/boss key.png'},
-  {n:'Battle Sigil',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Battle%20Sigil.webp'},
-  {n:'1000x Power Shard',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Power%20Shard.webp'},
-  {n:'1000x Rush Key',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Rush%20Key.webp'},
-  {n:'200x Upper Seal',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Upper%20Seal.webp'},
-  {n:'1000x Dungeon Key',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Dungeon%20Key.webp'},
-  {n:'100x Limitless Key',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Limitless%20Key.webp'},
-  {n:'100x Slime Key',em:'🗝️',p:1.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Slime%20Key.webp'},
-  {n:'1000x Clan Reroll',em:'🔄',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/clan reroll.png'},
-  {n:'1000x Trait Reroll',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Trait reroll.png'},
-  {n:'1000x Race reroll',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/race reroll.png'},
-  {n:'100x Abyss Sigil',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Abyss%20Sigil.png'},
-  {n:'100x Dark Grail',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dark grail.png'},
-  {n:'1000x Passive Shard',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Passive shard.png'},
-  {n:'1000x Mythical Chest',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
-  {n:'5x Secret Chest',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/secret chest.png'},
   {n:'2x Luck',em:'🍀',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x Luck.png'},
-  {n:'5x Cosmetic Crate',em:'🎲',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cosmetic Crate.png'},
   {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
-  {n:'1000 Tempest Relic',em:'🧳',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/TempestRelic.png'},
-  {n:'Ascension Materials ( Any Stage)',em:'🧳',p:1.30,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor%20Piece.png'},
   {n:'Slime',em:'🧳',p:9.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Slime.webp'},
   {n:'Aizen',em:'🧳',p:7.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Aizen.webp'},
   {n:'Saber',em:'🧳',p:2.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Saber.webp'},
   {n:'Atomic',em:'🧳',p:12.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Atomic.webp'},
   {n:'Escanor',em:'🧳',p:9.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Escanor%20Bundle.webp'},
   {n:'Bundle - 2X Money + 2X Gems + 2X EXP + 2X Luck',em:'🧳',p:11.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Bundle%20-%202X%20Money%20%2B%202X%20Gems%20%2B%202X%20EXP%20%2B%202X%20Luck.png'},
+  {n:'Moon Slayer + Moon Outfit',em:'🧳',p:8.77,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/X8u3OoyFOxRGWYzYWQiWRLRrVQD9DRPDfnnRAvN4.png'},
+  {n:'Atomic + Strongest Shinobi + Abyssal Empress',em:'🧳',p:21.77,sub:'gamepasses',badge:'best',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/8IG5bAerJLbS0XeAohmZ2tec64gJrWZhJOGOMv6j.png'},
+  {n:'Atomic + Strongest Shinobi',em:'🧳',p:15.92,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fl9mtt1aiPtp1w1nLxG3LpmDQNK8X5FSAAard8Sb.png'},
+  {n:'Abyssal Empress + Strongest Shinobi',em:'🧳',p:15.59,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/NfeOm59WJXc93JYlptEa7CznCwZbU6cBhj2pixRo.png'},
+  {n:'Abyssal Empress + Atomic',em:'🧳',p:15.92,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/vKZn2bGUbTFrRJ7A07SNwKcGFAdtPfwCgwntszbn.png'},
+  {n:'Corrupted Excalibur + Alter Armor',em:'🧳',p:8.44,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/wvKE2vV7MUWXq6jpBemnboPWRRxZXY3AlOw7bIlb.png'},
+  {n:'True Manipulator + Blessed Maiden + Yamato',em:'🧳',p:21.44,sub:'gamepasses',badge:'best',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kXdBpux08egBt4FqwCkTzih0DmwIW2hBDSDR74Dq.webp'},
+  {n:'True Manipulator + Blessed Maiden',em:'🧳',p:15.59,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/v6DBNnWg8rklxQkIOFHmqMn6xbvUUkKHYNWvrFzo.webp'},
+  {n:'Blessed Maiden + Yamato',em:'🧳',p:14.94,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QANZ8LzpeDDZwtj7KEz4q8sOhBjHQUo7JlegcgjJ.webp'},
+  {n:'True Manipulator + Yamato',em:'🧳',p:15.27,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2w1kscz7L36mmkJwBS7I3fZOLJj1ddjuK0Tp7KiH.webp'},
+  {n:'Demon King + Shadow Monarch',em:'🧳',p:14.29,sub:'gamepasses',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rsGRQcBB2U997d2zar7MBy30UgZmkL8sjip4HzsO.webp'},
+  // — Keys —
+  {n:'1000x Boss Key',em:'🗝️',p:2.00,sub:'keys',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/boss key.png'},
+  {n:'1000x Rush Key',em:'🗝️',p:1.50,sub:'keys',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Rush%20Key.webp'},
+  {n:'1000x Dungeon Key',em:'🗝️',p:1.50,sub:'keys',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Dungeon%20Key.webp'},
+  {n:'100x Limitless Key',em:'🗝️',p:1.50,sub:'keys',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Limitless%20Key.webp'},
+  {n:'100x Slime Key',em:'🗝️',p:1.50,sub:'keys',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Slime%20Key.webp'},
+  // — Items —
+  {n:'Battle Sigil',em:'🗝️',p:1.50,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Battle%20Sigil.webp'},
+  {n:'1000x Power Shard',em:'🗝️',p:1.50,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Power%20Shard.webp'},
+  {n:'200x Upper Seal',em:'🗝️',p:1.50,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://silvmarket.shop/images/Upper%20Seal.webp'},
+  {n:'1000x Clan Reroll',em:'🔄',p:2.00,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/clan reroll.png'},
+  {n:'1000x Trait Reroll',em:'🎲',p:2.00,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Trait reroll.png'},
+  {n:'1000x Race reroll',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/race reroll.png'},
+  {n:'100x Abyss Sigil',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Abyss%20Sigil.png'},
+  {n:'100x Dark Grail',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dark grail.png'},
+  {n:'1000x Passive Shard',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Passive shard.png'},
+  {n:'1000x Mythical Chest',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mythical chest.png'},
+  {n:'5x Secret Chest',em:'🎲',p:2.00,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/secret chest.png'},
+  {n:'5x Cosmetic Crate',em:'🎲',p:2.00,sub:'items',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cosmetic Crate.png'},
+  {n:'1000 Tempest Relic',em:'🧳',p:2.00,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/TempestRelic.png'},
+  {n:'Ascension Materials ( Any Stage)',em:'🧳',p:1.30,sub:'items',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor%20Piece.png'},
   {n:'True Azien Set',em:'⚔️',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen Set.jpg'},
   {n:'Ichigo Set',em:'🌙',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ichigo Set.jpg'},
   {n:'Gilgamesh Set',em:'⚔️',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Gilgamesh set.jpg'},
@@ -2878,17 +2892,6 @@ const SP = [
   {n:'Saber Alter Set',em:'⚔️',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Saber Alter Set.png'},
   {n:'Yamato Set',em:'⚔️',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Yamato%20Set.png'},
   {n:'Kokushibo Set',em:'⚔️',p:1.50,sub:'sets',badge:'',stock:99,bg:'r-mythical',description:'You will receive all the items to obtain that set',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Kokushibo%20Set.png'},
-  {n:'Moon Slayer + Moon Outfit',em:'🧳',p:8.77,sub:'bundles',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/X8u3OoyFOxRGWYzYWQiWRLRrVQD9DRPDfnnRAvN4.png'},
-  {n:'Atomic + Strongest Shinobi + Abyssal Empress',em:'🧳',p:21.77,sub:'bundles',badge:'best',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/8IG5bAerJLbS0XeAohmZ2tec64gJrWZhJOGOMv6j.png'},
-  {n:'Atomic + Strongest Shinobi',em:'🧳',p:15.92,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fl9mtt1aiPtp1w1nLxG3LpmDQNK8X5FSAAard8Sb.png'},
-  {n:'Abyssal Empress + Strongest Shinobi',em:'🧳',p:15.59,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/NfeOm59WJXc93JYlptEa7CznCwZbU6cBhj2pixRo.png'},
-  {n:'Abyssal Empress + Atomic',em:'🧳',p:15.92,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/vKZn2bGUbTFrRJ7A07SNwKcGFAdtPfwCgwntszbn.png'},
-  {n:'Corrupted Excalibur + Alter Armor',em:'🧳',p:8.44,sub:'bundles',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/wvKE2vV7MUWXq6jpBemnboPWRRxZXY3AlOw7bIlb.png'},
-  {n:'True Manipulator + Blessed Maiden + Yamato',em:'🧳',p:21.44,sub:'bundles',badge:'best',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kXdBpux08egBt4FqwCkTzih0DmwIW2hBDSDR74Dq.webp'},
-  {n:'True Manipulator + Blessed Maiden',em:'🧳',p:15.59,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/v6DBNnWg8rklxQkIOFHmqMn6xbvUUkKHYNWvrFzo.webp'},
-  {n:'Blessed Maiden + Yamato',em:'🧳',p:14.94,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QANZ8LzpeDDZwtj7KEz4q8sOhBjHQUo7JlegcgjJ.webp'},
-  {n:'True Manipulator + Yamato',em:'🧳',p:15.27,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2w1kscz7L36mmkJwBS7I3fZOLJj1ddjuK0Tp7KiH.webp'},
-  {n:'Demon King + Shadow Monarch',em:'🧳',p:14.29,sub:'bundles',badge:'',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rsGRQcBB2U997d2zar7MBy30UgZmkL8sjip4HzsO.webp'},
 
 ];
 
@@ -4306,7 +4309,7 @@ const GAME_SUBS={
   nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
   gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
-  sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🍎 Fruits',fn:'filterSP',val:'fruits'},{label:'⚔️ Swords',fn:'filterSP',val:'swords'},{label:'📦 Bundles',fn:'filterSP',val:'bundles'},{label:'🪙 Currency',fn:'filterSP',val:'currency'}],
+  sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🎮 Gamepasses',fn:'filterSP',val:'gamepasses'},{label:'🗝️ Keys',fn:'filterSP',val:'keys'},{label:'⚔️ Items',fn:'filterSP',val:'items'},{label:'🧥 Sets',fn:'filterSP',val:'sets'}],
   bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🎁 Items',fn:'filterBB',val:'items'}],
   av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
   bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'💎 Rare',fn:'filterBL',val:'rare'},{label:'👑 Legendary',fn:'filterBL',val:'legendary'},{label:'✨ Mythical',fn:'filterBL',val:'mythical'}],

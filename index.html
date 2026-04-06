@@ -3139,14 +3139,14 @@ function _bsLivePrice(item){
   const found=arr.find(i=>i.n===(item._ref||item.n));
   if(!found)return null;
   const v=parseFloat(found._p);
-  return isNaN(v)?null:v;
+  return (isNaN(v)||v<=0)?null:v;
 }
 
 function renderBS(){
   document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
     var lp=_bsLivePrice(i);
-    var p=lp!=null?lp:(parseFloat((i.p||'$0').replace('$',''))||0);
-    var pStr='$'+p;
+    var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
+    var pStr=p>0?'$'+p.toFixed(2):'N/A';
     var iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
     var safeName=i.n.replace(/'/g,"\\'");
     var imgHtml=i.img
@@ -3158,7 +3158,7 @@ function renderBS(){
         +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
         +'<div class="pc-n">'+i.n+'</div>'
         +'<div class="pc-price">'+pStr+'</div>'
-        +'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+pStr+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>'
+        +(p>0?'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+pStr+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>':'<button class="pc-btn oos" disabled onclick="event.stopPropagation()">Unavailable</button>')
       +'</div>'
     +'</div>';
   }).join('');
@@ -6250,7 +6250,8 @@ function _hmGameCard(g){
 
 function _hmItemCard(i){
   const rawPrice = i.norm != null ? i.norm : i.p != null ? i.p : (i.speeds&&i.speeds.length ? i.speeds[0].p : '');
-  const price = rawPrice !== '' ? (i.speeds&&i.speeds.length&&i.p==null?'from ':'')+'$'+parseFloat(String(rawPrice).replace(/\$/g,'')) : '';
+  const _rp = parseFloat(String(rawPrice).replace(/\$/g,''));
+  const price = (rawPrice!==''&&_rp>0) ? (i.speeds&&i.speeds.length&&i.p==null?'from ':'')+'$'+_rp : '';
   const gi = i._gi||'';
   const src = i.img||gi;
   let imgHtml;

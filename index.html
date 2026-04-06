@@ -383,17 +383,18 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pay-nm{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .pay-ds{font-size:11px;color:rgba(255,255,255,.28);margin-top:3px}
 
-footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
-  border-top:1px solid rgba(255,255,255,.05);padding:44px 32px 22px}
+footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
+  border-top:1px solid rgba(147,51,234,.2);padding:44px 32px 22px;
+  box-shadow:inset 0 1px 0 rgba(255,16,240,.08)}
 .fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:34px}
 .fb p{color:rgba(255,255,255,.28);font-size:13px;line-height:1.7;margin-top:10px}
 .fc h4{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;
   text-transform:uppercase;color:var(--pink);margin-bottom:13px}
-.fc a{display:block;text-decoration:none;color:rgba(255,255,255,.3);font-size:13px;margin-bottom:8px;transition:color .2s}
-.fc a:hover{color:#fff}
-.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.05);
-  padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.fbot p{font-size:11px;color:rgba(255,255,255,.18)}
+.fc a{display:block;text-decoration:none;color:rgba(255,255,255,.35);font-size:13px;margin-bottom:8px;transition:color .2s}
+.fc a:hover{color:#ff10f0}
+.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(147,51,234,.15);
+  padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.fbot p{font-size:11px;color:rgba(255,255,255,.22);letter-spacing:.3px}
 
 .cart-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:5500;
   opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
@@ -964,7 +965,7 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 
     <!-- CTA buttons -->
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:32px">
-      <button onclick="document.getElementById('navSgBtn').click()" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#ff10f0,#9333ea);border:none;border-radius:12px;color:#fff;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 8px 32px rgba(255,16,240,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(255,16,240,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,16,240,.35)'">
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'});setTimeout(function(){var b=document.getElementById('navSgBtn');if(!b.classList.contains('open'))b.click();},350)" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#ff10f0,#9333ea);border:none;border-radius:12px;color:#fff;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;box-shadow:0 8px 32px rgba(255,16,240,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(255,16,240,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,16,240,.35)'">
         Browse Shop →
       </button>
       <a href="https://discord.gg/brianrots" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:rgba(255,255,255,.8);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
@@ -997,19 +998,28 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   </div>
 
   <!-- Games carousel -->
-  <div class="hm-section-label" style="margin-top:8px">Browse Games</div>
+  <div class="hm-sec-row" style="margin-top:8px">
+    <div class="hm-section-label">Browse Games</div>
+    <div class="hm-sec-badge">All Categories</div>
+  </div>
   <div class="hm-carousel-wrap" style="margin-bottom:36px">
     <div class="hm-carousel-track" id="hmGameTrack"></div>
   </div>
 
   <!-- Popular items carousel -->
-  <div class="hm-section-label">Popular Items</div>
+  <div class="hm-sec-row">
+    <div class="hm-section-label">Popular Items</div>
+    <div class="hm-sec-badge">Trending Now</div>
+  </div>
   <div class="hm-carousel-wrap">
     <div class="hm-items-track" id="hmItemTrack"></div>
   </div>
 
   <!-- Best Sellers -->
-  <div class="hm-section-label" style="margin-top:36px">🔥 Best Sellers</div>
+  <div class="hm-sec-row" style="margin-top:36px">
+    <div class="hm-section-label">Best Sellers</div>
+    <div class="hm-sec-badge">Top Picks</div>
+  </div>
   <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
     <div class="h-scroll" id="bsGrid"></div>
   </div>
@@ -1629,7 +1639,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
    ═══════════════════════════════════════════ */
 /* Stats widgets */
 .hm-stats{position:relative;z-index:2;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;padding:0 20px;margin-bottom:40px}
-.hm-stat{background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:14px;padding:16px 22px;text-align:center;min-width:110px}
+.hm-stat{background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:14px;padding:16px 22px;text-align:center;min-width:110px;transition:border-color .25s,box-shadow .25s,background .25s;cursor:default}
+.hm-stat:hover{border-color:rgba(255,16,240,.4);background:rgba(255,16,240,.06);box-shadow:0 0 20px rgba(255,16,240,.12)}
 .hm-stat-n{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;background:linear-gradient(135deg,#fff,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hm-stat-l{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:4px}
 #homeMenu{position:relative;min-height:calc(100vh - 56px);overflow:hidden;background:#07031a;display:flex;flex-direction:column;align-items:center;padding:0 0 60px}
@@ -1670,8 +1681,11 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
 .hm-rv-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hm-rv-price{font-family:'Orbitron',monospace;font-size:11px;color:#ff10f0;font-weight:700;margin-top:2px}
 
-/* Section label */
-.hm-section-label{position:relative;z-index:2;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:20px;text-align:center}
+/* Section header row */
+.hm-sec-row{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1240px;padding:0 20px;margin-bottom:20px;box-sizing:border-box}
+.hm-section-label{display:flex;align-items:center;gap:10px;font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:#fff;text-transform:uppercase}
+.hm-section-label::before{content:'';width:3px;height:18px;border-radius:2px;background:linear-gradient(180deg,#ff10f0,#9333ea);flex-shrink:0}
+.hm-sec-badge{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.35);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:4px 12px}
 
 /* Game carousel */
 .hm-carousel-wrap{position:relative;z-index:2;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -1717,7 +1731,8 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   .hm-gc-badge{margin:0 9px 11px;padding:5px 10px}
   .hm-rv-card{min-width:140px}
   .hm-rv-section{padding:0 12px}
-  .hm-section-label{font-size:10px}
+  .hm-section-label{font-size:11px}
+  .hm-sec-row{padding:0 12px}
 }
 </style>
 

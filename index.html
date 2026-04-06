@@ -1108,10 +1108,8 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   </div>
   <div class="jump-row">
     <span class="jump-label">Category:</span>
-    <button class="jt jtb" id="rcat-robux"     onclick="filterRobuxCat(this,'robux')"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Robux</button>
-    <button class="jt"     id="rcat-followers" onclick="filterRobuxCat(this,'followers')">👥 Followers</button>
-    <button class="jt"     id="rcat-members"   onclick="filterRobuxCat(this,'members')">🏟️ Group Members</button>
-    <button class="jt"     id="rcat-likes"     onclick="filterRobuxCat(this,'likes')">❤️ Favorites &amp; Likes</button>
+    <button class="jt jtb" id="rcat-robux"    onclick="filterRobuxCat(this,'robux')"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Robux</button>
+    <button class="jt"     id="rcat-services" onclick="filterRobuxCat(this,'services')"><img src="https://silvmarket.shop/images/Roblox%20services.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Followers / Members / Likes</button>
   </div>
   <div class="h-scroll" id="robuxGrid"></div>
 </section>
@@ -2341,15 +2339,15 @@ const BF_CDN = 'https://blox-fruits.fandom.com/wiki/Special:FilePath/';
 const IMGS = {};
 
 // ── DATA ─────────────────────────────────────────────────────
+const _rsServicesImg = 'https://silvmarket.shop/images/Roblox%20services.png';
 const ROBUX = [
   {a:1000,p:5.5},{a:2000,p:11},{a:3000,p:16.5},
   {a:5000,p:27.5,best:true},{a:10000,p:55},{a:20000,p:110},
 ];
-const SOCIAL = {
-  followers:[{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
-  members:  [{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
-  likes:    [{a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}],
-};
+// Followers / Group Members / Likes — same price tiers, consolidated into one service
+const SOCIAL_TIERS = [
+  {a:1000,p:5},{a:2000,p:10},{a:5000,p:25,best:true},{a:10000,p:50}
+];
 
 const FRUITS = [
   {n:'Dragon',em:'🐉',type:'Beast',rar:'mythical',norm:24.99,perm:32.49,badge:'myth',stock:3,cat:'beast',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png'},
@@ -2834,11 +2832,11 @@ const BLOODLINES = [
   {n:'Madara MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:55.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Itcahi MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Shisui MS',                                   em:'🌀',p:25.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
-  {n:'Pain Rinnegan Eye',                           em:'🔴',p:45.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Pain Rinnegan Eye',                           em:'🔴',p:49.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Sasuke Rinnegan Eye',                         em:'🔴',p:40.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Rinnegan Eye',                                em:'🔴',p:35.00,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Mangekyou Eye',                                em:'🔴',p:34.56,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
-  {n:'Mysterious Eyes',                             em:'👁️',p:5.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
+  {n:'Mysterious Eyes',                             em:'👁️',p:12.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
   {n:'Ketsuryugan Eyes',                            em:'👁️',p:8.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
   {n:'Sharingan',                                   em:'⚡',p:15.00,badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary'},
   // ── SOULS ─────────────────────────────────────────────────────
@@ -2953,10 +2951,8 @@ function mkImgEl(name,em,img,fallback){
 
 // ── RENDER ROBUX / SOCIAL ─────────────────────────────────────
 const ROBUX_META={
-  robux:    {ico:'💎',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',lbl:'ROBUX',    game:'Robux',            sub:'Delivered directly to your Roblox account'},
-  followers:{ico:'👥',lbl:'FOLLOWERS',game:'Roblox Services',  sub:'$5 per 1,000 Followers · Real high-quality followers · Send your preferred delivery link in our Discord server after purchase'},
-  members:  {ico:'🏟️',lbl:'MEMBERS',  game:'Roblox Services',  sub:'$5 per 1,000 Group Members · Real members, no bots · Send your group link in our Discord after checkout'},
-  likes:    {ico:'❤️',lbl:'FAV/LIKES',game:'Roblox Services',  sub:'$5 per 1,000 Favorites & Likes · Real engagement on your game · Send your game link in Discord after purchase'},
+  robux:    {ico:'💎',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',lbl:'ROBUX',game:'Robux',sub:'Delivered directly to your Roblox account'},
+  services: {ico:'⭐',img:_rsServicesImg,lbl:'Followers / Members / Likes',game:'Roblox Services',sub:'$5 per 1,000 · Covers Followers, Group Members & Game Likes/Favorites · Send your link in Discord after purchase'},
 };
 function filterRobuxCat(btn,cat){
   document.querySelectorAll('[id^="rcat-"]').forEach(b=>b.classList.remove('jtb','jtd','jta','jtc'));
@@ -2967,7 +2963,7 @@ function renderRobux(cat='robux'){
   const meta=ROBUX_META[cat]||ROBUX_META.robux;
   const sub=document.getElementById('robuxSubtitle');
   if(sub) sub.textContent=meta.sub;
-  const data=cat==='robux'?ROBUX:SOCIAL[cat];
+  const data=cat==='robux'?ROBUX:SOCIAL_TIERS;
   const rIco=meta.img?`<img src="${meta.img}" style="width:44px;height:44px;border-radius:10px;object-fit:cover" onerror="this.outerHTML='${meta.ico}'">`:(meta.ico);
   const rImg=meta.img||'';
   document.getElementById('robuxGrid').innerHTML=data.map(r=>`
@@ -4648,12 +4644,10 @@ const VIEW_ALL_CONFIG = {
   av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
   bl:       { title:'Bloodlines',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','eyes','souls','schematics','rings','items'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
-  robux:    { title:'Robux & Services', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png', filters:['all','robux','followers','members','likes'],
+  robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
       ...ROBUX.map(r=>({n:`${r.a.toLocaleString()} Robux`,em:'💎',p:r.p,badge:r.best?'best':'',stock:99,sub:'robux',rar:'uncommon',bg:'r-robux',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',game:'Robux'})),
-      ...SOCIAL.followers.map(r=>({n:`${r.a.toLocaleString()} Followers`,em:'👥',p:r.p,badge:r.best?'best':'',stock:99,sub:'followers',rar:'uncommon',bg:'r-uncommon',img:'',game:'Roblox Services'})),
-      ...SOCIAL.members.map(r=>({n:`${r.a.toLocaleString()} Group Members`,em:'🏟️',p:r.p,badge:r.best?'best':'',stock:99,sub:'members',rar:'uncommon',bg:'r-uncommon',img:'',game:'Roblox Services'})),
-      ...SOCIAL.likes.map(r=>({n:`${r.a.toLocaleString()} Favorites & Likes`,em:'❤️',p:r.p,badge:r.best?'best':'',stock:99,sub:'likes',rar:'uncommon',bg:'r-uncommon',img:'',game:'Roblox Services'})),
+      ...SOCIAL_TIERS.map(r=>({n:`${r.a.toLocaleString()} Followers / Members / Likes`,em:'⭐',p:r.p,badge:r.best?'best':'',stock:99,sub:'services',rar:'uncommon',bg:'r-uncommon',img:_rsServicesImg,game:'Roblox Services'})),
     ]
   },
 };
@@ -6250,7 +6244,7 @@ const HM_GAMES = [
   { key:'bb',          name:'Blade Ball',         em:'⚔️',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade ball.png' },
   { key:'av',          name:'Anime Vanguards',    em:'⚡',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png' },
   { key:'bl',          name:'Bloodlines',         em:'🩸',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg' },
-  { key:'robux',       name:'Robux & Services',   em:'💎',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png' },
+  { key:'robux',       name:'Robux & Services',   em:'💎',  img:_rsServicesImg },
   { key:'discord',     name:'Discord',            em:'💜',  img:'https://silvmarket.shop/images/discord.png' },
 ];
 

@@ -850,10 +850,6 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="nav-right">
-    <a class="tp-nav-wrap" href="https://www.trustpilot.com/review/silvmarket.shop" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0l3.09 6.26L22 7.27l-5 4.87 1.18 6.88L12 15.77l-6.18 3.25L7 12.14 2 7.27l6.91-1.01z"/></svg>
-      <span class="tp-label">Trustpilot</span>
-    </a>
     <a id="discNavLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank">
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       <span class="disc-label">Discord</span>
@@ -1485,20 +1481,27 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
      VIEW ALL OVERLAY
      ═══════════════════════════════════════════════ -->
 <div id="viewAllOverlay" style="display:none;position:fixed;inset:0;z-index:5000;background:linear-gradient(160deg,#0d0520,#07031a);overflow-y:auto">
-  <div style="max-width:1400px;margin:0 auto;padding:24px">
-    <!-- Header -->
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)">
-      <button onclick="closeViewAll()" style="display:flex;align-items:center;gap:6px;padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.07)'">← Back to Shop</button>
-      <div>
-        <div id="viewAllTitle" style="font-family:'Orbitron',monospace;font-size:20px;font-weight:800;color:#fff"></div>
-        <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-top:2px"></div>
+  <div style="max-width:1400px;margin:0 auto;padding:24px 20px">
+    <!-- Game banner header -->
+    <div id="vaGameHeader" style="position:relative;border-radius:18px;margin-bottom:18px;background:rgba(12,5,28,0.95);border:1px solid rgba(147,51,234,.3);overflow:hidden">
+      <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(147,51,234,.18) 0%,rgba(255,16,240,.08) 60%,transparent 100%);pointer-events:none"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,16,240,.4),transparent)"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:18px;padding:18px 22px">
+        <button onclick="closeViewAll()" style="display:flex;align-items:center;gap:5px;padding:9px 15px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.65);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .2s;letter-spacing:.3px" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.06)'">← Back</button>
+        <div id="vaGameIconBox" style="width:54px;height:54px;border-radius:13px;background:linear-gradient(135deg,rgba(147,51,234,.25),rgba(255,16,240,.15));border:2px solid rgba(147,51,234,.4);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(147,51,234,.2)">
+          <img id="vaGameIconImg" style="width:100%;height:100%;object-fit:cover;border-radius:11px" src="" alt="" onerror="this.style.display='none'"/>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div id="viewAllTitle" style="font-family:'Orbitron',monospace;font-size:21px;font-weight:800;color:#fff;letter-spacing:.5px;line-height:1.2"></div>
+          <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.38);margin-top:5px;letter-spacing:.5px"></div>
+        </div>
       </div>
     </div>
-    <!-- Filter bar -->
-    <div id="viewAllFilters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <!-- Filter pills -->
+    <div id="viewAllFilters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"></div>
     <!-- Sort bar -->
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-      <span style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px">SORT:</span>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1.5px">SORT BY</span>
       <button onclick="sortViewAll('default')" class="va-sort va-sort-active" id="vaSort-default">Default</button>
       <button onclick="sortViewAll('low')"     class="va-sort" id="vaSort-low">Price ↑</button>
       <button onclick="sortViewAll('high')"    class="va-sort" id="vaSort-high">Price ↓</button>
@@ -1519,11 +1522,15 @@ footer{position:relative;z-index:2;background:rgba(0,0,0,.5);
   #itemDetailPrice{font-size:26px!important}
 }
 /* View all sort buttons */
-.va-sort{padding:6px 14px;border-radius:7px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s}
-.va-sort:hover,.va-sort-active{background:rgba(147,51,234,.25);border-color:rgba(147,51,234,.5);color:#fff}
+.va-sort{padding:6px 13px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.4);cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.va-sort:hover{background:rgba(147,51,234,.15);border-color:rgba(147,51,234,.35);color:rgba(255,255,255,.8)}
+.va-sort-active{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.45);color:#fff}
 /* View all filter pills */
-.va-filter{padding:7px 16px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;white-space:nowrap}
-.va-filter:hover,.va-filter-active{background:rgba(255,16,240,.15);border-color:rgba(255,16,240,.4);color:#fff}
+.va-filter{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:40px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px;position:relative}
+.va-filter:hover{background:rgba(147,51,234,.18);border-color:rgba(147,51,234,.45);color:#fff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(147,51,234,.18)}
+.va-filter-active{background:linear-gradient(135deg,rgba(147,51,234,.35),rgba(255,16,240,.2));border-color:rgba(255,16,240,.55);color:#fff;box-shadow:0 0 16px rgba(255,16,240,.2)}
+.va-filter-active:hover{transform:none}
+.va-fi{width:16px;height:16px;border-radius:5px;object-fit:cover;flex-shrink:0}
 
 /* ── MOBILE HAMBURGER MENU ──────────────────────────────────── */
 #mobMenuBtn{display:none;align-items:center;justify-content:center;
@@ -4643,22 +4650,23 @@ function openViewAll(key){
   _viewAllSort   = 'default';
   _viewAllFiltered = [..._viewAllItems];
 
+  // Set game icon + title in banner header
   const _vaTitleEl = document.getElementById('viewAllTitle');
-  _vaTitleEl.style.display = cfg.img ? 'flex' : '';
-  _vaTitleEl.style.alignItems = 'center';
-  _vaTitleEl.style.gap = '10px';
-  if(cfg.img){
-    _vaTitleEl.innerHTML = '<img src="'+cfg.img+'" style="width:36px;height:36px;border-radius:9px;object-fit:cover;flex-shrink:0" onerror="this.style.display=\'none\'">' + cfg.title;
-  } else {
-    _vaTitleEl.textContent = cfg.title;
-  }
+  _vaTitleEl.textContent = cfg.title;
+  const vaIconEl = document.getElementById('vaGameIconImg');
+  if(cfg.img){ vaIconEl.src = cfg.img; vaIconEl.style.display = ''; }
+  else { vaIconEl.src = ''; vaIconEl.style.display = 'none'; }
 
-  // Build filter pills
+  // Build filter pills with icon
   const filtersEl = document.getElementById('viewAllFilters');
   if(cfg.filters.length > 0){
-    filtersEl.innerHTML = cfg.filters.map(f =>
-      `<button class="va-filter${f==='all'?' va-filter-active':''}" onclick="setViewAllFilter('${f}',this)">${f==='all'?'All':f.charAt(0).toUpperCase()+f.slice(1)}</button>`
-    ).join('');
+    filtersEl.innerHTML = cfg.filters.map(f => {
+      const label = f === 'all' ? 'All Items' : f.charAt(0).toUpperCase() + f.slice(1);
+      const iconHtml = cfg.img
+        ? `<img class="va-fi" src="${cfg.img.replace(/"/g,'&quot;')}" onerror="this.style.display='none'">`
+        : '';
+      return `<button class="va-filter${f==='all'?' va-filter-active':''}" onclick="setViewAllFilter('${f}',this)">${iconHtml}${label}</button>`;
+    }).join('');
     filtersEl.style.display = 'flex';
   } else {
     filtersEl.innerHTML = '';

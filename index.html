@@ -2474,12 +2474,12 @@ const AM = [
 
 const MM2 = [
   {n:'Chroma Seer',em:'👁️',type:'knife',p:1.99,oldP:null,badge:'rare',stock:2,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_seer.jpg'},
-  {n:'Corrupt',type:'knife',p:17.99,oldP:null,badge:'hot',stock:3,sub:'godly',rar:'legendary',bg:'r-mythical',img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zmdRvKgAAbd7G3ucfHX6IuFtnGiZQEqTj91kSdV3.png"},
+  {n:'Corrupt',type:'knife',p:14.99,oldP:null,badge:'hot',stock:3,sub:'godly',rar:'legendary',bg:'r-mythical',img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zmdRvKgAAbd7G3ucfHX6IuFtnGiZQEqTj91kSdV3.png"},
   {n:'Chroma Gemstone',em:'💎',type:'knife',p:1.99,oldP:null,badge:'hot',stock:3,sub:'chroma',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_gemstone.jpg'},
   {n:'Chroma Saw',em:'🩸',type:'knife',p:2.99,oldP:null,badge:'rare',stock:3,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_saw.jpg'},
   {n:'Eternal',em:'⚡',type:'knife',p:2.99,oldP:null,badge:'rare',stock:4,sub:'godly',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eternal.jpg'},
-  {n:'Chroma Tides',em:'🌊',type:'knife',p:8.99,oldP:18.99,badge:'sale',stock:4,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_tides.jpg'},
-  {n:'Chroma Laser',em:'🌟',type:'gun',p:4.99,oldP:null,badge:'hot',stock:5,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_laser.jpg'},
+  {n:'Chroma Tides',em:'🌊',type:'knife',p:2.99,oldP:18.99,badge:'sale',stock:4,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_tides.jpg'},
+  {n:'Chroma Laser',em:'🌟',type:'gun',p:3.99,oldP:null,badge:'hot',stock:5,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_laser.jpg'},
   {n:'Chroma Heat',em:'🔥',type:'knife',p:3.99,oldP:null,badge:'',stock:5,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_heat.jpg'},
   {n:'Seer',em:'👁️',type:'knife',p:2.99,oldP:null,badge:'hot',stock:6,sub:'godly',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/seer.jpg'},
   {n:'Chroma Luger',em:'🔫',type:'gun',p:4.99,oldP:null,badge:'',stock:7,sub:'chroma',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/chroma_luger.jpg'},
@@ -6249,7 +6249,7 @@ function _hmGameCard(g){
 }
 
 function _hmItemCard(i){
-  const rawPrice = i.norm != null ? i.norm : i.p != null ? i.p : (i.speeds&&i.speeds.length ? i.speeds[0].p : '');
+  const rawPrice = i.perm != null ? i.perm : i.norm != null ? i.norm : i.p != null ? i.p : (i.speeds&&i.speeds.length ? i.speeds[0].p : '');
   const _rp = parseFloat(String(rawPrice).replace(/\$/g,''));
   const price = (rawPrice!==''&&_rp>0) ? (i.speeds&&i.speeds.length&&i.p==null?'from ':'')+'$'+_rp : '';
   const gi = i._gi||'';
@@ -6263,8 +6263,8 @@ function _hmItemCard(i){
   } else {
     imgHtml = `<div class="hm-ic-em">${i.em||'📦'}</div>`;
   }
-  const enc = encodeURIComponent(JSON.stringify(i));
-  return `<div class="hm-ic" onclick="openItemDetail('${enc}')">${imgHtml}<div class="hm-ic-name">${i.n}</div><div class="hm-ic-price">${price}</div></div>`;
+  const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em||'📦',p:_rp||0,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||gi||null,game:i.game||'',sub:i.sub||i.cat||''}));
+  return `<div class="hm-ic" onclick="openItemDetail('${iData}')">${imgHtml}<div class="hm-ic-name">${i.n}</div><div class="hm-ic-price">${price}</div></div>`;
 }
 
 function renderHomeMenu(){

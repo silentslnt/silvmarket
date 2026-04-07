@@ -24,7 +24,7 @@
 <meta name="robots" content="index, follow"/>
 <meta name="theme-color" content="#ff10f0"/>
 <title>Silv Market — Buy Blox Fruits, Grow a Garden, MM2 & Roblox Items</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- TrustBox script -->
 <style>
 :root{
@@ -792,6 +792,71 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 @keyframes btn-ping{0%{box-shadow:0 0 0 0 rgba(255,16,240,.6)}100%{box-shadow:0 0 0 14px rgba(255,16,240,0)}}
 .pc-btn:active{animation:btn-ping .4s ease-out}
 
+/* ══════════════════════════════════════════════════════════════
+   UI UPGRADE PACK — cards, rarity borders, button, nav, fonts
+   ══════════════════════════════════════════════════════════════ */
+
+/* 1. Chakra Petch body font — more edgy/gaming than Rajdhani */
+body{font-family:'Chakra Petch','Inter',sans-serif}
+.pc-n{font-family:'Chakra Petch','Inter',sans-serif;font-size:13px;font-weight:600}
+.pc-rar{font-family:'Chakra Petch','Inter',sans-serif}
+
+/* 2. Rarity-keyed left border accent on cards */
+.pc{border-left-width:3px}
+.pc.rb-uncommon{border-left-color:#86efac}
+.pc.rb-rare{border-left-color:#60a5fa}
+.pc.rb-legendary{border-left-color:#fbbf24}
+.pc.rb-mythical{border-left-color:#f0abfc}
+.pc.rb-common{border-left-color:rgba(255,255,255,.15)}
+
+/* 3. Hover: rarity-keyed glow instead of always pink */
+.pc.rb-uncommon:hover{border-color:#86efac;box-shadow:0 12px 40px rgba(134,239,172,.18),0 0 0 1px rgba(134,239,172,.15)}
+.pc.rb-rare:hover{border-color:#60a5fa;box-shadow:0 12px 40px rgba(96,165,250,.18),0 0 0 1px rgba(96,165,250,.15)}
+.pc.rb-legendary:hover{border-color:#fbbf24;box-shadow:0 12px 40px rgba(251,191,36,.2),0 0 0 1px rgba(251,191,36,.18)}
+.pc.rb-mythical:hover{border-color:#f0abfc;box-shadow:0 12px 40px rgba(240,171,252,.22),0 0 0 1px rgba(240,171,252,.18)}
+.pc.rb-uncommon:hover,.pc.rb-rare:hover,.pc.rb-legendary:hover,.pc.rb-mythical:hover{border-left-width:3px}
+
+/* 4. Card hover lift — slightly more pronounced */
+.pc:hover{transform:translateY(-6px) scale(1.012)}
+
+/* 5. Price — larger, bolder */
+.pc-price{font-size:20px!important;font-weight:900!important;letter-spacing:-.5px}
+
+/* 6. Add to Cart button — fills on hover with neon glow */
+.pc-btn{padding:10px;font-size:12px;letter-spacing:.8px;border-radius:10px;
+  transition:all .25s cubic-bezier(.16,1,.3,1)}
+.pc-btn:not(.oos):hover{
+  background:linear-gradient(135deg,var(--purple),var(--pink))!important;
+  border-color:var(--pink)!important;color:#fff!important;
+  box-shadow:0 0 24px rgba(255,16,240,.45),0 4px 16px rgba(147,51,234,.3)!important;
+  transform:translateY(-1px)}
+
+/* 7. Badge — top-left pill */
+.pbadge{top:10px;left:10px;right:auto;border-radius:20px;padding:3px 9px;
+  font-size:9px;letter-spacing:2px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+
+/* 8. Image — consistent fill */
+.pc-img img{width:100%!important;height:100%!important;object-fit:cover!important;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))!important}
+
+/* 9. Alternating section backgrounds */
+.sec-alt{background:linear-gradient(180deg,rgba(11,5,32,.55),transparent)!important;
+  border-radius:20px;padding:0 6px}
+
+/* 9. Nav — pink bottom glow */
+nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
+  box-shadow:0 1px 40px rgba(147,51,234,.12)}
+
+/* 10. Rarity glow in image area */
+.pc.rb-mythical .pc-img::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(240,171,252,.18),transparent 70%);
+  pointer-events:none;z-index:0}
+.pc.rb-legendary .pc-img::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(251,191,36,.15),transparent 70%);
+  pointer-events:none;z-index:0}
+.pc.rb-rare .pc-img::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(96,165,250,.15),transparent 70%);
+  pointer-events:none;z-index:0}
+
 /* ── CRYPTO MODAL ──────────────────────────────────────────── */
 .cm-ov{display:none;position:fixed;inset:0;z-index:2000;
   background:rgba(0,0,0,.82);backdrop-filter:blur(10px);
@@ -1396,7 +1461,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="gag">
+<section class="S sec-alt" id="gag">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#4ade80">Grow a Garden</div>
@@ -1417,7 +1482,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="nights">
+<section class="S sec-alt" id="nights">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#a78bfa">99 Nights</div>
@@ -1438,7 +1503,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="gpo">
+<section class="S sec-alt" id="gpo">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#f97316">Grand Piece Online</div>
@@ -1460,7 +1525,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="bb">
+<section class="S sec-alt" id="bb">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
@@ -1481,7 +1546,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="av">
+<section class="S sec-alt" id="av">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#a78bfa">Anime Vanguards</div>
@@ -1503,7 +1568,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <div class="div-line"></div>
 
-<section class="S" id="bl">
+<section class="S sec-alt" id="bl">
   <div class="sec-hd">
     <div>
       <div class="sec-ey" style="color:#ef4444">Bloodlines</div>
@@ -3195,8 +3260,9 @@ function mkCard(i,game,gcls){
     const safeN=i.n.replace(/'/g,"\\'");
     const iData=encodeURIComponent(JSON.stringify({n:addName,em:i.em,p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
     const speedBtns=i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setBRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
+    const rarCls2=i.rar?`rb-${i.rar}`:"rb-common";
     return `
-  <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
@@ -3213,8 +3279,9 @@ function mkCard(i,game,gcls){
   }
   const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
   const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||gameIcon||null,game:gameLbl,sub:i.sub||''}));
+  const rarCls=i.rar?`rb-${i.rar}`:'rb-common';
   return `
-  <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
+  <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
@@ -4982,8 +5049,9 @@ function renderViewAllGrid(){
       const addName = `${i.n} ${sp.label}`;
       const iData = encodeURIComponent(JSON.stringify({n:addName,em:i.em||'🧠',p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:i.game||'Steal a Brainrot',sub:i.sub||''}));
       const speedBtns = i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setVABRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
+      const rarCls3=i.rar?`rb-${i.rar}`:"rb-common";
       return `
-    <div class="pc" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+    <div class="pc ${rarCls3}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
       <div class="pc-img ${i.bg||'r-rare'}">
         ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}

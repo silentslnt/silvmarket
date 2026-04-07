@@ -1515,6 +1515,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.32);color:#ef4444" onclick="filterBL(this,'all')">🩸 All</button>
+    <button class="jt" onclick="filterBL(this,'races')">🧬 Races</button>
     <button class="jt" onclick="filterBL(this,'eyes')">👁️ Eyes</button>
     <button class="jt" onclick="filterBL(this,'souls')">🌀 Souls</button>
     <button class="jt" onclick="filterBL(this,'schematics')">📜 Schematics</button>
@@ -2957,9 +2958,20 @@ const AV = [
 ];
 
 const BLOODLINES = [
+  // ── RACES ─────────────────────────────────────────────────────
+  {n:'Hoshigaki Race',  em:'🧬',p:14.99, badge:'',    stock:99,sub:'races',rar:'rare',     bg:'r-rare'},
+  {n:'Zetsu Race',      em:'🧬',p:15.99, badge:'',    stock:99,sub:'races',rar:'rare',     bg:'r-rare'},
+  {n:'Chinoike Race',   em:'🧬',p:19.99, badge:'',    stock:99,sub:'races',rar:'legendary',bg:'r-legendary'},
+  {n:'Uzumaki Race',    em:'🧬',p:24.99, badge:'',    stock:99,sub:'races',rar:'legendary',bg:'r-legendary'},
+  {n:'Lee Race',        em:'🧬',p:24.99, badge:'',    stock:99,sub:'races',rar:'legendary',bg:'r-legendary'},
+  {n:'Senju Race',      em:'🧬',p:34.99, badge:'',    stock:99,sub:'races',rar:'mythical', bg:'r-mythical'},
+  {n:'Hyuga Race',      em:'🧬',p:34.99, badge:'',    stock:99,sub:'races',rar:'mythical', bg:'r-mythical'},
+  {n:'Uchiha Race',     em:'🧬',p:69.99, badge:'hot', stock:99,sub:'races',rar:'mythical', bg:'r-mythical'},
+  {n:'Otsutsuki Race',  em:'🧬',p:69.99, badge:'hot', stock:99,sub:'races',rar:'mythical', bg:'r-mythical'},
+  {n:'Yuki Race',       em:'🧬',p:310.00,badge:'best',stock:99,sub:'races',rar:'mythical', bg:'r-mythical'},
   // ── EYES ──────────────────────────────────────────────────────
   {n:'Rinnegan Eye + Mangekyou Eye',                em:'👁️',p:65.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
-  {n:'Byakugan Eye',                                em:'🌑',p:16.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
+  {n:'Byakugan Eye',                                em:'🌑',p:12.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Shisui MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:47.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Madara MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:55.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
   {n:'Itcahi MS + Surgical Kit - Mangekyou Sharingan',em:'🌀',p:49.99,badge:'',  stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical'},
@@ -3010,7 +3022,7 @@ const BLOODLINES = [
   {n:'Extraction Spoon',                            em:'🐍',p:2.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Extraction%20Spoon.webp'},
   {n:'Evergreen Heart',                             em:'🦷',p:7.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
   {n:'Ice Heart',                                   em:'👣',p:5.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
-  {n:'Life Fruit',                                  em:'⚡',p:8.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Life%20Fruit.webp'},
+  {n:'Life Fruit',                                  em:'⚡',p:5.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Life%20Fruit.webp'},
   {n:'Chakra Fruit',                                em:'⭐',p:5.49, badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Chakra%20Fruit.webp'},
   {n:'Fruit Of Forgetfulness',                      em:'🪨',p:2.10, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Fruit%20of%20Forgetfulness.webp'},
   // ── SCROLLS ───────────────────────────────────────────────────
@@ -4305,7 +4317,7 @@ const GAME_SUBS={
   sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🎮 Gamepasses',fn:'filterSP',val:'gamepasses'},{label:'🗝️ Keys',fn:'filterSP',val:'keys'},{label:'⚔️ Items',fn:'filterSP',val:'items'},{label:'🧥 Sets',fn:'filterSP',val:'sets'}],
   bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🎁 Items',fn:'filterBB',val:'items'}],
   av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
-  bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'💎 Rare',fn:'filterBL',val:'rare'},{label:'👑 Legendary',fn:'filterBL',val:'legendary'},{label:'✨ Mythical',fn:'filterBL',val:'mythical'}],
+  bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}

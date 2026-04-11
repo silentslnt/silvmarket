@@ -2175,7 +2175,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <div id="apPanel-favorites" class="ap-tab-panel" style="padding:18px;display:none">
       <div class="ap-section-label">MY FAVOURITES</div>
       <div id="apFavGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
-      <div id="apFavEmpty" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.35);text-align:center;padding:40px 0;display:none">
+      <div id="apFavEmpty" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.35);text-align:center;padding:40px 0;display:block">
         <div style="width:38px;height:38px;margin:0 auto 12px;opacity:.25"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <div style="font-weight:700;margin-bottom:5px">No saved items</div>
         <div style="font-size:11px;color:rgba(255,255,255,.2)">Press the heart icon on any item card to save it here.</div>
@@ -4327,7 +4327,6 @@ async function payNow(){
     const u=document.getElementById('rblxIn')?.value.trim();
     const e=document.getElementById('emailIn')?.value.trim();
     if(!u||!e){ alert('Fill in Roblox username and email to test.'); return; }
-    if(!discordLinked){ alert('Link Discord to test.'); return; }
     const tot=calcTotal();
     const orderId=genOrderId();
     const claimKey=genClaimKey();
@@ -5748,14 +5747,7 @@ function switchAPTab(tab){
   ['overview','favorites','settings','security','referral'].forEach(t => {
     const panel = document.getElementById('apPanel-'+t);
     const btn   = document.getElementById('apTab-'+t);
-    if(panel){
-      panel.style.display = t===tab ? 'block' : 'none';
-      if(t===tab){
-        panel.classList.remove('ap-tab-panel');
-        void panel.offsetWidth;
-        panel.classList.add('ap-tab-panel');
-      }
-    }
+    if(panel) panel.style.display = t===tab ? 'block' : 'none';
     if(btn) btn.classList.toggle('ap-tab-active', t===tab);
   });
   if(tab === 'overview')  loadAPOrders();

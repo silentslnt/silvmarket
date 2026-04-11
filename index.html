@@ -1158,7 +1158,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
     <!-- Subheadline -->
     <div style="font-family:'Rajdhani',sans-serif;font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.72);text-align:center;max-width:540px;line-height:1.6;margin-bottom:32px">
-      Roblox items, Discord services &amp; more — all in one place.<br>Unbeatable prices, instant delivery, every purchase verified &amp; proof-logged.
+      Roblox items, Discord services &amp; more — all in one place.<br>Unbeatable prices, instant delivery, every purchase verified.
     </div>
 
     <!-- CTA buttons -->
@@ -2036,38 +2036,57 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="ap-panel-inner" style="background:#0d0d1a;width:100%;max-width:420px;height:100%;overflow-y:auto;position:relative;z-index:1;box-shadow:-20px 0 60px rgba(0,0,0,.8);display:flex;flex-direction:column">
 
     <!-- Header bar -->
-    <div style="display:flex;align-items:center;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0">
+    <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#0a0a18">
       <button onclick="closeAccountPanel()" style="background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.7);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;margin-right:12px;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">←</button>
-      <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.3px">My Account</span>
+      <span style="font-family:'Orbitron',monospace;font-size:12px;font-weight:800;color:#fff;letter-spacing:1.5px">MY ACCOUNT</span>
     </div>
 
-    <!-- Profile section -->
-    <div style="padding:24px 20px 18px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0">
-      <div style="display:flex;align-items:center;gap:14px">
-        <div style="position:relative;cursor:pointer;flex-shrink:0" onclick="document.getElementById('apPfpInput').click()" title="Change photo">
-          <img id="apAvatar" src="" alt="" style="width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid rgba(147,51,234,.5);display:none"/>
-          <div id="apAvatarFallback" style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1e0a4e,#3a0d8f);display:flex;align-items:center;justify-content:center;font-size:26px;border:2px solid rgba(147,51,234,.5)">👤</div>
-          <div style="position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;background:#9333ea;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;border:2px solid #0d0d1a">📷</div>
+    <!-- Profile section — gradient banner -->
+    <div style="flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06)">
+      <!-- Banner -->
+      <div style="height:64px;background:linear-gradient(135deg,#1a0640 0%,#2d0a6e 45%,#1a0d3a 100%);position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(255,255,255,.018) 24px,rgba(255,255,255,.018) 25px)"></div>
+        <div style="position:absolute;bottom:-18px;right:16px;width:56px;height:56px;background:radial-gradient(circle,rgba(255,16,240,.22),transparent 70%)"></div>
+      </div>
+      <!-- Avatar + info row -->
+      <div style="padding:0 18px 16px;margin-top:-28px;position:relative">
+        <div style="display:flex;align-items:flex-end;gap:14px;margin-bottom:14px">
+          <div style="position:relative;cursor:pointer;flex-shrink:0" onclick="document.getElementById('apPfpInput').click()" title="Change photo">
+            <img id="apAvatar" src="" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:3px solid #0d0d1a;box-shadow:0 0 0 2px rgba(147,51,234,.6);display:none"/>
+            <div id="apAvatarFallback" style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,#1e0a4e,#3a0d8f);display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid #0d0d1a;box-shadow:0 0 0 2px rgba(147,51,234,.6)">👤</div>
+            <div style="position:absolute;bottom:-3px;right:-3px;width:20px;height:20px;background:#9333ea;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;border:2px solid #0d0d1a">📷</div>
+          </div>
+          <input type="file" id="apPfpInput" accept="image/*" style="display:none" onchange="uploadProfilePic(this)"/>
+          <div style="min-width:0;flex:1;padding-top:30px">
+            <div id="apName" style="font-family:'Inter',sans-serif;font-size:15px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+            <div id="apEmail" style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+          </div>
+          <div id="ap2faStatus" style="display:inline-block;padding:3px 9px;border-radius:5px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3px;flex-shrink:0;margin-bottom:4px"></div>
         </div>
-        <input type="file" id="apPfpInput" accept="image/*" style="display:none" onchange="uploadProfilePic(this)"/>
-        <div style="min-width:0">
-          <div id="apName" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-          <div id="apEmail" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.42);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-          <div id="ap2faStatus" style="display:inline-block;margin-top:6px;padding:2px 8px;border-radius:4px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.3px"></div>
-        </div>
-        <div style="margin-left:auto;text-align:right;flex-shrink:0">
-          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:4px">Balance</div>
-          <div id="apTotalSpent" style="font-family:'Inter',sans-serif;font-size:15px;font-weight:800;color:#ffd700">$0.00</div>
+        <!-- Stats row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 12px;text-align:center">
+            <div id="apOrderCount" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#fff">0</div>
+            <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;letter-spacing:.3px">ORDERS</div>
+          </div>
+          <div style="background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.12);border-radius:10px;padding:10px 12px;text-align:center">
+            <div id="apTotalSpent" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#ffd700">$0</div>
+            <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,215,0,.4);margin-top:2px;letter-spacing:.3px">SPENT</div>
+          </div>
+          <div style="background:rgba(147,51,234,.06);border:1px solid rgba(147,51,234,.18);border-radius:10px;padding:10px 12px;text-align:center;cursor:pointer" onclick="switchAPTab('referral');checkNotificationBadge()">
+            <div id="apHeaderTokens" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#c084fc">0</div>
+            <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(147,51,234,.5);margin-top:2px;letter-spacing:.3px">TOKENS</div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Tab nav -->
-    <div style="display:flex;padding:8px 12px;gap:2px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#0d0d1a">
-      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">Orders</button>
-      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">Settings</button>
-      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">Security</button>
-      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">Referral</button>
+    <div style="display:flex;padding:6px 10px;gap:3px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#0a0a18">
+      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">📦 Orders</button>
+      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">⚙️ Settings</button>
+      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">🔒 Security</button>
+      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">🎁 Referral</button>
     </div>
 
     <!-- Scrollable content -->
@@ -2084,7 +2103,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="ap-section-label">ACCOUNT SETTINGS</div>
 
       <div class="ap-section-card">
-        <div class="ap-section-title">Display Name</div>
+        <div class="ap-section-title">✏️ Display Name</div>
         <div class="ap-field-group">
           <label>New name</label>
           <div style="display:flex;gap:8px">
@@ -2095,7 +2114,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       </div>
 
       <div class="ap-section-card">
-        <div class="ap-section-title">Email Address</div>
+        <div class="ap-section-title">📧 Email Address</div>
         <div class="ap-field-group" style="margin-bottom:0">
           <label>New email</label>
           <div style="display:flex;gap:8px">
@@ -2125,7 +2144,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="ap-section-label">SECURITY</div>
 
       <div class="ap-section-card">
-        <div class="ap-section-title">Change Password</div>
+        <div class="ap-section-title">🔑 Change Password</div>
         <input id="apOldPass" type="password" placeholder="Current password" class="ap-input" style="width:100%;margin-bottom:8px"/>
         <input id="apNewPass" type="password" placeholder="New password (min 6 chars)" class="ap-input" style="width:100%;margin-bottom:12px"/>
         <button onclick="changePassword()" class="ap-action-btn">Update Password</button>
@@ -2133,7 +2152,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
       <div class="ap-section-card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div class="ap-section-title" style="margin-bottom:0">Email 2FA</div>
+          <div class="ap-section-title" style="margin-bottom:0">🛡️ Email 2FA</div>
           <div id="ap2faToggle" onclick="toggle2FA()" style="width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .25s;flex-shrink:0">
             <div id="ap2faThumb" style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>
           </div>
@@ -2157,16 +2176,31 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div id="apAffiliateBlock" style="margin-bottom:14px"></div>
 
       <!-- Token balance -->
-      <div style="background:#111125;border:1px solid rgba(255,215,0,.15);border-radius:12px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
-        <div style="font-size:28px;line-height:1">🪙</div>
-        <div>
-          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.38);margin-bottom:4px;font-weight:600;letter-spacing:.3px">SILV TOKENS</div>
-          <div style="display:flex;align-items:baseline;gap:6px">
-            <span id="apTokenBalance" style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:#ffd700">0</span>
-            <span style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.3)">tokens</span>
+      <div style="background:linear-gradient(135deg,#12102a,#1a1232);border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 4px 24px rgba(255,215,0,.06)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:40px;height:40px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">🪙</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,215,0,.5);font-weight:700;letter-spacing:1px">SILV TOKENS</div>
+              <div style="display:flex;align-items:baseline;gap:5px">
+                <span id="apTokenBalance" style="font-family:'Orbitron',monospace;font-size:26px;font-weight:800;color:#ffd700">0</span>
+                <span style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.3)">tokens</span>
+              </div>
+            </div>
           </div>
-          <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.25);margin-top:2px">1 token = 10 Robux · 10 tokens = $1</div>
+          <button onclick="loadReferralTab()" title="Refresh token balance" style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.15);border-radius:8px;width:32px;height:32px;cursor:pointer;color:rgba(255,215,0,.7);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(255,215,0,.16)'" onmouseout="this.style.background='rgba(255,215,0,.08)'">↻</button>
         </div>
+        <div style="display:flex;gap:8px">
+          <div style="flex:1;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;text-align:center">
+            <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.3);margin-bottom:2px">VALUE</div>
+            <div id="apRefTokenVal" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#a3e635">$0.00</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px;text-align:center">
+            <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.3);margin-bottom:2px">ROBUX</div>
+            <div id="apRefRobuxVal" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#60a5fa">0</div>
+          </div>
+        </div>
+        <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.2);margin-top:10px;text-align:center">10 tokens = $1 · 1 token = 10 Robux</div>
       </div>
 
       <div id="apReferralCodeBlock" style="display:none">
@@ -2935,7 +2969,7 @@ const SP = [
   {n:'x5 Aura Crates',em:'📦',p:.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
   {n:'20x Aura Crates',em:'📦',p:5.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
   {n:'100x Aura Crates',em:'📦',p:10.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
-  {n:'2x Luck',em:'🍀',p:2.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x Luck.png'},
+  {n:'2x Luck',em:'🍀',p:8.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x Luck.png'},
   {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
   {n:'Slime',em:'🧳',p:9.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Slime.webp'},
   {n:'Aizen',em:'🧳',p:7.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Aizen.webp'},
@@ -4123,7 +4157,14 @@ async function payNow(){
     return;
   }
   // ── End dev bypass ──────────────────────────────────────────
-  if(!discordLinked){ alert('⚠️ Please link your Discord account first!'); return; }
+  if(!discordLinked || !discordUser?.id || !discordUser?.username){
+    // Clear any stale/broken Discord session so they have to re-link
+    discordLinked=false;
+    discordUser={id:'',username:'',avatar:'',discriminator:''};
+    try{localStorage.removeItem('silv_discord_session');}catch(e){}
+    alert('⚠️ Please link your Discord account first!');
+    return;
+  }
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
   if(!u){ showToast('Enter your Roblox username first', 'warn'); return; }
@@ -4644,6 +4685,7 @@ function cryptoISent(){
   const u=document.getElementById('rblxIn').value.trim();
   const e=document.getElementById('emailIn').value.trim();
   if(!u||!e){ alert('Please fill in your Roblox username and email first.'); return; }
+  if(!discordLinked || !discordUser?.id || !discordUser?.username){ closeCryptoModal(); alert('⚠️ Discord verification lost — please re-link your Discord.'); return; }
   if(_cryptoOrderSubmitted){ return; } // prevent double submit
 
   const btn=document.getElementById('cryptoISentBtn');
@@ -5541,19 +5583,24 @@ function loadAPOrders(){
     el.innerHTML = '<div style="color:rgba(255,255,255,.35);padding:10px 0">No orders yet.</div>';
   } else {
     el.innerHTML = orders.slice(0,10).map(o=>`
-      <div style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
-          <span style="font-family:'Orbitron',monospace;font-size:11px;color:rgba(255,255,255,.6)">${o.orderId}</span>
-          <span style="font-family:'Orbitron',monospace;font-size:12px;color:#ffd700;font-weight:700">$${o.total}</span>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-family:'Orbitron',monospace;font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.5px">${o.orderId}</span>
+          <span style="font-family:'Orbitron',monospace;font-size:13px;color:#ffd700;font-weight:800">$${Number(o.total||0).toFixed(2)}</span>
         </div>
-        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:2px">${o.items?.join(', ')||'—'}</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.25)">${o.method} · ${new Date(o.date).toLocaleDateString()}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.55);margin-bottom:6px;line-height:1.4">${o.items?.slice(0,3).join(', ')+(o.items?.length>3?' +'+( o.items.length-3)+' more':'')||'—'}</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:10px;padding:2px 7px;border-radius:4px;font-family:'Inter',sans-serif;font-weight:600;background:rgba(147,51,234,.15);color:#a855f7;border:1px solid rgba(147,51,234,.2)">${o.method||'—'}</span>
+          <span style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.25)">${new Date(o.date).toLocaleDateString()}</span>
+        </div>
       </div>`).join('');
   }
-  if(totEl){
-    const total = orders.reduce((s,o)=>s+Number(o.total||0),0);
-    totEl.textContent = '$'+total.toFixed(2);
-  }
+  const total = orders.reduce((s,o)=>s+Number(o.total||0),0);
+  if(totEl) totEl.textContent = '$'+total.toFixed(0);
+  const cntEl=document.getElementById('apOrderCount'); if(cntEl) cntEl.textContent=orders.length;
+  // Sync token count to header stats card
+  const tokVal=parseInt(localStorage.getItem('silv_tokens_'+(currentUser?.email||''))||'0');
+  const htok=document.getElementById('apHeaderTokens'); if(htok) htok.textContent=tokVal;
 }
 
 // ── Settings tab actions ──────────────────────────────────────
@@ -5719,8 +5766,13 @@ async function loadReferralTab(){
     });
     const data=await resp.json();
     if(data.silvTokens!==undefined){
-      document.getElementById('apTokenBalance').textContent=data.silvTokens;
-      try{localStorage.setItem('silv_tokens_'+currentUser.email, data.silvTokens);}catch{}
+      const t=data.silvTokens;
+      document.getElementById('apTokenBalance').textContent=t;
+      try{localStorage.setItem('silv_tokens_'+currentUser.email, t);}catch{}
+      const htok=document.getElementById('apHeaderTokens'); if(htok) htok.textContent=t;
+      const tv=document.getElementById('udTokenVal'); if(tv) tv.textContent=t;
+      const rv=document.getElementById('apRefTokenVal'); if(rv) rv.textContent='$'+(t/10).toFixed(2);
+      const rbv=document.getElementById('apRefRobuxVal'); if(rbv) rbv.textContent=(t*10).toLocaleString();
     }
 
     // Render affiliate status block
@@ -5908,11 +5960,24 @@ async function checkNotificationBadge(){
       headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
     });
     const data=await resp.json();
+    // Sync tokens from server → localStorage + all displays
+    if(data.silvTokens!==undefined){
+      const t=data.silvTokens;
+      try{localStorage.setItem('silv_tokens_'+currentUser.email, t);}catch{}
+      const tv=document.getElementById('udTokenVal'); if(tv) tv.textContent=t;
+      const apTok=document.getElementById('apTokenBalance'); if(apTok) apTok.textContent=t;
+      const htok=document.getElementById('apHeaderTokens'); if(htok) htok.textContent=t;
+      const rv=document.getElementById('apRefTokenVal'); if(rv) rv.textContent='$'+(t/10).toFixed(2);
+      const rbv=document.getElementById('apRefRobuxVal'); if(rbv) rbv.textContent=(t*10).toLocaleString();
+    }
     const unread=(data.notifications||[]).filter(n=>!n.read).length;
     const badge=document.getElementById('navNotifBadge');
     if(badge){ badge.style.display=unread>0?'flex':'none'; badge.textContent=unread>0?unread:''; }
   } catch(e){}
 }
+let _notifPollInterval=null;
+function startNotifPoll(){ if(_notifPollInterval) return; _notifPollInterval=setInterval(checkNotificationBadge,60000); }
+function stopNotifPoll(){ clearInterval(_notifPollInterval); _notifPollInterval=null; }
 
 // ── Save order to account ─────────────────────────────────────
 function markPromoUsed(code){
@@ -6028,6 +6093,7 @@ function _completeLogin(email, u){
   }).then(r=>r.json()).then(d=>{
     if(d.silvTokens!==undefined) try{localStorage.setItem('silv_tokens_'+email, d.silvTokens);}catch{}
   }).catch(()=>{});
+  startNotifPoll();
   openAccountPanel();
 }
 async function verify2FALogin(){
@@ -6089,6 +6155,7 @@ async function doSignup(){
 // ── Logout ────────────────────────────────────────────────────
 function doLogout(){
   currentUser = null;
+  stopNotifPoll();
   clearSession();
   closeAccountPanel();
   updateNavLogin();
@@ -6098,7 +6165,7 @@ function doLogout(){
 // ── Restore session on page load ──────────────────────────────
 (function restoreSession(){
   const s = loadSession();
-  if(s){ currentUser = s; updateNavLogin(); checkNotificationBadge(); }
+  if(s){ currentUser = s; updateNavLogin(); checkNotificationBadge(); startNotifPoll(); }
 })();
 
 // ── Admin sign-in via ?admin_token= URL param ─────────────────
@@ -6130,7 +6197,7 @@ function doLogout(){
     currentUser = acct.email === DEV_EMAIL ? { email: acct.email, name: acct.name, isDev: true } : { email: acct.email, name: acct.name };
     saveSession(currentUser);
     updateNavLogin();
-    checkNotificationBadge();
+    checkNotificationBadge(); startNotifPoll();
     openAccountPanel();
     console.log(`🔐 Admin signed in as: ${acct.email}`);
   } catch(e){ console.warn('Admin sign-in error:', e.message); }

@@ -8,92 +8,99 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#07031a;--surface:rgba(13,10,30,.82);--surface2:rgba(17,13,38,.88);--border:rgba(255,255,255,.08);--purple:#9333ea;--pink:#ff10f0;--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.38)}
-html{background:#07031a}
-body{background:radial-gradient(ellipse at 20% 0%,rgba(147,51,234,.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(255,16,240,.1) 0%,transparent 60%),#07031a;color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+:root{--bg:#07031a;--surface:rgba(13,10,30,.82);--border:rgba(255,255,255,.08);--purple:#9333ea;--pink:#ff10f0;--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.38)}
+html,body{background:#07031a}
+body{background:radial-gradient(ellipse at 15% 0%,rgba(147,51,234,.12) 0%,transparent 55%),radial-gradient(ellipse at 85% 90%,rgba(255,16,240,.08) 0%,transparent 55%),#07031a;color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
 a{color:inherit;text-decoration:none}
 
-/* TOP BAR */
-.topbar{height:56px;background:rgba(7,3,22,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;position:sticky;top:0;z-index:100}
-.tb-logo{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-decoration:none}
-.tb-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);transition:color .15s;margin-left:auto}
+/* NAV */
+.topbar{height:56px;background:rgba(7,3,22,.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100}
+.tb-logo{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.tb-back{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);transition:color .15s;margin-left:auto;padding:6px 0}
 .tb-back:hover{color:#fff}
 
-/* HERO SECTION */
-.hero{text-align:center;padding:52px 20px 36px;max-width:760px;margin:0 auto}
-.hero-title{font-family:'Orbitron',monospace;font-size:clamp(22px,4vw,34px);font-weight:900;background:linear-gradient(135deg,#a855f7 0%,#ff10f0 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;letter-spacing:1px}
-.hero-sub{font-family:'Rajdhani',sans-serif;font-size:15px;color:var(--muted);letter-spacing:2px;font-weight:600;text-transform:uppercase}
+/* PAGE */
+.page{max-width:740px;margin:0 auto;padding:48px 20px 80px}
 
-/* MAIN CARD */
-.main-card{background:rgba(13,10,30,.75);border:1px solid rgba(147,51,234,.2);border-radius:18px;padding:28px 28px 24px;max-width:760px;margin:0 auto 32px;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05)}
-
-/* GREETING */
-.greeting{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--muted);letter-spacing:1px;text-align:center;margin-bottom:6px;text-transform:uppercase}
-.tier-display{font-family:'Orbitron',monospace;font-size:clamp(18px,3.5vw,26px);font-weight:900;text-align:center;letter-spacing:2px;margin-bottom:24px}
-
-/* PROGRESS BAR */
-.progress-wrap{position:relative;margin-bottom:34px}
-.progress-track{height:8px;background:rgba(255,255,255,.07);border-radius:8px;overflow:visible;position:relative}
-.progress-fill{height:100%;border-radius:8px;transition:width 1s cubic-bezier(.4,0,.2,1);position:relative}
-.progress-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:inherit;border:2px solid #fff;box-shadow:0 0 8px currentColor}
-.tier-markers{display:flex;justify-content:space-between;margin-top:10px}
-.tier-marker{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:0;position:relative}
-.tier-marker .tm-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.15);position:absolute;top:-14px;transition:all .3s}
-.tier-marker.reached .tm-dot{background:var(--t-color, #9333ea);border-color:var(--t-color, #9333ea);box-shadow:0 0 8px var(--t-color, #9333ea)}
-.tier-marker.current .tm-dot{width:12px;height:12px;top:-16px;background:var(--t-color, #ff10f0);border-color:#fff;box-shadow:0 0 14px var(--t-color, #ff10f0)}
-.tm-name{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px}
-.tier-marker.reached .tm-name,.tier-marker.current .tm-name{color:var(--t-color, #9333ea)}
-.tm-pts{font-size:9px;color:rgba(255,255,255,.18);font-family:'Inter',sans-serif}
-.tier-marker.reached .tm-pts,.tier-marker.current .tm-pts{color:rgba(255,255,255,.4)}
-
-/* STATS ROW */
-.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0}
-.stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px}
-.stat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.stat-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.stat-val{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:#fff}
-.stat-desc{font-size:11px;color:var(--muted);margin-top:2px}
-
-/* TIER BENEFITS GRID */
-.section{max-width:760px;margin:0 auto 28px;padding:0 0}
-.section-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;text-align:center}
-.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tier-card{border-radius:14px;padding:16px 14px;border:1px solid rgba(255,255,255,.07);background:rgba(13,10,30,.6);text-align:center;transition:transform .2s,box-shadow .2s;cursor:default}
-.tier-card:hover{transform:translateY(-3px)}
-.tier-card.active-tier{border-width:1.5px}
-.tc-icon{font-size:28px;margin-bottom:8px;display:block}
-.tc-name{font-family:'Orbitron',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.tc-pts{font-size:10px;color:var(--muted);margin-bottom:10px;font-family:'Rajdhani',sans-serif;letter-spacing:1px}
-.tc-perks{list-style:none;font-size:11px;color:rgba(255,255,255,.45);line-height:1.8}
-.tc-perks li::before{content:'· '}
+/* HERO */
+.hero{text-align:center;margin-bottom:40px}
+.hero-eyebrow{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px}
+.hero-title{font-family:'Orbitron',monospace;font-size:clamp(20px,4vw,30px);font-weight:900;background:linear-gradient(135deg,#a855f7 0%,#ff10f0 60%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;margin-bottom:10px}
+.hero-desc{font-size:13px;color:var(--muted);line-height:1.6;max-width:460px;margin:0 auto}
 
 /* LOGIN NOTICE */
-.login-notice{background:rgba(147,51,234,.08);border:1px solid rgba(147,51,234,.2);border-radius:12px;padding:16px 20px;text-align:center;max-width:760px;margin:0 auto 24px;font-size:13px;color:rgba(255,255,255,.6)}
+.login-notice{background:rgba(147,51,234,.07);border:1px solid rgba(147,51,234,.18);border-radius:12px;padding:14px 18px;text-align:center;margin-bottom:28px;font-size:12px;color:rgba(255,255,255,.5)}
 .login-notice a{color:#a855f7;font-weight:600}
 .login-notice a:hover{color:#ff10f0}
 
-/* FAQ */
-.faq-section{max-width:760px;margin:0 auto 60px}
-.faq-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
-.faq-item{background:rgba(13,10,30,.7);border:1px solid rgba(255,255,255,.07);border-radius:12px;margin-bottom:8px;overflow:hidden}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);transition:background .15s;-webkit-user-select:none;user-select:none}
-.faq-q:hover{background:rgba(255,255,255,.03)}
-.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--muted)}
-.faq-item.open .faq-q svg{transform:rotate(180deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
-.faq-item.open .faq-a{max-height:200px;padding:0 18px 16px}
-.faq-a p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.7}
-.faq-a a{color:#a855f7}
+/* MAIN CARD */
+.main-card{background:rgba(12,8,28,.8);border:1px solid rgba(147,51,234,.18);border-radius:18px;padding:28px;margin-bottom:28px;box-shadow:0 8px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04)}
 
-/* RESPONSIVE */
+/* GREETING + TIER NAME */
+.greeting{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:5px}
+.tier-name{font-family:'Orbitron',monospace;font-size:clamp(16px,3vw,22px);font-weight:900;text-align:center;letter-spacing:2px;margin-bottom:28px}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:30px}
+.progress-track{height:6px;background:rgba(255,255,255,.06);border-radius:6px;position:relative}
+.progress-fill{height:100%;border-radius:6px;transition:width 1s cubic-bezier(.4,0,.2,1);position:relative}
+.progress-fill::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:inherit;border:2px solid rgba(255,255,255,.8);box-shadow:0 0 10px currentColor}
+.tier-labels{display:flex;justify-content:space-between;margin-top:14px}
+.tl{display:flex;flex-direction:column;align-items:center;gap:3px}
+.tl-name{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)}
+.tl-name.active{color:inherit}
+.tl-pts{font-size:8px;color:rgba(255,255,255,.15);font-family:'Inter',sans-serif}
+.tl-pts.active{color:rgba(255,255,255,.35)}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px}
+.stat-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-ico svg{opacity:.85}
+.stat-lbl{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.stat-val{font-family:'Orbitron',monospace;font-size:17px;font-weight:900}
+.stat-desc{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* SECTION LABEL */
+.sec-label{font-family:'Orbitron',monospace;font-size:11px;font-weight:800;letter-spacing:2.5px;color:rgba(255,255,255,.25);text-transform:uppercase;text-align:center;margin-bottom:16px}
+
+/* TIERS GRID */
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.tc{border-radius:14px;padding:18px 14px 16px;border:1px solid rgba(255,255,255,.06);background:rgba(12,8,28,.7);text-align:center;transition:transform .2s,box-shadow .2s}
+.tc:hover{transform:translateY(-2px)}
+.tc.tc-active{border-width:1.5px}
+.tc-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.tc-ico svg{opacity:.8}
+.tc-name{font-family:'Orbitron',monospace;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.tc-pts{font-size:9px;color:var(--muted);margin-bottom:12px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;font-weight:600}
+.tc-perks{list-style:none;font-size:10px;color:rgba(255,255,255,.38);line-height:2;text-align:left}
+.tc-perks li{display:flex;align-items:center;gap:6px}
+.tc-perks li svg{flex-shrink:0;opacity:.5}
+.tc-current{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1.5px;font-weight:800;margin-top:11px;padding:4px 0}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.how-card{background:rgba(12,8,28,.7);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 14px;text-align:center}
+.how-num{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:rgba(147,51,234,.5);margin-bottom:8px}
+.how-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:5px}
+.how-desc{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* FAQ */
+.faq-item{background:rgba(12,8,28,.7);border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,.8);-webkit-user-select:none;user-select:none;transition:background .15s}
+.faq-q:hover{background:rgba(255,255,255,.02)}
+.faq-q svg{flex-shrink:0;color:var(--muted);transition:transform .25s}
+.faq-item.open .faq-q svg{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding:0 16px 16px;font-size:12px;color:rgba(255,255,255,.45);line-height:1.7}
+
 @media(max-width:520px){
+  .tiers-grid,.how-grid{grid-template-columns:1fr 1fr}
   .stats-row{grid-template-columns:1fr}
-  .tiers-grid{grid-template-columns:repeat(2,1fr)}
-  .hero{padding:36px 16px 24px}
-  .main-card{padding:20px 16px 18px;margin:0 12px 24px}
-  .section,.faq-section{padding:0 12px}
+  .page{padding:32px 16px 60px}
 }
-@media(max-width:360px){.tiers-grid{grid-template-columns:1fr}}
+@media(max-width:340px){.tiers-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -106,226 +113,253 @@ a{color:inherit;text-decoration:none}
   </a>
 </div>
 
-<div class="hero">
-  <div class="hero-title">Silv Market Loyalty Rewards</div>
-  <div class="hero-sub">Earn points · Rise through the ranks · Unlock perks</div>
-</div>
+<div class="page">
 
-<!-- Login notice shown when not logged in -->
-<div class="login-notice" id="loginNotice" style="display:none">
-  <a href="/" onclick="sessionStorage.setItem('silv_open_login','1')">Log in</a> to see your tier and loyalty points.
-</div>
-
-<!-- Main tier card -->
-<div class="main-card" id="mainCard">
-  <div class="greeting" id="greetingTxt">Hi there, you are at</div>
-  <div class="tier-display" id="tierDisplay">— — —</div>
-
-  <!-- Progress bar -->
-  <div class="progress-wrap">
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-    </div>
-    <div class="tier-markers" id="tierMarkers"></div>
+  <div class="hero">
+    <div class="hero-eyebrow">Program</div>
+    <div class="hero-title">Loyalty Rewards</div>
+    <div class="hero-desc">Earn points with every purchase and rise through six exclusive tiers. The more you spend, the higher your rank and the greater your perks.</div>
   </div>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card" id="tierStatCard">
-      <div class="stat-icon" id="tierStatIcon" style="background:rgba(156,163,175,.1)">🌱</div>
-      <div>
-        <div class="stat-label">Current Tier</div>
-        <div class="stat-val" id="tierStatName">Awakened</div>
-        <div class="stat-desc" id="tierStatDesc">Member</div>
+  <div class="login-notice" id="loginNotice" style="display:none">
+    <a href="/">Sign in</a> to view your tier, points, and progress.
+  </div>
+
+  <!-- Tier progress card -->
+  <div class="main-card" id="mainCard">
+    <div class="greeting" id="greetingTxt">Your current tier</div>
+    <div class="tier-name" id="tierDisplay">—</div>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
       </div>
+      <div class="tier-labels" id="tierLabels"></div>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon" style="background:rgba(255,215,0,.08)">⭐</div>
-      <div>
-        <div class="stat-label">Loyalty Points</div>
-        <div class="stat-val" id="pointsVal">0</div>
-        <div class="stat-desc" id="nextTierDesc">Start shopping to earn points</div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-ico" id="tierIco">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(156,163,175,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div>
+          <div class="stat-lbl">Current Tier</div>
+          <div class="stat-val" id="tierStatName" style="color:#9ca3af">Awakened</div>
+          <div class="stat-desc" id="tierStatDesc">Tier Member</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico" style="background:rgba(255,215,0,.07)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="stat-lbl">Loyalty Points</div>
+          <div class="stat-val" id="pointsVal" style="color:#ffd700">0</div>
+          <div class="stat-desc" id="nextTierDesc">Make a purchase to start earning</div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Tier benefits -->
-<div class="section" style="padding:0 0;max-width:760px;margin:0 auto 28px">
-  <div style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:14px;text-align:center">Tier Rewards</div>
+  <!-- How it works -->
+  <div class="sec-label" style="margin-bottom:16px">How It Works</div>
+  <div class="how-grid" style="margin-bottom:32px">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Shop</div>
+      <div class="how-desc">Purchase any item on Silv Market. Every dollar spent counts.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">Earn Points</div>
+      <div class="how-desc">You receive 10 loyalty points for every $1.00 spent, credited instantly.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Rise in Rank</div>
+      <div class="how-desc">Accumulate points to advance through six tiers and unlock exclusive perks.</div>
+    </div>
+  </div>
+
+  <!-- Tier rewards -->
+  <div class="sec-label">Tier Rewards</div>
   <div class="tiers-grid" id="tiersGrid"></div>
-</div>
 
-<!-- FAQ -->
-<div class="faq-section" style="padding:0 0">
-  <div class="faq-title">Frequently Asked Questions</div>
+  <!-- FAQ -->
+  <div class="sec-label">Frequently Asked Questions</div>
   <div id="faqList"></div>
+
 </div>
 
 <script>
+// SVG icons per tier (no emojis)
+const TIER_ICONS = [
+  // Awakened — leaf/seed
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v3H5V7z"/><path d="M5 10c0 6 3 10 7 12 4-2 7-6 7-12"/></svg>`,
+  // Advanced — bolt/lightning
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  // Mythical — star
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  // Ancient — shield
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  // Divine — sparkle/diamond
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
+  // Celestial — crown
+  `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg>`,
+];
+
 const TIERS = [
-  { name:'Awakened',  min:0,             icon:'🌱', color:'#9ca3af', glow:'rgba(156,163,175,.25)', bg:'rgba(156,163,175,.08)', border:'rgba(156,163,175,.2)',
-    perks:['Access to shop','Standard pricing','Member badge'] },
-  { name:'Advanced',  min:100,           icon:'⚡', color:'#3b82f6', glow:'rgba(59,130,246,.25)',  bg:'rgba(59,130,246,.08)',  border:'rgba(59,130,246,.25)',
-    perks:['Priority support','Early access to sales','Advanced badge'] },
-  { name:'Mythical',  min:10000,         icon:'🌟', color:'#8b5cf6', glow:'rgba(139,92,246,.25)', bg:'rgba(139,92,246,.08)',  border:'rgba(139,92,246,.25)',
-    perks:['Exclusive item drops','Dedicated Discord role','Mythical badge'] },
-  { name:'Ancient',   min:1000000,       icon:'🏛️', color:'#f59e0b', glow:'rgba(245,158,11,.25)', bg:'rgba(245,158,11,.08)',  border:'rgba(245,158,11,.25)',
-    perks:['Bulk order discounts','VIP support channel','Ancient badge'] },
-  { name:'Divine',    min:100000000,     icon:'✨', color:'#ff10f0', glow:'rgba(255,16,240,.3)',   bg:'rgba(255,16,240,.07)',  border:'rgba(255,16,240,.3)',
-    perks:['Custom perks','Reserved stock access','Divine badge'] },
-  { name:'Celestial', min:10000000000,   icon:'🌌', color:'#fff',    glow:'rgba(255,255,255,.35)', bg:'rgba(255,255,255,.04)', border:'rgba(255,255,255,.2)',
-    perks:['Legendary status','Personal account manager','Celestial crown'] },
+  { name:'Awakened',  min:0,           color:'#9ca3af', glow:'rgba(156,163,175,.2)', bg:'rgba(156,163,175,.07)',
+    perks:['Full shop access','Standard pricing','Member status'] },
+  { name:'Advanced',  min:100,         color:'#3b82f6', glow:'rgba(59,130,246,.2)',  bg:'rgba(59,130,246,.07)',
+    perks:['Priority support','Early sale access','Advanced status'] },
+  { name:'Mythical',  min:10000,       color:'#8b5cf6', glow:'rgba(139,92,246,.2)',  bg:'rgba(139,92,246,.07)',
+    perks:['Exclusive item drops','Discord role','Mythical status'] },
+  { name:'Ancient',   min:1000000,     color:'#f59e0b', glow:'rgba(245,158,11,.2)',  bg:'rgba(245,158,11,.07)',
+    perks:['Bulk order discounts','Reserved stock','Ancient status'] },
+  { name:'Divine',    min:100000000,   color:'#ff10f0', glow:'rgba(255,16,240,.25)', bg:'rgba(255,16,240,.06)',
+    perks:['Custom perks','Priority stock access','Divine status'] },
+  { name:'Celestial', min:10000000000, color:'#e2e8f0', glow:'rgba(255,255,255,.2)', bg:'rgba(255,255,255,.04)',
+    perks:['Highest tier status','Exclusive Celestial badge','All previous perks'] },
 ];
 
 const FAQS = [
-  ['How do I earn loyalty points?', 'You earn points automatically with every purchase on Silv Market. Points are credited to your account immediately after your order is confirmed.'],
-  ['How many points do I get per purchase?', 'You earn 10 points for every $1.00 spent. A $5 order earns 50 points, a $20 order earns 200 points, and so on.'],
-  ['When do I move up a tier?', 'Your tier updates automatically as your cumulative points increase. Once you reach a tier threshold, you stay at that tier permanently.'],
-  ['Do my points expire?', 'No — your loyalty points never expire as long as your account remains active.'],
-  ['What are the tier benefits?', 'Each tier unlocks exclusive perks including priority support, special roles, and more. Full benefit details will be revealed soon for each tier.'],
-  ['Can I see my total points?', 'Yes — your points are shown on this page and in the Referral tab of your account panel.'],
+  ['How do I earn loyalty points?',       'You earn points automatically with every completed purchase. Points are credited to your account instantly after your order is confirmed.'],
+  ['How many points do I get per purchase?','You receive 10 loyalty points for every $1.00 spent. A $5.00 order earns 50 points; a $20.00 order earns 200 points.'],
+  ['When do I move up a tier?',            'Your tier advances automatically the moment your cumulative points reach a threshold. Tiers are permanent — you never drop back down.'],
+  ['Do my points expire?',                 'No. Your loyalty points never expire as long as your account is active on Silv Market.'],
+  ['Where can I see my points?',           'Your points balance is shown on this page, in the Referral tab of your account panel, and in the user menu at the top of every page.'],
+  ['What are the tier perks?',             'Each tier unlocks exclusive benefits including priority support, Discord roles, reserved stock access, and more. Full details are revealed as the program expands.'],
 ];
 
 function fmtPts(n){
-  if(n>=1e9) return (n/1e9).toFixed(n%1e9===0?0:1)+'B';
-  if(n>=1e6) return (n/1e6).toFixed(n%1e6===0?0:1)+'M';
-  if(n>=1e3) return (n/1e3).toFixed(n%1e3===0?0:1)+'K';
+  if(n>=1e9)  return (n/1e9).toFixed(n%1e9===0?0:1)+'B';
+  if(n>=1e6)  return (n/1e6).toFixed(n%1e6===0?0:1)+'M';
+  if(n>=1e3)  return (n/1e3).toFixed(n%1e3===0?0:1)+'K';
   return n.toLocaleString();
 }
 
 function getTierIdx(pts){
-  for(let i=TIERS.length-1;i>=0;i--){ if(pts>=TIERS[i].min) return i; }
+  for(let i=TIERS.length-1;i>=0;i--) if(pts>=TIERS[i].min) return i;
   return 0;
 }
 
-function buildTierMarkers(tierIdx){
-  const m = document.getElementById('tierMarkers');
-  m.innerHTML = TIERS.map((t,i)=>{
-    const reached = i <= tierIdx;
-    const current = i === tierIdx;
-    return `<div class="tier-marker${reached?' reached':''}${current?' current':''}" style="--t-color:${t.color}">
-      <div class="tm-dot"></div>
-      <div class="tm-name">${t.name}</div>
-      <div class="tm-pts">${t.min===0?'Start':fmtPts(t.min)}</div>
+function getProgressPct(pts,tierIdx){
+  const cur=TIERS[tierIdx], next=TIERS[tierIdx+1];
+  if(!next) return 100;
+  const sliceW=100/(TIERS.length-1);
+  const base=tierIdx*sliceW;
+  const pct=Math.min((pts-cur.min)/(next.min-cur.min),1);
+  return Math.min(base+pct*sliceW,100);
+}
+
+function buildTierLabels(tierIdx){
+  const el=document.getElementById('tierLabels');
+  el.innerHTML=TIERS.map((t,i)=>{
+    const on=i<=tierIdx;
+    return `<div class="tl">
+      <span class="tl-name${on?' active':''}" style="${on?'color:'+t.color:''}">${t.name}</span>
+      <span class="tl-pts${on?' active':''}">${t.min===0?'Start':fmtPts(t.min)}</span>
     </div>`;
   }).join('');
 }
 
-function getProgressPct(pts, tierIdx){
-  const cur = TIERS[tierIdx];
-  const next = TIERS[tierIdx+1];
-  if(!next) return 100;
-  const pct = ((pts - cur.min) / (next.min - cur.min)) * 100;
-  const tierWidth = 100 / (TIERS.length-1);
-  const base = tierIdx * tierWidth;
-  return Math.min(base + (pct / 100 * tierWidth), 100);
-}
-
-function buildProgressGradient(tierIdx){
-  const t = TIERS[tierIdx];
-  const prev = TIERS[Math.max(0,tierIdx-1)];
-  return `linear-gradient(90deg, ${prev.color} 0%, ${t.color} 100%)`;
-}
-
-function buildTiersGrid(activeTierIdx){
-  const g = document.getElementById('tiersGrid');
-  g.innerHTML = TIERS.map((t,i)=>{
-    const isActive = i === activeTierIdx;
-    const unlocked = i <= activeTierIdx;
-    return `<div class="tier-card${isActive?' active-tier':''}" style="border-color:${isActive?t.color:'rgba(255,255,255,.07)'};box-shadow:${isActive?'0 0 20px '+t.glow+',inset 0 1px 0 rgba(255,255,255,.06)':'none'};background:${isActive?t.bg:'rgba(13,10,30,.6)'}">
-      <span class="tc-icon" style="filter:${unlocked?'none':'grayscale(1) opacity(.3)'}">${t.icon}</span>
-      <div class="tc-name" style="color:${unlocked?t.color:'rgba(255,255,255,.25)'}">${t.name}</div>
-      <div class="tc-pts">${t.min===0?'Starting Tier':fmtPts(t.min)+' pts'}</div>
-      <ul class="tc-perks">${t.perks.map(p=>`<li style="color:${unlocked?'rgba(255,255,255,.55)':'rgba(255,255,255,.2)'}">${p}</li>`).join('')}</ul>
-      ${isActive?`<div style="margin-top:10px;font-size:9px;font-family:'Orbitron',monospace;letter-spacing:1.5px;color:${t.color};font-weight:800">◆ YOUR TIER</div>`:''}
+function buildTiersGrid(tierIdx){
+  const g=document.getElementById('tiersGrid');
+  // check mark SVG
+  const ck=`<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+  g.innerHTML=TIERS.map((t,i)=>{
+    const active=i===tierIdx;
+    const unlocked=i<=tierIdx;
+    const perkColor=unlocked?'rgba(255,255,255,.55)':'rgba(255,255,255,.2)';
+    return `<div class="tc${active?' tc-active':''}" style="border-color:${active?t.color:'rgba(255,255,255,.06)'};box-shadow:${active?'0 0 24px '+t.glow+',inset 0 1px 0 rgba(255,255,255,.05)':'none'};background:${active?t.bg:'rgba(12,8,28,.7)'}">
+      <div class="tc-ico" style="background:${t.bg};box-shadow:${active?'0 0 14px '+t.glow:'none'};color:${t.color}">${TIER_ICONS[i]}</div>
+      <div class="tc-name" style="color:${unlocked?t.color:'rgba(255,255,255,.2)'}">${t.name}</div>
+      <div class="tc-pts">${t.min===0?'Starting tier':fmtPts(t.min)+' pts'}</div>
+      <ul class="tc-perks">${t.perks.map(p=>`<li style="color:${perkColor}">${unlocked?ck.replace('currentColor',t.color):'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'} ${p}</li>`).join('')}</ul>
+      ${active?`<div class="tc-current" style="color:${t.color};border-top:1px solid ${t.color}22">Current Tier</div>`:''}
     </div>`;
   }).join('');
 }
 
 function buildFAQ(){
-  const fl = document.getElementById('faqList');
-  fl.innerHTML = FAQS.map(([q,a])=>`
+  document.getElementById('faqList').innerHTML=FAQS.map(([q,a])=>`
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFAQ(this.parentElement)">
+      <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
         <span>${q}</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="faq-a"><p>${a}</p></div>
     </div>`).join('');
 }
-function toggleFAQ(el){ el.classList.toggle('open'); }
 
-function initPage(){
+function init(){
   buildFAQ();
 
-  // Try to get session
-  let pts = 0;
-  let userName = null;
-  let email = null;
+  let pts=0, userName=null, email=null;
   try{
-    const s = sessionStorage.getItem('silv_session') || localStorage.getItem('silv_ls_session');
-    if(s){
-      const u = JSON.parse(s);
-      email = u.email;
-      userName = u.name || u.email.split('@')[0];
-    }
+    const raw=sessionStorage.getItem('silv_session')||localStorage.getItem('silv_ls_session');
+    if(raw){ const u=JSON.parse(raw); email=u.email; userName=u.name||u.email.split('@')[0]; }
   }catch{}
 
   if(email){
-    try{
-      const stored = localStorage.getItem('silv_tokens_'+email);
-      pts = stored ? parseInt(stored)||0 : 0;
-    }catch{}
-    document.getElementById('loginNotice').style.display = 'none';
+    document.getElementById('loginNotice').style.display='none';
+    try{ pts=parseInt(localStorage.getItem('silv_tokens_'+email)||'0')||0; }catch{}
   } else {
-    document.getElementById('loginNotice').style.display = 'block';
+    document.getElementById('loginNotice').style.display='block';
   }
 
-  const tierIdx = getTierIdx(pts);
-  const tier = TIERS[tierIdx];
+  const idx=getTierIdx(pts);
+  const t=TIERS[idx];
 
   // Greeting
-  document.getElementById('greetingTxt').textContent = userName ? `Hi ${userName}, you are at` : 'You are at';
-  document.getElementById('tierDisplay').textContent = `Silv Market ${tier.name.toUpperCase()} Tier`;
-  document.getElementById('tierDisplay').style.color = tier.color;
-  document.getElementById('tierDisplay').style.textShadow = `0 0 24px ${tier.glow}`;
+  document.getElementById('greetingTxt').textContent=userName?`Hi ${userName}, your current tier`:'Your current tier';
+  document.getElementById('tierDisplay').textContent=t.name.toUpperCase()+' TIER';
+  document.getElementById('tierDisplay').style.color=t.color;
+  document.getElementById('tierDisplay').style.textShadow=`0 0 28px ${t.glow}`;
 
-  // Progress
-  buildTierMarkers(tierIdx);
-  const pct = getProgressPct(pts, tierIdx);
-  const fillEl = document.getElementById('progressFill');
-  fillEl.style.background = buildProgressGradient(tierIdx);
-  fillEl.style.boxShadow = `0 0 12px ${tier.glow}`;
-  setTimeout(()=>{ fillEl.style.width = pct+'%'; }, 80);
-
-  // Stat cards
-  document.getElementById('tierStatIcon').textContent = tier.icon;
-  document.getElementById('tierStatIcon').style.background = tier.bg;
-  document.getElementById('tierStatIcon').style.boxShadow = `0 0 16px ${tier.glow}`;
-  document.getElementById('tierStatName').textContent = tier.name;
-  document.getElementById('tierStatName').style.color = tier.color;
-  document.getElementById('tierStatDesc').textContent = tier.name+' Tier Member';
-  document.getElementById('pointsVal').textContent = pts.toLocaleString();
-  document.getElementById('pointsVal').style.color = tier.color;
-
-  const next = TIERS[tierIdx+1];
-  if(next){
-    const needed = next.min - pts;
-    document.getElementById('nextTierDesc').textContent = `${fmtPts(needed)} pts to ${next.name}`;
-  } else {
-    document.getElementById('nextTierDesc').textContent = 'Maximum tier reached!';
-    document.getElementById('nextTierDesc').style.color = tier.color;
+  // Main card border
+  document.getElementById('mainCard').style.borderColor=idx===0?'rgba(147,51,234,.18)':t.color.replace('#','rgba(')+', .2)';
+  if(idx>0){
+    // convert hex to rgba for border
+    document.getElementById('mainCard').style.borderColor=hexToRgba(t.color,.2);
   }
 
-  // Style main card border
-  document.getElementById('mainCard').style.borderColor = tier.color === '#fff' ? 'rgba(255,255,255,.3)' : tier.color.replace(')',', .3)').replace('rgb','rgba');
+  // Progress
+  buildTierLabels(idx);
+  const fill=document.getElementById('progressFill');
+  const pct=getProgressPct(pts,idx);
+  fill.style.background=`linear-gradient(90deg,${TIERS[Math.max(0,idx-1)].color},${t.color})`;
+  fill.style.boxShadow=`0 0 10px ${t.glow}`;
+  setTimeout(()=>fill.style.width=pct+'%',80);
 
-  // Tier grid
-  buildTiersGrid(tierIdx);
+  // Stats
+  const ico=document.getElementById('tierIco');
+  ico.style.background=t.bg;
+  ico.style.boxShadow=`0 0 14px ${t.glow}`;
+  ico.innerHTML=TIER_ICONS[idx].replace('stroke="currentColor"',`stroke="${t.color}"`);
+  document.getElementById('tierStatName').textContent=t.name;
+  document.getElementById('tierStatName').style.color=t.color;
+  document.getElementById('tierStatDesc').textContent=t.name+' Tier Member';
+  document.getElementById('pointsVal').textContent=pts.toLocaleString();
+  document.getElementById('pointsVal').style.color=t.color;
+
+  const next=TIERS[idx+1];
+  document.getElementById('nextTierDesc').textContent=next
+    ?`${fmtPts(next.min-pts)} pts needed for ${next.name}`
+    :'Maximum tier achieved';
+  if(!next) document.getElementById('nextTierDesc').style.color=t.color;
+
+  buildTiersGrid(idx);
 }
 
-initPage();
+function hexToRgba(hex,a){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  if(isNaN(r)) return `rgba(147,51,234,${a})`;
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+init();
 </script>
 </body>
 </html>

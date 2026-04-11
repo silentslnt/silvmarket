@@ -2653,7 +2653,7 @@ const PAY_LINKS = {
   cr: '#crypto',
 };
 
-const PROMOS = {SILVISTHEBEST:10,WSILV:5};
+const PROMOS = {}; // codes verified server-side via /verify-promo
 
 // ================================================================
 // ✏️  END EASY EDIT ZONE
@@ -4141,36 +4141,35 @@ async function applyCode(){
   promoApplied=false; promoPct=0; _appliedReferralCode=null; _referralDiscount=false;
 
   // ── 1. Try as promo code ─────────────────────────────────
-  // Promo codes require login
-  const isPromoLocal=!!(PROMOS[code]);
-  if(isPromoLocal||currentUser){
-    if(!currentUser&&isPromoLocal){
-      _showCodeMsg(el,'warn','⚠️ Sign in to use promo codes.');
+  if(currentUser){
+    // Check already-used locally
+    const _users=loadUsers();
+    const _u=_users[currentUser.email];
+    if(_u?.usedPromos?.includes(code)){
+      _showCodeMsg(el,'err','❌ You\'ve already used this promo code.');
+      setTimeout(()=>el.style.display='none',2500);
       return;
     }
-    if(currentUser){
-      // Check already-used
-      const _users=loadUsers();
-      const _u=_users[currentUser.email];
-      if(_u?.usedPromos?.includes(code)){
-        _showCodeMsg(el,'err','❌ You\'ve already used this promo code.');
-        setTimeout(()=>el.style.display='none',2500);
-        return;
-      }
-      // Check local hardcoded list
-      if(PROMOS[code]){ _applyPromoCode(code,PROMOS[code],el); return; }
-      // Fallback: check bot live promos
-      _showCodeMsg(el,'pending','⏳ Checking…');
-      try{
-        const base=BOT_WEBHOOK_URL.replace('/order','');
-        const ctrl=new AbortController();
-        const t=setTimeout(()=>ctrl.abort(),5000);
-        const resp=await fetch(base+'/promos',{signal:ctrl.signal});
-        clearTimeout(t);
-        const live=await resp.json();
-        if(live[code]){ _applyPromoCode(code,live[code],el); return; }
-      }catch(e){}
-    }
+    // Verify server-side — never exposes full promo list
+    _showCodeMsg(el,'pending','⏳ Checking…');
+    try{
+      const base=BOT_WEBHOOK_URL.replace('/order','');
+      const ctrl=new AbortController();
+      const t=setTimeout(()=>ctrl.abort(),5000);
+      const resp=await fetch(base+'/verify-promo',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+        body:JSON.stringify({code}),
+        signal:ctrl.signal
+      });
+      clearTimeout(t);
+      const data=await resp.json();
+      if(data.valid){ _applyPromoCode(code,data.pct,el); return; }
+    }catch(e){}
+  } else {
+    // Not logged in — prompt login (promo codes require account)
+    _showCodeMsg(el,'warn','⚠️ Sign in to use promo codes.');
+    return;
   }
 
   // ── 2. Try as referral code ──────────────────────────────

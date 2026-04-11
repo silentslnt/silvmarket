@@ -2,3 +2,26 @@
 /checkout         /checkout.html  200
 /auth-callback    /auth-callback.html  200
 /loyalty          /loyalty.html   200
+
+# Game section pages
+/robux            /?game=robux    200
+/bf               /?game=bf       200
+/blox-fruits      /?game=bf       200
+/brainrot         /?game=brainrot 200
+/rivals           /?game=rivals   200
+/mm2              /?game=mm2      200
+/murder-mystery   /?game=mm2      200
+/tsunami          /?game=tsunami  200
+/sp               /?game=sp       200
+/sailor-piece     /?game=sp       200
+/am               /?game=am       200
+/adopt-me         /?game=am       200
+/gag              /?game=gag      200
+/grow-a-garden    /?game=gag      200
+/nights           /?game=nights   200
+/gpo              /?game=gpo      200
+/grand-piece      /?game=gpo      200
+/bb               /?game=bb       200
+/av               /?game=av       200
+/bl               /?game=bl       200
+/bloodlines       /?game=bl       200

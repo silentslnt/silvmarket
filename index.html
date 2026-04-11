@@ -6684,6 +6684,23 @@ function init(){
 }
 init();
 
+// ── SCROLL TO GAME SECTION FROM URL PARAM (?game=rivals etc) ──
+(function checkGameParam(){
+  const params = new URLSearchParams(location.search);
+  const game = params.get('game');
+  if(!game) return;
+  history.replaceState({}, '', location.pathname);
+  const GAME_IDS = ['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl'];
+  const id = GAME_IDS.find(g => g === game.toLowerCase());
+  if(!id) return;
+  const el = document.getElementById(id);
+  if(!el) return;
+  setTimeout(() => {
+    const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||64;
+    window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - navH - 16, behavior: 'smooth' });
+  }, 100);
+})();
+
 // ── OPEN ITEM FROM URL PARAM (?open=<name>) ───────────────────
 (function checkOpenParam(){
   const params = new URLSearchParams(location.search);

@@ -3304,10 +3304,11 @@ function renderBF(filter='all'){
     const iData=encodeURIComponent(JSON.stringify({n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''}));
     const addName=((mode==='perm'&&hasPerm)?'Perm ':'')+f.n;
     return `
-    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
+    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
       <div class="pc-img ${bgC}">
         ${mkImgEl(f.n,f.em,img)}
         ${bdg(f.badge)}${stk(f.stock)}${typeEl}
+        ${mkFavBtn(f.n)}
       </div>
       <div class="pc-body">
         <div class="pc-g g-bf">Blox Fruits${f.type==='Skin'?' · Skin':f.type==='Gamepass'?' · Gamepass':''}</div>
@@ -3537,8 +3538,8 @@ function renderBS(){
     var imgHtml=i.img
       ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(i.em||'📦')+'</span>')
       :('<span class="em">'+(i.em||'📦')+'</span>');
-    return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\'))openItemDetail(\''+iData+'\')">'
-      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+'</div>'
+    return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\')&&!event.target.closest(\'.fav-btn\'))openItemDetail(\''+iData+'\')">'
+      +'<div class="pc-img '+(i.bg||'r-rare')+'" style="position:relative">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+mkFavBtn(i.n)+'</div>'
       +'<div class="pc-body">'
         +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
         +'<div class="pc-n">'+i.n+'</div>'
@@ -5183,10 +5184,11 @@ function renderViewAllGrid(){
       const typeEl = i.type&&i.type!=='Skin'&&i.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[i.type]||'t-nat'}">${i.type}</div>`:'';
       const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:dp,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:i.cat||''}));
       return `
-      <div class="pc" data-bf="${i.cat||i.rar}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
-        <div class="pc-img ${bgC}">
+      <div class="pc" data-bf="${i.cat||i.rar}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+        <div class="pc-img ${bgC}" style="position:relative">
           ${img?`<img src="${img}" alt="${key}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
           ${bdg(i.badge||'')}${stk(i.stock??99)}${typeEl}
+          ${mkFavBtn(i.n)}
         </div>
         <div class="pc-body">
           <div class="pc-n">${key}</div>
@@ -5212,10 +5214,11 @@ function renderViewAllGrid(){
       const speedBtns = i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setVABRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
       const rarCls3=i.rar?`rb-${i.rar}`:"rb-common";
       return `
-    <div class="pc ${rarCls3}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}">
+    <div class="pc ${rarCls3}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+      <div class="pc-img ${i.bg||'r-rare'}" style="position:relative">
         ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
+        ${mkFavBtn(i.n)}
       </div>
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>
@@ -5236,10 +5239,11 @@ function renderViewAllGrid(){
       ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='block'};this.src='${vaGameIcon.replace(/'/g,"\\'")}'`
       : `this.style.display='none';this.nextElementSibling.style.display='block'`;
     return `
-    <div class="pc" style="cursor:pointer" onclick="openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}">
+    <div class="pc" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+      <div class="pc-img ${i.bg||'r-rare'}" style="position:relative">
         ${vaImg?`<img src="${vaImg}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="${vaImgErr}"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
+        ${mkFavBtn(i.n)}
       </div>
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>

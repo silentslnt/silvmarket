@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Loyalty Rewards — Silv Market</title>
+<link rel="icon" href="https://silvmarket.shop/images/logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07031a;--surface:rgba(13,10,30,.82);--surface2:rgba(17,13,38,.88);--border:rgba(255,255,255,.08);--purple:#9333ea;--pink:#ff10f0;--text:rgba(255,255,255,.9);--muted:rgba(255,255,255,.38)}
+html{background:#07031a}
+body{background:radial-gradient(ellipse at 20% 0%,rgba(147,51,234,.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(255,16,240,.1) 0%,transparent 60%),#07031a;color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* TOP BAR */
+.topbar{height:56px;background:rgba(7,3,22,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;position:sticky;top:0;z-index:100}
+.tb-logo{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;background:linear-gradient(135deg,#a855f7,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-decoration:none}
+.tb-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);transition:color .15s;margin-left:auto}
+.tb-back:hover{color:#fff}
+
+/* HERO SECTION */
+.hero{text-align:center;padding:52px 20px 36px;max-width:760px;margin:0 auto}
+.hero-title{font-family:'Orbitron',monospace;font-size:clamp(22px,4vw,34px);font-weight:900;background:linear-gradient(135deg,#a855f7 0%,#ff10f0 50%,#a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;letter-spacing:1px}
+.hero-sub{font-family:'Rajdhani',sans-serif;font-size:15px;color:var(--muted);letter-spacing:2px;font-weight:600;text-transform:uppercase}
+
+/* MAIN CARD */
+.main-card{background:rgba(13,10,30,.75);border:1px solid rgba(147,51,234,.2);border-radius:18px;padding:28px 28px 24px;max-width:760px;margin:0 auto 32px;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* GREETING */
+.greeting{font-family:'Rajdhani',sans-serif;font-size:14px;color:var(--muted);letter-spacing:1px;text-align:center;margin-bottom:6px;text-transform:uppercase}
+.tier-display{font-family:'Orbitron',monospace;font-size:clamp(18px,3.5vw,26px);font-weight:900;text-align:center;letter-spacing:2px;margin-bottom:24px}
+
+/* PROGRESS BAR */
+.progress-wrap{position:relative;margin-bottom:34px}
+.progress-track{height:8px;background:rgba(255,255,255,.07);border-radius:8px;overflow:visible;position:relative}
+.progress-fill{height:100%;border-radius:8px;transition:width 1s cubic-bezier(.4,0,.2,1);position:relative}
+.progress-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:inherit;border:2px solid #fff;box-shadow:0 0 8px currentColor}
+.tier-markers{display:flex;justify-content:space-between;margin-top:10px}
+.tier-marker{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:0;position:relative}
+.tier-marker .tm-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.15);position:absolute;top:-14px;transition:all .3s}
+.tier-marker.reached .tm-dot{background:var(--t-color, #9333ea);border-color:var(--t-color, #9333ea);box-shadow:0 0 8px var(--t-color, #9333ea)}
+.tier-marker.current .tm-dot{width:12px;height:12px;top:-16px;background:var(--t-color, #ff10f0);border-color:#fff;box-shadow:0 0 14px var(--t-color, #ff10f0)}
+.tm-name{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px}
+.tier-marker.reached .tm-name,.tier-marker.current .tm-name{color:var(--t-color, #9333ea)}
+.tm-pts{font-size:9px;color:rgba(255,255,255,.18);font-family:'Inter',sans-serif}
+.tier-marker.reached .tm-pts,.tier-marker.current .tm-pts{color:rgba(255,255,255,.4)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0}
+.stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px}
+.stat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.stat-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.stat-val{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:#fff}
+.stat-desc{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* TIER BENEFITS GRID */
+.section{max-width:760px;margin:0 auto 28px;padding:0 0}
+.section-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;text-align:center}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tier-card{border-radius:14px;padding:16px 14px;border:1px solid rgba(255,255,255,.07);background:rgba(13,10,30,.6);text-align:center;transition:transform .2s,box-shadow .2s;cursor:default}
+.tier-card:hover{transform:translateY(-3px)}
+.tier-card.active-tier{border-width:1.5px}
+.tc-icon{font-size:28px;margin-bottom:8px;display:block}
+.tc-name{font-family:'Orbitron',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.tc-pts{font-size:10px;color:var(--muted);margin-bottom:10px;font-family:'Rajdhani',sans-serif;letter-spacing:1px}
+.tc-perks{list-style:none;font-size:11px;color:rgba(255,255,255,.45);line-height:1.8}
+.tc-perks li::before{content:'· '}
+
+/* LOGIN NOTICE */
+.login-notice{background:rgba(147,51,234,.08);border:1px solid rgba(147,51,234,.2);border-radius:12px;padding:16px 20px;text-align:center;max-width:760px;margin:0 auto 24px;font-size:13px;color:rgba(255,255,255,.6)}
+.login-notice a{color:#a855f7;font-weight:600}
+.login-notice a:hover{color:#ff10f0}
+
+/* FAQ */
+.faq-section{max-width:760px;margin:0 auto 60px}
+.faq-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.faq-item{background:rgba(13,10,30,.7);border:1px solid rgba(255,255,255,.07);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;cursor:pointer;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);transition:background .15s;-webkit-user-select:none;user-select:none}
+.faq-q:hover{background:rgba(255,255,255,.03)}
+.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--muted)}
+.faq-item.open .faq-q svg{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding:0 18px 16px}
+.faq-a p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.7}
+.faq-a a{color:#a855f7}
+
+/* RESPONSIVE */
+@media(max-width:520px){
+  .stats-row{grid-template-columns:1fr}
+  .tiers-grid{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:36px 16px 24px}
+  .main-card{padding:20px 16px 18px;margin:0 12px 24px}
+  .section,.faq-section{padding:0 12px}
+}
+@media(max-width:360px){.tiers-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="tb-logo" href="/">SILV MARKET</a>
+  <a class="tb-back" href="/">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    Back to Shop
+  </a>
+</div>
+
+<div class="hero">
+  <div class="hero-title">Silv Market Loyalty Rewards</div>
+  <div class="hero-sub">Earn points · Rise through the ranks · Unlock perks</div>
+</div>
+
+<!-- Login notice shown when not logged in -->
+<div class="login-notice" id="loginNotice" style="display:none">
+  <a href="/" onclick="sessionStorage.setItem('silv_open_login','1')">Log in</a> to see your tier and loyalty points.
+</div>
+
+<!-- Main tier card -->
+<div class="main-card" id="mainCard">
+  <div class="greeting" id="greetingTxt">Hi there, you are at</div>
+  <div class="tier-display" id="tierDisplay">— — —</div>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="tier-markers" id="tierMarkers"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card" id="tierStatCard">
+      <div class="stat-icon" id="tierStatIcon" style="background:rgba(156,163,175,.1)">🌱</div>
+      <div>
+        <div class="stat-label">Current Tier</div>
+        <div class="stat-val" id="tierStatName">Awakened</div>
+        <div class="stat-desc" id="tierStatDesc">Member</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(255,215,0,.08)">⭐</div>
+      <div>
+        <div class="stat-label">Loyalty Points</div>
+        <div class="stat-val" id="pointsVal">0</div>
+        <div class="stat-desc" id="nextTierDesc">Start shopping to earn points</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tier benefits -->
+<div class="section" style="padding:0 0;max-width:760px;margin:0 auto 28px">
+  <div style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:14px;text-align:center">Tier Rewards</div>
+  <div class="tiers-grid" id="tiersGrid"></div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section" style="padding:0 0">
+  <div class="faq-title">Frequently Asked Questions</div>
+  <div id="faqList"></div>
+</div>
+
+<script>
+const TIERS = [
+  { name:'Awakened',  min:0,             icon:'🌱', color:'#9ca3af', glow:'rgba(156,163,175,.25)', bg:'rgba(156,163,175,.08)', border:'rgba(156,163,175,.2)',
+    perks:['Access to shop','Standard pricing','Member badge'] },
+  { name:'Advanced',  min:100,           icon:'⚡', color:'#3b82f6', glow:'rgba(59,130,246,.25)',  bg:'rgba(59,130,246,.08)',  border:'rgba(59,130,246,.25)',
+    perks:['Priority support','Early access to sales','Advanced badge'] },
+  { name:'Mythical',  min:10000,         icon:'🌟', color:'#8b5cf6', glow:'rgba(139,92,246,.25)', bg:'rgba(139,92,246,.08)',  border:'rgba(139,92,246,.25)',
+    perks:['Exclusive item drops','Dedicated Discord role','Mythical badge'] },
+  { name:'Ancient',   min:1000000,       icon:'🏛️', color:'#f59e0b', glow:'rgba(245,158,11,.25)', bg:'rgba(245,158,11,.08)',  border:'rgba(245,158,11,.25)',
+    perks:['Bulk order discounts','VIP support channel','Ancient badge'] },
+  { name:'Divine',    min:100000000,     icon:'✨', color:'#ff10f0', glow:'rgba(255,16,240,.3)',   bg:'rgba(255,16,240,.07)',  border:'rgba(255,16,240,.3)',
+    perks:['Custom perks','Reserved stock access','Divine badge'] },
+  { name:'Celestial', min:10000000000,   icon:'🌌', color:'#fff',    glow:'rgba(255,255,255,.35)', bg:'rgba(255,255,255,.04)', border:'rgba(255,255,255,.2)',
+    perks:['Legendary status','Personal account manager','Celestial crown'] },
+];
+
+const FAQS = [
+  ['How do I earn loyalty points?', 'You earn points automatically with every purchase on Silv Market. Points are credited to your account immediately after your order is confirmed.'],
+  ['How many points do I get per purchase?', 'You earn 10 points for every $1.00 spent. A $5 order earns 50 points, a $20 order earns 200 points, and so on.'],
+  ['When do I move up a tier?', 'Your tier updates automatically as your cumulative points increase. Once you reach a tier threshold, you stay at that tier permanently.'],
+  ['Do my points expire?', 'No — your loyalty points never expire as long as your account remains active.'],
+  ['What are the tier benefits?', 'Each tier unlocks exclusive perks including priority support, special roles, and more. Full benefit details will be revealed soon for each tier.'],
+  ['Can I see my total points?', 'Yes — your points are shown on this page and in the Referral tab of your account panel.'],
+];
+
+function fmtPts(n){
+  if(n>=1e9) return (n/1e9).toFixed(n%1e9===0?0:1)+'B';
+  if(n>=1e6) return (n/1e6).toFixed(n%1e6===0?0:1)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(n%1e3===0?0:1)+'K';
+  return n.toLocaleString();
+}
+
+function getTierIdx(pts){
+  for(let i=TIERS.length-1;i>=0;i--){ if(pts>=TIERS[i].min) return i; }
+  return 0;
+}
+
+function buildTierMarkers(tierIdx){
+  const m = document.getElementById('tierMarkers');
+  m.innerHTML = TIERS.map((t,i)=>{
+    const reached = i <= tierIdx;
+    const current = i === tierIdx;
+    return `<div class="tier-marker${reached?' reached':''}${current?' current':''}" style="--t-color:${t.color}">
+      <div class="tm-dot"></div>
+      <div class="tm-name">${t.name}</div>
+      <div class="tm-pts">${t.min===0?'Start':fmtPts(t.min)}</div>
+    </div>`;
+  }).join('');
+}
+
+function getProgressPct(pts, tierIdx){
+  const cur = TIERS[tierIdx];
+  const next = TIERS[tierIdx+1];
+  if(!next) return 100;
+  const pct = ((pts - cur.min) / (next.min - cur.min)) * 100;
+  const tierWidth = 100 / (TIERS.length-1);
+  const base = tierIdx * tierWidth;
+  return Math.min(base + (pct / 100 * tierWidth), 100);
+}
+
+function buildProgressGradient(tierIdx){
+  const t = TIERS[tierIdx];
+  const prev = TIERS[Math.max(0,tierIdx-1)];
+  return `linear-gradient(90deg, ${prev.color} 0%, ${t.color} 100%)`;
+}
+
+function buildTiersGrid(activeTierIdx){
+  const g = document.getElementById('tiersGrid');
+  g.innerHTML = TIERS.map((t,i)=>{
+    const isActive = i === activeTierIdx;
+    const unlocked = i <= activeTierIdx;
+    return `<div class="tier-card${isActive?' active-tier':''}" style="border-color:${isActive?t.color:'rgba(255,255,255,.07)'};box-shadow:${isActive?'0 0 20px '+t.glow+',inset 0 1px 0 rgba(255,255,255,.06)':'none'};background:${isActive?t.bg:'rgba(13,10,30,.6)'}">
+      <span class="tc-icon" style="filter:${unlocked?'none':'grayscale(1) opacity(.3)'}">${t.icon}</span>
+      <div class="tc-name" style="color:${unlocked?t.color:'rgba(255,255,255,.25)'}">${t.name}</div>
+      <div class="tc-pts">${t.min===0?'Starting Tier':fmtPts(t.min)+' pts'}</div>
+      <ul class="tc-perks">${t.perks.map(p=>`<li style="color:${unlocked?'rgba(255,255,255,.55)':'rgba(255,255,255,.2)'}">${p}</li>`).join('')}</ul>
+      ${isActive?`<div style="margin-top:10px;font-size:9px;font-family:'Orbitron',monospace;letter-spacing:1.5px;color:${t.color};font-weight:800">◆ YOUR TIER</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function buildFAQ(){
+  const fl = document.getElementById('faqList');
+  fl.innerHTML = FAQS.map(([q,a])=>`
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this.parentElement)">
+        <span>${q}</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a"><p>${a}</p></div>
+    </div>`).join('');
+}
+function toggleFAQ(el){ el.classList.toggle('open'); }
+
+function initPage(){
+  buildFAQ();
+
+  // Try to get session
+  let pts = 0;
+  let userName = null;
+  let email = null;
+  try{
+    const s = sessionStorage.getItem('silv_session') || localStorage.getItem('silv_ls_session');
+    if(s){
+      const u = JSON.parse(s);
+      email = u.email;
+      userName = u.name || u.email.split('@')[0];
+    }
+  }catch{}
+
+  if(email){
+    try{
+      const stored = localStorage.getItem('silv_tokens_'+email);
+      pts = stored ? parseInt(stored)||0 : 0;
+    }catch{}
+    document.getElementById('loginNotice').style.display = 'none';
+  } else {
+    document.getElementById('loginNotice').style.display = 'block';
+  }
+
+  const tierIdx = getTierIdx(pts);
+  const tier = TIERS[tierIdx];
+
+  // Greeting
+  document.getElementById('greetingTxt').textContent = userName ? `Hi ${userName}, you are at` : 'You are at';
+  document.getElementById('tierDisplay').textContent = `Silv Market ${tier.name.toUpperCase()} Tier`;
+  document.getElementById('tierDisplay').style.color = tier.color;
+  document.getElementById('tierDisplay').style.textShadow = `0 0 24px ${tier.glow}`;
+
+  // Progress
+  buildTierMarkers(tierIdx);
+  const pct = getProgressPct(pts, tierIdx);
+  const fillEl = document.getElementById('progressFill');
+  fillEl.style.background = buildProgressGradient(tierIdx);
+  fillEl.style.boxShadow = `0 0 12px ${tier.glow}`;
+  setTimeout(()=>{ fillEl.style.width = pct+'%'; }, 80);
+
+  // Stat cards
+  document.getElementById('tierStatIcon').textContent = tier.icon;
+  document.getElementById('tierStatIcon').style.background = tier.bg;
+  document.getElementById('tierStatIcon').style.boxShadow = `0 0 16px ${tier.glow}`;
+  document.getElementById('tierStatName').textContent = tier.name;
+  document.getElementById('tierStatName').style.color = tier.color;
+  document.getElementById('tierStatDesc').textContent = tier.name+' Tier Member';
+  document.getElementById('pointsVal').textContent = pts.toLocaleString();
+  document.getElementById('pointsVal').style.color = tier.color;
+
+  const next = TIERS[tierIdx+1];
+  if(next){
+    const needed = next.min - pts;
+    document.getElementById('nextTierDesc').textContent = `${fmtPts(needed)} pts to ${next.name}`;
+  } else {
+    document.getElementById('nextTierDesc').textContent = 'Maximum tier reached!';
+    document.getElementById('nextTierDesc').style.color = tier.color;
+  }
+
+  // Style main card border
+  document.getElementById('mainCard').style.borderColor = tier.color === '#fff' ? 'rgba(255,255,255,.3)' : tier.color.replace(')',', .3)').replace('rgb','rgba');
+
+  // Tier grid
+  buildTiersGrid(tierIdx);
+}
+
+initPage();
+</script>
+</body>
+</html>

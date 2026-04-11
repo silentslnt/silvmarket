@@ -559,6 +559,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .p-pp{background:linear-gradient(135deg,#009cde,#003087);color:#fff;box-shadow:0 0 22px rgba(0,112,186,.28)}
 .p-cr{background:linear-gradient(135deg,var(--yellow),#a16207);color:#000;box-shadow:0 0 22px rgba(255,215,0,.28)}
 .p-dc{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 22px rgba(255,255,255,.08)}
+.p-dev{background:linear-gradient(135deg,#2d0a6e,#9333ea);color:#fff;border:1px solid rgba(147,51,234,.4);box-shadow:0 0 22px rgba(147,51,234,.35)}
 .pay-btn:hover{transform:translateY(-2px)}
 .pay-btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
 .pay-note{text-align:center;font-size:11px;color:rgba(255,255,255,.2);margin-top:7px;line-height:1.5;font-family:'Rajdhani',sans-serif}
@@ -3308,8 +3309,8 @@ function renderBF(filter='all'){
       <div class="pc-img ${bgC}">
         ${mkImgEl(f.n,f.em,img)}
         ${bdg(f.badge)}${stk(f.stock)}${typeEl}
-        ${mkFavBtn(f.n)}
       </div>
+      ${mkFavBtn(f.n)}
       <div class="pc-body">
         <div class="pc-g g-bf">Blox Fruits${f.type==='Skin'?' · Skin':f.type==='Gamepass'?' · Gamepass':''}</div>
         <div class="pc-n">${f.n}</div>
@@ -3413,11 +3414,11 @@ function mkCard(i,game,gcls){
     const rarCls2=i.rar?`rb-${i.rar}`:"rb-common";
     return `
   <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-    <div class="pc-img ${bg}" style="position:relative">
+    <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
-      ${mkFavBtn(i.n)}
     </div>
+    ${mkFavBtn(i.n)}
     <div class="pc-body">
       <div class="pc-g ${gcls}">${gameLbl}</div>
       <div class="pc-n">${i.n}</div>
@@ -3433,11 +3434,11 @@ function mkCard(i,game,gcls){
   const rarCls=i.rar?`rb-${i.rar}`:'rb-common';
   return `
   <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-    <div class="pc-img ${bg}" style="position:relative">
+    <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
-      ${mkFavBtn(i.n)}
     </div>
+    ${mkFavBtn(i.n)}
     <div class="pc-body">
       <div class="pc-g ${gcls}">${gameLbl}</div>
       <div class="pc-n">${i.n}</div>
@@ -3539,7 +3540,8 @@ function renderBS(){
       ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(i.em||'📦')+'</span>')
       :('<span class="em">'+(i.em||'📦')+'</span>');
     return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\')&&!event.target.closest(\'.fav-btn\'))openItemDetail(\''+iData+'\')">'
-      +'<div class="pc-img '+(i.bg||'r-rare')+'" style="position:relative">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+mkFavBtn(i.n)+'</div>'
+      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+'</div>'
+      +mkFavBtn(i.n)
       +'<div class="pc-body">'
         +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
         +'<div class="pc-n">'+i.n+'</div>'
@@ -3888,10 +3890,11 @@ function unlinkDiscord(){
 function updatePayBtn(){
   const btn = document.getElementById('payNow');
   const msg = document.getElementById('payLockedMsg');
-  if(discordLinked){
+  const devUnlocked = currentUser?.isDev && currentUser?.devActive;
+  if(discordLinked || devUnlocked){
     btn.disabled      = false;
-    btn.className     = 'pay-btn ' + PAY_CLS[selectedPayMethod];
-    btn.textContent   = PAY_LABELS[selectedPayMethod];
+    btn.className     = 'pay-btn ' + (devUnlocked && !discordLinked ? 'p-dev' : PAY_CLS[selectedPayMethod]);
+    btn.textContent   = devUnlocked && !discordLinked ? '⚗️ Dev Test Checkout' : PAY_LABELS[selectedPayMethod];
     msg.classList.remove('show');
   } else {
     btn.disabled    = true;
@@ -5185,11 +5188,11 @@ function renderViewAllGrid(){
       const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:dp,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:i.cat||''}));
       return `
       <div class="pc" data-bf="${i.cat||i.rar}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-        <div class="pc-img ${bgC}" style="position:relative">
+        <div class="pc-img ${bgC}">
           ${img?`<img src="${img}" alt="${key}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
           ${bdg(i.badge||'')}${stk(i.stock??99)}${typeEl}
-          ${mkFavBtn(i.n)}
         </div>
+        ${mkFavBtn(i.n)}
         <div class="pc-body">
           <div class="pc-n">${key}</div>
           ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}${i.type?' · '+i.type:''}</div>`:''}
@@ -5215,11 +5218,11 @@ function renderViewAllGrid(){
       const rarCls3=i.rar?`rb-${i.rar}`:"rb-common";
       return `
     <div class="pc ${rarCls3}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}" style="position:relative">
+      <div class="pc-img ${i.bg||'r-rare'}">
         ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
-        ${mkFavBtn(i.n)}
       </div>
+      ${mkFavBtn(i.n)}
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>
         ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
@@ -5240,11 +5243,11 @@ function renderViewAllGrid(){
       : `this.style.display='none';this.nextElementSibling.style.display='block'`;
     return `
     <div class="pc" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}" style="position:relative">
+      <div class="pc-img ${i.bg||'r-rare'}">
         ${vaImg?`<img src="${vaImg}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="${vaImgErr}"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
-        ${mkFavBtn(i.n)}
       </div>
+      ${mkFavBtn(i.n)}
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>
         ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
@@ -5814,6 +5817,8 @@ function toggleDevMode(){
     btn.style.color = 'rgba(255,255,255,.5)';
     btn.style.boxShadow = 'none';
   }
+  // Refresh the checkout button state if checkout is open
+  if(document.getElementById('checkoutPanel')?.style.display!=='none') updatePayBtn();
 }
 function updateDevPanel(){
   const panel = document.getElementById('apDevPanel');

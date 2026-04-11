@@ -243,7 +243,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   box-shadow:0 10px 36px rgba(255,16,240,.12),0 0 0 1px rgba(255,16,240,.12)}
 
 .pc-img{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden}
+  position:relative;overflow:visible}
 .pc-img img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;
   transition:transform .3s;filter:drop-shadow(0 4px 14px rgba(0,0,0,.6))}
 .pc:hover .pc-img img{transform:scale(1.1)}
@@ -841,9 +841,26 @@ body{font-family:'Chakra Petch','Inter',sans-serif}
 /* 8. Image — consistent fill */
 .pc-img img{width:100%!important;height:100%!important;object-fit:cover!important;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))!important}
 
+/* Language / Currency modal */
+#langCurrModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:10001;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+#langCurrModal.open{display:flex}
+.lc-box{background:#0d0a1e;border:1px solid rgba(147,51,234,.22);border-radius:18px;padding:26px 24px 20px;width:92%;max-width:370px;box-shadow:0 24px 60px rgba(0,0,0,.7),0 0 0 1px rgba(147,51,234,.1)}
+.lc-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.lc-title{font-family:'Orbitron',monospace;font-size:14px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}
+.lc-close{background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;padding:4px;line-height:1;font-size:18px;transition:color .15s}
+.lc-close:hover{color:#fff}
+.lc-lbl{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:7px}
+.lc-sel{width:100%;background:#07031a;border:1px solid rgba(255,255,255,.1);border-radius:9px;color:rgba(255,255,255,.85);padding:11px 36px 11px 13px;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:16px;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.35)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;transition:border-color .15s}
+.lc-sel:focus{outline:none;border-color:rgba(147,51,234,.5)}
+.lc-sel option{background:#0d0a1e}
+.lc-save{width:100%;padding:12px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;cursor:pointer;margin-top:6px;transition:opacity .15s}
+.lc-save:hover{opacity:.85}
+.lc-cancel{width:100%;padding:9px;background:transparent;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;margin-top:6px;transition:color .15s}
+.lc-cancel:hover{color:rgba(255,255,255,.7)}
+
 /* Favourite heart button */
-.fav-btn{position:absolute;top:9px;right:9px;z-index:4;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,transform .15s;backdrop-filter:blur(4px);flex-shrink:0}
-.fav-btn:hover{background:rgba(255,60,100,.25);border-color:rgba(255,60,100,.4);transform:scale(1.15)}
+.fav-btn{position:absolute;top:8px;right:8px;z-index:20;width:28px;height:28px;border-radius:50%;background:rgba(7,3,26,.7);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,transform .15s;flex-shrink:0}
+.fav-btn:hover{background:rgba(255,40,80,.35);border-color:rgba(255,60,100,.6);transform:scale(1.15)}
 .fav-btn svg{transition:fill .15s,stroke .15s}
 .fav-btn.active{background:rgba(255,30,80,.2);border-color:rgba(255,80,100,.5)}
 .fav-btn.active svg{fill:#ff3860;stroke:#ff3860}
@@ -1067,6 +1084,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       <span class="disc-label">Discord</span>
     </a>
+    <button id="langCurrBtn" onclick="openLangCurr()" title="Language &amp; Currency" style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;color:rgba(255,255,255,.55);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;padding:6px 10px;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.5px" onmouseover="this.style.borderColor='rgba(147,51,234,.4)';this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)';this.style.color='rgba(255,255,255,.55)'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span id="langCurrLabel">EN | USD</span>
+    </button>
     <div style="position:relative;display:inline-flex;align-items:center" id="navUserWrap">
       <!-- Logged-out: Login button -->
       <button id="navLoginBtn" onclick="openLoginModal()" style="padding:8px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span id="navLoginLabel">Login</span></button>
@@ -1081,6 +1102,39 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button id="mobMenuBtn" onclick="toggleMobMenu()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" width="18" height="18"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
 </nav>
+
+<!-- Language / Currency modal -->
+<div id="langCurrModal" onclick="if(event.target===this)closeLangCurr()">
+  <div class="lc-box">
+    <div class="lc-hd">
+      <div class="lc-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Choose your language and currency
+      </div>
+      <button class="lc-close" onclick="closeLangCurr()">✕</button>
+    </div>
+    <div class="lc-lbl">Language</div>
+    <select id="lcLangSel" class="lc-sel">
+      <option value="EN">English (EN)</option>
+    </select>
+    <div class="lc-lbl">Currency</div>
+    <select id="lcCurrSel" class="lc-sel">
+      <option value="USD">USD - $</option>
+      <option value="EUR">EUR - €</option>
+      <option value="GBP">GBP - £</option>
+      <option value="CAD">CAD - CA$</option>
+      <option value="AUD">AUD - AU$</option>
+      <option value="BRL">BRL - R$</option>
+      <option value="SGD">SGD - S$</option>
+      <option value="CHF">CHF</option>
+      <option value="SEK">SEK - kr</option>
+      <option value="JPY">JPY - ¥</option>
+      <option value="MXN">MXN - MX$</option>
+    </select>
+    <button class="lc-save" onclick="saveLangCurr()">Save</button>
+    <button class="lc-cancel" onclick="closeLangCurr()">Cancel</button>
+  </div>
+</div>
 
 <!-- User dropdown panel — OUTSIDE nav to fix iOS backdrop-filter fixed-position scroll bug -->
 <div id="userDropdown" style="display:none;position:fixed;top:56px;right:12px;z-index:6000;width:260px;background:linear-gradient(160deg,#110828,#09041f);border:1px solid rgba(147,51,234,.4);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 40px rgba(147,51,234,.15);overflow:hidden">
@@ -3313,8 +3367,8 @@ function renderBF(filter='all'){
       <div class="pc-img ${bgC}">
         ${mkImgEl(f.n,f.em,img)}
         ${bdg(f.badge)}${stk(f.stock)}${typeEl}
+        ${mkFavBtn(f.n)}
       </div>
-      ${mkFavBtn(f.n)}
       <div class="pc-body">
         <div class="pc-g g-bf">Blox Fruits${f.type==='Skin'?' · Skin':f.type==='Gamepass'?' · Gamepass':''}</div>
         <div class="pc-n">${f.n}</div>
@@ -3323,8 +3377,8 @@ function renderBF(filter='all'){
           <button class="tog${mode==='norm'?' sn':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','norm');event.stopPropagation()">Normal</button>
           <button class="tog${mode==='perm'?' sp':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','perm');event.stopPropagation()">⭐ Perm</button>
         </div>`:''}
-        <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">$${dp.toFixed(2)}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+        <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">${fmtPrice(dp)}</div>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${fmtPrice(dp)}','${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
       </div>
     </div>`;
   }).join('');
@@ -3366,7 +3420,7 @@ function toggleFav(name, btn){
 function mkFavBtn(name){
   const active = isFav(name) ? ' active' : '';
   const safeN = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
-  return `<button class="fav-btn${active}" onclick="event.stopPropagation();toggleFav('${safeN}',this)" title="Save to favourites"><svg width="12" height="12" viewBox="0 0 24 24" fill="${active?' #ff3860':'none'}" stroke="${active?'#ff3860':'rgba(255,255,255,.7)'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>`;
+  return `<button class="fav-btn${active}" onclick="event.stopPropagation();toggleFav('${safeN}',this)" title="Save to favourites"><svg width="14" height="14" viewBox="0 0 24 24" fill="${active?'#ff3860':'none'}" stroke="${active?'#ff3860':'rgba(255,255,255,.85)'}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>`;
 }
 function loadAPFavorites(){
   const grid = document.getElementById('apFavGrid');
@@ -3401,6 +3455,46 @@ function loadAPFavorites(){
   }).join('');
 }
 
+// ── CURRENCY / LANGUAGE ───────────────────────────────────────
+const CURRENCIES = {
+  USD:{sym:'$',   rate:1,    label:'USD - $'},
+  EUR:{sym:'€',   rate:0.92, label:'EUR - €'},
+  GBP:{sym:'£',   rate:0.79, label:'GBP - £'},
+  CAD:{sym:'CA$', rate:1.37, label:'CAD - CA$'},
+  AUD:{sym:'AU$', rate:1.53, label:'AUD - AU$'},
+  BRL:{sym:'R$',  rate:5.20, label:'BRL - R$'},
+  SGD:{sym:'S$',  rate:1.35, label:'SGD - S$'},
+  CHF:{sym:'CHF ',rate:0.90, label:'CHF'},
+  SEK:{sym:'kr',  rate:10.5, label:'SEK - kr'},
+  JPY:{sym:'¥',   rate:150,  label:'JPY - ¥'},
+  MXN:{sym:'MX$', rate:17.2, label:'MXN - MX$'},
+};
+let selectedCurrency = localStorage.getItem('silv_currency')||'USD';
+let selectedLang = localStorage.getItem('silv_lang')||'EN';
+function fmtPrice(usd){
+  if(!usd||usd<=0) return 'N/A';
+  const c=CURRENCIES[selectedCurrency]||CURRENCIES.USD;
+  const v=usd*c.rate;
+  if(selectedCurrency==='JPY') return c.sym+Math.round(v).toLocaleString();
+  return c.sym+v.toFixed(2);
+}
+function openLangCurr(){
+  document.getElementById('lcLangSel').value=selectedLang;
+  document.getElementById('lcCurrSel').value=selectedCurrency;
+  document.getElementById('langCurrModal').classList.add('open');
+}
+function closeLangCurr(){ document.getElementById('langCurrModal').classList.remove('open'); }
+function saveLangCurr(){
+  selectedLang = document.getElementById('lcLangSel').value;
+  selectedCurrency = document.getElementById('lcCurrSel').value;
+  try{localStorage.setItem('silv_currency',selectedCurrency);}catch{}
+  try{localStorage.setItem('silv_lang',selectedLang);}catch{}
+  document.getElementById('langCurrLabel').textContent=selectedLang+' | '+selectedCurrency;
+  closeLangCurr();
+  // Re-render all grids to update prices
+  init();
+}
+
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
@@ -3410,7 +3504,7 @@ function mkCard(i,game,gcls){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
     const sp=i.speeds[idx];
     const p=sp.p;
-    const ps=`$${Number(p).toFixed(2)}`;
+    const ps=fmtPrice(Number(p));
     const addName=`${i.n} ${sp.label}`;
     const safeN=i.n.replace(/'/g,"\\'");
     const iData=encodeURIComponent(JSON.stringify({n:addName,em:i.em,p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
@@ -3421,8 +3515,8 @@ function mkCard(i,game,gcls){
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
+      ${mkFavBtn(i.n)}
     </div>
-    ${mkFavBtn(i.n)}
     <div class="pc-body">
       <div class="pc-g ${gcls}">${gameLbl}</div>
       <div class="pc-n">${i.n}</div>
@@ -3433,7 +3527,7 @@ function mkCard(i,game,gcls){
     </div>
   </div>`;
   }
-  const ps=`$${Number(i.p||i.price||0).toFixed(2)}`;
+  const ps=fmtPrice(Number(i.p||i.price||0));
   const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||gameIcon||null,game:gameLbl,sub:i.sub||''}));
   const rarCls=i.rar?`rb-${i.rar}`:'rb-common';
   return `
@@ -3441,13 +3535,13 @@ function mkCard(i,game,gcls){
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${stk(i.stock)}
+      ${mkFavBtn(i.n)}
     </div>
-    ${mkFavBtn(i.n)}
     <div class="pc-body">
       <div class="pc-g ${gcls}">${gameLbl}</div>
       <div class="pc-n">${i.n}</div>
       ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
-      ${i.oldP?`<div class="pc-price">$${Number(i.p).toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
+      ${i.oldP?`<div class="pc-price">${fmtPrice(Number(i.p))} <span class="pc-old">${fmtPrice(Number(i.oldP))}</span></div>`:`<div class="pc-price">${ps}</div>`}
       ${i.oos
         ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
         :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
@@ -3537,15 +3631,14 @@ function renderBS(){
   document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
     var lp=_bsLivePrice(i);
     var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
-    var pStr=p>0?'$'+p.toFixed(2):'N/A';
+    var pStr=p>0?fmtPrice(p):'N/A';
     var iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
     var safeName=i.n.replace(/'/g,"\\'");
     var imgHtml=i.img
       ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(i.em||'📦')+'</span>')
       :('<span class="em">'+(i.em||'📦')+'</span>');
     return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\')&&!event.target.closest(\'.fav-btn\'))openItemDetail(\''+iData+'\')">'
-      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+'</div>'
-      +mkFavBtn(i.n)
+      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+mkFavBtn(i.n)+'</div>'
       +'<div class="pc-body">'
         +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
         +'<div class="pc-n">'+i.n+'</div>'
@@ -5195,8 +5288,8 @@ function renderViewAllGrid(){
         <div class="pc-img ${bgC}">
           ${img?`<img src="${img}" alt="${key}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
           ${bdg(i.badge||'')}${stk(i.stock??99)}${typeEl}
+          ${mkFavBtn(i.n)}
         </div>
-        ${mkFavBtn(i.n)}
         <div class="pc-body">
           <div class="pc-n">${key}</div>
           ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}${i.type?' · '+i.type:''}</div>`:''}
@@ -5204,8 +5297,8 @@ function renderViewAllGrid(){
             <button class="tog${mode==='norm'?' sn':''}" onclick="setVAFM('${safeName}','norm');event.stopPropagation()">Normal</button>
             <button class="tog${mode==='perm'?' sp':''}" onclick="setVAFM('${safeName}','perm');event.stopPropagation()">⭐ Perm</button>
           </div>
-          <div class="pc-price">$${dp.toFixed(2)}</div>
-          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','$${dp.toFixed(2)}','${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+          <div class="pc-price">${fmtPrice(dp)}</div>
+          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${fmtPrice(dp)}','${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
         </div>
       </div>`;
     }
@@ -5214,7 +5307,7 @@ function renderViewAllGrid(){
       const idx = brSpeeds[i.n] !== undefined ? brSpeeds[i.n] : 0;
       const sp = i.speeds[idx];
       const p = Number(sp.p);
-      const ps = `$${p.toFixed(2)}`;
+      const ps = fmtPrice(p);
       const safeN = i.n.replace(/'/g,"\\'");
       const addName = `${i.n} ${sp.label}`;
       const iData = encodeURIComponent(JSON.stringify({n:addName,em:i.em||'🧠',p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:i.game||'Steal a Brainrot',sub:i.sub||''}));
@@ -5225,8 +5318,8 @@ function renderViewAllGrid(){
       <div class="pc-img ${i.bg||'r-rare'}">
         ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
+        ${mkFavBtn(i.n)}
       </div>
-      ${mkFavBtn(i.n)}
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>
         ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
@@ -5237,7 +5330,7 @@ function renderViewAllGrid(){
     </div>`;
     }
     const p = Number(i.p||i.norm||i.price||0);
-    const ps = `$${p.toFixed(2)}`;
+    const ps = fmtPrice(p);
     const game = i.game||'';
     const vaGameIcon = (VIEW_ALL_CONFIG[_viewAllKey]&&VIEW_ALL_CONFIG[_viewAllKey].img)||'';
     const vaImg = i.img || vaGameIcon || '';
@@ -5250,12 +5343,12 @@ function renderViewAllGrid(){
       <div class="pc-img ${i.bg||'r-rare'}">
         ${vaImg?`<img src="${vaImg}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="${vaImgErr}"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
         ${bdg(i.badge||'')}${stk(i.stock??99)}
+        ${mkFavBtn(i.n)}
       </div>
-      ${mkFavBtn(i.n)}
       <div class="pc-body">
         <div class="pc-n">${i.n}</div>
         ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
-        ${i.oldP?`<div class="pc-price">$${p.toFixed(2)} <span class="pc-old">$${Number(i.oldP).toFixed(2)}</span></div>`:`<div class="pc-price">${ps}</div>`}
+        ${i.oldP?`<div class="pc-price">${fmtPrice(p)} <span class="pc-old">${fmtPrice(Number(i.oldP))}</span></div>`:`<div class="pc-price">${ps}</div>`}
         ${i.oos||i.stock===0
           ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
           :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${game}','${vaImg.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
@@ -6567,6 +6660,9 @@ function initScrollWraps(){
 
 // ── INIT ──────────────────────────────────────────────────────
 function init(){
+  // Update language/currency nav label
+  const lcBtn = document.getElementById('langCurrLabel');
+  if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;
   renderRobux();renderBF();renderBS();
   document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');
   document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');

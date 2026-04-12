@@ -148,6 +148,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     </div>
   </div>
 
+  <!-- Price Review -->
+  <div class="section" id="priceReviewSection">
+    <div class="section-title" style="display:flex;align-items:center;justify-content:space-between">
+      <span style="display:flex;align-items:center;gap:8px"><span class="dot"></span>Price Review Flags</span>
+      <div style="display:flex;gap:8px">
+        <input id="flagNameInput" class="input" placeholder="Item name" style="width:200px;padding:6px 10px;font-size:12px"/>
+        <button class="action-btn btn-confirm" style="white-space:nowrap" onclick="addFlag()">+ Flag Item</button>
+      </div>
+    </div>
+    <div id="flagsList" style="margin-top:12px"><div style="color:var(--sub);font-size:13px">No items flagged</div></div>
+  </div>
+
   <!-- Recent orders -->
   <div class="section">
     <div class="section-title"><span class="dot"></span>Recent Orders</div>
@@ -195,6 +207,7 @@ async function loadData() {
     renderTopItems(d.topItems);
     renderPending(d.pendingOrders);
     renderOrders(d.recentOrders);
+    loadFlags();
   } catch(e) {
     showToast('Failed to connect to bot', 'err');
   }
@@ -303,6 +316,66 @@ function showToast(msg, type) {
   t.className = 'toast ' + type;
   t.style.display = 'block';
   setTimeout(() => t.style.display = 'none', 3000);
+}
+
+// ── Price flags ──────────────────────────────────────────────
+async function loadFlags() {
+  try {
+    const r = await fetch(BOT_URL + '/price-flags', { headers: { 'x-silv-secret': _secret } });
+    const flags = await r.json();
+    renderFlags(flags);
+  } catch {}
+}
+
+function renderFlags(flags) {
+  const el = document.getElementById('flagsList');
+  if (!flags || !flags.length) {
+    el.innerHTML = '<div style="color:var(--sub);font-size:13px">No items flagged for price review</div>';
+    return;
+  }
+  el.innerHTML = flags.map(f => `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)" id="flag-${encodeURIComponent(f.name)}">
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:700;color:#fff">${f.name}</div>
+      <div style="font-size:11px;color:var(--sub)">${f.game || ''}${f.note ? ' · ' + f.note : ''} · Flagged ${fmtDate(f.flaggedAt)}</div>
+    </div>
+    <input id="np-${encodeURIComponent(f.name)}" class="input" placeholder="New price" style="width:110px;padding:6px 10px;font-size:12px" type="number" step="0.01" min="0"/>
+    <button class="action-btn btn-confirm" onclick="applyPrice('${f.name.replace(/'/g,"\\'")}')">✓ Update</button>
+    <button class="action-btn btn-deny" onclick="removeFlag('${f.name.replace(/'/g,"\\'")}')">✕ Remove</button>
+  </div>`).join('');
+}
+
+async function addFlag() {
+  const name = document.getElementById('flagNameInput').value.trim();
+  if (!name) return;
+  await fetch(BOT_URL + '/price-flags', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-silv-secret': _secret },
+    body: JSON.stringify({ name }),
+  });
+  document.getElementById('flagNameInput').value = '';
+  loadFlags();
+}
+
+async function removeFlag(name) {
+  await fetch(BOT_URL + '/price-flags/' + encodeURIComponent(name), {
+    method: 'DELETE',
+    headers: { 'x-silv-secret': _secret },
+  });
+  loadFlags();
+}
+
+async function applyPrice(name) {
+  const input = document.getElementById('np-' + encodeURIComponent(name));
+  const price = parseFloat(input ? input.value : '');
+  if (isNaN(price) || price <= 0) { showToast('Enter a valid price', 'err'); return; }
+  const r = await fetch(BOT_URL + '/set-price', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-silv-secret': _secret },
+    body: JSON.stringify({ name, price }),
+  });
+  const d = await r.json();
+  if (d.success) { showToast(`${name} → $${price} — live in ~30s`, 'ok'); loadFlags(); }
+  else showToast(d.error || 'Update failed', 'err');
 }
 </script>
 </body>

@@ -4948,7 +4948,9 @@ function toggleGS(){document.getElementById('gsBtn').classList.toggle('open');do
 function toggleSort(){document.getElementById('sortBtn').classList.toggle('open');document.getElementById('sortDrop').classList.toggle('open');}
 
 function selectGame(el,name,icon,key){
+  if(key==='all'){goHome();return;}
   var gb=document.getElementById('gameBar');if(gb)gb.style.display='';
+  var nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='none';
   document.getElementById('gsName').textContent=name;
   const gsIconEl=document.getElementById('gsIcon');
   const imgUrl=el.querySelector('.gd-icon img');
@@ -7297,8 +7299,22 @@ function renderRecentlyViewed(){
 // ── Show / Hide Home Menu ─────────────────────────────────────
 function goHome(){
   window.scrollTo({top:0,behavior:'smooth'});
-  const hm = document.getElementById('homeMenu');
+  const hm=document.getElementById('homeMenu');
   if(hm) hm.classList.remove('hm-hidden');
+  // Hide all game sections + game bar
+  ALL_SECTION_IDS.forEach(function(id){
+    var s=document.getElementById(id);if(!s)return;
+    s.style.display='none';
+    var dl=s.nextElementSibling;
+    if(dl&&dl.classList.contains('div-line'))dl.style.display='none';
+  });
+  var gb=document.getElementById('gameBar');if(gb)gb.style.display='none';
+  // Restore nav Select Games button, reset sidebar label
+  var nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='';
+  document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));
+  document.querySelector('.gd-item[data-key="all"]')?.classList.add('gd-active');
+  if(document.getElementById('gsName'))document.getElementById('gsName').textContent='All Games';
+  if(document.getElementById('gsIcon'))document.getElementById('gsIcon').textContent='🛒';
 }
 
 function toggleNavSG(){
@@ -7322,10 +7338,11 @@ function closeNavSG(){
 }
 function goToGame(key){
   if(key==='discord'){window.open(DISCORD_INVITE,'_blank');return;}
-  // Hide home menu, show shop + game bar
+  // Hide home menu + nav selector, show shop + game bar
   const hm=document.getElementById('homeMenu');
   if(hm) hm.classList.add('hm-hidden');
   const gb=document.getElementById('gameBar');if(gb)gb.style.display='';
+  const nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='none';
   const el=document.querySelector('.gd-item[data-key="'+key+'"]');
   if(el){
     const name=el.querySelector('.gd-label')?.textContent||key;

@@ -1350,6 +1350,21 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="gd-item" onclick="selectGame(this,'Bloodlines','🩸','bl')" data-key="bl">
         <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Bloodlines</span><span class="gd-dot"></span>
       </div>
+      <div class="gd-item" onclick="selectGame(this,'Fisch','🎣','fisch')" data-key="fisch">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Fisch</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Bee Swarm Simulator','🐝','bss')" data-key="bss">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Bee Swarm Simulator</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Be a Lucky Block','🟡','blb')" data-key="blb">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Be a Lucky Block</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Volleyball Legends','🏐','vbl')" data-key="vbl">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Volleyball Legends</span><span class="gd-dot"></span>
+      </div>
+      <div class="gd-item" onclick="selectGame(this,'Death Ball','💀','dth')" data-key="dth">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Death Ball</span><span class="gd-dot"></span>
+      </div>
     </div>
   </div>
   <div class="sort-wrap" id="sortWrap">
@@ -1700,6 +1715,116 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
   <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bloodlines…" oninput="secSearch('blGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="blGrid"></div>
+</section>
+
+<section class="S sec-alt" id="fisch">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#38bdf8">Fisch</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Fisch</div>
+      <p class="sec-sub">Rods, rare fish, enchants and Fishcoins · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('fisch')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.32);color:#38bdf8" onclick="filterFISCH(this,'all')">🎣 All</button>
+    <button class="jt" onclick="filterFISCH(this,'rods')">🎣 Rods</button>
+    <button class="jt" onclick="filterFISCH(this,'fish')">🐟 Fish</button>
+    <button class="jt" onclick="filterFISCH(this,'items')">📦 Items</button>
+    <button class="jt" onclick="filterFISCH(this,'currency')">💵 Currency</button>
+  </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Fisch…" oninput="secSearch('fischGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="h-scroll" id="fischGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S sec-alt" id="bss">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#fbbf24">Bee Swarm Simulator</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bee Swarm Simulator</div>
+      <p class="sec-sub">Royal jellies, star jellies, eggs and gamepasses · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('bss')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.32);color:#fbbf24" onclick="filterBSS(this,'all')">🐝 All</button>
+    <button class="jt" onclick="filterBSS(this,'resources')">🍯 Resources</button>
+    <button class="jt" onclick="filterBSS(this,'eggs')">🥚 Eggs</button>
+    <button class="jt" onclick="filterBSS(this,'passes')">🎟️ Passes</button>
+  </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="h-scroll" id="bssGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S sec-alt" id="blb">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#f97316">Be a Lucky Block</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Be a Lucky Block</div>
+      <p class="sec-sub">Godly bundles, lucky blocks, pets and gamepasses · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('blb')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.32);color:#f97316" onclick="filterBLB(this,'all')">🟡 All</button>
+    <button class="jt" onclick="filterBLB(this,'passes')">🎟️ Passes</button>
+    <button class="jt" onclick="filterBLB(this,'items')">📦 Items</button>
+    <button class="jt" onclick="filterBLB(this,'pets')">🐉 Pets</button>
+    <button class="jt" onclick="filterBLB(this,'currency')">💰 Currency</button>
+  </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Be a Lucky Block…" oninput="secSearch('blbGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="h-scroll" id="blbGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S sec-alt" id="vbl">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#a3e635">Volleyball Legends</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Volleyball Legends</div>
+      <p class="sec-sub">Rare styles, spins, gamepasses and match coins · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('vbl')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.32);color:#a3e635" onclick="filterVBL(this,'all')">🏐 All</button>
+    <button class="jt" onclick="filterVBL(this,'styles')">✨ Styles</button>
+    <button class="jt" onclick="filterVBL(this,'passes')">🎟️ Passes</button>
+    <button class="jt" onclick="filterVBL(this,'currency')">💵 Currency</button>
+  </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Volleyball Legends…" oninput="secSearch('vblGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="h-scroll" id="vblGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S sec-alt" id="dth">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#e879f9">Death Ball</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Death Ball</div>
+      <p class="sec-sub">Weapons, cosmetics, auras and gems · Delivered via Discord</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('dth')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(232,121,249,.1);border-color:rgba(232,121,249,.32);color:#e879f9" onclick="filterDTH(this,'all')">💀 All</button>
+    <button class="jt" onclick="filterDTH(this,'weapons')">⚔️ Weapons</button>
+    <button class="jt" onclick="filterDTH(this,'cosmetics')">✨ Cosmetics</button>
+    <button class="jt" onclick="filterDTH(this,'currency')">💎 Currency</button>
+  </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="h-scroll" id="dthGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -3128,8 +3253,34 @@ const SP = [
 ];
 
 const BB = [
-  {n:'500 Blade Ball Tokens',em:'⚔️',p:6.30,badge:'',stock:99,sub:'items',rar:'uncommon',bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
-  {n:'5000 Blade Ball Tokens',em:'⚔️',p:30,badge:'hot',stock:99,sub:'items',rar:'rare',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  // ── TOKENS ────────────────────────────────────────────────────
+  {n:'500 Blade Ball Tokens',   em:'🪙',p:6.30, badge:'',    stock:99,sub:'tokens',  rar:'uncommon', bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  {n:'5000 Blade Ball Tokens',  em:'🪙',p:30.00,badge:'hot', stock:99,sub:'tokens',  rar:'rare',     bg:'r-rare',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  // ── SWORDS ────────────────────────────────────────────────────
+  {n:'Inferno Blade',           em:'🔥',p:12.99,badge:'hot', stock:99,sub:'swords',  rar:'legendary',bg:'r-legendary'},
+  {n:'Crystal Blade',           em:'❄️',p:8.49, badge:'',    stock:99,sub:'swords',  rar:'rare',     bg:'r-rare'},
+  {n:'Nebula Lightning',        em:'⚡',p:14.99,badge:'hot', stock:99,sub:'swords',  rar:'legendary',bg:'r-legendary'},
+  {n:'Dark Matter Blade',       em:'🌌',p:19.99,badge:'best',stock:99,sub:'swords',  rar:'mythical', bg:'r-mythical'},
+  {n:'Void Reaper',             em:'💀',p:24.99,badge:'best',stock:99,sub:'swords',  rar:'mythical', bg:'r-mythical'},
+  {n:'Kitty Launcher',          em:'🐱',p:4.99, badge:'',    stock:99,sub:'swords',  rar:'uncommon', bg:'r-uncommon'},
+  {n:'Gilded Blade',            em:'✨',p:9.99, badge:'',    stock:99,sub:'swords',  rar:'rare',     bg:'r-rare'},
+  {n:'Shadow Edge',             em:'🩸',p:11.99,badge:'',    stock:99,sub:'swords',  rar:'rare',     bg:'r-rare'},
+  {n:'Galactic Saber',          em:'🌠',p:17.99,badge:'',    stock:99,sub:'swords',  rar:'legendary',bg:'r-legendary'},
+  {n:'Phoenix Blade',           em:'🦅',p:15.49,badge:'',    stock:99,sub:'swords',  rar:'legendary',bg:'r-legendary'},
+  // ── GAMEPASSES ────────────────────────────────────────────────
+  {n:'2x Speed Gamepass',       em:'⚡',p:4.99, badge:'',    stock:99,sub:'passes',  rar:'uncommon', bg:'r-uncommon'},
+  {n:'Parry Extender Gamepass', em:'🛡️',p:4.99, badge:'',    stock:99,sub:'passes',  rar:'uncommon', bg:'r-uncommon'},
+  {n:'Auto Parry Gamepass',     em:'🤖',p:7.99, badge:'hot', stock:99,sub:'passes',  rar:'rare',     bg:'r-rare'},
+  {n:'2x Coins Gamepass',       em:'🪙',p:4.99, badge:'',    stock:99,sub:'passes',  rar:'uncommon', bg:'r-uncommon'},
+  {n:'VIP Gamepass',            em:'👑',p:9.99, badge:'',    stock:99,sub:'passes',  rar:'rare',     bg:'r-rare'},
+  // ── CRATES ────────────────────────────────────────────────────
+  {n:'Legendary Crate',         em:'📦',p:6.99, badge:'',    stock:99,sub:'crates',  rar:'legendary',bg:'r-legendary'},
+  {n:'Mythical Crate',          em:'📦',p:14.99,badge:'hot', stock:99,sub:'crates',  rar:'mythical', bg:'r-mythical'},
+  {n:'Event Crate',             em:'🎁',p:9.99, badge:'',    stock:99,sub:'crates',  rar:'legendary',bg:'r-legendary'},
+  // ── EFFECTS ───────────────────────────────────────────────────
+  {n:'Explosive Effect',        em:'💥',p:6.99, badge:'',    stock:99,sub:'effects', rar:'rare',     bg:'r-rare'},
+  {n:'Lightning Trail',         em:'⚡',p:5.99, badge:'',    stock:99,sub:'effects', rar:'rare',     bg:'r-rare'},
+  {n:'Rainbow Aura',            em:'🌈',p:7.99, badge:'',    stock:99,sub:'effects', rar:'rare',     bg:'r-rare'},
 ];
 
 const AV = [
@@ -3261,6 +3412,94 @@ const BLOODLINES = [
   {n:'Mastery Scroll',                              em:'🪨',p:2.29, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Mastery%20scroll.webp'},
   {n:'Summoning scroll',                            em:'🪨',p:3.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
   {n:'5000 Ryo',                                    em:'🪨',p:9.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Ryo.webp'},
+];
+
+const FISCH = [
+  // ── RODS ──────────────────────────────────────────────────────
+  {n:'Legendary Rod',          em:'🎣',p:14.99,badge:'hot', stock:99,sub:'rods',     rar:'legendary',bg:'r-legendary'},
+  {n:'Mythical Rod',           em:'🔮',p:19.99,badge:'best',stock:99,sub:'rods',     rar:'mythical', bg:'r-mythical'},
+  {n:'Golden Hook',            em:'🪝',p:8.99, badge:'',    stock:99,sub:'rods',     rar:'rare',     bg:'r-rare'},
+  // ── FISH ──────────────────────────────────────────────────────
+  {n:'Lucid Leviathan',        em:'🐉',p:22.99,badge:'best',stock:99,sub:'fish',     rar:'mythical', bg:'r-mythical'},
+  {n:'Pantheress',             em:'🐆',p:11.99,badge:'hot', stock:99,sub:'fish',     rar:'rare',     bg:'r-rare'},
+  {n:'Moonstone Fish',         em:'🌙',p:10.99,badge:'',    stock:99,sub:'fish',     rar:'rare',     bg:'r-rare'},
+  {n:'Aurora Koi',             em:'✨',p:15.99,badge:'',    stock:99,sub:'fish',     rar:'legendary',bg:'r-legendary'},
+  {n:'Abyssal Shark',          em:'🦈',p:18.99,badge:'hot', stock:99,sub:'fish',     rar:'legendary',bg:'r-legendary'},
+  // ── ITEMS ─────────────────────────────────────────────────────
+  {n:'Enchantment Scroll',     em:'📜',p:5.99, badge:'',    stock:99,sub:'items',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Premium Bait Pack',      em:'🪱',p:3.99, badge:'',    stock:99,sub:'items',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Gondola Boat Skin',      em:'🛶',p:12.99,badge:'',    stock:99,sub:'items',    rar:'rare',     bg:'r-rare'},
+  // ── CURRENCY ──────────────────────────────────────────────────
+  {n:'100K Fishcoins',         em:'💵',p:2.49, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'1M Fishcoins',           em:'💵',p:14.99,badge:'hot', stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
+];
+
+const BSS = [
+  // ── RESOURCES ─────────────────────────────────────────────────
+  {n:'Royal Jelly',            em:'👑',p:9.99, badge:'hot', stock:99,sub:'resources',rar:'rare',     bg:'r-rare'},
+  {n:'Star Jelly',             em:'⭐',p:16.99,badge:'best',stock:99,sub:'resources',rar:'legendary',bg:'r-legendary'},
+  {n:'Enzyme (x10)',           em:'🧪',p:5.49, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
+  {n:'Gumdrops (100)',         em:'🍬',p:4.99, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
+  {n:'Sprout Pack (x5)',       em:'🌱',p:6.99, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
+  // ── EGGS / PETS ───────────────────────────────────────────────
+  {n:'Mythical Bee Egg',       em:'🥚',p:24.99,badge:'best',stock:99,sub:'eggs',     rar:'mythical', bg:'r-mythical'},
+  {n:'Legendary Bee Egg',      em:'🐝',p:13.99,badge:'hot', stock:99,sub:'eggs',     rar:'legendary',bg:'r-legendary'},
+  {n:'Gifted Bee',             em:'✨',p:19.99,badge:'best',stock:99,sub:'eggs',     rar:'mythical', bg:'r-mythical'},
+  // ── GAMEPASSES ────────────────────────────────────────────────
+  {n:'10x Tickets Bundle',     em:'🎫',p:7.99, badge:'hot', stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'VIP Gamepass',           em:'👑',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Honey Turbo Gamepass',   em:'🍯',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+];
+
+const BLB = [
+  // ── GAMEPASSES ────────────────────────────────────────────────
+  {n:'2x Luck Gamepass',       em:'🍀',p:4.99, badge:'hot', stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'2x Cash Gamepass',       em:'💸',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'VIP Gamepass',           em:'👑',p:7.99, badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'Auto Open Gamepass',     em:'📦',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  // ── ITEMS ─────────────────────────────────────────────────────
+  {n:'Godly Item Bundle',      em:'✨',p:19.99,badge:'best',stock:99,sub:'items',    rar:'mythical', bg:'r-mythical'},
+  {n:'Lucky Block (50 Pack)',  em:'🟡',p:8.99, badge:'',    stock:99,sub:'items',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Prestige Booster',       em:'🚀',p:6.99, badge:'',    stock:99,sub:'items',    rar:'rare',     bg:'r-rare'},
+  // ── PETS ──────────────────────────────────────────────────────
+  {n:'Mythical Pet Egg',       em:'🥚',p:22.99,badge:'best',stock:99,sub:'pets',     rar:'mythical', bg:'r-mythical'},
+  {n:'Rare Pet Egg',           em:'🐉',p:11.99,badge:'',    stock:99,sub:'pets',     rar:'rare',     bg:'r-rare'},
+  // ── CURRENCY ──────────────────────────────────────────────────
+  {n:'50M Coins',              em:'💰',p:5.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'250M Coins',             em:'💰',p:19.99,badge:'hot', stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
+];
+
+const VBL = [
+  // ── STYLES ────────────────────────────────────────────────────
+  {n:'Godly Style Unlock',     em:'✨',p:12.99,badge:'best',stock:99,sub:'styles',   rar:'legendary',bg:'r-legendary'},
+  {n:'Timeskip Style',         em:'⏰',p:9.99, badge:'hot', stock:99,sub:'styles',   rar:'rare',     bg:'r-rare'},
+  {n:'Mikage Style',           em:'🔥',p:10.99,badge:'',    stock:99,sub:'styles',   rar:'rare',     bg:'r-rare'},
+  {n:'Dragon Spike Style',     em:'🐉',p:14.99,badge:'',    stock:99,sub:'styles',   rar:'legendary',bg:'r-legendary'},
+  // ── GAMEPASSES ────────────────────────────────────────────────
+  {n:'2x EXP Gamepass',        em:'⚡',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'VIP Membership',         em:'👑',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'Victory Boost Pass',     em:'🏆',p:5.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  // ── SPINS / CURRENCY ──────────────────────────────────────────
+  {n:'Lucky Spin Pack (10x)',  em:'🎰',p:4.99, badge:'hot', stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot Bundle (5)',  em:'🎯',p:7.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'500K Match Coins',       em:'💵',p:3.49, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+];
+
+const DTH = [
+  // ── WEAPONS ───────────────────────────────────────────────────
+  {n:'Diamond Aegis Sword',    em:'💎',p:24.99,badge:'best',stock:99,sub:'weapons',  rar:'mythical', bg:'r-mythical'},
+  {n:'Champion Scythe',        em:'⚔️',p:13.99,badge:'hot', stock:99,sub:'weapons',  rar:'legendary',bg:'r-legendary'},
+  {n:'Void Reaper Blade',      em:'🌑',p:18.99,badge:'',    stock:99,sub:'weapons',  rar:'legendary',bg:'r-legendary'},
+  // ── COSMETICS ─────────────────────────────────────────────────
+  {n:'Void Aura Set',          em:'👁️',p:18.99,badge:'best',stock:99,sub:'cosmetics',rar:'legendary',bg:'r-legendary'},
+  {n:'Radiant Wings',          em:'🪽',p:11.99,badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
+  {n:'Demonic Shadow Set',     em:'🖤',p:16.99,badge:'hot', stock:99,sub:'cosmetics',rar:'legendary',bg:'r-legendary'},
+  {n:'Dark Angel Aura',        em:'👼',p:10.99,badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
+  {n:'Lightning Strike Effect',em:'⚡',p:7.99, badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
+  // ── CURRENCY ──────────────────────────────────────────────────
+  {n:'10M Gems',               em:'💎',p:2.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'50M Gems',               em:'💎',p:9.99, badge:'hot', stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
+  {n:'200M Gems',              em:'💎',p:29.99,badge:'best',stock:99,sub:'currency', rar:'legendary',bg:'r-legendary'},
 ];
 
 const _dcBoostImg = 'https://silvmarket.shop/images/boost.webp';
@@ -3616,6 +3855,11 @@ function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(su
 function filterBB(btn,sub){setJtActive(btn);filterGrid('bbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bbGrid .pc').forEach(c=>c.style.display='');}
 function filterAV(btn,sub){setJtActive(btn);filterGrid('avGrid','sub',sub);if(sub==='all')document.querySelectorAll('#avGrid .pc').forEach(c=>c.style.display='');}
 function filterBL(btn,sub){setJtActive(btn);filterGrid('blGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blGrid .pc').forEach(c=>c.style.display='');}
+function filterFISCH(btn,sub){setJtActive(btn);filterGrid('fischGrid','sub',sub);if(sub==='all')document.querySelectorAll('#fischGrid .pc').forEach(c=>c.style.display='');}
+function filterBSS(btn,sub){setJtActive(btn);filterGrid('bssGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bssGrid .pc').forEach(c=>c.style.display='');}
+function filterBLB(btn,sub){setJtActive(btn);filterGrid('blbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blbGrid .pc').forEach(c=>c.style.display='');}
+function filterVBL(btn,sub){setJtActive(btn);filterGrid('vblGrid','sub',sub);if(sub==='all')document.querySelectorAll('#vblGrid .pc').forEach(c=>c.style.display='');}
+function filterDTH(btn,sub){setJtActive(btn);filterGrid('dthGrid','sub',sub);if(sub==='all')document.querySelectorAll('#dthGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
   btn.className=btn.className+' jtb';
@@ -4677,7 +4921,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','blb','vbl','dth'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -4690,9 +4934,14 @@ const GAME_SUBS={
   tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
   gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
   sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🎮 Gamepasses',fn:'filterSP',val:'gamepasses'},{label:'🗝️ Keys',fn:'filterSP',val:'keys'},{label:'🔄 Rerolls',fn:'filterSP',val:'rerolls'},{label:'⚔️ Items',fn:'filterSP',val:'items'},{label:'🧥 Sets',fn:'filterSP',val:'sets'}],
-  bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🎁 Items',fn:'filterBB',val:'items'}],
+  bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'🪙 Tokens',fn:'filterBB',val:'tokens'},{label:'⚔️ Swords',fn:'filterBB',val:'swords'},{label:'🎟️ Passes',fn:'filterBB',val:'passes'},{label:'📦 Crates',fn:'filterBB',val:'crates'},{label:'✨ Effects',fn:'filterBB',val:'effects'}],
   av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
   bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
+  fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
+  bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🍯 Resources',fn:'filterBSS',val:'resources'},{label:'🥚 Eggs',fn:'filterBSS',val:'eggs'},{label:'🎟️ Passes',fn:'filterBSS',val:'passes'}],
+  blb:      [{label:'🟡 All',fn:'filterBLB',val:'all'},{label:'🎟️ Passes',fn:'filterBLB',val:'passes'},{label:'📦 Items',fn:'filterBLB',val:'items'},{label:'🐉 Pets',fn:'filterBLB',val:'pets'},{label:'💰 Currency',fn:'filterBLB',val:'currency'}],
+  vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'✨ Styles',fn:'filterVBL',val:'styles'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'},{label:'💵 Currency',fn:'filterVBL',val:'currency'}],
+  dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Cosmetics',fn:'filterDTH',val:'cosmetics'},{label:'💎 Currency',fn:'filterDTH',val:'currency'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -4726,7 +4975,7 @@ function applySort(el,type){
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid','blGrid'].forEach(gid=>{
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid','blGrid','fischGrid','bssGrid','blbGrid','vblGrid','dthGrid'].forEach(gid=>{
     const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
@@ -6646,6 +6895,11 @@ function buildSearchIndex(){
   push(SP,        'Sailor Piece');
   push(AV,        'Anime Vanguards');
   push(BLOODLINES,'Bloodlines');
+  push(FISCH,     'Fisch');
+  push(BSS,       'Bee Swarm Simulator');
+  push(BLB,       'Be a Lucky Block');
+  push(VBL,       'Volleyball Legends');
+  push(DTH,       'Death Ball');
   ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'💎', p:r.p, game:'Robux', img:null, rar:'rare', bg:'r-rare', sub:''}));
 }
 
@@ -6761,6 +7015,11 @@ function init(){
   document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');
   document.getElementById('avGrid').innerHTML=AV.map(i=>mkCard(i,'av','g-av')).join('');
   document.getElementById('blGrid').innerHTML=BLOODLINES.map(i=>mkCard(i,'bl','g-bl')).join('');
+  document.getElementById('fischGrid').innerHTML=FISCH.map(i=>mkCard(i,'fisch','g-fisch')).join('');
+  document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');
+  document.getElementById('blbGrid').innerHTML=BLB.map(i=>mkCard(i,'blb','g-blb')).join('');
+  document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');
+  document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');
   buildSearchIndex();
   initScrollWraps();
 }
@@ -6772,7 +7031,7 @@ init();
   const game = params.get('game');
   if(!game) return;
   history.replaceState({}, '', location.pathname);
-  const GAME_IDS = ['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl'];
+  const GAME_IDS = ['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','blb','vbl','dth'];
   const id = GAME_IDS.find(g => g === game.toLowerCase());
   if(!id) return;
   const el = document.getElementById(id);

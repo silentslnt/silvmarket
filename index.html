@@ -2406,10 +2406,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         <div class="promo-ok" id="promoOk"></div>
 
         <div id="tokenRedeemBlock" style="display:none;margin-bottom:12px">
-          <div class="co-lbl" style="display:flex;align-items:center;gap:7px">🪙 Silv Tokens <span id="tokenAvailLbl" style="color:rgba(255,215,0,.65);font-size:11px;font-family:Rajdhani,sans-serif;font-weight:400;letter-spacing:0;text-transform:none"></span></div>
+          <div class="co-lbl" style="display:flex;align-items:center;gap:7px">💳 Store Credit <span id="tokenAvailLbl" style="color:rgba(74,222,128,.75);font-size:11px;font-family:Rajdhani,sans-serif;font-weight:400;letter-spacing:0;text-transform:none"></span></div>
           <div style="display:flex;align-items:center;gap:8px">
-            <button id="tokenRedeemBtn" onclick="toggleTokenRedeem()" style="padding:9px 16px;border-radius:9px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.22);color:#ffd700;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s">Use Tokens</button>
-            <span id="tokenRedeemStatus" style="font-family:Rajdhani,sans-serif;font-size:12px;color:#ffd700;font-weight:600"></span>
+            <button id="tokenRedeemBtn" onclick="toggleTokenRedeem()" style="padding:9px 16px;border-radius:9px;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);color:#4ade80;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s">Remove Credit</button>
+            <span id="tokenRedeemStatus" style="font-family:Rajdhani,sans-serif;font-size:12px;color:#4ade80;font-weight:600"></span>
           </div>
         </div>
 
@@ -2466,7 +2466,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
           <hr class="sum-hr"/>
           <div class="sum-r"><span class="sum-lbl">Subtotal</span><span class="sum-val" id="coSub">$0.00</span></div>
           <div class="sum-r"><span class="sum-lbl">Discount</span><span class="sum-val sum-disc" id="coDisc">—</span></div>
-          <div class="sum-r" id="coTokenDiscRow" style="display:none"><span class="sum-lbl">🪙 Tokens</span><span class="sum-val sum-disc" id="coTokenDisc">—</span></div>
+          <div class="sum-r" id="coTokenDiscRow" style="display:none"><span class="sum-lbl">💳 Store Credit</span><span class="sum-val sum-disc" id="coTokenDisc">—</span></div>
           <div class="sum-r"><span class="sum-lbl">Processing Fee</span><span class="sum-val" id="coFeeD">$0.00</span></div>
           <hr class="sum-hr"/>
           <div class="sum-r"><span style="font-size:14px;font-weight:700">Total</span><span class="sum-tot" id="coTot">$0.00</span></div>
@@ -3295,7 +3295,7 @@ const DISCORD_NITRO_DESCS = {
 };
 
 // ── STATE ────────────────────────────────────────────────────
-let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0;
+let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0, _storeCreditApplied=0;
 let rblxVerified=false, fruitModes={}, brSpeeds={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
@@ -4133,7 +4133,7 @@ function openCO(){
     }
   },300);
 }
-function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;_referralDiscount=false;promoApplied=false;promoPct=0;_tokensApplied=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';const tBlock=document.getElementById('tokenRedeemBlock');if(tBlock)tBlock.style.display='none';}
+function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;_referralDiscount=false;promoApplied=false;promoPct=0;_tokensApplied=0;_storeCreditApplied=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';}
 
 function populateCO(){
   document.getElementById('coBody').style.display='';
@@ -4152,12 +4152,13 @@ function updateCOSum(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const disc=sub*(discPct/100);
-  const tokenDisc=Math.min(_tokensApplied/10000,Math.max(0,sub-disc));
-  const after=Math.max(0,sub-disc-tokenDisc),fee=after*.08,tot=after+fee;
+  const afterDisc=Math.max(0,sub-disc);
+  const creditDisc=Math.min(_storeCreditApplied,afterDisc);
+  const after=Math.max(0,afterDisc-creditDisc),fee=after*.08,tot=after+fee;
   document.getElementById('coSub').textContent='$'+sub.toFixed(2);
   document.getElementById('coDisc').textContent=disc>0?'-$'+disc.toFixed(2):'—';
   const tRow=document.getElementById('coTokenDiscRow');
-  if(tRow){tRow.style.display=tokenDisc>0?'':'none';const td=document.getElementById('coTokenDisc');if(td)td.textContent='-$'+tokenDisc.toFixed(2)+' ('+_tokensApplied+' tokens)';}
+  if(tRow){tRow.style.display=creditDisc>0?'':'none';const td=document.getElementById('coTokenDisc');if(td)td.textContent='-$'+creditDisc.toFixed(2)+' store credit';}
   document.getElementById('coFeeD').textContent='$'+fee.toFixed(2);
   document.getElementById('coTot').textContent='$'+tot.toFixed(2);
   document.getElementById('coSumItems').innerHTML=cart.map(i=>`
@@ -4249,38 +4250,50 @@ function _showCodeMsg(el,type,text){
   el.textContent=text;
 }
 
-// ── TOKEN REDEMPTION ──────────────────────────────────────────
-function _setupTokenRedeemUI(){
+// ── STORE CREDIT — auto-fetch from server and apply ──────────
+async function _setupTokenRedeemUI(){
   if(!currentUser) return;
-  const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
   const block=document.getElementById('tokenRedeemBlock');
   if(!block) return;
-  if(tokens<1000){block.style.display='none';return;}
-  block.style.display='';
-  const lbl=document.getElementById('tokenAvailLbl');
-  if(lbl) lbl.textContent=`(${tokens.toLocaleString()} pts · worth $${(tokens/10000).toFixed(2)})`;
-  const btn=document.getElementById('tokenRedeemBtn');
-  if(btn){btn.textContent='Use Tokens';btn.style.background='rgba(255,215,0,.1)';}
-  document.getElementById('tokenRedeemStatus').textContent='';
-  _tokensApplied=0;
+  _storeCreditApplied=0;
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/account-data')+'?email='+encodeURIComponent(currentUser.email),{
+      headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+    const d=await resp.json();
+    const credit=parseFloat(d.storeCredit)||0;
+    // Also sync loyalty points to localStorage from server
+    if(d.loyaltyPoints!==undefined) try{localStorage.setItem('silv_tokens_'+currentUser.email,d.loyaltyPoints);}catch{}
+    if(credit<0.01){block.style.display='none';return;}
+    block.style.display='';
+    const lbl=document.getElementById('tokenAvailLbl');
+    if(lbl) lbl.textContent='($'+credit.toFixed(2)+' store credit available)';
+    const btn=document.getElementById('tokenRedeemBtn');
+    const statusEl=document.getElementById('tokenRedeemStatus');
+    // Auto-apply credit
+    _storeCreditApplied=credit;
+    if(btn){btn.textContent='Remove Credit';btn.style.background='rgba(255,215,0,.22)';}
+    if(statusEl) statusEl.textContent='−$'+credit.toFixed(2)+' applied';
+    updateCOSum();
+  }catch(e){
+    block.style.display='none';
+  }
 }
 function toggleTokenRedeem(){
   if(!currentUser) return;
-  const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
-  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
-  const afterDisc=Math.max(0,sub-sub*(discPct/100));
-  const maxTokens=Math.min(tokens,Math.floor(afterDisc*10000));
   const btn=document.getElementById('tokenRedeemBtn');
   const statusEl=document.getElementById('tokenRedeemStatus');
-  if(_tokensApplied>0){
-    _tokensApplied=0;
-    if(btn){btn.textContent='Use Tokens';btn.style.background='rgba(255,215,0,.1)';}
+  const lbl=document.getElementById('tokenAvailLbl');
+  const creditStr=lbl?(lbl.textContent.match(/\$([\d.]+)/)||[])[1]:'0';
+  const credit=parseFloat(creditStr)||_storeCreditApplied;
+  if(_storeCreditApplied>0){
+    _storeCreditApplied=0;
+    if(btn){btn.textContent='Apply Credit';btn.style.background='rgba(255,215,0,.1)';}
     if(statusEl) statusEl.textContent='';
   } else {
-    _tokensApplied=maxTokens;
-    if(btn){btn.textContent='Remove';btn.style.background='rgba(255,215,0,.22)';}
-    if(statusEl) statusEl.textContent=`−$${(maxTokens/10000).toFixed(2)} off`;
+    _storeCreditApplied=credit;
+    if(btn){btn.textContent='Remove Credit';btn.style.background='rgba(255,215,0,.22)';}
+    if(statusEl) statusEl.textContent='−$'+credit.toFixed(2)+' applied';
   }
   updateCOSum();
 }
@@ -4348,8 +4361,9 @@ function calcTotal(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const disc=sub*(discPct/100);
-  const tokenDisc=Math.min(_tokensApplied/10000, Math.max(0,sub-disc));
-  const after=Math.max(0,sub-disc-tokenDisc), fee=after*.03;
+  const afterDisc=Math.max(0,sub-disc);
+  const creditDisc=Math.min(_storeCreditApplied,afterDisc);
+  const after=Math.max(0,afterDisc-creditDisc), fee=after*.08;
   return Number((after+fee).toFixed(2));
 }
 
@@ -4440,6 +4454,7 @@ async function openStripeCheckout(rblxUser, email, tot){
         discordUser: discordUser ? { id: discordUser.id, username: discordUser.username } : null,
         cart:        cart.map(i => ({ name: i.name, price: i.price, qty: i.qty || 1, game: i.game || '' })),
         promoCode:   promoCode || null,
+        storeCredit: _storeCreditApplied > 0 ? _storeCreditApplied : 0,
         description: cart.map(i=>i.name).join(', '),
       }),
     });
@@ -6218,14 +6233,9 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode, tok
   // Mark promo code as used for this account (1-time use enforcement)
   const usedCode = promoCode || (promoApplied ? document.getElementById('promoIn')?.value.trim().toUpperCase() : null);
   if(usedCode) markPromoUsed(usedCode);
-  // Deduct tokens used
-  const tUsed = tokensUsed || _tokensApplied || 0;
-  if(tUsed > 0){
-    const cur = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
-    localStorage.setItem('silv_tokens_'+currentUser.email, Math.max(0, cur-tUsed));
-    fetch(BOT_WEBHOOK_URL.replace('/order','/use-tokens'),{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,tokens:tUsed})}).catch(()=>{});
-    _tokensApplied=0;
-  }
+  // Reset store credit applied (already deducted server-side in /create-checkout)
+  _storeCreditApplied=0;
+  _tokensApplied=0;
   // Award loyalty points: 10 pts per $1 spent
   let earnedPts = Math.floor((total||0) * 10);
 
@@ -6273,12 +6283,15 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode, tok
     const htok = document.getElementById('apHeaderTokens'); if(htok) htok.textContent = newPts;
   }
   saveUsers(users);
-  // Sync to bot
+  // Sync to bot — bot computes loyalty points server-side from total
   try {
     fetch(BOT_WEBHOOK_URL.replace('/order','/account/order'), {
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
       body:JSON.stringify({ email:currentUser.email, orderId, total, items:items.map(i=>({name:i.name})), paymentMethod:method }),
+    }).then(r=>r.json()).then(d=>{
+      // Sync server-authoritative points back to localStorage
+      if(d.loyaltyPoints!==undefined) try{localStorage.setItem('silv_tokens_'+currentUser.email, d.loyaltyPoints);}catch{}
     }).catch(()=>{});
   } catch(e){}
 }

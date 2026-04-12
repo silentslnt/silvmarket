@@ -184,6 +184,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .view-all:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,51,102,.3)}
 
+.sec-search-wrap{position:relative;margin-bottom:18px}.sec-search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.35}.sec-search{width:100%;max-width:340px;padding:9px 13px 9px 34px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;outline:none;transition:border-color .15s,background .15s}.sec-search::placeholder{color:rgba(255,255,255,.28)}.sec-search:focus{border-color:rgba(147,51,234,.5);background:rgba(255,255,255,.07)}.sec-no-results{display:none;color:rgba(255,255,255,.3);font-size:13px;font-family:'Rajdhani',sans-serif;padding:12px 2px}
 .jump-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px;
   background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
   border-radius:12px;padding:10px 14px}
@@ -1381,6 +1382,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt jtb" id="rcat-robux"    onclick="filterRobuxCat(this,'robux')"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Robux</button>
     <button class="jt"     id="rcat-services" onclick="filterRobuxCat(this,'services')"><img src="https://silvmarket.shop/images/Roblox%20services.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Followers / Members / Likes</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Robux…" oninput="secSearch('robuxGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="robuxGrid"><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div></div>
 </section>
 
@@ -1421,6 +1423,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits')">🛒 Add to Cart</button>
     </div>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blox Fruits…" oninput="secSearch('bfGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="bfGrid"><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div></div>
 </section>
 
@@ -1448,6 +1451,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" style="color:#e5e7eb;border-color:rgba(229,231,235,.25)" onclick="filterBR(this,'yin-yang')">☯️ Yin Yang</button>
     <button class="jt" style="color:#a855f7;border-color:rgba(168,85,247,.3)" onclick="filterBR(this,'cursed')">💀 Cursed</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Brainrots…" oninput="secSearch('brainrotGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="brainrotGrid"></div>
 </section>
 
@@ -1469,6 +1473,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterRIV(this,'cases')">📫 Cases</button>
     <button class="jt" onclick="filterRIV(this,'season-pass')">🎫 Season Pass</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Rivals…" oninput="secSearch('rivalsGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="rivalsGrid"></div>
 </section>
 
@@ -1491,6 +1496,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterMM2(this,'set')">🗡️ Sets</button>
     <button class="jt" onclick="filterMM2(this,'bundle')">🎁 Bundles</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search MM2…" oninput="secSearch('mm2Grid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="mm2Grid"></div>
 </section>
 
@@ -1510,6 +1516,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt jtc" onclick="filterTS(this,'all')">🌊 All</button>
     <button class="jt" onclick="filterTS(this,'items')">💎 Items</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Tsunami…" oninput="secSearch('tsunamiGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="tsunamiGrid"></div>
 </section>
 
@@ -1532,6 +1539,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
     <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Sailor Piece…" oninput="secSearch('spGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="spGrid"></div>
 </section>
 
@@ -1553,6 +1561,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterAM(this,'mid-tier')">💎 Mid Tier</button>
     <button class="jt" onclick="filterAM(this,'high-tier')">👑 High Tier</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Adopt Me…" oninput="secSearch('amGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="amGrid"></div>
 </section>
 
@@ -1574,6 +1583,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
     <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grow a Garden…" oninput="secSearch('gagGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="gagGrid"></div>
 </section>
 
@@ -1595,6 +1605,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterNT(this,'bundles')">📦 Bundles</button>
     <button class="jt" onclick="filterNT(this,'currency')">🪙 Currency</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search 99 Nights…" oninput="secSearch('nightsGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="nightsGrid"></div>
 </section>
 
@@ -1617,6 +1628,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterGPO(this,'accessories')">💍 Accessories</button>
     <button class="jt" onclick="filterGPO(this,'bundles')">📦 Bundles</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grand Piece Online…" oninput="secSearch('gpoGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="gpoGrid"></div>
 </section>
 
@@ -1638,6 +1650,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterBB(this,'passes')">🎟️ Passes</button>
     <button class="jt" onclick="filterBB(this,'items')">💎 Items</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blade Ball…" oninput="secSearch('bbGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="bbGrid"></div>
 </section>
 
@@ -1660,6 +1673,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterAV(this,'exclusive')">👑 Exclusive</button>
     <button class="jt" onclick="filterAV(this,'gamepass')">🎮 Gamepass</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Anime Vanguards…" oninput="secSearch('avGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="avGrid"></div>
 </section>
 
@@ -1684,6 +1698,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterBL(this,'rings')">💍 Rings</button>
     <button class="jt" onclick="filterBL(this,'items')">🗡️ Items</button>
   </div>
+  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bloodlines…" oninput="secSearch('blGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="blGrid"></div>
 </section>
 
@@ -3389,6 +3404,23 @@ function setFM(name,mode){
   renderBF(window._bfFilter||'all');
   setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
 }
+// ── SECTION INLINE SEARCH ─────────────────────────────────────
+function secSearch(gridId, q){
+  const grid = document.getElementById(gridId);
+  if(!grid) return;
+  const ql = q.trim().toLowerCase();
+  let visible = 0;
+  grid.querySelectorAll('.pc').forEach(card => {
+    const name = (card.querySelector('.pc-n')?.textContent || '').toLowerCase();
+    const show = !ql || name.includes(ql);
+    card.style.display = show ? '' : 'none';
+    if(show) visible++;
+  });
+  // Show "no results" message if nothing matches
+  const noRes = grid.closest('section')?.querySelector('.sec-no-results');
+  if(noRes) noRes.style.display = (ql && visible===0) ? 'block' : 'none';
+}
+
 function filterBF(btn,cat){
   window._bfFilter=cat;
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');

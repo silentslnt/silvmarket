@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<script>
+var path = window.location.pathname.replace(/^\//, '').toLowerCase();
+var GAME_MAP = {
+  'robux':         'robux',
+  'bf':            'bf',
+  'blox-fruits':   'bf',
+  'brainrot':      'brainrot',
+  'rivals':        'rivals',
+  'mm2':           'mm2',
+  'murder-mystery':'mm2',
+  'tsunami':       'tsunami',
+  'sp':            'sp',
+  'sailor-piece':  'sp',
+  'am':            'am',
+  'adopt-me':      'am',
+  'gag':           'gag',
+  'grow-a-garden': 'gag',
+  'nights':        'nights',
+  'gpo':           'gpo',
+  'grand-piece':   'gpo',
+  'bb':            'bb',
+  'av':            'av',
+  'bl':            'bl',
+  'bloodlines':    'bl'
+};
+if (GAME_MAP[path]) {
+  window.location.replace('/?game=' + GAME_MAP[path]);
+} else {
+  window.location.replace('/');
+}
+</script>
+</head>
+<body></body>
+</html>

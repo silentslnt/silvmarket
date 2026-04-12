@@ -2154,6 +2154,20 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .hm-rv-section{padding:0 12px}
   .hm-section-label{font-size:11px}
   .hm-sec-row{padding:0 12px}
+
+  /* Game section grids: 2-column layout instead of horizontal scroll */
+  .S .h-scroll{display:grid!important;grid-template-columns:repeat(2,1fr);gap:10px;overflow-x:unset!important;padding-bottom:0}
+  .S .h-scroll .pc{min-width:unset!important;max-width:unset!important;width:100%}
+  .S .h-scroll .sk{min-width:unset!important;width:100%}
+  /* Keep h-scroll horizontal in homeMenu (best sellers / bundles) */
+  #homeMenu .h-scroll{display:flex!important;overflow-x:auto!important}
+  /* Slightly larger cards in 2-col grid */
+  .S .h-scroll .pc-img{height:130px}
+  .S .h-scroll .pc-n{font-size:12px}
+  .S .h-scroll .pc-price{font-size:14px}
+  /* Section padding tighter */
+  .S{padding:24px 10px}
+  .sec-hd{padding:0 10px 14px}
 }
 </style>
 
@@ -5027,6 +5041,8 @@ function selectGame(el,name,icon,key){
   }
 
   if(key!=='all'){const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+  // Update page title for current game
+  document.title=name+' — Silv Market | Buy Roblox Items';
 }
 
 function applySort(el,type){
@@ -7374,6 +7390,7 @@ function goHome(){
   document.querySelector('.gd-item[data-key="all"]')?.classList.add('gd-active');
   if(document.getElementById('gsName'))document.getElementById('gsName').textContent='All Games';
   if(document.getElementById('gsIcon'))document.getElementById('gsIcon').textContent='🛒';
+  document.title='Silv Market — Buy Blox Fruits, Grow a Garden, MM2, Adopt Me & Roblox Items | Best Prices';
 }
 
 function toggleNavSG(){
@@ -7471,5 +7488,6 @@ setTimeout(renderHomeMenu, 0);
 })();
 </script>
 <div id="toastStack"></div>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>

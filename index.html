@@ -5459,10 +5459,10 @@ const VIEW_ALL_CONFIG = {
   nights:   { title:'99 Nights',     img:'https://silvmarket.shop/images/99_nights.png', items:()=>NIGHTS, filters:['all','currency'] },
   tsunami:  { title:'Escape Tsunami', img:'https://silvmarket.shop/images/escape_tsunami.jpg', items:()=>TSUNAMI, filters:['all','items'] },
   gpo:      { title:'Grand Piece Online', img:'https://silvmarket.shop/images/gpo.jpg', items:()=>GPO, filters:['all','fruits','weapons','accessories','bundles'] },
-  sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','sets','items'] },
+  sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','keys','rerolls','items','sets'] },
   bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
   av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
-  bl:       { title:'Bloodlines',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','eyes','souls','schematics','rings','items'] },
+  bl:       { title:'Bloodlines',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
@@ -7195,7 +7195,7 @@ function _hmGameCard(g){
     ? `<img class="hm-gc-img" src="${g.img}" alt="${g.name}"${g.imgStyle?' style="'+g.imgStyle+'"':''} onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
     + `<div class="hm-gc-em" style="display:none">${g.em}</div>`
     : `<div class="hm-gc-em">${g.em}</div>`;
-  return `<div class="hm-gc" onclick="openViewAll('${g.key}')">${imgHtml}<div class="hm-gc-name">${g.name}</div><div class="hm-gc-badge">SHOP NOW</div></div>`;
+  return `<div class="hm-gc" onclick="goToGame('${g.key}')">${imgHtml}<div class="hm-gc-name">${g.name}</div><div class="hm-gc-badge">SHOP NOW</div></div>`;
 }
 
 function _hmItemCard(i){
@@ -7292,13 +7292,25 @@ function toggleNavSG(){
       const imgHtml = g.img
         ? `<img src="${g.img}" onerror="this.style.display='none'">`
         : `<div class="nav-sg-item-em">${g.em}</div>`;
-      return `<div class="nav-sg-item" onclick="openViewAll('${g.key}');closeNavSG()">${imgHtml}<span>${g.name}</span></div>`;
+      return `<div class="nav-sg-item" onclick="goToGame('${g.key}');closeNavSG()">${imgHtml}<span>${g.name}</span></div>`;
     }).join('');
   }
 }
 function closeNavSG(){
   document.getElementById('navSgBtn')?.classList.remove('open');
   document.getElementById('navSgDrop')?.classList.remove('open');
+}
+function goToGame(key){
+  if(key==='discord'){window.open(DISCORD_INVITE,'_blank');return;}
+  const el=document.querySelector('.gd-item[data-key="'+key+'"]');
+  if(el){
+    const name=el.querySelector('.gd-label')?.textContent||key;
+    const icon=el.querySelector('.gd-icon')?.textContent||'';
+    selectGame(el,name,icon,key);
+  } else {
+    const sec=document.getElementById(key);
+    if(sec){const navH=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||64;window.scrollTo({top:Math.max(0,sec.getBoundingClientRect().top+window.scrollY-navH-16),behavior:'smooth'});}
+  }
 }
 document.addEventListener('click', e => {
   if(!document.getElementById('navSgWrap')?.contains(e.target)) closeNavSG();

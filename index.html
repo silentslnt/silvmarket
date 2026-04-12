@@ -282,6 +282,9 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   border:1px solid rgba(255,255,255,.1)}
 .stock-low{color:var(--red2);border-color:rgba(255,51,102,.3)}
 .stock-ok{color:var(--green);border-color:rgba(0,230,118,.3)}
+.pc-save-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg,#ff6b35,#ff10f0);color:#fff;font-family:Orbitron,sans-serif;font-size:9px;font-weight:700;padding:3px 7px;border-radius:8px;z-index:5;letter-spacing:.5px;pointer-events:none}
+.pc-bundle-items{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:5px;line-height:1.5;white-space:normal}
+.pc-orig{font-size:11px;color:rgba(255,255,255,.35);text-decoration:line-through;margin-bottom:1px}
 
 .type-pill{position:absolute;bottom:10px;left:9px;z-index:3;
   font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;
@@ -1284,6 +1287,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
   <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
     <div class="h-scroll" id="bsGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
+    <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+  </div>
+
+  <!-- Bundle Deals -->
+  <div class="hm-sec-row" style="margin-top:36px">
+    <div class="hm-section-label">Bundle Deals</div>
+    <div class="hm-sec-badge" style="background:linear-gradient(135deg,#ff6b35,#ff10f0)">🔥 Save More</div>
+  </div>
+  <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
+    <div class="h-scroll" id="bundleGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
     <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
   </div>
 </section>
@@ -3167,7 +3180,7 @@ const GPO = [
   {n:"Buddha",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WNqggI2g8TpADEHWY3L1LSwjd9nct3jbsvluwr75.png"},
   {n:"Ope",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/o6WNS7RYpCFmFSWg8L3s1X6K9K1N8XORVKXfEWSN.png"},
   {n:"All Seeing Holly",p:34.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9zEMVYyo14DSwnYr9lNZP7dbKB6l3C6V6D45pyiA.png"},
-  {n:"Prestige Candy Cane",p:779.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
+  {n:"Prestige Candy Cane",p:729.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
   {n:"All Seeing Ba'al",p:39.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png"},
   {n:"Jesters Outfit",p:85.99,oldP:null,badge:"rare",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/roA95BZk4Smsj7b9gzadHuSSnWd9vb3xlAVx0IL7.png"},
   {n:"Prestige Firework Lancer",p:589.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zcDWmjrlCIK3eKT3Fo0i0ZK8DH8OK5ahsVPbMIUz.png"},
@@ -3348,7 +3361,7 @@ const BLOODLINES = [
   {n:'Hyuga Race',      em:'🧬',p:34.99, badge:'',    stock:99,sub:'races',rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Races.png'},
   {n:'Uchiha Race',     em:'🧬',p:69.99, badge:'hot', stock:99,sub:'races',rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Uchiha.png'},
   {n:'Otsutsuki Race',  em:'🧬',p:69.99, badge:'hot', stock:99,sub:'races',rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Otsutsuki.png'},
-  {n:'Yuki Race',       em:'🧬',p:300.00,badge:'best',stock:99,sub:'races',rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Yuki.webp'},
+  {n:'Yuki Race',       em:'🧬',p:300.00,badge:'best',stock:0, sub:'races',rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Yuki.webp',oos:true},
   // ── EYES ──────────────────────────────────────────────────────
   {n:'Rinnegan Eye + Mangekyou Eye',                em:'👁️',p:65.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
   {n:'Byakugan Eye',                                em:'🌑',p:12.99,badge:'hot', stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Byakugan.webp'},
@@ -3546,9 +3559,11 @@ const PM_SEL     = {dc:'sdc',cr:'scr'};
 const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sale',best:'b-best',oos:'b-oos',rare:'b-rare',perm:'b-perm',bundle:'b-new',popular:'b-hot'};
 const BADGE_LBL = {hot:'🔥 HOT',new:'✨ NEW',myth:'MYTHICAL',leg:'LEGENDARY',sale:'SALE',best:'BEST',oos:'SOLD OUT',rare:'RARE',perm:'PERM',bundle:'BUNDLE',popular:'POPULAR'};
 function bdg(b){return b&&BADGE_CLS[b]?`<div class="pbadge ${BADGE_CLS[b]}">${BADGE_LBL[b]||b.toUpperCase()}</div>`:''}
-function stk(s){
-  if(s===undefined||s===null||s>=20) return '';
-  if(s===0) return '';
+function stk(s,game){
+  // Only show stock badge for Blox Fruits and Steal a Brainrot
+  if(game!=='bf'&&game!=='brainrot') return '';
+  if(s===undefined||s===null||s===0) return '';
+  if(s>=20) return `<div class="stock-badge stock-ok">✅ 99+ IN STOCK</div>`;
   if(s<=5) return `<div class="stock-badge stock-low">⚠️ ${s} LEFT</div>`;
   return `<div class="stock-badge stock-ok">✅ ${s} LEFT</div>`;
 }
@@ -3785,7 +3800,7 @@ function mkCard(i,game,gcls){
   <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
-      ${bdg(i.badge)}${stk(i.stock)}
+      ${bdg(i.badge)}${stk(i.stock,game)}
       ${mkFavBtn(i.n)}
     </div>
     <div class="pc-body">
@@ -3805,7 +3820,7 @@ function mkCard(i,game,gcls){
   <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
-      ${bdg(i.badge)}${stk(i.stock)}
+      ${bdg(i.badge)}${stk(i.stock,game)}
       ${mkFavBtn(i.n)}
     </div>
     <div class="pc-body">
@@ -3879,6 +3894,14 @@ const BESTSELLERS = [
   {n:'Shiny Seban (Seven)',          em:'✨',p:'$50.00', game:'Anime Vanguards',    badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png'},
   {n:'10,000 Robux',                 em:'💎',p:'$55.00', game:'Robux',              badge:'best',stock:99, bg:'r-robux',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png'},
 ];
+// ── BUNDLE DEALS ─────────────────────────────────────────────
+const BUNDLES = [
+  {n:'Blox Beast Trio',desc:'Perm Tiger + Phoenix + Mammoth',game:'Blox Fruits',em:'🐯',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/leopard.png',items:['Perm Tiger','Perm Phoenix','Perm Mammoth'],originalP:50.47,p:41.99,stock:99},
+  {n:'Legendary Duo Pack',desc:'Perm Dough + Perm Shadow',game:'Blox Fruits',em:'🍞',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dough.png',items:['Perm Dough','Perm Shadow'],originalP:30.48,p:24.99,stock:99},
+  {n:'Logia Starter Bundle',desc:'Perm Light + Magma + Ice',game:'Blox Fruits',em:'✨',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/light.png',items:['Perm Light','Perm Magma','Perm Ice'],originalP:20.47,p:16.99,stock:99},
+  {n:'Brainrot Starter Pack',desc:'3 starter-tier units',game:'Steal a Brainrot',em:'💀',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png',items:['La Secret Combinasion $125M/s','Esok Sekolah $330m/s','67 $7.5M/s'],originalP:15.97,p:12.99,stock:99},
+  {n:'SP Power Bundle',desc:'100x Aura Crates + Aizen Gamepass',game:'Sailor Piece',em:'📦',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png',items:['100x Aura Crates','Aizen'],originalP:17.99,p:14.99,stock:99},
+];
 // Live price lookup: maps each BESTSELLERS entry to its real game array
 // so prices automatically stay in sync when the game arrays change.
 const _bsGameArrays={
@@ -3923,7 +3946,43 @@ function renderBS(){
       +'</div>'
     +'</div>';
   }).join('');
-}document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
+}
+
+function renderBundles(){
+  var el=document.getElementById('bundleGrid');
+  if(!el)return;
+  el.innerHTML=BUNDLES.map(function(b){
+    var savePct=b.originalP>0?Math.round((1-b.p/b.originalP)*100):0;
+    var pStr=fmtPrice(b.p);
+    var origStr=fmtPrice(b.originalP);
+    var safeName=b.n.replace(/'/g,"\\'");
+    var imgHtml=b.img
+      ?('<img src="'+b.img+'" alt="'+b.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(b.em||'📦')+'</span>')
+      :('<span class="em">'+(b.em||'📦')+'</span>');
+    return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\'))addBundleToCart(\''+safeName+'\')">'
+      +'<div class="pc-img '+(b.bg||'r-rare')+'">'
+        +imgHtml
+        +(savePct>0?'<div class="pc-save-badge">SAVE '+savePct+'%</div>':'')
+      +'</div>'
+      +'<div class="pc-body">'
+        +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+b.game+'</div>'
+        +'<div class="pc-n">'+b.n+'</div>'
+        +'<div class="pc-bundle-items">'+b.items.join(' · ')+'</div>'
+        +'<div class="pc-orig">'+origStr+'</div>'
+        +'<div class="pc-price">'+pStr+'</div>'
+        +'<button class="pc-btn" onclick="event.stopPropagation();addBundleToCart(\''+safeName+'\')">🎁 Add Bundle to Cart</button>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function addBundleToCart(name){
+  var b=BUNDLES.find(function(x){return x.n===name;});
+  if(!b)return;
+  addToCart(b.n,fmtPrice(b.p),b.em||'🎁',b.game,b.img||'');
+}
+
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
 
 // ── ROBLOX USERNAME VALIDATION ────────────────────────────────
 let _rblxTimer=null;
@@ -7008,7 +7067,7 @@ function init(){
   // Update language/currency nav label
   const lcBtn = document.getElementById('langCurrLabel');
   if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;
-  renderRobux();renderBF();renderBS();
+  renderRobux();renderBF();renderBS();renderBundles();
   document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');
   document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');
   document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');

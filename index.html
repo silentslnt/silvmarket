@@ -3769,7 +3769,7 @@ function saveLangCurr(){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',blb:'Be a Lucky Block',vbl:'Volleyball Legends',dth:'Death Ball'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
@@ -5460,7 +5460,12 @@ const VIEW_ALL_CONFIG = {
   sp:       { title:'Sailor Piece',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png', items:()=>SP, filters:['all','gamepasses','keys','rerolls','items','sets'] },
   bb:       { title:'Blade Ball',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png', items:()=>BB, filters:['all','crates','passes','items'] },
   av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
-  bl:       { title:'Bloodlines',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg', items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
+  bl:       { title:'Bloodlines',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg',           items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
+  fisch:    { title:'Fisch',              img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp',                   items:()=>FISCH,      filters:['all','rods','fish','items','currency'] },
+  bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','resources','eggs','passes'] },
+  blb:      { title:'Be a Lucky Block',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png',   items:()=>BLB,        filters:['all','passes','items','pets','currency'] },
+  vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all'] },
+  dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[

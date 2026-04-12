@@ -4948,6 +4948,7 @@ function toggleGS(){document.getElementById('gsBtn').classList.toggle('open');do
 function toggleSort(){document.getElementById('sortBtn').classList.toggle('open');document.getElementById('sortDrop').classList.toggle('open');}
 
 function selectGame(el,name,icon,key){
+  var gb=document.getElementById('gameBar');if(gb)gb.style.display='';
   document.getElementById('gsName').textContent=name;
   const gsIconEl=document.getElementById('gsIcon');
   const imgUrl=el.querySelector('.gd-icon img');
@@ -7028,6 +7029,19 @@ function init(){
 }
 init();
 
+// ── HIDE ALL GAME SECTIONS ON LOAD (show home menu first) ────────
+(function initHideSections(){
+  if(new URLSearchParams(location.search).get('game')) return; // let checkGameParam handle
+  ALL_SECTION_IDS.forEach(function(id){
+    var s=document.getElementById(id);if(!s)return;
+    s.style.display='none';
+    var dl=s.nextElementSibling;
+    if(dl&&dl.classList.contains('div-line'))dl.style.display='none';
+  });
+  var gb=document.getElementById('gameBar');
+  if(gb)gb.style.display='none';
+})();
+
 // ── SCROLL TO GAME SECTION FROM URL PARAM (?game=rivals etc) ──
 (function checkGameParam(){
   const params = new URLSearchParams(location.search);
@@ -7039,12 +7053,15 @@ init();
   if(!id) return;
   const el = document.getElementById(id);
   if(!el) return;
+  // Show all sections + game bar, hide home menu
+  ALL_SECTION_IDS.forEach(function(sid){var s=document.getElementById(sid);if(s)s.style.display='';var dl=s?.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display='';});
+  var gb=document.getElementById('gameBar');if(gb)gb.style.display='';
+  var hm=document.getElementById('homeMenu');if(hm)hm.classList.add('hm-hidden');
   function doScroll(){
     const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||64;
     const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
-  // Try immediately, then again after full render
   setTimeout(doScroll, 200);
   setTimeout(doScroll, 800);
 })();
@@ -7305,9 +7322,10 @@ function closeNavSG(){
 }
 function goToGame(key){
   if(key==='discord'){window.open(DISCORD_INVITE,'_blank');return;}
-  // Hide home menu, show shop
+  // Hide home menu, show shop + game bar
   const hm=document.getElementById('homeMenu');
   if(hm) hm.classList.add('hm-hidden');
+  const gb=document.getElementById('gameBar');if(gb)gb.style.display='';
   const el=document.querySelector('.gd-item[data-key="'+key+'"]');
   if(el){
     const name=el.querySelector('.gd-label')?.textContent||key;

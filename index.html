@@ -4152,7 +4152,7 @@ function updateCOSum(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const disc=sub*(discPct/100);
-  const tokenDisc=Math.min(_tokensApplied/10,Math.max(0,sub-disc));
+  const tokenDisc=Math.min(_tokensApplied/10000,Math.max(0,sub-disc));
   const after=Math.max(0,sub-disc-tokenDisc),fee=after*.08,tot=after+fee;
   document.getElementById('coSub').textContent='$'+sub.toFixed(2);
   document.getElementById('coDisc').textContent=disc>0?'-$'+disc.toFixed(2):'—';
@@ -4255,10 +4255,10 @@ function _setupTokenRedeemUI(){
   const tokens=parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
   const block=document.getElementById('tokenRedeemBlock');
   if(!block) return;
-  if(tokens<10){block.style.display='none';return;}
+  if(tokens<1000){block.style.display='none';return;}
   block.style.display='';
   const lbl=document.getElementById('tokenAvailLbl');
-  if(lbl) lbl.textContent=`(${tokens} available · worth $${(Math.floor(tokens/10)).toFixed(2)})`;
+  if(lbl) lbl.textContent=`(${tokens.toLocaleString()} pts · worth $${(tokens/10000).toFixed(2)})`;
   const btn=document.getElementById('tokenRedeemBtn');
   if(btn){btn.textContent='Use Tokens';btn.style.background='rgba(255,215,0,.1)';}
   document.getElementById('tokenRedeemStatus').textContent='';
@@ -4270,7 +4270,7 @@ function toggleTokenRedeem(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const afterDisc=Math.max(0,sub-sub*(discPct/100));
-  const maxTokens=Math.min(tokens,Math.floor(afterDisc*10));
+  const maxTokens=Math.min(tokens,Math.floor(afterDisc*10000));
   const btn=document.getElementById('tokenRedeemBtn');
   const statusEl=document.getElementById('tokenRedeemStatus');
   if(_tokensApplied>0){
@@ -4280,7 +4280,7 @@ function toggleTokenRedeem(){
   } else {
     _tokensApplied=maxTokens;
     if(btn){btn.textContent='Remove';btn.style.background='rgba(255,215,0,.22)';}
-    if(statusEl) statusEl.textContent=`−$${(maxTokens/10).toFixed(2)} off`;
+    if(statusEl) statusEl.textContent=`−$${(maxTokens/10000).toFixed(2)} off`;
   }
   updateCOSum();
 }
@@ -4348,7 +4348,7 @@ function calcTotal(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const discPct=promoApplied?promoPct:(_referralDiscount?5:0);
   const disc=sub*(discPct/100);
-  const tokenDisc=Math.min(_tokensApplied/10, Math.max(0,sub-disc));
+  const tokenDisc=Math.min(_tokensApplied/10000, Math.max(0,sub-disc));
   const after=Math.max(0,sub-disc-tokenDisc), fee=after*.03;
   return Number((after+fee).toFixed(2));
 }
@@ -6227,14 +6227,50 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode, tok
     _tokensApplied=0;
   }
   // Award loyalty points: 10 pts per $1 spent
-  const earnedPts = Math.floor((total||0) * 10);
+  let earnedPts = Math.floor((total||0) * 10);
+
+  // ── Achievements ──────────────────────────────────────────────
+  const achKey = 'silv_ach_'+currentUser.email;
+  let ach = {}; try{ ach = JSON.parse(localStorage.getItem(achKey)||'{}'); }catch{}
+  let achBonus = 0;
+  const newAchs = [];
+
+  // Track games bought from
+  const gamesBought = new Set(ach.games||[]);
+  items.forEach(i => { if(i.game) gamesBought.add(i.game); });
+  ach.games = [...gamesBought];
+
+  // Track order count
+  ach.orders = (ach.orders||0) + 1;
+
+  // Achievement: First purchase
+  if(!ach.first_purchase){ ach.first_purchase=true; achBonus+=500; newAchs.push({id:'first_purchase',name:'First Purchase',pts:500}); }
+  // Achievement: 5 orders
+  if(ach.orders>=5 && !ach.loyal){ ach.loyal=true; achBonus+=1500; newAchs.push({id:'loyal',name:'Loyal Customer',pts:1500}); }
+  // Achievement: 10 orders
+  if(ach.orders>=10 && !ach.veteran){ ach.veteran=true; achBonus+=3000; newAchs.push({id:'veteran',name:'Veteran Trader',pts:3000}); }
+  // Achievement: Buy from 3 different game sections
+  if(gamesBought.size>=3 && !ach.explorer){ ach.explorer=true; achBonus+=1000; newAchs.push({id:'explorer',name:'Explorer',pts:1000}); }
+  // Achievement: Buy from 5 different game sections
+  if(gamesBought.size>=5 && !ach.collector){ ach.collector=true; achBonus+=2500; newAchs.push({id:'collector',name:'Collector',pts:2500}); }
+  // Achievement: Buy from all game sections (14 games)
+  if(gamesBought.size>=14 && !ach.master){ ach.master=true; achBonus+=10000; newAchs.push({id:'master',name:'Master Trader',pts:10000}); }
+  // Achievement: Single order over $50
+  if((total||0)>=50 && !ach.high_roller){ ach.high_roller=true; achBonus+=1000; newAchs.push({id:'high_roller',name:'High Roller',pts:1000}); }
+  // Achievement: Single order over $100
+  if((total||0)>=100 && !ach.whale){ ach.whale=true; achBonus+=2500; newAchs.push({id:'whale',name:'Big Spender',pts:2500}); }
+
+  localStorage.setItem(achKey, JSON.stringify(ach));
+  earnedPts += achBonus;
+
   if(earnedPts > 0){
     const curPts = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
-    localStorage.setItem('silv_tokens_'+currentUser.email, curPts + earnedPts);
+    const newPts = curPts + earnedPts;
+    localStorage.setItem('silv_tokens_'+currentUser.email, newPts);
     // Update live UI token displays
-    const tv = document.getElementById('udTokenVal'); if(tv) tv.textContent = curPts+earnedPts;
-    const apTok = document.getElementById('apTokenBalance'); if(apTok) apTok.textContent = curPts+earnedPts;
-    const htok = document.getElementById('apHeaderTokens'); if(htok) htok.textContent = curPts+earnedPts;
+    const tv = document.getElementById('udTokenVal'); if(tv) tv.textContent = newPts;
+    const apTok = document.getElementById('apTokenBalance'); if(apTok) apTok.textContent = newPts;
+    const htok = document.getElementById('apHeaderTokens'); if(htok) htok.textContent = newPts;
   }
   saveUsers(users);
   // Sync to bot

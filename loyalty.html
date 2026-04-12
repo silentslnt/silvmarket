@@ -182,6 +182,10 @@ a{color:inherit;text-decoration:none}
   <div class="sec-hd">Tier Rewards</div>
   <div class="tiers-grid" id="tiersGrid"></div>
 
+  <!-- Achievements -->
+  <div class="sec-hd">Achievements</div>
+  <div id="achGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:0"></div>
+
   <!-- FAQ -->
   <div class="sec-hd">Frequently Asked Questions</div>
   <div id="faqList"></div>
@@ -199,27 +203,38 @@ const TIER_SVGS = [
 ];
 
 const TIERS = [
-  { name:'Awakened',  min:0,           color:'#a0aec0', glow:'rgba(160,174,192,.3)', bg:'rgba(160,174,192,.1)',  border:'rgba(160,174,192,.25)',
+  { name:'Awakened',  min:0,       color:'#a0aec0', glow:'rgba(160,174,192,.3)', bg:'rgba(160,174,192,.1)',  border:'rgba(160,174,192,.25)',
     perks:['Full shop access','Standard pricing','Member status'] },
-  { name:'Advanced',  min:100,         color:'#60a5fa', glow:'rgba(96,165,250,.35)', bg:'rgba(96,165,250,.12)',  border:'rgba(96,165,250,.35)',
+  { name:'Advanced',  min:1000,    color:'#60a5fa', glow:'rgba(96,165,250,.35)', bg:'rgba(96,165,250,.12)',  border:'rgba(96,165,250,.35)',
     perks:['Priority support','Early sale access','Advanced badge'] },
-  { name:'Mythical',  min:10000,       color:'#c084fc', glow:'rgba(192,132,252,.4)', bg:'rgba(192,132,252,.12)', border:'rgba(192,132,252,.4)',
+  { name:'Mythical',  min:5000,    color:'#c084fc', glow:'rgba(192,132,252,.4)', bg:'rgba(192,132,252,.12)', border:'rgba(192,132,252,.4)',
     perks:['Exclusive item drops','Discord role','Mythical badge'] },
-  { name:'Ancient',   min:1000000,     color:'#fbbf24', glow:'rgba(251,191,36,.4)',  bg:'rgba(251,191,36,.12)',  border:'rgba(251,191,36,.4)',
+  { name:'Ancient',   min:25000,   color:'#fbbf24', glow:'rgba(251,191,36,.4)',  bg:'rgba(251,191,36,.12)',  border:'rgba(251,191,36,.4)',
     perks:['Bulk order discounts','Reserved stock access','Ancient badge'] },
-  { name:'Divine',    min:100000000,   color:'#f472b6', glow:'rgba(244,114,182,.4)', bg:'rgba(244,114,182,.1)',  border:'rgba(244,114,182,.4)',
+  { name:'Divine',    min:100000,  color:'#f472b6', glow:'rgba(244,114,182,.4)', bg:'rgba(244,114,182,.1)',  border:'rgba(244,114,182,.4)',
     perks:['Custom perks','Priority stock access','Divine badge'] },
-  { name:'Celestial', min:10000000000, color:'#fff',    glow:'rgba(255,255,255,.35)', bg:'rgba(255,255,255,.08)', border:'rgba(255,255,255,.3)',
+  { name:'Celestial', min:500000,  color:'#fff',    glow:'rgba(255,255,255,.35)', bg:'rgba(255,255,255,.08)', border:'rgba(255,255,255,.3)',
     perks:['Highest tier status','Exclusive Celestial badge','All previous perks'] },
 ];
 
+const ACHIEVEMENTS = [
+  { id:'first_purchase', name:'First Purchase',   desc:'Complete your first order',                    pts:500,   icon:'🛒' },
+  { id:'loyal',          name:'Loyal Customer',   desc:'Complete 5 orders',                            pts:1500,  icon:'🔄' },
+  { id:'veteran',        name:'Veteran Trader',   desc:'Complete 10 orders',                           pts:3000,  icon:'🏅' },
+  { id:'explorer',       name:'Explorer',         desc:'Buy from 3 different game sections',           pts:1000,  icon:'🗺️' },
+  { id:'collector',      name:'Collector',        desc:'Buy from 5 different game sections',           pts:2500,  icon:'📦' },
+  { id:'master',         name:'Master Trader',    desc:'Buy from all game sections',                   pts:10000, icon:'👑' },
+  { id:'high_roller',    name:'High Roller',      desc:'Place a single order over $50',                pts:1000,  icon:'💸' },
+  { id:'whale',          name:'Big Spender',      desc:'Place a single order over $100',               pts:2500,  icon:'🐋' },
+];
+
 const FAQS = [
-  ['How do I earn loyalty points?',        'You earn points automatically with every completed purchase. Points are credited instantly after your order is confirmed.'],
-  ['How many points do I earn per dollar?', 'You receive 10 loyalty points for every $1.00 spent. A $10 order earns 100 points. A $50 order earns 500 points.'],
-  ['When do I advance to the next tier?',   'Your tier updates automatically the moment your total points hit a threshold. Tiers are permanent — once reached, you stay there.'],
-  ['Do my points expire?',                  'No. Your loyalty points never expire as long as your Silv Market account remains active.'],
-  ['Where can I track my points?',          'Your current balance is shown on this page, in the Referral tab of your account panel, and in the user menu on every page.'],
-  ['What benefits do I get per tier?',      'Each tier unlocks perks including priority support, Discord roles, exclusive drops, and reserved stock. Full details are expanded as the program grows.'],
+  ['How do I earn loyalty points?',        'You earn 10 points for every $1.00 spent, credited instantly after your order is confirmed. You also earn bonus points by completing achievements.'],
+  ['How do I redeem points?',              '10,000 points = $1.00 off at checkout. Click "Use Points" in the cart to apply your balance as a discount.'],
+  ['What are achievements?',               'Achievements are one-time bonuses earned by hitting milestones — like your first purchase, buying from multiple game sections, or placing large orders. Each gives a point bonus.'],
+  ['When do I advance to the next tier?',  'Your tier updates automatically the moment your total points hit the threshold. Tiers are permanent — once reached, you never drop down.'],
+  ['Do my points expire?',                 'No. Your loyalty points never expire as long as your Silv Market account remains active.'],
+  ['Where can I track my points?',         'Your current balance and achievements are shown on this page and in your account panel.'],
 ];
 
 function fmt(n){
@@ -320,6 +335,31 @@ function init(){
   document.getElementById('nextDesc').textContent=next?`${fmt(next.min-pts)} pts to ${next.name}`:'Maximum tier achieved';
 
   buildTiersGrid(idx);
+  buildAchievements(email);
+}
+
+function buildAchievements(email){
+  const ach = email ? (()=>{ try{ return JSON.parse(localStorage.getItem('silv_ach_'+email)||'{}'); }catch{ return {}; } })() : {};
+  const ckSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  const lkSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  document.getElementById('achGrid').innerHTML = ACHIEVEMENTS.map(a=>{
+    const done = !!ach[a.id];
+    const bg    = done ? 'rgba(147,51,234,.1)'     : 'rgba(255,255,255,.03)';
+    const bdr   = done ? 'rgba(147,51,234,.4)'     : 'rgba(255,255,255,.07)';
+    const clr   = done ? '#fff'                    : 'rgba(255,255,255,.4)';
+    const ptsC  = done ? '#fbbf24'                 : 'rgba(255,255,255,.2)';
+    const filt  = done ? 'none'                    : 'grayscale(1)';
+    const opac  = done ? '1'                       : '0.35';
+    return '<div style="background:'+bg+';border:1px solid '+bdr+';border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;transition:border-color .2s">'
+      + '<div style="font-size:26px;flex-shrink:0;filter:'+filt+';opacity:'+opac+'">'+a.icon+'</div>'
+      + '<div style="flex:1;min-width:0">'
+        + '<div style="font-size:13px;font-weight:700;color:'+clr+';margin-bottom:3px">'+a.name+'</div>'
+        + '<div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:5px">'+a.desc+'</div>'
+        + '<div style="font-size:11px;font-family:\'Orbitron\',monospace;font-weight:800;color:'+ptsC+'">+'+a.pts.toLocaleString()+' pts</div>'
+      + '</div>'
+      + '<div style="flex-shrink:0">'+(done?ckSvg:lkSvg)+'</div>'
+      + '</div>';
+  }).join('');
 }
 
 init();

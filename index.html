@@ -4686,9 +4686,13 @@ function calcTotal(){
 async function payNow(){
   // ── Dev bypass ──────────────────────────────────────────────
   if(currentUser?.isDev && currentUser?.devActive){
-    const u=document.getElementById('rblxIn')?.value.trim();
-    const e=document.getElementById('emailIn')?.value.trim();
-    if(!u||!e){ alert('Fill in Roblox username and email to test.'); return; }
+    const rblxEl=document.getElementById('rblxIn');
+    const emailEl=document.getElementById('emailIn');
+    // Auto-fill from session if blank
+    if(rblxEl && !rblxEl.value.trim()) rblxEl.value='DevTest';
+    if(emailEl && !emailEl.value.trim()) emailEl.value=currentUser.email||'dev@silvmarket.shop';
+    const u=rblxEl?.value.trim()||'DevTest';
+    const e=emailEl?.value.trim()||currentUser.email||'dev@silvmarket.shop';
     const tot=calcTotal();
     const orderId=genOrderId();
     const claimKey=genClaimKey();
@@ -6691,7 +6695,9 @@ async function doLogin(){
 }
 function _completeLogin(email, u){
   const DEV_EMAIL = 'gibbstariq90@gmail.com';
-  currentUser = email === DEV_EMAIL ? { email, name:u.name, isDev:true } : { email, name:u.name };
+  const prevSession = loadSession();
+  const prevDevActive = prevSession?.email === email ? (prevSession.devActive || false) : false;
+  currentUser = email === DEV_EMAIL ? { email, name:u.name, isDev:true, devActive:prevDevActive } : { email, name:u.name };
   saveSession(currentUser);
   closeLoginModal();
   updateNavLogin();
@@ -6802,7 +6808,9 @@ function doLogout(){
       saveUsers(users);
     }
     const DEV_EMAIL = 'gibbstariq90@gmail.com';
-    currentUser = acct.email === DEV_EMAIL ? { email: acct.email, name: acct.name, isDev: true } : { email: acct.email, name: acct.name };
+    const prevSession = loadSession();
+    const prevDevActive = prevSession?.email === acct.email ? (prevSession.devActive || false) : false;
+    currentUser = acct.email === DEV_EMAIL ? { email: acct.email, name: acct.name, isDev: true, devActive: prevDevActive } : { email: acct.email, name: acct.name };
     saveSession(currentUser);
     updateNavLogin();
     checkNotificationBadge(); startNotifPoll();

@@ -716,8 +716,10 @@ function renderOrdersTable(){
   for(let i=0;i<orders.length;i++){
     try{
       const o = orders[i];
-      const icon    = guessIcon(o.items);
-      const names   = (o.items||[]).slice(0,2).join(', ') + (o.items&&o.items.length>2?' +'+( o.items.length-2)+' more':'') || '—';
+      // Normalize items — may be strings or {name:...} objects from bot sync
+      const itemNames = (o.items||[]).map(x => typeof x === 'string' ? x : (x.name||x.n||'Unknown'));
+      const icon    = guessIcon(itemNames);
+      const names   = itemNames.slice(0,2).join(', ') + (itemNames.length>2?' +'+(itemNames.length-2)+' more':'') || '—';
       const disc    = Number(o.discount||0);
       const claimKey= String(o.claimKey||'—');
       const orderId = String(o.orderId||'');

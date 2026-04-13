@@ -1770,9 +1770,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.32);color:#fbbf24" onclick="filterBSS(this,'all')">🐝 All</button>
-    <button class="jt" onclick="filterBSS(this,'resources')">🍯 Resources</button>
-    <button class="jt" onclick="filterBSS(this,'eggs')">🥚 Eggs</button>
-    <button class="jt" onclick="filterBSS(this,'passes')">🎟️ Passes</button>
+    <button class="jt" onclick="filterBSS(this,'skins')">🐻 Skins</button>
+    <button class="jt" onclick="filterBSS(this,'vouchers')">🎁 Vouchers</button>
+    <button class="jt" onclick="filterBSS(this,'beequips')">💍 Beequips</button>
+    <button class="jt" onclick="filterBSS(this,'stickers')">🪧 Stickers</button>
   </div>
   <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="bssGrid"></div>
@@ -3702,20 +3703,43 @@ const FISCH = [
 ];
 
 const BSS = [
-  // ── RESOURCES ─────────────────────────────────────────────────
-  {n:'Royal Jelly',            em:'👑',p:9.99, badge:'hot', stock:99,sub:'resources',rar:'rare',     bg:'r-rare'},
-  {n:'Star Jelly',             em:'⭐',p:16.99,badge:'best',stock:99,sub:'resources',rar:'legendary',bg:'r-legendary'},
-  {n:'Enzyme (x10)',           em:'🧪',p:5.49, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
-  {n:'Gumdrops (100)',         em:'🍬',p:4.99, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
-  {n:'Sprout Pack (x5)',       em:'🌱',p:6.99, badge:'',    stock:99,sub:'resources',rar:'uncommon', bg:'r-uncommon'},
-  // ── EGGS / PETS ───────────────────────────────────────────────
-  {n:'Mythical Bee Egg',       em:'🥚',p:24.99,badge:'best',stock:99,sub:'eggs',     rar:'mythical', bg:'r-mythical'},
-  {n:'Legendary Bee Egg',      em:'🐝',p:13.99,badge:'hot', stock:99,sub:'eggs',     rar:'legendary',bg:'r-legendary'},
-  {n:'Gifted Bee',             em:'✨',p:19.99,badge:'best',stock:99,sub:'eggs',     rar:'mythical', bg:'r-mythical'},
-  // ── GAMEPASSES ────────────────────────────────────────────────
-  {n:'10x Tickets Bundle',     em:'🎫',p:7.99, badge:'hot', stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
-  {n:'VIP Gamepass',           em:'👑',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  {n:'Honey Turbo Gamepass',   em:'🍯',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  // ── SKINS ─────────────────────────────────────────────────────
+  {n:'Bee Cub',                  em:'🐻',p:139.99,badge:'hot', stock:99,sub:'skins',    rar:'mythical', bg:'r-mythical'},
+  {n:'Peppermint Robo Cub',      em:'🐻',p:88.99, badge:'hot', stock:99,sub:'skins',    rar:'legendary',bg:'r-legendary'},
+  {n:'Snow Cub',                 em:'🐻',p:74.99, badge:'',    stock:99,sub:'skins',    rar:'legendary',bg:'r-legendary'},
+  {n:'Nessie',                   em:'🦕',p:59.99, badge:'',    stock:99,sub:'skins',    rar:'legendary',bg:'r-legendary'},
+  {n:'Gloomy Cub',               em:'🐻',p:54.99, badge:'',    stock:99,sub:'skins',    rar:'rare',     bg:'r-rare'},
+  {n:'Noob Cub',                 em:'🐻',p:38.99, badge:'',    stock:99,sub:'skins',    rar:'rare',     bg:'r-rare'},
+  {n:'ICY Crowned Hive Skin',    em:'👑',p:34.99, badge:'',    stock:99,sub:'skins',    rar:'rare',     bg:'r-rare'},
+  {n:'Doodle Cub',               em:'🐻',p:27.99, badge:'',    stock:99,sub:'skins',    rar:'rare',     bg:'r-rare'},
+  {n:'Star Cub',                 em:'⭐',p:16.50, badge:'',    stock:99,sub:'skins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Brown Cub',                em:'🐻',p:11.99, badge:'',    stock:99,sub:'skins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Stick Cub',                em:'🐻',p:10.80, badge:'',    stock:99,sub:'skins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Robo Cub',                 em:'🤖',p:8.49,  badge:'',    stock:99,sub:'skins',    rar:'uncommon', bg:'r-uncommon'},
+  // ── VOUCHERS ──────────────────────────────────────────────────
+  {n:'All Vouchers Bundle',      em:'🎁',p:12.99, badge:'best',stock:99,sub:'vouchers', rar:'legendary',bg:'r-legendary'},
+  {n:'Offline Voucher',          em:'💤',p:10.75, badge:'hot', stock:99,sub:'vouchers', rar:'rare',     bg:'r-rare'},
+  {n:'Bear Bee Voucher',         em:'🐝',p:6.99,  badge:'',    stock:99,sub:'vouchers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Cub Buddy Voucher',        em:'🐻',p:4.65,  badge:'',    stock:99,sub:'vouchers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'x2 Bee Gather Voucher',    em:'🍯',p:3.49,  badge:'',    stock:99,sub:'vouchers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'x2 Convert Speed Voucher', em:'⚡',p:2.99,  badge:'',    stock:99,sub:'vouchers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Ticket Voucher',           em:'🎫',p:1.99,  badge:'',    stock:99,sub:'vouchers', rar:'uncommon', bg:'r-uncommon'},
+  // ── BEEQUIPS ──────────────────────────────────────────────────
+  {n:'Smiley Sticker Beequip',   em:'😊',p:165.00,badge:'hot', stock:99,sub:'beequips', rar:'mythical', bg:'r-mythical'},
+  {n:'Charm Bracelet Beequip',   em:'💎',p:127.00,badge:'',    stock:99,sub:'beequips', rar:'mythical', bg:'r-mythical'},
+  {n:'Whistle Beequip',          em:'🎵',p:87.50, badge:'',    stock:99,sub:'beequips', rar:'legendary',bg:'r-legendary'},
+  {n:'Camphor Lip Balm Beequip', em:'💄',p:85.00, badge:'',    stock:99,sub:'beequips', rar:'legendary',bg:'r-legendary'},
+  {n:'Pink Shades Beequip',      em:'🕶️',p:47.50, badge:'',    stock:99,sub:'beequips', rar:'rare',     bg:'r-rare'},
+  {n:'Pinecone Beequip',         em:'🌲',p:24.99, badge:'',    stock:99,sub:'beequips', rar:'rare',     bg:'r-rare'},
+  {n:'Reindeer Antlers Beequip', em:'🦌',p:12.50, badge:'',    stock:99,sub:'beequips', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Candy Ring Beequip',       em:'🍬',p:5.75,  badge:'',    stock:99,sub:'beequips', rar:'uncommon', bg:'r-uncommon'},
+  // ── STICKERS / SIGNS ──────────────────────────────────────────
+  {n:'Classic Killroy Sign',     em:'🪧',p:6.99,  badge:'',    stock:99,sub:'stickers', rar:'rare',     bg:'r-rare'},
+  {n:'Interrobang Block Sign',   em:'⁉️',p:2.49,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Black Star Sticker',       em:'⭐',p:2.47,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Traffic Light Sign',       em:'🚦',p:1.99,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'TNT Sticker',              em:'💣',p:1.99,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Rubber Duck Sticker',      em:'🦆',p:1.99,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
 ];
 
 const BLB = [
@@ -5254,7 +5278,7 @@ const GAME_SUBS={
   av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
   bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
   fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'⛵ Boats',fn:'filterFISCH',val:'boats'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
-  bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🍯 Resources',fn:'filterBSS',val:'resources'},{label:'🥚 Eggs',fn:'filterBSS',val:'eggs'},{label:'🎟️ Passes',fn:'filterBSS',val:'passes'}],
+  bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
   blb:      [{label:'🟡 All',fn:'filterBLB',val:'all'},{label:'🎟️ Passes',fn:'filterBLB',val:'passes'},{label:'📦 Items',fn:'filterBLB',val:'items'},{label:'🐉 Pets',fn:'filterBLB',val:'pets'},{label:'💰 Currency',fn:'filterBLB',val:'currency'}],
   vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'✨ Styles',fn:'filterVBL',val:'styles'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'},{label:'💵 Currency',fn:'filterVBL',val:'currency'}],
   dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Cosmetics',fn:'filterDTH',val:'cosmetics'},{label:'💎 Currency',fn:'filterDTH',val:'currency'}],
@@ -5785,7 +5809,7 @@ const VIEW_ALL_CONFIG = {
   av:       { title:'Anime Vanguards',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png', items:()=>AV, filters:['all','units','shiny','exclusive','gamepass'] },
   bl:       { title:'Bloodlines',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg',           items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
   fisch:    { title:'Fisch',              img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp',                   items:()=>FISCH,      filters:['all','rods','fish','boats','items','currency'] },
-  bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','resources','eggs','passes'] },
+  bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','skins','vouchers','beequips','stickers'] },
   blb:      { title:'Be a Lucky Block',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png',   items:()=>BLB,        filters:['all','passes','items','pets','currency'] },
   vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all'] },
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all'] },

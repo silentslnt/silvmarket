@@ -1790,9 +1790,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="jump-row">
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.32);color:#a3e635" onclick="filterVBL(this,'all')">🏐 All</button>
-    <button class="jt" onclick="filterVBL(this,'styles')">✨ Styles</button>
+    <button class="jt" onclick="filterVBL(this,'spins')">🌀 Spins</button>
+    <button class="jt" onclick="filterVBL(this,'currency')">💎 Currency</button>
+    <button class="jt" onclick="filterVBL(this,'slots')">🎰 Slots</button>
     <button class="jt" onclick="filterVBL(this,'passes')">🎟️ Passes</button>
-    <button class="jt" onclick="filterVBL(this,'currency')">💵 Currency</button>
   </div>
   <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Volleyball Legends…" oninput="secSearch('vblGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="vblGrid"></div>
@@ -3718,19 +3719,50 @@ const BSS = [
 
 
 const VBL = [
-  // ── STYLES ────────────────────────────────────────────────────
-  {n:'Godly Style Unlock',     em:'✨',p:12.99,badge:'best',stock:99,sub:'styles',   rar:'legendary',bg:'r-legendary'},
-  {n:'Timeskip Style',         em:'⏰',p:9.99, badge:'hot', stock:99,sub:'styles',   rar:'rare',     bg:'r-rare'},
-  {n:'Mikage Style',           em:'🔥',p:10.99,badge:'',    stock:99,sub:'styles',   rar:'rare',     bg:'r-rare'},
-  {n:'Dragon Spike Style',     em:'🐉',p:14.99,badge:'',    stock:99,sub:'styles',   rar:'legendary',bg:'r-legendary'},
-  // ── GAMEPASSES ────────────────────────────────────────────────
-  {n:'2x EXP Gamepass',        em:'⚡',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  {n:'VIP Membership',         em:'👑',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
-  {n:'Victory Boost Pass',     em:'🏆',p:5.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  // ── SPINS / CURRENCY ──────────────────────────────────────────
-  {n:'Lucky Spin Pack (10x)',  em:'🎰',p:4.99, badge:'hot', stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
-  {n:'Style Slot Bundle (5)',  em:'🎯',p:7.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
-  {n:'500K Match Coins',       em:'💵',p:3.49, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  // ── SPINS ─────────────────────────────────────────────────────
+  {n:'200x Lucky Style Spins',    em:'🌀',p:105.00,badge:'hot', stock:99,sub:'spins',    rar:'mythical', bg:'r-mythical'},
+  {n:'100x Lucky Style Spins',    em:'🌀',p:61.00, badge:'best',stock:99,sub:'spins',    rar:'mythical', bg:'r-mythical'},
+  {n:'60 Lucky Ability Spins',    em:'🌀',p:60.00, badge:'',    stock:99,sub:'spins',    rar:'legendary',bg:'r-legendary'},
+  {n:'40 Lucky Style Spins',      em:'🌀',p:24.99, badge:'',    stock:99,sub:'spins',    rar:'legendary',bg:'r-legendary'},
+  {n:'20 Lucky Ability Spins',    em:'🌀',p:20.99, badge:'',    stock:99,sub:'spins',    rar:'legendary',bg:'r-legendary'},
+  {n:'50 Ability Spins',          em:'🌀',p:9.00,  badge:'',    stock:99,sub:'spins',    rar:'rare',     bg:'r-rare'},
+  {n:'20 Lucky Style Spins',      em:'🌀',p:11.85, badge:'',    stock:99,sub:'spins',    rar:'rare',     bg:'r-rare'},
+  {n:'5 Lucky Ability Spins',     em:'🌀',p:6.20,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'5 Lucky Style Spins',       em:'🌀',p:3.20,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'25 Style Spins',            em:'🌀',p:1.80,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'1 Lucky Ability Spin',      em:'🌀',p:2.31,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'10 Ability Spins',          em:'🌀',p:1.62,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'10 Style Spins',            em:'🌀',p:1.17,  badge:'',    stock:99,sub:'spins',    rar:'uncommon', bg:'r-uncommon'},
+  // ── CURRENCY ──────────────────────────────────────────────────
+  {n:'50000 Yen',                 em:'💴',p:59.99, badge:'hot', stock:99,sub:'currency', rar:'legendary',bg:'r-legendary'},
+  {n:'5900 Gems',                 em:'💎',p:13.50, badge:'',    stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
+  {n:'25000 Yen',                 em:'💴',p:13.25, badge:'',    stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
+  {n:'2900 Gems',                 em:'💎',p:7.10,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'7500 Yen',                  em:'💴',p:5.00,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'1100 Gems',                 em:'💎',p:3.00,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'2500 Yen',                  em:'💴',p:2.70,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'1000 Yen',                  em:'💴',p:1.37,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  {n:'250 Gems',                  em:'💎',p:0.85,  badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
+  // ── SLOTS ─────────────────────────────────────────────────────
+  {n:'Ability Slot 5',            em:'🎰',p:7.99,  badge:'',    stock:99,sub:'slots',    rar:'rare',     bg:'r-rare'},
+  {n:'Style Slot 12',             em:'🎰',p:3.25,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 9',              em:'🎰',p:3.38,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 8',              em:'🎰',p:3.38,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 10',             em:'🎰',p:3.00,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 6',              em:'🎰',p:2.77,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Ability Slot 4',            em:'🎰',p:2.20,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 5',              em:'🎰',p:2.00,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'Style Slot 4',              em:'🎰',p:1.57,  badge:'',    stock:99,sub:'slots',    rar:'uncommon', bg:'r-uncommon'},
+  // ── PASSES / BUNDLES ──────────────────────────────────────────
+  {n:'Easter Bundle',             em:'🐣',p:16.45, badge:'',    stock:99,sub:'passes',   rar:'legendary',bg:'r-legendary'},
+  {n:'Cyber Bundle',              em:'🤖',p:15.55, badge:'',    stock:99,sub:'passes',   rar:'legendary',bg:'r-legendary'},
+  {n:'Ultra Pass',                em:'🎫',p:11.70, badge:'hot', stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'Skip 20 Levels Pass',       em:'🎫',p:7.99,  badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'35 Seasonal Tiers',         em:'🏆',p:7.61,  badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
+  {n:'Toxic Pack',                em:'☠️',p:6.00,  badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Floppy Fish Bundle',        em:'🐟',p:5.50,  badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Premium Pass',              em:'⭐',p:5.50,  badge:'hot', stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'VIP',                       em:'👑',p:2.70,  badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
 ];
 
 const DTH = [
@@ -5235,7 +5267,7 @@ const GAME_SUBS={
   bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
   fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'⛵ Boats',fn:'filterFISCH',val:'boats'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
   bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
-  vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'✨ Styles',fn:'filterVBL',val:'styles'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'},{label:'💵 Currency',fn:'filterVBL',val:'currency'}],
+  vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'🌀 Spins',fn:'filterVBL',val:'spins'},{label:'💎 Currency',fn:'filterVBL',val:'currency'},{label:'🎰 Slots',fn:'filterVBL',val:'slots'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'}],
   dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Cosmetics',fn:'filterDTH',val:'cosmetics'},{label:'💎 Currency',fn:'filterDTH',val:'currency'}],
 };
 
@@ -5765,7 +5797,7 @@ const VIEW_ALL_CONFIG = {
   bl:       { title:'Bloodlines',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg',           items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
   fisch:    { title:'Fisch',              img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp',                   items:()=>FISCH,      filters:['all','rods','fish','boats','items','currency'] },
   bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','skins','vouchers','beequips','stickers'] },
-  vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all'] },
+  vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all','spins','currency','slots','passes'] },
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],

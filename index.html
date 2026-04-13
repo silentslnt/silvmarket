@@ -1814,8 +1814,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <span class="jump-label">Jump to:</span>
     <button class="jt" style="background:rgba(232,121,249,.1);border-color:rgba(232,121,249,.32);color:#e879f9" onclick="filterDTH(this,'all')">💀 All</button>
     <button class="jt" onclick="filterDTH(this,'weapons')">⚔️ Weapons</button>
-    <button class="jt" onclick="filterDTH(this,'cosmetics')">✨ Cosmetics</button>
-    <button class="jt" onclick="filterDTH(this,'currency')">💎 Currency</button>
+    <button class="jt" onclick="filterDTH(this,'auras')">✨ Auras</button>
+    <button class="jt" onclick="filterDTH(this,'gems')">💎 Gems</button>
+    <button class="jt" onclick="filterDTH(this,'bundles')">📦 Bundles</button>
   </div>
   <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="dthGrid"></div>
@@ -3177,8 +3178,8 @@ const GPO = [
   {n:"Buddha",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WNqggI2g8TpADEHWY3L1LSwjd9nct3jbsvluwr75.png"},
   {n:"Ope",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/o6WNS7RYpCFmFSWg8L3s1X6K9K1N8XORVKXfEWSN.png"},
   {n:"All Seeing Holly",p:34.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9zEMVYyo14DSwnYr9lNZP7dbKB6l3C6V6D45pyiA.png"},
-  {n:"Prestige Candy Cane",p:729.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
-  {n:"All Seeing Ba'al",p:39.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png"},
+  {n:"Prestige Candy Cane",p:699.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
+  {n:"All Seeing Ba'al",p:39. 99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png"},
   {n:"Jesters Outfit",p:85.99,oldP:null,badge:"rare",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/roA95BZk4Smsj7b9gzadHuSSnWd9vb3xlAVx0IL7.png"},
   {n:"Prestige Firework Lancer",p:589.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zcDWmjrlCIK3eKT3Fo0i0ZK8DH8OK5ahsVPbMIUz.png"},
   {n:"Prestige World Ender",p:399.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/OO9a2meMDsCUtyjdunmyLa2g5F7bBzVhO8QtfIld.png"},
@@ -3767,19 +3768,52 @@ const VBL = [
 
 const DTH = [
   // ── WEAPONS ───────────────────────────────────────────────────
-  {n:'Diamond Aegis Sword',    em:'💎',p:24.99,badge:'best',stock:99,sub:'weapons',  rar:'mythical', bg:'r-mythical'},
-  {n:'Champion Scythe',        em:'⚔️',p:13.99,badge:'hot', stock:99,sub:'weapons',  rar:'legendary',bg:'r-legendary'},
-  {n:'Void Reaper Blade',      em:'🌑',p:18.99,badge:'',    stock:99,sub:'weapons',  rar:'legendary',bg:'r-legendary'},
-  // ── COSMETICS ─────────────────────────────────────────────────
-  {n:'Void Aura Set',          em:'👁️',p:18.99,badge:'best',stock:99,sub:'cosmetics',rar:'legendary',bg:'r-legendary'},
-  {n:'Radiant Wings',          em:'🪽',p:11.99,badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
-  {n:'Demonic Shadow Set',     em:'🖤',p:16.99,badge:'hot', stock:99,sub:'cosmetics',rar:'legendary',bg:'r-legendary'},
-  {n:'Dark Angel Aura',        em:'👼',p:10.99,badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
-  {n:'Lightning Strike Effect',em:'⚡',p:7.99, badge:'',    stock:99,sub:'cosmetics',rar:'rare',     bg:'r-rare'},
-  // ── CURRENCY ──────────────────────────────────────────────────
-  {n:'10M Gems',               em:'💎',p:2.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
-  {n:'50M Gems',               em:'💎',p:9.99, badge:'hot', stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
-  {n:'200M Gems',              em:'💎',p:29.99,badge:'best',stock:99,sub:'currency', rar:'legendary',bg:'r-legendary'},
+  {n:'Diamond Aegis',               em:'⚔️',p:830.96, badge:'best',stock:99,sub:'weapons', rar:'mythical', bg:'r-mythical'},
+  {n:'Champion Scythe',             em:'⚔️',p:572.00, badge:'hot', stock:99,sub:'weapons', rar:'mythical', bg:'r-mythical'},
+  {n:'Hellion Scythe',              em:'⚔️',p:135.20, badge:'',    stock:99,sub:'weapons', rar:'mythical', bg:'r-mythical'},
+  {n:'Eclipse III',                 em:'⚔️',p:104.00, badge:'',    stock:99,sub:'weapons', rar:'legendary',bg:'r-legendary'},
+  {n:'Dual Colossal Bladehand',     em:'⚔️',p:46.70,  badge:'',    stock:99,sub:'weapons', rar:'legendary',bg:'r-legendary'},
+  {n:'Yule Massacre',               em:'⚔️',p:41.60,  badge:'',    stock:99,sub:'weapons', rar:'legendary',bg:'r-legendary'},
+  {n:'Blood Demon',                 em:'⚔️',p:35.36,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Dual Divine Slayer',          em:'⚔️',p:26.00,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Thunder Edge',                em:'⚔️',p:20.80,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Divine Talon',                em:'⚔️',p:19.75,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Enigma',                      em:'⚔️',p:15.60,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Ethereal Tear',               em:'⚔️',p:13.51,  badge:'',    stock:99,sub:'weapons', rar:'rare',     bg:'r-rare'},
+  {n:'Eclipse II',                  em:'⚔️',p:10.39,  badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Dual Terminal Impaler',       em:'⚔️',p:8.22,   badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Dual Death Call Blade Set',   em:'⚔️',p:6.23,   badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Brim Shade',                  em:'⚔️',p:4.68,   badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Death Call Scythe',           em:'⚔️',p:3.90,   badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Death Call Blade',            em:'⚔️',p:2.59,   badge:'',    stock:99,sub:'weapons', rar:'uncommon', bg:'r-uncommon'},
+  // ── AURAS / COSMETICS ─────────────────────────────────────────
+  {n:'Amethyst Oblivion',           em:'💜',p:83.20,  badge:'hot', stock:99,sub:'auras',   rar:'legendary',bg:'r-legendary'},
+  {n:'Dark Angel Aura',             em:'👼',p:83.20,  badge:'',    stock:99,sub:'auras',   rar:'legendary',bg:'r-legendary'},
+  {n:'Ether Bar',                   em:'✨',p:67.60,  badge:'',    stock:99,sub:'auras',   rar:'legendary',bg:'r-legendary'},
+  {n:'Snow Angel I',                em:'❄️',p:46.80,  badge:'',    stock:99,sub:'auras',   rar:'legendary',bg:'r-legendary'},
+  {n:'Ophidian Grasp',              em:'🐍',p:24.96,  badge:'',    stock:99,sub:'auras',   rar:'rare',     bg:'r-rare'},
+  {n:'Demonic Shadow',              em:'🖤',p:24.96,  badge:'',    stock:99,sub:'auras',   rar:'rare',     bg:'r-rare'},
+  {n:'Heaven Wing',                 em:'🪽',p:20.80,  badge:'',    stock:99,sub:'auras',   rar:'rare',     bg:'r-rare'},
+  {n:'Dreamwalker Aura',            em:'✨',p:11.43,  badge:'',    stock:99,sub:'auras',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Best Friend Emote',           em:'🤝',p:10.40,  badge:'',    stock:99,sub:'auras',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Amethyst Orb Vn',             em:'💜',p:10.40,  badge:'',    stock:99,sub:'auras',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'WinterMax',                   em:'❄️',p:10.19,  badge:'',    stock:99,sub:'auras',   rar:'uncommon', bg:'r-uncommon'},
+  {n:'Fallen Amaltheon',            em:'🌑',p:6.23,   badge:'',    stock:99,sub:'auras',   rar:'uncommon', bg:'r-uncommon'},
+  // ── GEMS ──────────────────────────────────────────────────────
+  {n:'500M Gems',                   em:'💎',p:39.52,  badge:'best',stock:99,sub:'gems',    rar:'legendary',bg:'r-legendary'},
+  {n:'100M Gems',                   em:'💎',p:19.76,  badge:'hot', stock:99,sub:'gems',    rar:'rare',     bg:'r-rare'},
+  {n:'50M Gems',                    em:'💎',p:10.92,  badge:'',    stock:99,sub:'gems',    rar:'rare',     bg:'r-rare'},
+  {n:'10M Gems',                    em:'💎',p:4.94,   badge:'',    stock:99,sub:'gems',    rar:'uncommon', bg:'r-uncommon'},
+  {n:'5M Gems',                     em:'💎',p:3.64,   badge:'',    stock:99,sub:'gems',    rar:'uncommon', bg:'r-uncommon'},
+  // ── BUNDLES ───────────────────────────────────────────────────
+  {n:'5 Grade Divine Shadow Bundle',em:'📦',p:504.40, badge:'best',stock:99,sub:'bundles', rar:'mythical', bg:'r-mythical'},
+  {n:'5 Grade Soulblade Bundle',    em:'📦',p:364.00, badge:'',    stock:99,sub:'bundles', rar:'mythical', bg:'r-mythical'},
+  {n:'5 Grade Nutcracker Bundle',   em:'📦',p:244.40, badge:'',    stock:99,sub:'bundles', rar:'mythical', bg:'r-mythical'},
+  {n:'Death Call Pack - Dual',      em:'📦',p:35.93,  badge:'',    stock:99,sub:'bundles', rar:'rare',     bg:'r-rare'},
+  {n:'Dual Death Call Scythe Pack', em:'📦',p:11.44,  badge:'',    stock:99,sub:'bundles', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Death Call Pack - Single',    em:'📦',p:10.50,  badge:'',    stock:99,sub:'bundles', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Dual Death Call Blade Pack',  em:'📦',p:7.80,   badge:'',    stock:99,sub:'bundles', rar:'uncommon', bg:'r-uncommon'},
+  {n:'Death Call Tail Blade Pack',  em:'📦',p:2.55,   badge:'',    stock:99,sub:'bundles', rar:'uncommon', bg:'r-uncommon'},
 ];
 
 const _dcBoostImg = 'https://silvmarket.shop/images/boost.webp';
@@ -5268,7 +5302,7 @@ const GAME_SUBS={
   fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'⛵ Boats',fn:'filterFISCH',val:'boats'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
   bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
   vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'🌀 Spins',fn:'filterVBL',val:'spins'},{label:'💎 Currency',fn:'filterVBL',val:'currency'},{label:'🎰 Slots',fn:'filterVBL',val:'slots'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'}],
-  dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Cosmetics',fn:'filterDTH',val:'cosmetics'},{label:'💎 Currency',fn:'filterDTH',val:'currency'}],
+  dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Auras',fn:'filterDTH',val:'auras'},{label:'💎 Gems',fn:'filterDTH',val:'gems'},{label:'📦 Bundles',fn:'filterDTH',val:'bundles'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -5798,7 +5832,7 @@ const VIEW_ALL_CONFIG = {
   fisch:    { title:'Fisch',              img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp',                   items:()=>FISCH,      filters:['all','rods','fish','boats','items','currency'] },
   bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','skins','vouchers','beequips','stickers'] },
   vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all','spins','currency','slots','passes'] },
-  dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all'] },
+  dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all','weapons','auras','gems','bundles'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[

@@ -190,9 +190,15 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .view-all:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,51,102,.3)}
 
 .sec-search-wrap{position:relative;margin-bottom:18px;display:inline-flex;align-items:center}.sec-search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.45)}.sec-search{width:260px;padding:9px 13px 9px 34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;outline:none;transition:border-color .15s,background .15s}.sec-search::placeholder{color:rgba(255,255,255,.4)}.sec-search:focus{border-color:rgba(147,51,234,.6);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(147,51,234,.15)}.sec-no-results{display:none;color:rgba(255,255,255,.4);font-size:13px;font-family:'Rajdhani',sans-serif;padding:10px 2px;font-weight:600}
+.sec-sort{height:34px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:0 26px 0 10px;color:rgba(255,255,255,.55);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;outline:none;transition:all .2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;flex-shrink:0}
+.sec-sort:focus,.sec-sort:hover{border-color:rgba(147,51,234,.5);color:#fff;background-color:rgba(147,51,234,.08)}
+.sec-sort option{background:#0d0a1e;color:#fff}
+.sec-ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.sec-ctrl-row .sec-search-wrap{margin-bottom:0;flex:1;min-width:160px;max-width:320px}
+.sec-ctrl-row .sec-no-results{display:none;color:rgba(255,255,255,.4);font-size:13px;font-family:'Rajdhani',sans-serif;padding:0;font-weight:600;margin:0}
 .jump-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px;
   background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
-  border-radius:12px;padding:10px 14px}
+  border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px 12px;margin-bottom:12px}
 .jump-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
   letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-right:4px;white-space:nowrap}
 .jt{padding:6px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.07);
@@ -599,11 +605,15 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .gs-name{font-size:14px;font-weight:800}
 .gs-arrow{font-size:10px;opacity:.55;transition:transform .2s;margin-left:auto}
 .gs-btn.open .gs-arrow,.sort-btn.open .gs-arrow{transform:rotate(180deg)}
-.gs-drop{position:absolute;top:calc(100% + 8px);left:0;min-width:210px;
+.gs-drop{position:absolute;top:calc(100% + 8px);left:0;min-width:210px;max-width:calc(100vw - 24px);max-height:72vh;overflow-y:auto;
   background:rgba(6,2,18,.97);border:1px solid rgba(147,51,234,.35);
   border-radius:12px;padding:5px;z-index:300;
   box-shadow:0 12px 40px rgba(0,0,0,.7);
   display:none;flex-direction:column;gap:1px}
+.gd-search-row{padding:4px 2px 6px;position:sticky;top:0;background:rgba(6,2,18,.97);z-index:1;border-bottom:1px solid rgba(147,51,234,.12);margin-bottom:3px;padding-bottom:8px}
+.gd-search-inp{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 11px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;outline:none;transition:border-color .15s}
+.gd-search-inp:focus{border-color:rgba(147,51,234,.45)}
+.gd-search-inp::placeholder{color:rgba(255,255,255,.28)}
 .gs-drop.open{display:flex}
 .gd-item{display:flex;align-items:center;gap:11px;padding:9px 12px;
   border-radius:8px;cursor:pointer;
@@ -629,14 +639,9 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .sf-btn:hover{color:#fff;background:rgba(255,16,240,.1);border-color:rgba(255,16,240,.3)}
 .sf-btn.sf-active{background:rgba(255,16,240,.16);border-color:var(--pink);color:var(--pink)}
 
-.sort-wrap{position:relative;flex-shrink:0;margin-left:6px}
-.sort-btn{display:flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  border-radius:9px;padding:7px 13px;cursor:pointer;
-  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
-  color:rgba(255,255,255,.55);transition:all .2s;white-space:nowrap}
-.sort-btn:hover,.sort-btn.open{color:#fff;border-color:rgba(147,51,234,.5);
-  background:rgba(147,51,234,.1)}
+
+
+
 .sort-drop{left:auto;right:0;min-width:180px}
 
 .sub-bar{position:sticky;top:calc(var(--nav-h) + var(--gamebar-h));z-index:96;
@@ -658,6 +663,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   .cart-sb{width:100%}
   .game-bar{padding:0 12px}
   .game-bar-label{display:none}
+  .gs-drop{position:fixed!important;left:12px!important;right:12px!important;width:auto!important;min-width:unset!important;top:auto!important;max-height:65vh}
   .rv-col:last-child{display:none!important}
 }
 
@@ -1320,6 +1326,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <span class="gs-arrow" id="gsArrow">▼</span>
     </button>
     <div class="gs-drop" id="gsDrop">
+  <div class="gd-search-row"><input class="gd-search-inp" id="gdSearch" placeholder="Search games…" oninput="filterGames(this.value)" autocomplete="off"/></div>
       <div class="gd-item gd-active" onclick="selectGame(this,'All Games','🛒','all')" data-key="all">
         <span class="gd-icon">🏆</span><span class="gd-label">All Games</span><span class="gd-dot"></span>
       </div>
@@ -1379,17 +1386,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       </div>
     </div>
   </div>
-  <div class="sort-wrap" id="sortWrap">
-    <button class="sort-btn" id="sortBtn" onclick="toggleSort()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
-      <span id="sortLabel">Sort</span>
-      <span class="gs-arrow" id="sortArrow">▼</span>
-    </button>
-    <div class="gs-drop sort-drop" id="sortDrop">
-      <div class="gd-item gd-active" onclick="applySort(this,'default')" data-sort="default">Default Order</div>
-      <div class="gd-item" onclick="applySort(this,'low')" data-sort="low">Price: Low → High</div>
-      <div class="gd-item" onclick="applySort(this,'high')" data-sort="high">Price: High → Low</div>
-    </div>
+  </div>
   </div>
 </div>
 
@@ -1409,7 +1406,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt jtb" id="rcat-robux"    onclick="filterRobuxCat(this,'robux')"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Robux</button>
     <button class="jt"     id="rcat-services" onclick="filterRobuxCat(this,'services')"><img src="https://silvmarket.shop/images/Roblox%20services.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Followers / Members / Likes</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Robux…" oninput="secSearch('robuxGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Robux…" oninput="secSearch('robuxGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'robuxGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="robuxGrid"><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div></div>
 </section>
 
@@ -1450,7 +1447,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits')">🛒 Add to Cart</button>
     </div>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blox Fruits…" oninput="secSearch('bfGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blox Fruits…" oninput="secSearch('bfGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bfGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="bfGrid"><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div></div>
 </section>
 
@@ -1478,7 +1475,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" style="color:#e5e7eb;border-color:rgba(229,231,235,.25)" onclick="filterBR(this,'yin-yang')">☯️ Yin Yang</button>
     <button class="jt" style="color:#a855f7;border-color:rgba(168,85,247,.3)" onclick="filterBR(this,'cursed')">💀 Cursed</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Brainrots…" oninput="secSearch('brainrotGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Brainrots…" oninput="secSearch('brainrotGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'brainrotGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="brainrotGrid"></div>
 </section>
 
@@ -1500,7 +1497,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterRIV(this,'cases')">📫 Cases</button>
     <button class="jt" onclick="filterRIV(this,'season-pass')">🎫 Season Pass</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Rivals…" oninput="secSearch('rivalsGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Rivals…" oninput="secSearch('rivalsGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'rivalsGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="rivalsGrid"></div>
 </section>
 
@@ -1523,7 +1520,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterMM2(this,'set')">🗡️ Sets</button>
     <button class="jt" onclick="filterMM2(this,'bundle')">🎁 Bundles</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search MM2…" oninput="secSearch('mm2Grid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search MM2…" oninput="secSearch('mm2Grid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'mm2Grid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="mm2Grid"></div>
 </section>
 
@@ -1543,7 +1540,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt jtc" onclick="filterTS(this,'all')">🌊 All</button>
     <button class="jt" onclick="filterTS(this,'items')">💎 Items</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Tsunami…" oninput="secSearch('tsunamiGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Tsunami…" oninput="secSearch('tsunamiGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'tsunamiGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="tsunamiGrid"></div>
 </section>
 
@@ -1566,7 +1563,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
     <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Sailor Piece…" oninput="secSearch('spGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Sailor Piece…" oninput="secSearch('spGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'spGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="spGrid"></div>
 </section>
 
@@ -1588,7 +1585,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterAM(this,'mid-tier')">💎 Mid Tier</button>
     <button class="jt" onclick="filterAM(this,'high-tier')">👑 High Tier</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Adopt Me…" oninput="secSearch('amGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Adopt Me…" oninput="secSearch('amGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'amGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="amGrid"></div>
 </section>
 
@@ -1610,7 +1607,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
     <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grow a Garden…" oninput="secSearch('gagGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grow a Garden…" oninput="secSearch('gagGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'gagGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="gagGrid"></div>
 </section>
 
@@ -1632,7 +1629,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterNT(this,'bundles')">📦 Bundles</button>
     <button class="jt" onclick="filterNT(this,'currency')">🪙 Currency</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search 99 Nights…" oninput="secSearch('nightsGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search 99 Nights…" oninput="secSearch('nightsGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'nightsGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="nightsGrid"></div>
 </section>
 
@@ -1655,7 +1652,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterGPO(this,'accessories')">💍 Accessories</button>
     <button class="jt" onclick="filterGPO(this,'bundles')">📦 Bundles</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grand Piece Online…" oninput="secSearch('gpoGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grand Piece Online…" oninput="secSearch('gpoGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'gpoGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="gpoGrid"></div>
 </section>
 
@@ -1679,7 +1676,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterBB(this,'tokens')">🪙 Tokens</button>
     <button class="jt" onclick="filterBB(this,'passes')">🎟️ Passes</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blade Ball…" oninput="secSearch('bbGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blade Ball…" oninput="secSearch('bbGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bbGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="bbGrid"></div>
 </section>
 
@@ -1702,7 +1699,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterAV(this,'exclusive')">👑 Exclusive</button>
     <button class="jt" onclick="filterAV(this,'gamepass')">🎮 Gamepass</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Anime Vanguards…" oninput="secSearch('avGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Anime Vanguards…" oninput="secSearch('avGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'avGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="avGrid"></div>
 </section>
 
@@ -1727,7 +1724,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterBL(this,'rings')">💍 Rings</button>
     <button class="jt" onclick="filterBL(this,'items')">🗡️ Items</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bloodlines…" oninput="secSearch('blGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bloodlines…" oninput="secSearch('blGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'blGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="blGrid"></div>
 </section>
 
@@ -1749,7 +1746,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterFISCH(this,'items')">📦 Items</button>
     <button class="jt" onclick="filterFISCH(this,'currency')">💵 Currency</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Fisch…" oninput="secSearch('fischGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Fisch…" oninput="secSearch('fischGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'fischGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="fischGrid"></div>
 </section>
 
@@ -1772,7 +1769,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterBSS(this,'beequips')">💍 Beequips</button>
     <button class="jt" onclick="filterBSS(this,'stickers')">🪧 Stickers</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bssGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="bssGrid"></div>
 </section>
 
@@ -1795,7 +1792,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterVBL(this,'slots')">🎰 Slots</button>
     <button class="jt" onclick="filterVBL(this,'passes')">🎟️ Passes</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Volleyball Legends…" oninput="secSearch('vblGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Volleyball Legends…" oninput="secSearch('vblGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'vblGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="vblGrid"></div>
 </section>
 
@@ -1818,7 +1815,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <button class="jt" onclick="filterDTH(this,'gems')">💎 Gems</button>
     <button class="jt" onclick="filterDTH(this,'bundles')">📦 Bundles</button>
   </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'dthGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="dthGrid"></div>
 </section>
 
@@ -3903,6 +3900,7 @@ function renderRobux(cat='robux'){
   const rIco=meta.img?`<img src="${meta.img}" style="width:44px;height:44px;border-radius:10px;object-fit:cover" onerror="this.outerHTML='${meta.ico}'">`:(meta.ico);
   const rImg=meta.img||'';
   document.getElementById('robuxGrid').innerHTML=data.map(r=>`
+tagOrder('robuxGrid');
     <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}','$${r.p.toFixed(2)}','${meta.ico}','${meta.game}','${rImg}')">
       <div class="rp-ico">${rIco}</div>
       <div class="rp-amt">${r.a.toLocaleString()}</div>
@@ -3924,6 +3922,7 @@ function renderBF(filter='all'){
   else items=allItems.filter(f=>f.rar===filter||f.cat===filter);
 
   document.getElementById('bfGrid').innerHTML=items.map(f=>{
+tagOrder('bfGrid');
     const key=f.n, mode=fruitModes[key]||'perm';
     const hasPerm=f.perm!==null&&f.perm!==undefined;
     const dp=hasPerm&&mode==='perm'?f.perm:f.norm;
@@ -4159,7 +4158,7 @@ function filterAM(btn,sub){
 }
 function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
-function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');}
+function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');tagOrder('brainrotGrid');}
 function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);}
 function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
 function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
@@ -4229,6 +4228,7 @@ function _bsLivePrice(item){
 
 function renderBS(){
   document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
+tagOrder('bsGrid');
     var lp=_bsLivePrice(i);
     var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
     var pStr=p>0?fmtPrice(p):'N/A';
@@ -5307,8 +5307,10 @@ const GAME_SUBS={
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
 
-function toggleGS(){document.getElementById('gsBtn').classList.toggle('open');document.getElementById('gsDrop').classList.toggle('open');}
-function toggleSort(){document.getElementById('sortBtn').classList.toggle('open');document.getElementById('sortDrop').classList.toggle('open');}
+function toggleGS(){
+  const gs=document.getElementById('gdSearch');if(gs){gs.value='';filterGames('');}
+  document.getElementById('gsBtn').classList.toggle('open');document.getElementById('gsDrop').classList.toggle('open');}
+
 
 function selectGame(el,name,icon,key){
   if(key==='all'){goHome();return;}
@@ -5335,27 +5337,11 @@ function selectGame(el,name,icon,key){
   document.title=name+' — Silv Market | Buy Roblox Items';
 }
 
-function applySort(el,type){
-  document.getElementById('sortLabel').textContent={default:'Sort',low:'Low → High',high:'High → Low'}[type];
-  document.querySelectorAll('.sort-drop .gd-item').forEach(i=>i.classList.remove('gd-active'));
-  el.classList.add('gd-active');
-  document.getElementById('sortBtn').classList.remove('open');
-  document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid','blGrid','fischGrid','bssGrid','vblGrid','dthGrid'].forEach(gid=>{
-    const grid=document.getElementById(gid);if(!grid)return;
-    const cards=[...grid.children];
-    cards.sort((a,b)=>{
-      const pa=parseFloat((a.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
-      const pb=parseFloat((b.querySelector('.pc-price')||{textContent:'$0'}).textContent.replace(/[^0-9.]/g,''))||0;
-      return type==='low'?pa-pb:type==='high'?pb-pa:0;
-    });
-    cards.forEach(c=>grid.appendChild(c));
-  });
-}
+
 
 document.addEventListener('click',function(e){
   if(!document.getElementById('gsWrap').contains(e.target)){document.getElementById('gsBtn').classList.remove('open');document.getElementById('gsDrop').classList.remove('open');}
-  if(!document.getElementById('sortWrap').contains(e.target)){document.getElementById('sortBtn').classList.remove('open');document.getElementById('sortDrop').classList.remove('open');}
+  
 });
 
 // ── CRYPTO MODAL ──────────────────────────────────────────────
@@ -7376,22 +7362,22 @@ function init(){
   const lcBtn = document.getElementById('langCurrLabel');
   if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;
   renderRobux();renderBF();renderBS();renderBundles();
-  document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');
-  document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');
+  document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');tagOrder('gagGrid');
+  document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');tagOrder('amGrid');
   document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');
   renderBRGrid();
-  document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');
-  document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');
-  document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');
-  document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');
-  document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');
-  document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');
-  document.getElementById('avGrid').innerHTML=AV.map(i=>mkCard(i,'av','g-av')).join('');
-  document.getElementById('blGrid').innerHTML=BLOODLINES.map(i=>mkCard(i,'bl','g-bl')).join('');
-  document.getElementById('fischGrid').innerHTML=FISCH.map(i=>mkCard(i,'fisch','g-fisch')).join('');
-  document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');
-  document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');
-  document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');
+  document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');tagOrder('rivalsGrid');
+  document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');tagOrder('nightsGrid');
+  document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');tagOrder('tsunamiGrid');
+  document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');tagOrder('gpoGrid');
+  document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');tagOrder('spGrid');
+  document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');tagOrder('bbGrid');
+  document.getElementById('avGrid').innerHTML=AV.map(i=>mkCard(i,'av','g-av')).join('');tagOrder('avGrid');
+  document.getElementById('blGrid').innerHTML=BLOODLINES.map(i=>mkCard(i,'bl','g-bl')).join('');tagOrder('blGrid');
+  document.getElementById('fischGrid').innerHTML=FISCH.map(i=>mkCard(i,'fisch','g-fisch')).join('');tagOrder('fischGrid');
+  document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');tagOrder('bssGrid');
+  document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');tagOrder('vblGrid');
+  document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');tagOrder('dthGrid');
   buildSearchIndex();
   initScrollWraps();
 }
@@ -7778,6 +7764,38 @@ setTimeout(renderHomeMenu, 0);
 })();
 </script>
 <div id="toastStack"></div>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
+// ── PER-SECTION SORT ──────────────────────────────────────────
+function sortSection(sel, gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  const order = sel.value;
+  const cards = Array.from(grid.querySelectorAll('.pc'));
+  if (!cards.length) return;
+  if (order === '') {
+    cards.sort((a,b) => Number(a.dataset.oidx||0) - Number(b.dataset.oidx||0));
+  } else {
+    cards.sort((a,b) => {
+      const pa = parseFloat((a.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;
+      const pb = parseFloat((b.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;
+      return order==='low' ? pa-pb : pb-pa;
+    });
+  }
+  cards.forEach(c => grid.appendChild(c));
+}
+function tagOrder(gridId) {
+  document.getElementById(gridId)?.querySelectorAll('.pc').forEach((c,i) => c.dataset.oidx = i);
+}
+
+// ── GAME PANEL SEARCH ─────────────────────────────────────────
+function filterGames(q) {
+  const lq = (q||'').toLowerCase().trim();
+  document.querySelectorAll('#gsDrop .gd-item').forEach(item => {
+    const lbl = (item.querySelector('.gd-label')?.textContent||item.textContent).toLowerCase();
+    item.style.display = (!lq || lbl.includes(lq)) ? '' : 'none';
+  });
+}
+
+</script>
 </body>
 </html>

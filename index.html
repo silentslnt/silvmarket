@@ -1371,9 +1371,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="gd-item" onclick="selectGame(this,'Bee Swarm Simulator','🐝','bss')" data-key="bss">
         <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Bee Swarm Simulator</span><span class="gd-dot"></span>
       </div>
-      <div class="gd-item" onclick="selectGame(this,'Be a Lucky Block','🟡','blb')" data-key="blb">
-        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Be a Lucky Block</span><span class="gd-dot"></span>
-      </div>
       <div class="gd-item" onclick="selectGame(this,'Volleyball Legends','🏐','vbl')" data-key="vbl">
         <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Volleyball Legends</span><span class="gd-dot"></span>
       </div>
@@ -1777,29 +1774,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
   <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
   <div class="h-scroll" id="bssGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="blb">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#f97316">Be a Lucky Block</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Be a Lucky Block</div>
-      <p class="sec-sub">Godly bundles, lucky blocks, pets and gamepasses · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('blb')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.32);color:#f97316" onclick="filterBLB(this,'all')">🟡 All</button>
-    <button class="jt" onclick="filterBLB(this,'passes')">🎟️ Passes</button>
-    <button class="jt" onclick="filterBLB(this,'items')">📦 Items</button>
-    <button class="jt" onclick="filterBLB(this,'pets')">🐉 Pets</button>
-    <button class="jt" onclick="filterBLB(this,'currency')">💰 Currency</button>
-  </div>
-  <div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Be a Lucky Block…" oninput="secSearch('blbGrid',this.value)"/></div><div class="sec-no-results">No items match your search.</div>
-  <div class="h-scroll" id="blbGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -3742,23 +3716,6 @@ const BSS = [
   {n:'Rubber Duck Sticker',      em:'🦆',p:1.99,  badge:'',    stock:99,sub:'stickers', rar:'uncommon', bg:'r-uncommon'},
 ];
 
-const BLB = [
-  // ── GAMEPASSES ────────────────────────────────────────────────
-  {n:'2x Luck Gamepass',       em:'🍀',p:4.99, badge:'hot', stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  {n:'2x Cash Gamepass',       em:'💸',p:4.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  {n:'VIP Gamepass',           em:'👑',p:7.99, badge:'',    stock:99,sub:'passes',   rar:'rare',     bg:'r-rare'},
-  {n:'Auto Open Gamepass',     em:'📦',p:6.99, badge:'',    stock:99,sub:'passes',   rar:'uncommon', bg:'r-uncommon'},
-  // ── ITEMS ─────────────────────────────────────────────────────
-  {n:'Godly Item Bundle',      em:'✨',p:19.99,badge:'best',stock:99,sub:'items',    rar:'mythical', bg:'r-mythical'},
-  {n:'Lucky Block (50 Pack)',  em:'🟡',p:8.99, badge:'',    stock:99,sub:'items',    rar:'uncommon', bg:'r-uncommon'},
-  {n:'Prestige Booster',       em:'🚀',p:6.99, badge:'',    stock:99,sub:'items',    rar:'rare',     bg:'r-rare'},
-  // ── PETS ──────────────────────────────────────────────────────
-  {n:'Mythical Pet Egg',       em:'🥚',p:22.99,badge:'best',stock:99,sub:'pets',     rar:'mythical', bg:'r-mythical'},
-  {n:'Rare Pet Egg',           em:'🐉',p:11.99,badge:'',    stock:99,sub:'pets',     rar:'rare',     bg:'r-rare'},
-  // ── CURRENCY ──────────────────────────────────────────────────
-  {n:'50M Coins',              em:'💰',p:5.99, badge:'',    stock:99,sub:'currency', rar:'uncommon', bg:'r-uncommon'},
-  {n:'250M Coins',             em:'💰',p:19.99,badge:'hot', stock:99,sub:'currency', rar:'rare',     bg:'r-rare'},
-];
 
 const VBL = [
   // ── STYLES ────────────────────────────────────────────────────
@@ -4064,7 +4021,7 @@ function saveLangCurr(){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',blb:'Be a Lucky Block',vbl:'Volleyball Legends',dth:'Death Ball'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
@@ -4150,7 +4107,6 @@ function filterAV(btn,sub){setJtActive(btn);filterGrid('avGrid','sub',sub);if(su
 function filterBL(btn,sub){setJtActive(btn);filterGrid('blGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blGrid .pc').forEach(c=>c.style.display='');}
 function filterFISCH(btn,sub){setJtActive(btn);filterGrid('fischGrid','sub',sub);if(sub==='all')document.querySelectorAll('#fischGrid .pc').forEach(c=>c.style.display='');}
 function filterBSS(btn,sub){setJtActive(btn);filterGrid('bssGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bssGrid .pc').forEach(c=>c.style.display='');}
-function filterBLB(btn,sub){setJtActive(btn);filterGrid('blbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blbGrid .pc').forEach(c=>c.style.display='');}
 function filterVBL(btn,sub){setJtActive(btn);filterGrid('vblGrid','sub',sub);if(sub==='all')document.querySelectorAll('#vblGrid .pc').forEach(c=>c.style.display='');}
 function filterDTH(btn,sub){setJtActive(btn);filterGrid('dthGrid','sub',sub);if(sub==='all')document.querySelectorAll('#dthGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){
@@ -5261,7 +5217,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','blb','vbl','dth'];
+const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -5279,7 +5235,6 @@ const GAME_SUBS={
   bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
   fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'⛵ Boats',fn:'filterFISCH',val:'boats'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
   bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
-  blb:      [{label:'🟡 All',fn:'filterBLB',val:'all'},{label:'🎟️ Passes',fn:'filterBLB',val:'passes'},{label:'📦 Items',fn:'filterBLB',val:'items'},{label:'🐉 Pets',fn:'filterBLB',val:'pets'},{label:'💰 Currency',fn:'filterBLB',val:'currency'}],
   vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'✨ Styles',fn:'filterVBL',val:'styles'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'},{label:'💵 Currency',fn:'filterVBL',val:'currency'}],
   dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Cosmetics',fn:'filterDTH',val:'cosmetics'},{label:'💎 Currency',fn:'filterDTH',val:'currency'}],
 };
@@ -5320,7 +5275,7 @@ function applySort(el,type){
   el.classList.add('gd-active');
   document.getElementById('sortBtn').classList.remove('open');
   document.getElementById('sortDrop').classList.remove('open');
-  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid','blGrid','fischGrid','bssGrid','blbGrid','vblGrid','dthGrid'].forEach(gid=>{
+  ['bsGrid','bfGrid','gagGrid','amGrid','mm2Grid','brainrotGrid','rivalsGrid','nightsGrid','tsunamiGrid','gpoGrid','spGrid','bbGrid','avGrid','blGrid','fischGrid','bssGrid','vblGrid','dthGrid'].forEach(gid=>{
     const grid=document.getElementById(gid);if(!grid)return;
     const cards=[...grid.children];
     cards.sort((a,b)=>{
@@ -5810,7 +5765,6 @@ const VIEW_ALL_CONFIG = {
   bl:       { title:'Bloodlines',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg',           items:()=>BLOODLINES, filters:['all','races','eyes','souls','schematics','rings','items'] },
   fisch:    { title:'Fisch',              img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp',                   items:()=>FISCH,      filters:['all','rods','fish','boats','items','currency'] },
   bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','skins','vouchers','beequips','stickers'] },
-  blb:      { title:'Be a Lucky Block',   img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png',   items:()=>BLB,        filters:['all','passes','items','pets','currency'] },
   vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all'] },
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
@@ -7251,7 +7205,6 @@ function buildSearchIndex(){
   push(BLOODLINES,'Bloodlines');
   push(FISCH,     'Fisch');
   push(BSS,       'Bee Swarm Simulator');
-  push(BLB,       'Be a Lucky Block');
   push(VBL,       'Volleyball Legends');
   push(DTH,       'Death Ball');
   ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'💎', p:r.p, game:'Robux', img:null, rar:'rare', bg:'r-rare', sub:''}));
@@ -7371,7 +7324,6 @@ function init(){
   document.getElementById('blGrid').innerHTML=BLOODLINES.map(i=>mkCard(i,'bl','g-bl')).join('');
   document.getElementById('fischGrid').innerHTML=FISCH.map(i=>mkCard(i,'fisch','g-fisch')).join('');
   document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');
-  document.getElementById('blbGrid').innerHTML=BLB.map(i=>mkCard(i,'blb','g-blb')).join('');
   document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');
   document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');
   buildSearchIndex();
@@ -7398,7 +7350,7 @@ init();
   const game = params.get('game');
   if(!game) return;
   history.replaceState({}, '', location.pathname);
-  const GAME_IDS = ['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','blb','vbl','dth'];
+  const GAME_IDS = ['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth'];
   const id = GAME_IDS.find(g => g === game.toLowerCase());
   if(!id) return;
   const el = document.getElementById(id);
@@ -7553,7 +7505,6 @@ const HM_GAMES = [
   { key:'bl',          name:'Bloodlines',         em:'🩸',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg' },
   { key:'fisch',       name:'Fisch',              em:'🎣',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp' },
   { key:'bss',         name:'Bee Swarm Simulator',em:'🐝',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp' },
-  { key:'blb',         name:'Be a Lucky Block',   em:'🟡',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Be%20a%20Lucky%20Block.png' },
   { key:'vbl',         name:'Volleyball Legends', em:'🏐',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg' },
   { key:'dth',         name:'Death Ball',         em:'💀',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp' },
   { key:'robux',       name:'Robux & Services',   em:'💎',  img:_rsServicesImg },

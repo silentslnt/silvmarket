@@ -5441,16 +5441,20 @@ function buildCryptoTabs(){
     return;
   }
   const COIN_META={
-    BTC:{name:'Bitcoin', color:'#f7931a', bg:'rgba(247,147,26,.18)', symbol:'₿'},
-    ETH:{name:'Ethereum',color:'#627eea', bg:'rgba(98,126,234,.18)', symbol:'Ξ'},
-    SOL:{name:'Solana',  color:'#9945ff', bg:'rgba(153,69,255,.18)', symbol:'◎'},
-    USDT:{name:'Tether', color:'#26a17b', bg:'rgba(38,161,123,.18)', symbol:'₮'},
-    LTC:{name:'Litecoin',color:'#c0c0c0', bg:'rgba(192,192,192,.14)', symbol:'Ł'},
+    BTC:{name:'Bitcoin', color:'#f7931a', bg:'rgba(247,147,26,.12)', img:'bitcoin-btc-logo.png',  symbol:'₿'},
+    ETH:{name:'Ethereum',color:'#627eea', bg:'rgba(98,126,234,.12)', img:'ethereum-eth-logo.png', symbol:'Ξ'},
+    SOL:{name:'Solana',  color:'#9945ff', bg:'rgba(153,69,255,.12)', img:'solana-sol-logo.png',   symbol:'◎'},
+    USDT:{name:'Tether', color:'#26a17b', bg:'rgba(38,161,123,.12)', img:'tether-usdt-logo.png',  symbol:'₮'},
+    LTC:{name:'Litecoin',color:'#c0c0c0', bg:'rgba(192,192,192,.1)', img:'litecoin-ltc-logo.png', symbol:'Ł'},
   };
+  const CBASE='https://silvmarket.shop/images/';
   tabs.innerHTML=coins.map((c,i)=>{
-    const m=COIN_META[c]||{name:c,color:'#9333ea',bg:'rgba(147,51,234,.15)',symbol:c[0]};
+    const m=COIN_META[c]||{name:c,color:'#9333ea',bg:'rgba(147,51,234,.12)',img:null,symbol:c[0]};
+    const logo=m.img
+      ?`<img src="${CBASE}${m.img}" style="width:26px;height:26px;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/><span style="display:none;color:${m.color};font-size:15px;font-weight:900">${m.symbol}</span>`
+      :`<span style="color:${m.color};font-size:15px;font-weight:900">${m.symbol}</span>`;
     return `<button class="ct-coin-card${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)">
-      <div class="ct-logo" style="background:${m.bg};color:${m.color}">${m.symbol}</div>
+      <div class="ct-logo" style="background:${m.bg}">${logo}</div>
       <div class="ct-ticker">${c}</div>
       <div class="ct-name">${m.name}</div>
     </button>`;

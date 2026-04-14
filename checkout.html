@@ -95,12 +95,18 @@ input{font-family:'Inter',sans-serif}
 
 /* ── CRYPTO PANEL ── */
 .crypto-panel{display:none}
-.crypto-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.ctab{padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
-.ctab.active{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.5);color:#fff}
-.wallet-addr-label{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);margin-bottom:6px}
-.wallet-addr{font-family:monospace;font-size:11px;color:#a855f7;background:rgba(147,51,234,.07);border:1px solid rgba(147,51,234,.18);border-radius:8px;padding:9px 12px;word-break:break-all;cursor:pointer;transition:all .2s;margin-bottom:10px}
-.wallet-addr:hover{background:rgba(147,51,234,.14)}
+.crypto-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:16px}
+.ctab{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px 9px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;transition:all .2s;font-family:inherit}
+.ctab:hover{border-color:rgba(147,51,234,.4);background:rgba(147,51,234,.1);transform:translateY(-1px)}
+.ctab.active{border-color:rgba(255,16,240,.5);background:rgba(255,16,240,.1);box-shadow:0 0 14px rgba(255,16,240,.15)}
+.ct-logo{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-ticker{font-family:'Orbitron',monospace;font-size:9px;font-weight:800;color:#fff;letter-spacing:.3px}
+.ct-name{font-size:9px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis;font-family:'Inter',sans-serif}
+.wallet-addr-label{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:6px}
+.co-instruction{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:7px;letter-spacing:.2px}
+.wallet-addr{font-family:monospace;font-size:11px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:9px;padding:11px 13px;word-break:break-all;margin-bottom:8px;line-height:1.55;letter-spacing:.4px}
+.co-copy-btn{width:100%;padding:12px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.35);border-radius:9px;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;margin-bottom:12px;letter-spacing:.3px}
+.co-copy-btn:hover{background:linear-gradient(135deg,rgba(147,51,234,.45),rgba(255,16,240,.3));box-shadow:0 0 16px rgba(255,16,240,.2)}
 .qr-wrap{display:flex;justify-content:center;margin-bottom:12px}
 .qr-wrap canvas{border-radius:10px;border:4px solid #fff}
 .crypto-amt{text-align:center;margin-bottom:10px}
@@ -204,7 +210,10 @@ input{font-family:'Inter',sans-serif}
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Shop
   </a>
-  <span class="topbar-logo">SILV MARKET</span>
+  <a href="/" style="display:flex;align-items:center;gap:9px;text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)">
+    <img src="https://silvmarket.shop/images/silvmarket%20logo.png" style="height:30px;width:30px;border-radius:7px;object-fit:contain;flex-shrink:0" alt="" onerror="this.style.display='none'"/>
+    <span class="topbar-logo">SILV MARKET</span>
+  </a>
   <div class="topbar-secure">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     Secure Checkout
@@ -289,13 +298,18 @@ input{font-family:'Inter',sans-serif}
       <!-- Crypto panel -->
       <div class="crypto-panel" id="cryptoPanel">
         <div class="crypto-tabs" id="cryptoTabs"></div>
-        <div class="wallet-addr-label" id="cryptoCoinLabel">BTC ADDRESS</div>
-        <div class="wallet-addr" id="cryptoAddr" onclick="copyWallet()">—</div>
-        <div class="qr-wrap"><canvas id="qrCanvas"></canvas></div>
         <div class="crypto-amt">
           <div class="crypto-amt-big" id="cryptoAmtBig">—</div>
           <div class="crypto-amt-sub" id="cryptoAmtSub">Loading price…</div>
         </div>
+        <div class="wallet-addr-label" id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
+        <div id="cryptoInstruction" class="co-instruction" style="display:none">Send exactly the amount above to this address:</div>
+        <div class="wallet-addr" id="cryptoAddr">—</div>
+        <button id="copyAddrBtn" onclick="copyWallet()" class="co-copy-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Address
+        </button>
+        <div class="qr-wrap"><canvas id="qrCanvas"></canvas></div>
         <div class="timer-wrap">
           <div class="timer-bar-bg"><div class="timer-bar-fill" id="cryptoTimerBar" style="width:100%"></div></div>
           <div class="timer-val" id="cryptoTimerVal">10:00</div>
@@ -402,7 +416,7 @@ const CRYPTO_WALLETS    = {
   LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',
 };
 const PAY_STRIPE_LINK   = 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f';
-const PROMOS            = {SILVISTHEBEST:10,WSILV:5};
+const PROMOS            = {SILVISTHEBEST:10,WSILV:10};
 const COIN_IDS          = {BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tether',LTC:'litecoin'};
 
 // ── STATE ──────────────────────────────────────────────────────
@@ -931,13 +945,33 @@ function buildCryptoTabs(){
   const tabs=document.getElementById('cryptoTabs');
   const coins=Object.keys(CRYPTO_WALLETS).filter(k=>CRYPTO_WALLETS[k]);
   if(!coins.length){ tabs.innerHTML='<div style="font-size:12px;color:var(--muted)">No wallets configured.</div>'; return; }
-  tabs.innerHTML=coins.map((c,i)=>`<button class="ctab${i===0?' active':''}" onclick="selectCoin('${c}',this)">${c}</button>`).join('');
+  const COIN_META={
+    BTC:{name:'Bitcoin', color:'#f7931a', bg:'rgba(247,147,26,.12)', img:'bitcoin-btc-logo.png',  symbol:'₿'},
+    ETH:{name:'Ethereum',color:'#627eea', bg:'rgba(98,126,234,.12)', img:'ethereum-eth-logo.png', symbol:'Ξ'},
+    SOL:{name:'Solana',  color:'#9945ff', bg:'rgba(153,69,255,.12)', img:'solana-sol-logo.png',   symbol:'◎'},
+    USDT:{name:'Tether', color:'#26a17b', bg:'rgba(38,161,123,.12)', img:'tether-usdt-logo.png',  symbol:'₮'},
+    LTC:{name:'Litecoin',color:'#c0c0c0', bg:'rgba(192,192,192,.1)', img:'litecoin-ltc-logo.png', symbol:'Ł'},
+  };
+  const CBASE='https://silvmarket.shop/images/';
+  tabs.innerHTML=coins.map((c,i)=>{
+    const m=COIN_META[c]||{name:c,color:'#9333ea',bg:'rgba(147,51,234,.12)',img:null,symbol:c[0]};
+    const logo=m.img
+      ?`<img src="${CBASE}${m.img}" style="width:26px;height:26px;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/><span style="display:none;color:${m.color};font-size:15px;font-weight:900">${m.symbol}</span>`
+      :`<span style="color:${m.color};font-size:15px;font-weight:900">${m.symbol}</span>`;
+    return `<button class="ctab${i===0?' active':''}" onclick="selectCoin('${c}',this)">
+      <div class="ct-logo" style="background:${m.bg}">${logo}</div>
+      <div class="ct-ticker">${c}</div>
+      <div class="ct-name">${m.name}</div>
+    </button>`;
+  }).join('');
   if(coins[0]) selectCoin(coins[0], tabs.children[0]);
 }
 function selectCoin(coin, btn){
   _cryptoCoin=coin; _cryptoAddr=CRYPTO_WALLETS[coin]||'';
   document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
+  const instr=document.getElementById('cryptoInstruction');
+  if(instr) instr.style.display=_cryptoAddr?'block':'none';
   document.getElementById('cryptoCoinLabel').textContent=coin+' ADDRESS';
   document.getElementById('cryptoAddr').textContent=_cryptoAddr||'No address set';
   drawQR(_cryptoAddr);
@@ -953,10 +987,15 @@ function updateCryptoAmt(coin){
 function copyWallet(){
   if(!_cryptoAddr) return;
   navigator.clipboard.writeText(_cryptoAddr).then(()=>{
-    const el=document.getElementById('cryptoAddr');
-    const orig=el.textContent;
-    el.textContent='✅ Copied!';
-    setTimeout(()=>el.textContent=orig,1500);
+    const btn=document.getElementById('copyAddrBtn');
+    btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    btn.style.background='linear-gradient(135deg,rgba(0,200,83,.3),rgba(0,200,83,.2))';
+    btn.style.borderColor='rgba(0,200,83,.5)';
+    setTimeout(()=>{
+      btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Address`;
+      btn.style.background='linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2))';
+      btn.style.borderColor='rgba(255,16,240,.35)';
+    },2000);
   }).catch(()=>{});
 }
 function drawQR(addr){

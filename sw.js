@@ -1,5 +1,5 @@
 // Silv Market Service Worker — caches fonts, images, and shell HTML
-const CACHE = 'silv-v1';
+const CACHE = 'silv-v3';
 const FONT_CACHE = 'silv-fonts-v1';
 
 // Static assets to pre-cache on install

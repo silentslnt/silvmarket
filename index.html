@@ -3898,14 +3898,13 @@ function renderRobux(cat='robux'){
   const rIco=meta.img?`<img src="${meta.img}" style="width:44px;height:44px;border-radius:10px;object-fit:cover" onerror="this.outerHTML='${meta.ico}'">`:(meta.ico);
   const rImg=meta.img||'';
   document.getElementById('robuxGrid').innerHTML=data.map(r=>`
-tagOrder('robuxGrid');
     <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}','$${r.p.toFixed(2)}','${meta.ico}','${meta.game}','${rImg}')">
       <div class="rp-ico">${rIco}</div>
       <div class="rp-amt">${r.a.toLocaleString()}</div>
       <div class="rp-lbl">${meta.lbl}</div>
       <div class="rp-price">$${r.p.toFixed(2)}</div>
       <button class="rp-btn">🛒 Buy Now</button>
-    </div>`).join('');
+    </div>`).join('');tagOrder('robuxGrid');
 }
 
 // ── RENDER BLOX FRUITS ────────────────────────────────────────
@@ -3920,7 +3919,6 @@ function renderBF(filter='all'){
   else items=allItems.filter(f=>f.rar===filter||f.cat===filter);
 
   document.getElementById('bfGrid').innerHTML=items.map(f=>{
-tagOrder('bfGrid');
     const key=f.n, mode=fruitModes[key]||'perm';
     const hasPerm=f.perm!==null&&f.perm!==undefined;
     const dp=hasPerm&&mode==='perm'?f.perm:f.norm;
@@ -3948,7 +3946,7 @@ tagOrder('bfGrid');
         <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${fmtPrice(dp)}','${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
       </div>
     </div>`;
-  }).join('');
+  }).join('');tagOrder('bfGrid');
 }
 
 function setFM(name,mode){
@@ -4226,7 +4224,6 @@ function _bsLivePrice(item){
 
 function renderBS(){
   document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
-tagOrder('bsGrid');
     var lp=_bsLivePrice(i);
     var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
     var pStr=p>0?fmtPrice(p):'N/A';
@@ -4244,7 +4241,7 @@ tagOrder('bsGrid');
         +(p>0?'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+pStr+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>':'<button class="pc-btn oos" disabled onclick="event.stopPropagation()">Unavailable</button>')
       +'</div>'
     +'</div>';
-  }).join('');
+  }).join('');tagOrder('bsGrid');
 }
 
 function renderBundles(){

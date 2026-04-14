@@ -3382,7 +3382,7 @@ const BB = [
   {n:'Mythology Spins x500',          em:'🌀',p:111.49, badge:'',    stock:99,sub:'spins',   rar:'legendary',bg:'r-legendary'},
   {n:'Mythology Spins x1000',         em:'🌀',p:211.99, badge:'best',stock:99,sub:'spins',   rar:'mythical', bg:'r-mythical'},
   // ── TOKENS ────────────────────────────────────────────────────
-  {n:'1000 Trade Tokens',             em:'🪙',p:4.00,   badge:'',    stock:99,sub:'tokens',  rar:'uncommon', bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
+  {n:'1000 Trade Tokens',             em:'🪙',p:5.30,   badge:'',    stock:99,sub:'tokens',  rar:'uncommon', bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
   {n:'2000 Trade Tokens',             em:'🪙',p:10.00,  badge:'',    stock:99,sub:'tokens',  rar:'uncommon', bg:'r-uncommon',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
   {n:'5000 Trade Tokens',             em:'🪙',p:26.00,  badge:'',    stock:99,sub:'tokens',  rar:'rare',     bg:'r-rare',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
   {n:'10000 Trade Tokens',            em:'🪙',p:62.80,  badge:'hot', stock:99,sub:'tokens',  rar:'rare',     bg:'r-rare',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
@@ -4773,36 +4773,28 @@ async function applyCode(){
   promoApplied=false; promoPct=0; _appliedReferralCode=null; _referralDiscount=false;
 
   // ── 1. Try as promo code ─────────────────────────────────
-  if(currentUser){
-    // Check already-used locally
-    const _users=loadUsers();
-    const _u=_users[currentUser.email];
-    if(_u?.usedPromos?.includes(code)){
+  // Verify server-side (bot enforces once-per-account)
+  _showCodeMsg(el,'pending','⏳ Checking…');
+  try{
+    const base=BOT_WEBHOOK_URL.replace('/order','');
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>ctrl.abort(),5000);
+    const email=currentUser?.email||null;
+    const resp=await fetch(base+'/verify-promo',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({code, email}),
+      signal:ctrl.signal
+    });
+    clearTimeout(t);
+    const data=await resp.json();
+    if(data.valid){ _applyPromoCode(code,data.pct,el); return; }
+    if(data.alreadyUsed){
       _showCodeMsg(el,'err','❌ You\'ve already used this promo code.');
       setTimeout(()=>el.style.display='none',2500);
       return;
     }
-    // Verify server-side — never exposes full promo list
-    _showCodeMsg(el,'pending','⏳ Checking…');
-    try{
-      const base=BOT_WEBHOOK_URL.replace('/order','');
-      const ctrl=new AbortController();
-      const t=setTimeout(()=>ctrl.abort(),5000);
-      const resp=await fetch(base+'/verify-promo',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-        body:JSON.stringify({code}),
-        signal:ctrl.signal
-      });
-      clearTimeout(t);
-      const data=await resp.json();
-      if(data.valid){ _applyPromoCode(code,data.pct,el); return; }
-    }catch(e){}
-  } else {
-    // Not logged in — prompt login (promo codes require account)
-    _showCodeMsg(el,'warn','⚠️ Sign in to use promo codes.');
-    return;
-  }
+  }catch(e){}
 
   // ── 2. Try as referral code ──────────────────────────────
   // Can't use your own referral code

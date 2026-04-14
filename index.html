@@ -7351,6 +7351,11 @@ function initScrollWraps(){
   });
 }
 
+// ── PER-SECTION SORT ──────────────────────────────────────────
+function sortSection(sel,gridId){const grid=document.getElementById(gridId);if(!grid)return;const order=sel.value;const cards=Array.from(grid.querySelectorAll('.pc'));if(!cards.length)return;if(order===''){cards.sort((a,b)=>Number(a.dataset.oidx||0)-Number(b.dataset.oidx||0));}else{cards.sort((a,b)=>{const pa=parseFloat((a.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;const pb=parseFloat((b.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;return order==='low'?pa-pb:pb-pa;});}cards.forEach(c=>grid.appendChild(c));}
+function tagOrder(gridId){document.getElementById(gridId)?.querySelectorAll('.pc').forEach((c,i)=>c.dataset.oidx=i);}
+function filterGames(q){const lq=(q||'').toLowerCase().trim();document.querySelectorAll('#gsDrop .gd-item').forEach(item=>{const lbl=(item.querySelector('.gd-label')?.textContent||item.textContent).toLowerCase();item.style.display=(!lq||lbl.includes(lq))?'':'none';});}
+
 // ── INIT ──────────────────────────────────────────────────────
 function init(){
   // Update language/currency nav label
@@ -7759,38 +7764,6 @@ setTimeout(renderHomeMenu, 0);
 })();
 </script>
 <div id="toastStack"></div>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
-// ── PER-SECTION SORT ──────────────────────────────────────────
-function sortSection(sel, gridId) {
-  const grid = document.getElementById(gridId);
-  if (!grid) return;
-  const order = sel.value;
-  const cards = Array.from(grid.querySelectorAll('.pc'));
-  if (!cards.length) return;
-  if (order === '') {
-    cards.sort((a,b) => Number(a.dataset.oidx||0) - Number(b.dataset.oidx||0));
-  } else {
-    cards.sort((a,b) => {
-      const pa = parseFloat((a.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;
-      const pb = parseFloat((b.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;
-      return order==='low' ? pa-pb : pb-pa;
-    });
-  }
-  cards.forEach(c => grid.appendChild(c));
-}
-function tagOrder(gridId) {
-  document.getElementById(gridId)?.querySelectorAll('.pc').forEach((c,i) => c.dataset.oidx = i);
-}
-
-// ── GAME PANEL SEARCH ─────────────────────────────────────────
-function filterGames(q) {
-  const lq = (q||'').toLowerCase().trim();
-  document.querySelectorAll('#gsDrop .gd-item').forEach(item => {
-    const lbl = (item.querySelector('.gd-label')?.textContent||item.textContent).toLowerCase();
-    item.style.display = (!lq || lbl.includes(lq)) ? '' : 'none';
-  });
-}
-
-</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>

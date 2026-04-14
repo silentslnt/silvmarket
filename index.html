@@ -939,18 +939,26 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 .cm-timer-val{font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#ffd700}
 .cm-bar-wrap{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:18px;overflow:hidden}
 .cm-bar{height:100%;width:100%;background:linear-gradient(90deg,#ff10f0,#9333ea);border-radius:2px;transition:width 1s linear}
-.cm-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.cm-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:18px}
+.ct-coin-card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px 9px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;transition:all .2s;font-family:inherit}
+.ct-coin-card:hover{border-color:rgba(147,51,234,.4);background:rgba(147,51,234,.1);transform:translateY(-1px)}
+.ct-coin-card.ct-active{border-color:rgba(255,16,240,.5);background:rgba(255,16,240,.1);box-shadow:0 0 14px rgba(255,16,240,.15)}
+.ct-logo{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0}
+.ct-ticker{font-family:'Orbitron',monospace;font-size:9px;font-weight:800;color:#fff;letter-spacing:.3px}
+.ct-name{font-family:'Rajdhani',sans-serif;font-size:9px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}
 .cm-amt-box{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.22);border-radius:10px;padding:12px 14px;margin-bottom:14px}
 .cm-amt-lbl{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,215,0,.6);margin-bottom:4px}
 .cm-amt-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .cm-amt-val{font-family:'Orbitron',monospace;font-size:22px;font-weight:800;color:#ffd700}
 .cm-copy-amt{padding:7px 12px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.3);border-radius:7px;color:#ffd700;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;white-space:nowrap;display:flex;align-items:center;gap:5px}
 .cm-usd{font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;font-family:'Rajdhani',sans-serif}
-.cm-coin-lbl{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px}
-.cm-qr{width:150px;height:150px;margin:0 auto 12px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px}
-.cm-addr-row{display:flex;gap:8px;align-items:center;margin-bottom:14px}
-.cm-addr{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:10px;color:rgba(255,255,255,.65);word-break:break-all;min-height:36px;letter-spacing:.3px}
-.cm-copy-addr{padding:10px 13px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);border-radius:8px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:5px}
+.cm-coin-lbl{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.cm-qr{width:140px;height:140px;margin:0 auto 12px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px}
+.cm-instruction{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,.55);margin-bottom:7px;letter-spacing:.2px}
+.cm-addr-row{margin-bottom:8px}
+.cm-addr{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:9px;padding:11px 13px;font-family:monospace;font-size:11px;color:rgba(255,255,255,.85);word-break:break-all;letter-spacing:.4px;line-height:1.55}
+.cm-copy-addr-full{width:100%;padding:12px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.35);border-radius:9px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;margin-bottom:14px;letter-spacing:.5px}
+.cm-copy-addr-full:hover{background:linear-gradient(135deg,rgba(147,51,234,.45),rgba(255,16,240,.3));box-shadow:0 0 16px rgba(255,16,240,.2)}
 .cm-status-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;margin-bottom:12px;text-align:center}
 .cm-status-txt{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:6px}
 .cm-dots{display:none;margin-top:6px}
@@ -2670,13 +2678,14 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <!-- Address + QR -->
     <div class="cm-coin-lbl" id="cryptoCoinLabel">SELECT A COIN ABOVE</div>
     <div id="cryptoQR" class="cm-qr"></div>
+    <div id="cryptoInstruction" class="cm-instruction" style="display:none">Send exactly the amount above to this address:</div>
     <div class="cm-addr-row">
       <div id="cryptoAddr" class="cm-addr">Select a coin to see address</div>
-      <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" class="cm-copy-addr">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copy
-      </button>
     </div>
+    <button id="cryptoCopyBtn" onclick="copyCryptoAddr()" class="cm-copy-addr-full">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy Address
+    </button>
 
     <!-- Status checker -->
     <div id="cryptoStatusBox" class="cm-status-box">
@@ -3197,8 +3206,8 @@ const SP = [
   {n:'2x Drops',    em:'🎁',p:7.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor%20Piece.png'},
   {n:'2x Luck Drop',em:'🍀',p:6.00,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor%20Piece.png'},
   {n:'x5 Aura Crates',em:'📦',p:.50,sub:'gamepasses',badge:'',stock:99,bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
-  {n:'20x Aura Crates',em:'📦',p:5.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
-  {n:'100x Aura Crates',em:'📦',p:10.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'20x Aura Crates',em:'📦',p:2.10,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'100x Aura Crates',em:'📦',p:5.00,sub:'gamepasses',badge:'best',stock:99,bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
   {n:'2x Luck',em:'🍀',p:8.00,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x Luck.png'},
   {n:'2x EXP',em:'⚡',p:2.00,sub:'gamepasses',badge:'hot',stock:99,bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x exp.png'},
   {n:'Slime',em:'🧳',p:9.99,sub:'gamepasses',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Slime.webp'},
@@ -5431,26 +5440,31 @@ function buildCryptoTabs(){
     tabs.innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px">No wallet addresses configured.</div>';
     return;
   }
-  tabs.innerHTML=coins.map((c,i)=>`
-    <button class="crypto-tab${i===0?' ct-active':''}"
-      onclick="selectCoin('${c}',this)"
-      style="padding:7px 16px;border-radius:8px;font-family:Rajdhani,sans-serif;font-weight:700;
-        font-size:13px;cursor:pointer;border:1px solid rgba(255,255,255,.15);
-        background:${i===0?'rgba(147,51,234,.3)':'rgba(255,255,255,.05)'};
-        color:${i===0?'#fff':'rgba(255,255,255,.5)'};transition:all .2s">${c}</button>`
-  ).join('');
+  const COIN_META={
+    BTC:{name:'Bitcoin', color:'#f7931a', bg:'rgba(247,147,26,.18)', symbol:'₿'},
+    ETH:{name:'Ethereum',color:'#627eea', bg:'rgba(98,126,234,.18)', symbol:'Ξ'},
+    SOL:{name:'Solana',  color:'#9945ff', bg:'rgba(153,69,255,.18)', symbol:'◎'},
+    USDT:{name:'Tether', color:'#26a17b', bg:'rgba(38,161,123,.18)', symbol:'₮'},
+    LTC:{name:'Litecoin',color:'#c0c0c0', bg:'rgba(192,192,192,.14)', symbol:'Ł'},
+  };
+  tabs.innerHTML=coins.map((c,i)=>{
+    const m=COIN_META[c]||{name:c,color:'#9333ea',bg:'rgba(147,51,234,.15)',symbol:c[0]};
+    return `<button class="ct-coin-card${i===0?' ct-active':''}" onclick="selectCoin('${c}',this)">
+      <div class="ct-logo" style="background:${m.bg};color:${m.color}">${m.symbol}</div>
+      <div class="ct-ticker">${c}</div>
+      <div class="ct-name">${m.name}</div>
+    </button>`;
+  }).join('');
   if(coins.length) selectCoin(coins[0], tabs.children[0]);
 }
 
 function selectCoin(coin, btn){
   _cryptoCurrent    = CRYPTO_WALLETS[coin]||'';
   _cryptoCurrentCoin= coin;
-  document.querySelectorAll('.crypto-tab').forEach(b=>{
-    b.style.background='rgba(255,255,255,.05)';
-    b.style.color='rgba(255,255,255,.5)';
-  });
-  btn.style.background='rgba(147,51,234,.3)';
-  btn.style.color='#fff';
+  document.querySelectorAll('.ct-coin-card').forEach(b=>b.classList.remove('ct-active'));
+  btn.classList.add('ct-active');
+  const instr=document.getElementById('cryptoInstruction');
+  if(instr) instr.style.display='block';
   document.getElementById('cryptoCoinLabel').textContent=coin+' ADDRESS';
   document.getElementById('cryptoAddr').textContent=_cryptoCurrent||'No address set';
   drawQR(_cryptoCurrent);
@@ -5473,10 +5487,15 @@ function copyCryptoAddr(){
   if(!_cryptoCurrent) return;
   navigator.clipboard.writeText(_cryptoCurrent).then(()=>{
     const btn=document.getElementById('cryptoCopyBtn');
-    btn.textContent='Copied!';
-    btn.style.background='rgba(0,200,100,.25)';
+    btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    btn.style.background='linear-gradient(135deg,rgba(0,200,83,.3),rgba(0,200,83,.2))';
+    btn.style.borderColor='rgba(0,200,83,.5)';
     showToast('Address copied!', 'copy');
-    setTimeout(()=>{btn.innerHTML=_clipSVG+' Copy';btn.style.background='rgba(147,51,234,.25)';},2000);
+    setTimeout(()=>{
+      btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Address`;
+      btn.style.background='linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2))';
+      btn.style.borderColor='rgba(255,16,240,.35)';
+    },2000);
   });
 }
 

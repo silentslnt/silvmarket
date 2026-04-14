@@ -68,7 +68,7 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 
 .card{background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
 .card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
-.field-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.3px;display:block;margin-bottom:6px}
+.field-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.62);letter-spacing:.3px;display:block;margin-bottom:6px}
 .field-row{display:flex;gap:8px}
 .inp{flex:1;padding:11px 13px;background:#111128;border:1px solid rgba(255,255,255,.09);border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .15s,box-shadow .15s;box-sizing:border-box}
 .inp:focus{border-color:rgba(147,51,234,.6);box-shadow:0 0 0 2px rgba(147,51,234,.12)}
@@ -87,6 +87,14 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 .toggle{width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:background .25s;border:1px solid rgba(255,255,255,.08);flex-shrink:0}
 .toggle-thumb{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)}
 
+/* orders stats row */
+.orders-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.ostat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.ostat-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ostat-num{font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;line-height:1}
+.ostat-lbl{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-top:4px;font-family:'Rajdhani',sans-serif;font-weight:700}
+@media(max-width:500px){.orders-stats-row{grid-template-columns:1fr 1fr}.ostat-card:last-child{grid-column:1/-1}}
+
 /* orders */
 .orders-toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .orders-filter{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none;position:relative}
@@ -98,23 +106,23 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
 .filter-option:hover{background:rgba(147,51,234,.1);color:#fff}
 .filter-option.selected{color:#a855f7}
 .orders-table{width:100%;border-collapse:collapse}
-.orders-table th{font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.2);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+.orders-table th{font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.3);text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
 .orders-table th:last-child,.orders-table td:last-child{text-align:right}
-.orders-table td{padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.orders-table td{padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle}
 .orders-table tr:last-child td{border-bottom:none}
-.orders-table tr:hover td{background:rgba(255,255,255,.02)}
+.orders-table tr:hover td{background:rgba(255,255,255,.025)}
 .order-item-cell{display:flex;align-items:center;gap:10px}
 .order-icon{width:38px;height:38px;border-radius:8px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .order-name{font-size:12px;font-weight:700;color:#fff;line-height:1.4;max-width:200px}
-.order-id-small{font-family:'Orbitron',monospace;font-size:9px;color:rgba(255,255,255,.25);margin-top:2px}
-.status-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
-.status-badge.completed{background:rgba(0,200,83,.12);color:#00c853;border:1px solid rgba(0,200,83,.2)}
-.status-badge.pending{background:rgba(255,165,0,.12);color:#ffa500;border:1px solid rgba(255,165,0,.2)}
-.status-badge.delivered{background:rgba(88,101,242,.12);color:#818cf8;border:1px solid rgba(88,101,242,.2)}
+.order-id-small{font-family:'Orbitron',monospace;font-size:9px;color:rgba(255,255,255,.4);margin-top:2px}
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;letter-spacing:.3px}
+.status-badge.completed{background:rgba(0,200,83,.14);color:#00e676;border:1px solid rgba(0,200,83,.28)}
+.status-badge.pending{background:rgba(255,165,0,.14);color:#ffb74d;border:1px solid rgba(255,165,0,.28)}
+.status-badge.delivered{background:rgba(88,101,242,.14);color:#818cf8;border:1px solid rgba(88,101,242,.28)}
 .col-price{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:#ffd700}
-.col-disc{font-size:11px;color:rgba(0,200,83,.8);font-weight:600}
-.col-method{font-size:11px;color:var(--muted);font-weight:600}
-.col-date{font-size:11px;color:rgba(255,255,255,.3);white-space:nowrap}
+.col-disc{font-size:11px;color:rgba(0,230,118,.85);font-weight:600}
+.col-method{font-size:11px;color:rgba(255,255,255,.6);font-weight:600}
+.col-date{font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap}
 .claim-copy{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);border-radius:6px;font-size:10px;font-weight:700;color:#a855f7;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'Inter',sans-serif}
 .claim-copy:hover{background:rgba(147,51,234,.2);color:#fff}
 .empty-state{padding:40px 0;text-align:center;color:var(--muted);font-size:13px}
@@ -350,6 +358,9 @@ button{cursor:pointer;font-family:'Inter',sans-serif}
     <!-- ORDERS -->
     <div class="section active" id="section-orders">
       <div class="section-header">Order History</div>
+
+      <!-- Stats summary -->
+      <div class="orders-stats-row" id="ordersStats" style="display:none"></div>
 
       <!-- Toolbar -->
       <div class="orders-toolbar">
@@ -707,6 +718,46 @@ function loadOrders(){
   _allOrders   = u?.orders || [];
   const total  = _allOrders.reduce((s,o)=>s+Number(o.total||0),0);
   document.getElementById('sidebarBalance').textContent = '$'+total.toFixed(2);
+
+  // Stats row
+  const statsEl = document.getElementById('ordersStats');
+  if(statsEl){
+    if(_allOrders.length){
+      const tokens = parseInt(localStorage.getItem('silv_tokens_'+currentUser.email)||'0');
+      statsEl.style.display='grid';
+      statsEl.innerHTML=`
+        <div class="ostat-card">
+          <div class="ostat-icon" style="background:rgba(147,51,234,.15)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <div>
+            <div class="ostat-num">${_allOrders.length}</div>
+            <div class="ostat-lbl">TOTAL ORDERS</div>
+          </div>
+        </div>
+        <div class="ostat-card">
+          <div class="ostat-icon" style="background:rgba(255,215,0,.1)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <div class="ostat-num" style="color:#ffd700">$${total.toFixed(2)}</div>
+            <div class="ostat-lbl">TOTAL SPENT</div>
+          </div>
+        </div>
+        <div class="ostat-card">
+          <div class="ostat-icon" style="background:rgba(255,16,240,.1)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="ostat-num" style="color:#ff10f0">${tokens.toLocaleString()}</div>
+            <div class="ostat-lbl">LOYALTY PTS</div>
+          </div>
+        </div>`;
+    } else {
+      statsEl.style.display='none';
+    }
+  }
+
   renderOrdersTable();
 }
 
@@ -770,6 +821,13 @@ function renderOrdersTable(){
     return m;
   }
 
+  function statusBorderColor(order){
+    const s=(order.status||'completed').toLowerCase();
+    if(s.includes('pending'))   return 'rgba(255,165,0,.7)';
+    if(s.includes('delivered')) return 'rgba(88,101,242,.7)';
+    return 'rgba(0,200,83,.7)';
+  }
+
   const rows = [];
   for(let i=0;i<orders.length;i++){
     try{
@@ -781,8 +839,9 @@ function renderOrdersTable(){
       const disc    = Number(o.discount||0);
       const claimKey= String(o.claimKey||'—');
       const orderId = String(o.orderId||'');
+      const bdrColor= statusBorderColor(o);
       rows.push(`<tr>
-        <td>
+        <td style="border-left:3px solid ${bdrColor}">
           <div class="order-item-cell">
             <div class="order-icon">${icon}</div>
             <div>

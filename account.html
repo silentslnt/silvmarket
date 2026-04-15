@@ -791,19 +791,14 @@ function renderOrdersTable(){
     return;
   }
 
-  // Game icon guessing from item names
-  const GAME_ICONS = {
-    'blox fruit':'🍎','blox fruits':'🍎','bloxfruits':'🍎',
-    'adopt me':'🐾','grow a garden':'🌱','murder mystery':'🔪','mm2':'🔪',
-    'brainrot':'🧠','rivals':'⚔️','grand piece':'☠️','gpo':'☠️',
-    'sailor piece':'⚓','sp':'⚓','nights':'🌙','tsunami':'🌊',
-  };
-  function guessIcon(items){
-    const str = (items||[]).join(' ').toLowerCase();
-    for(const [key,icon] of Object.entries(GAME_ICONS)){
-      if(str.includes(key)) return icon;
-    }
-    return '🎮';
+  // Load product cache written by index.html
+  let _prodCache = {};
+  try{ _prodCache = JSON.parse(localStorage.getItem('silv_prod_cache')||'{}'); }catch{}
+
+  function itemIcon(name){
+    const c = _prodCache[name];
+    if(c && c.img) return `<img src="${c.img}" style="width:36px;height:36px;object-fit:cover;border-radius:7px;flex-shrink:0" onerror="this.outerHTML='<div style=\'width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0\'>🎮</div>'"/>`;
+    return `<div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎮</div>`;
   }
   function statusBadge(order){
     const s = (order.status||'completed').toLowerCase();
@@ -837,7 +832,7 @@ function renderOrdersTable(){
       const o = orders[i];
       // Normalize items — may be strings or {name:...} objects from bot sync
       const itemNames = (o.items||[]).map(x => typeof x === 'string' ? x : (x.name||x.n||'Unknown'));
-      const icon    = guessIcon(itemNames);
+      const icon    = itemIcon(itemNames[0]||'');
       const names   = itemNames.slice(0,2).join(', ') + (itemNames.length>2?' +'+(itemNames.length-2)+' more':'') || '—';
       const disc    = Number(o.discount||0);
       const claimKey= String(o.claimKey||'—');

@@ -1,6 +1,29 @@
+# Silv Market — Cloudflare Pages Headers
+
+# Security headers on everything
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Images — 1 year immutable cache (hashed filenames never change)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts — 1 year
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages — always revalidate (content changes frequently)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Service worker — never cache
+/sw.js
+  Cache-Control: no-store
+
+# Sitemap
+/sitemap.xml
+  Cache-Control: public, max-age=3600

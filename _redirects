@@ -1,32 +1,17 @@
-# Game section pages
-/robux            /?game=robux    302
-/bf               /?game=bf       302
-/blox-fruits      /?game=bf       302
-/brainrot         /?game=brainrot 302
-/rivals           /?game=rivals   302
-/mm2              /?game=mm2      302
-/murder-mystery   /?game=mm2      302
-/tsunami          /?game=tsunami  302
-/sp               /?game=sp       302
-/sailor-piece     /?game=sp       302
-/am               /?game=am       302
-/adopt-me         /?game=am       302
-/gag              /?game=gag      302
-/grow-a-garden    /?game=gag      302
-/nights           /?game=nights   302
-/gpo              /?game=gpo      302
-/grand-piece      /?game=gpo      302
-/bb               /?game=bb       302
-/blade-ball       /?game=bb       302
-/av               /?game=av       302
-/bl               /?game=bl       302
-/bloodlines       /?game=bl       302
-/fisch            /?game=fisch    302
-/bss              /?game=bss      302
-/bee-swarm        /?game=bss      302
-/blb              /?game=blb      302
-/lucky-block      /?game=blb      302
-/vbl              /?game=vbl      302
-/volleyball       /?game=vbl      302
-/dth              /?game=dth      302
-/death-ball       /?game=dth      302
+# Silv Market — Cloudflare Pages Redirects
+# Primary game routes (/bf, /mm2, etc.) are handled by functions/_middleware.js
+# which injects game-specific OG meta and serves index.html at the clean URL.
+
+# Slug aliases → canonical game route (301 permanent)
+/blox-fruits       /bf        301
+/murder-mystery    /mm2       301
+/adopt-me          /am        301
+/grow-a-garden     /gag       301
+/sailor-piece      /sp        301
+/grand-piece       /gpo       301
+/blade-ball        /bb        301
+/anime-vanguards   /av        301
+/bee-swarm         /bss       301
+/lucky-block       /blb       301
+/volleyball        /vbl       301
+/death-ball        /dth       301

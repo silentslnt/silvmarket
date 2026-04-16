@@ -921,12 +921,14 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
   stroke-linecap:round;stroke-linejoin:round}
 
 /* ── BEST SELLERS GAME TABS ────────────────────────────────── */
-.bs-tabs-row{display:flex;align-items:center;gap:16px;width:100%;max-width:1240px;padding:0 20px;margin-bottom:18px;box-sizing:border-box;flex-wrap:nowrap}
 .bs-tabs-scroll{display:flex;gap:8px;overflow-x:auto;flex:1;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px}
 .bs-tabs-scroll::-webkit-scrollbar{display:none}
-.bs-tab{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-radius:20px;padding:6px 14px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.bs-tab{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-radius:20px;padding:5px 12px 5px 5px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:7px;flex-shrink:0}
+.bs-tab-img{width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0}
 .bs-tab:hover{background:rgba(255,16,240,0.12);border-color:rgba(255,16,240,0.35);color:#fff}
 .bs-tab.bs-active{background:linear-gradient(135deg,rgba(255,16,240,0.25),rgba(147,51,234,0.25));border-color:#ff10f0;color:#fff;box-shadow:0 0 12px rgba(255,16,240,0.2)}
+.bs-arrow{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border-radius:50%;width:28px;height:28px;cursor:pointer;flex-shrink:0;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0;line-height:1}
+.bs-arrow:hover{background:rgba(255,16,240,0.2);border-color:#ff10f0;color:#fff}
 
 /* ── CRYPTO MODAL ──────────────────────────────────────────── */
 .cm-ov{display:none;position:fixed;inset:0;z-index:2000;
@@ -1307,15 +1309,17 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 
   <!-- Best Sellers -->
-  <div style="margin-top:36px;width:100%">
-    <div class="bs-tabs-row">
-      <div class="hm-section-label" style="flex-shrink:0">Best Sellers</div>
-      <div class="bs-tabs-scroll" id="bsTabs"></div>
-    </div>
-    <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
-      <div class="h-scroll" id="bsGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
-      <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-    </div>
+  <div class="hm-sec-row" style="margin-top:36px">
+    <div class="hm-section-label">Best Sellers</div>
+  </div>
+  <div style="position:relative;z-index:2;display:flex;align-items:center;gap:8px;width:100%;max-width:1240px;padding:0 20px;margin-bottom:18px;box-sizing:border-box">
+    <button class="bs-arrow" onclick="scrollBSTabs(-1)" aria-label="scroll left">&#8249;</button>
+    <div class="bs-tabs-scroll" id="bsTabs"></div>
+    <button class="bs-arrow" onclick="scrollBSTabs(1)" aria-label="scroll right">&#8250;</button>
+  </div>
+  <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
+    <div class="h-scroll" id="bsGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
+    <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
   </div>
 
   <!-- Bundle Deals -->
@@ -3026,7 +3030,7 @@ const MM2 = [
   {n:"Vampire’s Set",type:"knife",p:48.99,oldP:null,badge:"",stock:99,sub:"set",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/hUgDAAwKWWUtkuu8CboZTGydnFE9qrMD6qMU8Khu.png"},
   {n:"Sakura Set",type:"knife",p:39.99,oldP:null,badge:"",stock:99,sub:"set",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/x1o5N9nlpsR5N5w9RYpPXba5cVcDWIo9vYGIKavU.png"},
   {n:"Dark Set",type:"knife",p:45.99,oldP:null,badge:"",stock:99,sub:"set",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fE8DyB4BDg5o3bCIXT8TJ6ehh3FURc8iDjR9KXjt.png"},
-  {n:"Gingerscope",type:"knife",p:249.99,oldP:null,badge:"hot",stock:99,sub:"godly",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/qN8hGGCZl0RJuaSnlEo5mYaMF9uv6rdhruPbRPsk.png"},
+  {n:"Gingerscope",type:"knife",p:300.99,oldP:null,badge:"hot",stock:99,sub:"godly",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/qN8hGGCZl0RJuaSnlEo5mYaMF9uv6rdhruPbRPsk.png"},
   {n:"Traveler’s Set",type:"knife",p:189.99,oldP:null,badge:"hot",stock:99,sub:"set",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/GMzEdmR0ggPotnpRpILtjm1SpVagL4upcWVtA2RI.png"},
   {n:"Evergreen set",type:"knife",p:99.99,oldP:null,badge:"hot",stock:99,sub:"set",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ePxJ4WscfIbEoLYZS3g5IAgkIFQjyDP8xlvGbtc5.png"},
   {n:"Chroma Raygun",type:"gun",p:299.99,oldP:null,badge:"hot",stock:99,sub:"chroma",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/rTkLG414GRPQokAEZedK4kwMMs2MtvzrRgpNNoDl.png"},
@@ -3055,7 +3059,7 @@ const BRAINROT = [
   {n:"Garama and Madundung",badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/x5oD5NMixR9tmhi7ybTACLne5V1SLj1w7Ac9kvwF.png",speeds:[{label:'50M/s',p:3.14},{label:'300-700M/s',p:39.99},{label:'Divine 500M/s',p:49.99}]},
   {n:"Fortunu and Cashuru $162.5M/s - $1B/s",p:40,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/YMK6K7gHiioqyOq4v79rFEIZlL5SWKxJs2idm5WF.png"},
   {n:"Guest 666 $6.6M/s-$159.9M/s",p:9.86,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/P7JulhoYAJZuvNPn2cGMCcvCcE1TWubhFJVpd7Wf.png"},
-  {n:"Popcuru and Fizzuru",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/1HUDEmHLzfZifYHkuPb6pPkcUnnOfjajs9uA9fYT.png",speeds:[{label:'170M/s',p:13.49},{label:'1-1.4B/s',p:26.09}]},
+  {n:"Popcuru and Fizzuru",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/1HUDEmHLzfZifYHkuPb6pPkcUnnOfjajs9uA9fYT.png",speeds:[{label:'170M/s',p:7.50},{label:'1-1.4B/s',p:26.09}]},
   {n:"Reinito Sleighito 140M/s-875m/s",p:24.29,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/hSsADlPMZEPZIqSqw6tAQGXbaZWnBfBbCEMnwf74.png"},
   {n:"La Casa Boo diamond",p:23.36,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FzRnaF7iQTm7ERHPgFw8DY4xNVbQllDcCu63ZXPl.png"},
   {n:"La Secret Combinasion Radioactiv 1b",p:22.5,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WoZQE3d9I0bUs4jiKvppbnLJPUARNYAsbXaWMMd2.png"},
@@ -3152,7 +3156,7 @@ const BRAINROT = [
   {n:"Swag Soda $13M/s",p:6.09,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/MIpDRZGeEeTqQoMetRP1IFgq1O4tRTKr5gTjAen0.png"},
   {n:"Ketupat Kepat $35M/s",p:2.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kaFQWP5brYUbVCIkWkQ9YbqA7o7siO7S44l6CkVX.png"},
   {n:"Las Sis",p:5.4,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/0eXyuQwVKZoNzMHpQ9Ytm4YVmjqa4AS327PsvYIw.png"},
-  {n:"La Secret Combinasion $125M/s",p:5.39,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png"},
+  {n:"La Secret Combinasion $125M/s",p:3.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png"},
   {n:"Esok Sekolah $330m/s",p:2.39,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png"},
   {n:"normal Spaghetti Tualetti 90m/s-300m/s",p:4.49,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XjuWKOdpulD7a4BuDCIBb8xjoM4W1mmGJDK98BII.png"},
   {n:"los mobilis 165 m/s",p:4.49,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/TyTX59Q2Pg8VPpnXVppsL7kJtKXT3n8DwbXIM0kq.png"},
@@ -4229,18 +4233,60 @@ function setJtActive(btn){
 
 // ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
-  {n:'Dragon Cannelloni',            em:'🐉',p:'$39.99', game:'Steal a Brainrot',   badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png', _ref:'Dragon Cannelloni'},
-  {n:'100x Aura Crates',             em:'📦',p:'$15.00', game:'Sailor Piece',       badge:'best',stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
-  {n:'Permanent Dragon',             em:'🐉',p:'$32.49', game:'Blox Fruits',        badge:'best',stock:3,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png',    _ref:'Dragon'},
-  {n:'Owl',                          em:'🦉',p:'$99.09', game:'Adopt Me',           badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/TOHPHsudhz98RnjFfomvk16wn7IgBxu3baySnSSJ.png'},
-  {n:'Skin Case 3 [3x]',             em:'🔪',p:'$4.69',  game:'MM2',               badge:'hot', stock:2,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ee0x7vzf3IEZEOByWogs8sxVniiu4I4cljFqXld3.png',_ref:'Skin Case 3 [x3]'},
-  {n:'La Secret Combinasion $125M/s',em:'💎',p:'$5.99',  game:'Steal a Brainrot',  badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png'},
-  {n:'Standard Weapons Bundle!',     em:'⚔️',p:'$6.79',  game:'Rivals',            badge:'hot', stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/D2XfpEsls8yUdYCnyYKupbZNpzXtKoekZIzC9SA6.png'},
-  {n:'All Seeing Egg',               em:'👁️',p:'$39.99', game:'Grand Piece Online', badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bc3ww77MqEe32yi3XcNptJorpwYMP9Y85WkCeA6a.png'},
-  {n:'True Azien Set',               em:'⚔️',p:'$4.00',  game:'Sailor Piece',       badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen%20Set.jpg'},
-  {n:'500 Blade Ball Tokens',        em:'⚔️',p:'$6.30',  game:'Blade Ball',         badge:'',    stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png'},
-  {n:'Shiny Seban (Seven)',          em:'✨',p:'$50.00', game:'Anime Vanguards',    badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png'},
-  {n:'10,000 Robux',                 em:'💎',p:'$55.00', game:'Robux',              badge:'best',stock:99, bg:'r-robux',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png'},
+  // ── Steal a Brainrot ─────────────────────────────────────────
+  {n:'Dragon Cannelloni',             em:'🐉',p:'$39.99', game:'Steal a Brainrot',   badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png'},
+  {n:'La Secret Combinasion $125M/s', em:'💎',p:'$5.99',  game:'Steal a Brainrot',   badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png'},
+  {n:'Garama and Madundung',          em:'🧠',p:'$3.14',  game:'Steal a Brainrot',   badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/x5oD5NMixR9tmhi7ybTACLne5V1SLj1w7Ac9kvwF.png'},
+  {n:'Burguro and Fryuro 150M/s',     em:'🧠',p:'$4.37',  game:'Steal a Brainrot',   badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/w9aq1byfVjwu9W13mkMHw0Z2SyNk3FSuWGttNzCw.png',_ref:'Burguro and Fryuro 150M/s'},
+  {n:'Popcuru and Fizzuru',           em:'🧠',p:'$13.49', game:'Steal a Brainrot',   badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/1HUDEmHLzfZifYHkuPb6pPkcUnnOfjajs9uA9fYT.png'},
+  {n:'Capitano Moby $160M/s',         em:'🧠',p:'$7.44',  game:'Steal a Brainrot',   badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png',_ref:'Capitano Moby $160M/s'},
+  // ── Blox Fruits ──────────────────────────────────────────────
+  {n:'Permanent Dragon',              em:'🐉',p:'$32.49', game:'Blox Fruits',        badge:'best',stock:3,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dragon.png',_ref:'Dragon'},
+  {n:'Perm Kitsune',                  em:'🦊',p:'$23.27', game:'Blox Fruits',        badge:'myth',stock:2,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kitsune.png',_ref:'Kitsune'},
+  {n:'Perm Portal',                   em:'🌀',p:'$13.57', game:'Blox Fruits',        badge:'leg', stock:14, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/portal.png',_ref:'Portal'},
+  {n:'Angel V4 Full Gear (CDK)',       em:'👤',p:'$4.99',  game:'Blox Fruits',        badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Angel%20V4%20Full%20gear%20-%20Max%20Level%20Account%20-%20Cursed%20Dual%20Katana%20(CDK)%20-%20Godly%20Items.png'},
+  {n:'+1 Fruit Storage (2x)',          em:'🍎',p:'$5.19',  game:'Blox Fruits',        badge:'',    stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/I11OqWVFGbXYjHjvEkGhwjYGijt3poF95TkznMvz.png',_ref:'+1 Fruit Storage (2x)'},
+  {n:'2x Money + 2x Mastery',          em:'🍎',p:'$5.89',  game:'Blox Fruits',        badge:'',    stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/xUsWNwq9npfaHMmRgapYCkIWvyQrhYEoWiB8yQWA.png',_ref:'2x Money + 2x Mastery'},
+  // ── Grow a Garden ────────────────────────────────────────────
+  {n:'Goated Bundle',                 em:'🐐',p:'$10.00', game:'Grow a Garden',      badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/xAjypGosZt5qHZHpv4akB4Cvwm9EivZ1nNne57zv.png',_ref:'Goated Bundle'},
+  {n:'Thief Bundle',                  em:'🎭',p:'$6.99',  game:'Grow a Garden',      badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/wlx8OyvRsxxBxUCsydmwePGxI6okZV6k0Q3hLGp5.png',_ref:'Thief Bundle'},
+  // ── Murder Mystery 2 ─────────────────────────────────────────
+  {n:'Chroma Heartwand',              em:'💗',p:'$79.99', game:'MM2',               badge:'hot', stock:99, bg:'r-legendary',img:'https://petmart.fun/storage/products/mcZg5yhi2wH0OX1WJLMjmB3W3h3a1r6c8Jt9nPKR.webp',_ref:'Chroma Heartwand'},
+  {n:'Skin Case 3 [3x]',              em:'🔪',p:'$4.69',  game:'MM2',               badge:'hot', stock:2,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ee0x7vzf3IEZEOByWogs8sxVniiu4I4cljFqXld3.png',_ref:'Skin Case 3 [x3]'},
+  {n:'Corrupt',                       em:'🔪',p:'$11.99', game:'MM2',               badge:'hot', stock:3,  bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zmdRvKgAAbd7G3ucfHX6IuFtnGiZQEqTj91kSdV3.png',_ref:'Corrupt'},
+  {n:'Harvester',                     em:'🔪',p:'$5.99',  game:'MM2',               badge:'',    stock:99, bg:'r-rare',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VDzs2GMUwGnCjtcudbJLU6UP2OAslNiLfW1tyxxS.png',_ref:'Harvester'},
+  {n:'Luger',                         em:'🔫',p:'$2.99',  game:'MM2',               badge:'',    stock:15, bg:'r-rare',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/luger.jpg',_ref:'Luger'},
+  // ── Grand Piece Online ───────────────────────────────────────
+  {n:'Candy Cane',                    em:'🍬',p:'$89.99', game:'Grand Piece Online', badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/JZRgmGeyQg1Qkyh6Nu0A33d5YzK0gI9BHZEbMaxJ.png',_ref:'Candy Cane'},
+  {n:'All Seeing Egg',                em:'👁️',p:'$40.99', game:'Grand Piece Online', badge:'hot', stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bc3ww77MqEe32yi3XcNptJorpwYMP9Y85WkCeA6a.png',_ref:'All Seeing Egg'},
+  {n:"All Seeing Ba'al",              em:'👁️',p:'$39.99', game:'Grand Piece Online', badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png'},
+  {n:'All Seeing Holly',              em:'👁️',p:'$34.99', game:'Grand Piece Online', badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9zEMVYyo14DSwnYr9lNZP7dbKB6l3C6V6D45pyiA.png',_ref:'All Seeing Holly'},
+  {n:'Jesters Outfit',                em:'🎭',p:'$85.99', game:'Grand Piece Online', badge:'rare',stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/roA95BZk4Smsj7b9gzadHuSSnWd9vb3xlAVx0IL7.png',_ref:'Jesters Outfit'},
+  // ── Adopt Me ─────────────────────────────────────────────────
+  {n:'Owl',                           em:'🦉',p:'$99.09', game:'Adopt Me',           badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/TOHPHsudhz98RnjFfomvk16wn7IgBxu3baySnSSJ.png',_ref:'Owl'},
+  // ── Sailor Piece ─────────────────────────────────────────────
+  {n:'Bundle - 2X Money + 2X Gems + 2X EXP + 2X Luck',em:'🧳',p:'$11.99',game:'Sailor Piece',badge:'',stock:99,bg:'r-legendary',img:'https://silvmarket.shop/images/Bundle%20-%202X%20Money%20%2B%202X%20Gems%20%2B%202X%20EXP%20%2B%202X%20Luck.png',_ref:'Bundle - 2X Money + 2X Gems + 2X EXP + 2X Luck'},
+  {n:'Abyssal Empress + Atomic',      em:'🧳',p:'$15.92',game:'Sailor Piece',        badge:'',    stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/vKZn2bGUbTFrRJ7A07SNwKcGFAdtPfwCgwntszbn.png',_ref:'Abyssal Empress + Atomic'},
+  {n:'Moon Slayer + Moon Outfit',     em:'🧳',p:'$8.77', game:'Sailor Piece',        badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/X8u3OoyFOxRGWYzYWQiWRLRrVQD9DRPDfnnRAvN4.png',_ref:'Moon Slayer + Moon Outfit'},
+  {n:'100x Aura Crates',              em:'📦',p:'$15.00',game:'Sailor Piece',         badge:'best',stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aura crate.png'},
+  {n:'True Azien Set',                em:'⚔️',p:'$4.00', game:'Sailor Piece',        badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Aizen%20Set.jpg',_ref:'True Azien Set'},
+  {n:'2x Drops',                      em:'🎁',p:'$7.00', game:'Sailor Piece',        badge:'',    stock:99, bg:'r-rare',     img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor%20Piece.png',_ref:'2x Drops'},
+  {n:'2x Luck',                       em:'🍀',p:'$8.00', game:'Sailor Piece',        badge:'',    stock:99, bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2x%20Luck.png',_ref:'2x Luck'},
+  // ── Bloodlines ───────────────────────────────────────────────
+  {n:'Isobu Soul',                    em:'🐉',p:'$35.99',game:'Bloodlines',           badge:'hot', stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/Isobu%20Soul.webp',_ref:'Isobu Soul'},
+  {n:'Rinnegan Eye',                  em:'🔴',p:'$35.00',game:'Bloodlines',           badge:'',    stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png',_ref:'Rinnegan Eye'},
+  {n:'Sharingan',                     em:'👁️',p:'$15.00',game:'Bloodlines',           badge:'',    stock:99, bg:'r-legendary',img:'https://silvmarket.shop/images/Sharingan.webp',_ref:'Sharingan'},
+  {n:'Torn Senju Arm',                em:'🪨',p:'$12.50',game:'Bloodlines',           badge:'',    stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/Torn%20Senju%20Arm.webp',_ref:'Torn Senju Arm'},
+  {n:'5000 Ryo',                      em:'🪨',p:'$9.99', game:'Bloodlines',           badge:'',    stock:99, bg:'r-rare',     img:'https://silvmarket.shop/images/Ryo.webp',_ref:'5000 Ryo'},
+  {n:'Life Fruit',                    em:'⚡',p:'$2.99', game:'Bloodlines',           badge:'',    stock:99, bg:'r-rare',     img:'https://silvmarket.shop/images/Life%20Fruit.webp',_ref:'Life Fruit'},
+  // ── Rivals ───────────────────────────────────────────────────
+  {n:'Standard Weapons Bundle!',      em:'⚔️',p:'$6.79', game:'Rivals',              badge:'hot', stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/D2XfpEsls8yUdYCnyYKupbZNpzXtKoekZIzC9SA6.png',_ref:'Standard Weapons Bundle!'},
+  // ── Blade Ball ───────────────────────────────────────────────
+  {n:'500 Blade Ball Tokens',         em:'⚔️',p:'$6.30', game:'Blade Ball',          badge:'',    stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Blade%20Ball%20Tokens.png',_ref:'500 Blade Ball Tokens'},
+  // ── Anime Vanguards ──────────────────────────────────────────
+  {n:'Shiny Seban (Seven)',           em:'✨',p:'$50.00',game:'Anime Vanguards',      badge:'hot', stock:99, bg:'r-mythical', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png',_ref:'Shiny Seban (Seven)'},
+  // ── Robux ────────────────────────────────────────────────────
+  {n:'10,000 Robux',                  em:'💎',p:'$55.00',game:'Robux',               badge:'best',stock:99, bg:'r-robux',    img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png'},
 ];
 // ── BUNDLE DEALS ─────────────────────────────────────────────
 const BUNDLES = [
@@ -4248,57 +4294,56 @@ const BUNDLES = [
   {n:'Legendary Duo Pack',desc:'Perm Dough + Perm Shadow',game:'Blox Fruits',em:'🍞',bg:'r-legendary',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dough.png',items:['Perm Dough','Perm Shadow'],originalP:30.48,p:24.99,stock:99},
   {n:'Logia Starter Bundle',desc:'Perm Light + Magma + Ice',game:'Blox Fruits',em:'✨',bg:'r-rare',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/light.png',items:['Perm Light','Perm Magma','Perm Ice'],originalP:20.47,p:16.99,stock:99},
 ];
-// Live price lookup: maps each BESTSELLERS entry to its real game array
-// so prices automatically stay in sync when the game arrays change.
-const _bsGameArrays={
-  'Blox Fruits':        ()=>[...FRUITS.map(i=>({n:i.n,_p:i.perm??i.norm})),...FRUIT_SKINS.map(i=>({n:i.n,_p:i.p})),...BF_GP.map(i=>({n:i.n,_p:i.p}))],
-  'Adopt Me':           ()=>AM.map(i=>({n:i.n,_p:i.p})),
-  'MM2':                ()=>MM2.map(i=>({n:i.n,_p:i.p})),
-  'Steal a Brainrot':   ()=>BRAINROT.map(i=>({n:i.n,_p:i.p})),
-  'Rivals':             ()=>RIVALS.map(i=>({n:i.n,_p:i.p})),
-  'Grand Piece Online': ()=>GPO.map(i=>({n:i.n,_p:i.p})),
-  'Sailor Piece':       ()=>SP.map(i=>({n:i.n,_p:i.p})),
-  'Blade Ball':         ()=>(typeof BB!=='undefined'?BB:[]).map(i=>({n:i.n,_p:i.p})),
-  'Anime Vanguards':    ()=>(typeof AV!=='undefined'?AV:[]).map(i=>({n:i.n,_p:i.p})),
-  'Grow a Garden':      ()=>(typeof GAG!=='undefined'?GAG:[]).map(i=>({n:i.n,_p:i.p})),
+// Full game array config — used to auto-populate per-game tabs from hot/best badges
+const _bsFullConfig = {
+  'Steal a Brainrot': {arr:function(){return BRAINROT;}, game:'brainrot', cls:'g-br'},
+  'Blox Fruits':      {arr:function(){return[...FRUITS.map(function(i){return Object.assign({},i,{p:i.perm!=null?i.perm:i.norm});}), ...FRUIT_SKINS,...BF_GP,...(typeof BF_ACCOUNTS!=='undefined'?BF_ACCOUNTS.map(function(i){return Object.assign({},i,{p:i.norm});}):[])]}, game:'bf', cls:'g-bf'},
+  'Grow a Garden':    {arr:function(){return typeof GAG!=='undefined'?GAG:[];}, game:'gag', cls:'g-gag'},
+  'MM2':              {arr:function(){return MM2;}, game:'mm2', cls:'g-mm2'},
+  'Grand Piece Online':{arr:function(){return GPO;}, game:'gpo', cls:'g-gpo'},
+  'Sailor Piece':     {arr:function(){return SP;}, game:'sp', cls:'g-sp'},
+  'Adopt Me':         {arr:function(){return AM;}, game:'am', cls:'g-am'},
+  'Rivals':           {arr:function(){return RIVALS;}, game:'rivals', cls:'g-rivals'},
+  'Bloodlines':       {arr:function(){return typeof BLOODLINES!=='undefined'?BLOODLINES:[];}, game:'bl', cls:'g-bl'},
+  'Blade Ball':       {arr:function(){return typeof BB!=='undefined'?BB:[];}, game:'bb', cls:'g-bb'},
+  'Anime Vanguards':  {arr:function(){return typeof AV!=='undefined'?AV:[];}, game:'av', cls:'g-av'},
+  'Bee Swarm Simulator':{arr:function(){return typeof BSS!=='undefined'?BSS:[];}, game:'bss', cls:'g-bss'},
 };
-function _bsLivePrice(item){
-  const fn=_bsGameArrays[item.game];
-  if(!fn)return null;
-  const arr=fn();
-  const found=arr.find(i=>i.n===(item._ref||item.n));
-  if(!found)return null;
-  const v=parseFloat(found._p);
-  return (isNaN(v)||v<=0)?null:v;
-}
 
-// Game tab config for Best Sellers (order determines tab order)
+// Game tab config for Best Sellers — game key must match BESTSELLERS[].game values
 const BS_TAB_GAMES = [
-  {game:'Steal a Brainrot', em:'🧠'},
-  {game:'Blox Fruits',      em:'🍎'},
-  {game:'Grow a Garden',    em:'🌱'},
-  {game:'Sailor Piece',     em:'🏴‍☠️'},
-  {game:'Grand Piece Online',em:'⚓'},
-  {game:'Murder Mystery 2', em:'⚔️'},
-  {game:'Adopt Me',         em:'🐾'},
-  {game:'Rivals',           em:'🥊'},
-  {game:'Blade Ball',       em:'⚔️'},
-  {game:'Anime Vanguards',  em:'⚡'},
-  {game:'Robux',            em:'💎'},
+  {game:'Steal a Brainrot', label:'Steal a Brainrot', img:'https://tr.rbxcdn.com/180DAY-81af62355a65c70eadeece0e274e007c/500/280/Image/Jpeg/noFilter'},
+  {game:'Blox Fruits',      label:'Blox Fruits',      img:'https://tr.rbxcdn.com/180DAY-6e85e925dd676943f02e20d4acded146/500/280/Image/Jpeg/noFilter'},
+  {game:'Grow a Garden',    label:'Grow a Garden',    img:'https://tr.rbxcdn.com/180DAY-58ac6aee17065476c9d28128261b7f89/500/280/Image/Jpeg/noFilter'},
+  {game:'Sailor Piece',     label:'Sailor Piece',     img:'https://tr.rbxcdn.com/180DAY-e9318db1d02c8414ff1b9773cdce9b82/500/280/Image/Jpeg/noFilter'},
+  {game:'Grand Piece Online',label:'Grand Piece Online',img:'https://tr.rbxcdn.com/180DAY-5dfa86c9bab8fb4f1641f42ce7b55c17/500/280/Image/Jpeg/noFilter'},
+  {game:'MM2',              label:'Murder Mystery 2', img:'https://tr.rbxcdn.com/180DAY-5ba706807447783862364dfef7a465ff/500/280/Image/Jpeg/noFilter'},
+  {game:'Adopt Me',         label:'Adopt Me',         img:'https://tr.rbxcdn.com/180DAY-f8e24fd31411b2a73beb4eadc2c68cb5/500/280/Image/Jpeg/noFilter'},
+  {game:'Rivals',           label:'Rivals',           img:'https://tr.rbxcdn.com/180DAY-95e911d989ab6695547496e422901164/500/280/Image/Jpeg/noFilter'},
+  {game:'Bloodlines',       label:'Bloodlines',       img:'https://tr.rbxcdn.com/180DAY-3279db75df02809097530f4f5ea2c116/500/280/Image/Jpeg/noFilter'},
+  {game:'Blade Ball',       label:'Blade Ball',       img:'https://tr.rbxcdn.com/180DAY-e596ebf44a1b6bf3e8d1c5771bcfa75b/500/280/Image/Jpeg/noFilter'},
+  {game:'Anime Vanguards',  label:'Anime Vanguards',  img:'https://tr.rbxcdn.com/180DAY-a431b823ab2064797935d736e92eff6e/500/280/Image/Jpeg/noFilter'},
+  {game:'Robux',            label:'Robux',            img:'https://silvmarket.shop/images/logo.png'},
 ];
 
-var _bsActiveGame = null; // null = All
+var _bsActiveGame = null;
 
 function renderBSTabs(){
   var el=document.getElementById('bsTabs');
   if(!el)return;
-  // Only show tabs for games that have at least 1 bestseller entry
-  var gamesWithItems=new Set(BESTSELLERS.map(i=>i.game));
-  var tabs=BS_TAB_GAMES.filter(t=>gamesWithItems.has(t.game));
-  var allBtn='<button class="bs-tab'+(_bsActiveGame===null?' bs-active':'')+'" onclick="selectBSTab(null,this)">🔥 All</button>';
-  var gameBtns=tabs.map(t=>'<button class="bs-tab'+(t.game===_bsActiveGame?' bs-active':'')+'" onclick="selectBSTab(\''+t.game+'\',this)">'+t.em+' '+t.game+'</button>').join('');
-  el.innerHTML=allBtn+gameBtns;
+  // Show tab for any game that has at least one hot/best item
+  var tabs=BS_TAB_GAMES.filter(function(t){
+    var cfg=_bsFullConfig[t.game];
+    if(!cfg)return false;
+    return cfg.arr().some(function(i){return i.badge==='hot'||i.badge==='best';});
+  });
+  // Auto-select first game if none selected
+  if(_bsActiveGame===null&&tabs.length>0)_bsActiveGame=tabs[0].game;
+  var gameBtns=tabs.map(function(t){return '<button class="bs-tab'+(t.game===_bsActiveGame?' bs-active':'')+'" onclick="selectBSTab(\''+t.game+'\',this)"><img class="bs-tab-img" src="'+t.img+'" alt="" onerror="this.style.display=\'none\'">'+t.label+'</button>';}).join('');
+  el.innerHTML=gameBtns;
 }
+
+function scrollBSTabs(dir){var el=document.getElementById('bsTabs');if(el)el.scrollBy({left:dir*240,behavior:'smooth'});}
 
 function selectBSTab(gameKey,btn){
   _bsActiveGame=gameKey;
@@ -4308,26 +4353,15 @@ function selectBSTab(gameKey,btn){
 }
 
 function renderBS(){
-  var items=_bsActiveGame?BESTSELLERS.filter(i=>i.game===_bsActiveGame):BESTSELLERS;
-  document.getElementById('bsGrid').innerHTML=items.map(function(i){
-    var lp=_bsLivePrice(i);
-    var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
-    var pStr=p>0?fmtPrice(p):'N/A';
-    var iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock!=null?i.stock:99,bg:i.bg||'r-rare',img:i.img||null,game:i.game,sub:''}));
-    var safeName=i.n.replace(/'/g,"\\'");
-    var imgHtml=i.img
-      ?('<img src="'+i.img+'" alt="'+i.n+'" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"/><span class="em" style="display:none">'+(i.em||'📦')+'</span>')
-      :('<span class="em">'+(i.em||'📦')+'</span>');
-    return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\')&&!event.target.closest(\'.fav-btn\'))openItemDetail(\''+iData+'\')">'
-      +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+mkFavBtn(i.n)+'</div>'
-      +'<div class="pc-body">'
-        +(_bsActiveGame?'':'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>')
-        +'<div class="pc-n">'+i.n+'</div>'
-        +'<div class="pc-price">'+pStr+'</div>'
-        +(p>0?'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+pStr+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>':'<button class="pc-btn oos" disabled onclick="event.stopPropagation()">Unavailable</button>')
-      +'</div>'
-    +'</div>';
-  }).join('');tagOrder('bsGrid');
+  var grid=document.getElementById('bsGrid');
+  if(!grid)return;
+  if(!_bsActiveGame){grid.innerHTML='';return;}
+  var cfg=_bsFullConfig[_bsActiveGame];
+  if(!cfg){grid.innerHTML='';return;}
+  var gameItems=cfg.arr().filter(function(i){return i.badge==='hot'||i.badge==='best';});
+  if(!gameItems.length){grid.innerHTML='<div style="padding:40px 20px;color:rgba(255,255,255,.4);font-family:Rajdhani,sans-serif;font-size:14px;flex-shrink:0">No featured items yet.</div>';return;}
+  grid.innerHTML=gameItems.map(function(i){return mkCard(i,cfg.game,cfg.cls);}).join('');
+  tagOrder('bsGrid');
 }
 
 function renderBundles(){
@@ -5356,7 +5390,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['bestsellers','robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth'];
+const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -5888,7 +5922,6 @@ let _viewAllSort     = 'default';
 let _viewAllKey      = '';
 
 const VIEW_ALL_CONFIG = {
-  bestsellers: { title:'Best Sellers 🔥',   img:null, items:()=>BESTSELLERS.map(i=>({...i,rar:'',sub:'',bg:i.bg||'r-rare',img:i.img||null,p:parseFloat(i.p.replace('$','')||0)})), filters:[] },
   bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...BF_ACCOUNTS], filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass','accounts'] },
   gag:      { title:'Grow a Garden', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png', items:()=>GAG, filters:['all','pets','bundles','tokens'] },
   am:       { title:'Adopt Me',      img:'https://silvmarket.shop/images/adopt_me.png', items:()=>AM, filters:['all','low-tier','mid-tier','high-tier'] },

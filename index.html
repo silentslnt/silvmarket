@@ -312,7 +312,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   text-transform:uppercase;margin-bottom:3px}
 .g-bf{color:#f59e0b}.g-am{color:#ec4899}.g-mm2{color:#60a5fa}.g-br{color:#c084fc}
 .g-gag{color:#4ade80}.g-rob{color:#fbbf24}.g-riv{color:#f87171}.g-99{color:#a78bfa}.g-tsn{color:#38bdf8}
-.g-bl{color:#ef4444}
+.g-bl{color:#ef4444}.g-ps99{color:#06b6d4}
 .pc-n{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.3}
 .pc-rar{font-size:10px;font-weight:600;margin-bottom:7px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .rc-common{color:rgba(255,255,255,.3)}.rc-uncommon{color:#86efac}.rc-rare{color:#60a5fa}
@@ -1851,6 +1851,31 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
   <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'dthGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="dthGrid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S sec-alt" id="ps99">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#06b6d4">Pet Simulator 99</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/PetSim99%20logo.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Pet Simulator 99</div>
+      <p class="sec-sub">Gems, Huge Pets, Titanic Pets, Rainbow Pets & Eggs · Best PS99 prices</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('ps99')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterPS99(this,'all')">💎 All</button>
+    <button class="jt" onclick="filterPS99(this,'gems')">✨ Gems</button>
+    <button class="jt" onclick="filterPS99(this,'huge')">🐾 Huge Pets</button>
+    <button class="jt" onclick="filterPS99(this,'titanic')">👑 Titanic</button>
+    <button class="jt" onclick="filterPS99(this,'rainbow')">🌈 Rainbow</button>
+    <button class="jt" onclick="filterPS99(this,'eggs')">🥚 Eggs</button>
+    <button class="jt" onclick="filterPS99(this,'other')">📦 Other</button>
+  </div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Pet Simulator 99…" oninput="secSearch('ps99Grid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'ps99Grid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
+  <div class="h-scroll" id="ps99Grid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -3885,6 +3910,121 @@ const DTH = [
   {n:'Death Call Tail Blade Pack',  em:'📦',p:2.47,   badge:'',    stock:99,sub:'bundles', rar:'uncommon', bg:'r-uncommon'},
 ];
 
+const _ps99Icon = 'https://silvmarket.shop/images/PetSim99%20logo.webp';
+const _ps99Gems = 'https://silvmarket.shop/images/ps99gems.webp';
+const PS99 = [
+  // ── GEMS ──────────────────────────────────────────────────────
+  {n:'100M Gems',                  em:'💎',p:0.55, badge:'',    stock:99,sub:'gems',   rar:'uncommon', bg:'r-uncommon',img:_ps99Gems},
+  {n:'500M Gems',                  em:'💎',p:0.65, badge:'',    stock:99,sub:'gems',   rar:'uncommon', bg:'r-uncommon',img:_ps99Gems},
+  {n:'1B Gems',                    em:'💎',p:1.19, badge:'best',stock:99,sub:'gems',   rar:'rare',     bg:'r-rare',    img:_ps99Gems},
+  {n:'5B Gems',                    em:'💎',p:5.49, badge:'hot', stock:99,sub:'gems',   rar:'rare',     bg:'r-rare',    img:_ps99Gems},
+  {n:'10B Gems',                   em:'💎',p:9.99, badge:'',    stock:99,sub:'gems',   rar:'epic',     bg:'r-epic',    img:_ps99Gems},
+  {n:'20B Gems',                   em:'💎',p:17.99,badge:'',    stock:99,sub:'gems',   rar:'epic',     bg:'r-epic',    img:_ps99Gems},
+  // ── HUGE PETS ─────────────────────────────────────────────────
+  {n:'Huge Bat',                   em:'🦇',p:1.26, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Orca',                  em:'🐋',p:1.59, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Fluffy Cat',            em:'🐱',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Cupcake',               em:'🧁',p:2.10, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Kangaroo',              em:'🦘',p:1.16, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Zebra',                 em:'🦓',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Mrs. Claws',            em:'🐾',p:1.69, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Jelly Corgi',           em:'🐶',p:4.74, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Neon Cat',              em:'🐱',p:2.64, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Dog',                   em:'🐕',p:2.54, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Crocodile',             em:'🐊',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Amethyst Dragon',       em:'🐉',p:5.79, badge:'hot', stock:99,sub:'huge',   rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Huge Floppa',                em:'😺',p:3.69, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Pixel Corgi',           em:'🐶',p:1.27, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Jolly Narwhal',         em:'🐳',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Koi Fish',              em:'🐟',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Shuriken Corgi',        em:'🐶',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Temporal Owl',          em:'🦉',p:1.39, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Hell Rock',             em:'🪨',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Happy Computer',        em:'💻',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Elf Cat',               em:'🎄',p:2.21, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Super Tiger',           em:'🐯',p:2.63, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Night Terror Cat',      em:'🐱',p:3.06, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Doodle Cat',            em:'🐱',p:1.90, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Balloon Cat',           em:'🎈',p:3.69, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Hologram Axolotl',      em:'🦎',p:3.69, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Atlantean Dolphin',     em:'🐬',p:6.41, badge:'hot', stock:99,sub:'huge',   rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Huge Easter Bunny',          em:'🐰',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Cheerful Yeti',         em:'🏔️',p:3.26, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Knight Beagle',         em:'⚔️',p:1.28, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Plaque Dragon',         em:'🐉',p:1.59, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Shadow Dominus',        em:'👑',p:5.46, badge:'hot', stock:99,sub:'huge',   rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Huge Fire Horse',            em:'🐴',p:2.62, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Willow Wisp',           em:'🌿',p:2.21, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Elephant',              em:'🐘',p:1.38, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Nightmare Spirit',      em:'👻',p:2.43, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Comet Cyclops',         em:'👁️',p:3.69, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Wizard Wastie',         em:'🧙',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Propeller Cat',         em:'🐱',p:1.58, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Cyber Agony',           em:'🤖',p:1.68, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Hacker Axolotl',        em:'🦎',p:1.58, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Easter Dominus',        em:'🐣',p:2.64, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Sketch Corgi',          em:'🐶',p:2.64, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Electric Cat',          em:'⚡',p:2.63, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Maple Owl',             em:'🦉',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Arcade Dog',            em:'🐕',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Ladybug',               em:'🐞',p:2.10, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Pony',                  em:'🐴',p:2.82, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Huge Clover Deer',           em:'🦌',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Clover Phoenix',        em:'🔥',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Huge Candycane Unicorn',     em:'🦄',p:0.53, badge:'',    stock:99,sub:'huge',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Huge Candycane Kitsune',     em:'🦊',p:0.53, badge:'',    stock:99,sub:'huge',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Huge Evil Kitsune',          em:'🦊',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'x8 Random Huge',             em:'🎲',p:0.53, badge:'hot', stock:99,sub:'huge',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'x16 Random Huge',            em:'🎲',p:1.05, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'x30 Random Huge',            em:'🎲',p:1.58, badge:'',    stock:99,sub:'huge',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'x57 Random Huge',            em:'🎲',p:3.68, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'x64 Random Huge',            em:'🎲',p:4.18, badge:'',    stock:99,sub:'huge',   rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  // ── TITANIC PETS ──────────────────────────────────────────────
+  {n:'x1 Random Titanic',          em:'🎲',p:9.45, badge:'hot', stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Irish Wolfhound',    em:'🐺',p:9.49, badge:'hot', stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Kraken',             em:'🦑',p:15.75,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Quokka',             em:'🐨',p:11.54,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Ice Snake',          em:'🐍',p:12.60,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Pineapple Dog',      em:'🐕',p:13.65,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Nutcracker Cat',     em:'🐱',p:13.12,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Devil Tasmanian',    em:'😈',p:13.64,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Horseshoe Capybara', em:'🐾',p:11.03,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Titanic Sandcastle Kraken',  em:'🦑',p:12.60,badge:'',    stock:99,sub:'titanic',rar:'legendary',bg:'r-legendary',img:_ps99Icon},
+  {n:'Golden Titanic Ghost Axolotl',em:'👻',p:18.89,badge:'myth',stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Pumpkin Cat',        em:'🎃',p:63.00,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Angry Yeti',         em:'🧊',p:63.00,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Abyss Carbuncle',    em:'💎',p:52.50,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Hubert',             em:'🦁',p:55.65,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Lovemellon',         em:'🍉',p:69.19,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  {n:'Titanic Jolly Cat',          em:'🐱',p:54.99,badge:'',    stock:99,sub:'titanic',rar:'mythical', bg:'r-mythical', img:_ps99Icon},
+  // ── RAINBOW PETS ──────────────────────────────────────────────
+  {n:'Rainbow Petal Pixie',        em:'🌈',p:1.03, badge:'',    stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Rainbow Blooming Axolotl',   em:'🌈',p:1.03, badge:'',    stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Rainbow Rootin Fox',         em:'🦊',p:0.53, badge:'',    stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'Leprechaun Kitsune Celestial',em:'🍀',p:0.53,badge:'',    stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'x1 Rainbow Huge',            em:'🌈',p:1.05, badge:'hot', stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'x5 Random Rainbow Huge',     em:'🌈',p:3.15, badge:'',    stock:99,sub:'rainbow',rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+  {n:'x50 Random Rainbow Huge',    em:'🌈',p:16.70,badge:'',    stock:99,sub:'rainbow',rar:'mythical', bg:'r-mythical',img:_ps99Icon},
+  {n:'Rainbow Titanic Pop Cat',    em:'🌈',p:115.49,badge:'myth',stock:99,sub:'rainbow',rar:'mythical',bg:'r-mythical',img:_ps99Icon},
+  // ── EGGS ──────────────────────────────────────────────────────
+  {n:'Glass Egg x8',               em:'🥚',p:7.91, badge:'',    stock:99,sub:'eggs',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Exclusive Anime Egg',        em:'🥚',p:6.28, badge:'',    stock:99,sub:'eggs',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Gargantuan Grim Reaper Egg', em:'💀',p:1.54, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Exclusive Harvest Egg',      em:'🥚',p:1.04, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Exclusive Ice Cube Egg',     em:'🧊',p:0.53, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Event Cool Egg',             em:'🥚',p:1.04, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Hypnotic Exclusive Egg',     em:'🌀',p:1.04, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Exclusive Brainrot Egg',     em:'🥚',p:0.68, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Exclusive Super Jelly Egg',  em:'🍬',p:1.04, badge:'',    stock:99,sub:'eggs',   rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Bejeweled Egg',              em:'💎',p:6.45, badge:'',    stock:99,sub:'eggs',   rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  // ── OTHER ─────────────────────────────────────────────────────
+  {n:'70x MVP Key',                em:'🗝️',p:0.53, badge:'',    stock:99,sub:'other',  rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Clan Voucher',               em:'📜',p:2.73, badge:'',    stock:99,sub:'other',  rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'UFO Booth',                  em:'🛸',p:3.47, badge:'',    stock:99,sub:'other',  rar:'uncommon', bg:'r-uncommon',img:_ps99Icon},
+  {n:'Superior Wisdom',            em:'📚',p:13.51,badge:'',    stock:99,sub:'other',  rar:'rare',     bg:'r-rare',    img:_ps99Icon},
+  {n:'Anime Card Pack x30',        em:'🎴',p:22.05,badge:'',    stock:99,sub:'other',  rar:'epic',     bg:'r-epic',    img:_ps99Icon},
+];
+
 const _dcBoostImg = 'https://silvmarket.shop/images/boost.webp';
 const _dcNitroImg = 'https://silvmarket.shop/images/nitro.webp';
 const _dcDecoImg  = 'https://silvmarket.shop/images/discord%20decoration.webp';
@@ -4163,7 +4303,7 @@ function saveLangCurr(){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball',ps99:'Pet Simulator 99'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
@@ -4253,6 +4393,7 @@ function filterFISCH(btn,sub){setJtActive(btn);filterGrid('fischGrid','sub',sub)
 function filterBSS(btn,sub){setJtActive(btn);filterGrid('bssGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bssGrid .pc').forEach(c=>c.style.display='');}
 function filterVBL(btn,sub){setJtActive(btn);filterGrid('vblGrid','sub',sub);if(sub==='all')document.querySelectorAll('#vblGrid .pc').forEach(c=>c.style.display='');}
 function filterDTH(btn,sub){setJtActive(btn);filterGrid('dthGrid','sub',sub);if(sub==='all')document.querySelectorAll('#dthGrid .pc').forEach(c=>c.style.display='');}
+function filterPS99(btn,sub){setJtActive(btn);filterGrid('ps99Grid','sub',sub);if(sub==='all')document.querySelectorAll('#ps99Grid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
   btn.className=btn.className+' jtb';
@@ -4336,6 +4477,7 @@ const _bsFullConfig = {
   'Blade Ball':       {arr:function(){return typeof BB!=='undefined'?BB:[];}, game:'bb', cls:'g-bb'},
   'Anime Vanguards':  {arr:function(){return typeof AV!=='undefined'?AV:[];}, game:'av', cls:'g-av'},
   'Bee Swarm Simulator':{arr:function(){return typeof BSS!=='undefined'?BSS:[];}, game:'bss', cls:'g-bss'},
+  'Pet Simulator 99':  {arr:function(){return typeof PS99!=='undefined'?PS99:[];}, game:'ps99',cls:'g-ps99'},
 };
 
 // Game tab config for Best Sellers — game key must match BESTSELLERS[].game values
@@ -5475,7 +5617,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth'];
+const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth','ps99'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -5495,6 +5637,7 @@ const GAME_SUBS={
   bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
   vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'🌀 Spins',fn:'filterVBL',val:'spins'},{label:'💎 Currency',fn:'filterVBL',val:'currency'},{label:'🎰 Slots',fn:'filterVBL',val:'slots'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'}],
   dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Auras',fn:'filterDTH',val:'auras'},{label:'💎 Gems',fn:'filterDTH',val:'gems'},{label:'📦 Bundles',fn:'filterDTH',val:'bundles'}],
+  ps99:     [{label:'💎 All',fn:'filterPS99',val:'all'},{label:'✨ Gems',fn:'filterPS99',val:'gems'},{label:'🐾 Huge Pets',fn:'filterPS99',val:'huge'},{label:'👑 Titanic',fn:'filterPS99',val:'titanic'},{label:'🌈 Rainbow',fn:'filterPS99',val:'rainbow'},{label:'🥚 Eggs',fn:'filterPS99',val:'eggs'},{label:'📦 Other',fn:'filterPS99',val:'other'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -6025,6 +6168,7 @@ const VIEW_ALL_CONFIG = {
   bss:      { title:'Bee Swarm Simulator',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp', items:()=>BSS,        filters:['all','skins','vouchers','beequips','stickers'] },
   vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all','spins','currency','slots','passes'] },
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all','weapons','auras','gems','bundles'] },
+  ps99:     { title:'Pet Simulator 99',  img:'https://silvmarket.shop/images/PetSim99%20logo.webp',                                                  items:()=>PS99,       filters:['all','gems','huge','titanic','rainbow','eggs','other'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
@@ -7595,6 +7739,7 @@ function init(){
   document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');tagOrder('bssGrid');
   document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');tagOrder('vblGrid');
   document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');tagOrder('dthGrid');
+  document.getElementById('ps99Grid').innerHTML=PS99.map(i=>mkCard(i,'ps99','g-ps99')).join('');tagOrder('ps99Grid');
   buildSearchIndex();
   initScrollWraps();
 }
@@ -7774,6 +7919,7 @@ document.addEventListener('wheel',function(e){
 const HM_GAMES = [
   { key:'bf',          name:'Blox Fruits',        em:'🍎',  img:'https://silvmarket.shop/images/bloxfruits.png' },
   { key:'gag',         name:'Grow a Garden',      em:'🌱',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png' },
+  { key:'ps99',        name:'Pet Simulator 99',   em:'💎',  img:'https://silvmarket.shop/images/PetSim99%20logo.webp' },
   { key:'am',          name:'Adopt Me',           em:'🐾',  img:'https://silvmarket.shop/images/adopt_me.png' },
   { key:'mm2',         name:'Murder Mystery 2',   em:'⚔️',  img:'https://silvmarket.shop/images/mm2.png' },
   { key:'brainrot',    name:'Steal a Brainrot',   em:'🧠',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png' },

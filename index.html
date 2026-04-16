@@ -2200,7 +2200,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .S .h-scroll .pc{min-width:unset!important;max-width:unset!important;width:100%}
   .S .h-scroll .sk{min-width:unset!important;width:100%}
   /* Keep h-scroll horizontal in homeMenu (best sellers / bundles) */
-  #homeMenu .h-scroll{display:flex!important;overflow-x:auto!important}
+  #homeMenu .h-scroll{display:flex!important;overflow-x:auto!important;overflow-y:visible!important}
+  #homeMenu .h-scroll .pc{min-width:160px!important;max-width:160px!important;flex-shrink:0!important;width:auto!important}
   /* Slightly larger cards in 2-col grid */
   .S .h-scroll .pc-img{height:130px}
   .S .h-scroll .pc-n{font-size:12px}

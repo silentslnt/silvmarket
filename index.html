@@ -920,6 +920,9 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 .bs-scroll-hint svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;
   stroke-linecap:round;stroke-linejoin:round}
 
+/* ── FLASH SALE STICKER ─────────────────────────────────────── */
+.pc-sale-sticker{position:absolute;bottom:8px;left:8px;background:linear-gradient(135deg,#ff10f0,#9333ea);color:#fff;font-family:'Orbitron',monospace;font-size:7px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:1.5px;z-index:3;box-shadow:0 2px 10px rgba(255,16,240,.5);text-transform:uppercase;pointer-events:none}
+
 /* ── BEST SELLERS GAME TABS ────────────────────────────────── */
 .bs-tabs-scroll{display:flex;gap:8px;overflow-x:auto;flex:1;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px}
 .bs-tabs-scroll::-webkit-scrollbar{display:none}
@@ -929,6 +932,7 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 .bs-tab.bs-active{background:linear-gradient(135deg,rgba(255,16,240,0.25),rgba(147,51,234,0.25));border-color:#ff10f0;color:#fff;box-shadow:0 0 12px rgba(255,16,240,0.2)}
 .bs-arrow{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border-radius:50%;width:28px;height:28px;cursor:pointer;flex-shrink:0;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0;line-height:1}
 .bs-arrow:hover{background:rgba(255,16,240,0.2);border-color:#ff10f0;color:#fff}
+
 
 /* ── CRYPTO MODAL ──────────────────────────────────────────── */
 .cm-ov{display:none;position:fixed;inset:0;z-index:2000;
@@ -1278,9 +1282,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
   <!-- Stats bar -->
   <div class="hm-stats" id="hmStats">
-    <div class="hm-stat"><div class="hm-stat-n" data-count="500" data-suffix="+">0</div><div class="hm-stat-l">Happy Customers</div></div>
+    <div class="hm-stat"><div class="hm-stat-n" data-count="10" data-suffix="K+">0</div><div class="hm-stat-l">Happy Customers</div></div>
     <div class="hm-stat"><div class="hm-stat-n" data-count="15" data-suffix="+">0</div><div class="hm-stat-l">Games Supported</div></div>
-    <div class="hm-stat"><div class="hm-stat-n" data-count="4.9" data-suffix="★" data-decimals="1">0</div><div class="hm-stat-l">Trustpilot Rating</div></div>
+    <div class="hm-stat"><div class="hm-stat-n" data-count="10" data-suffix="K+">0</div><div class="hm-stat-l">Discord Members</div></div>
     <div class="hm-stat"><div class="hm-stat-n" data-static="24/7">24/7</div><div class="hm-stat-l">Support</div></div>
   </div>
 
@@ -1463,7 +1467,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     </div>
     <div class="feat-r">
       <div class="feat-old">$44.99</div>
-      <div class="feat-p">$32.49</div>
+      <div class="feat-p">$31.52</div>
       <div class="feat-save">YOU SAVE $12.50</div>
       <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits')">🛒 Add to Cart</button>
     </div>
@@ -2030,9 +2034,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .rv-col:nth-child(2){display:none!important}
   /* Hero / feat */
   .feat-r{margin-top:0!important}
-  /* Horizontal scroll cards: slightly narrower */
-  .h-scroll .pc{min-width:168px;max-width:168px}
-  .h-scroll .rp{min-width:140px;max-width:140px}
+  /* Horizontal scroll grids: switch to 2-column on mobile */
+  .h-scroll{display:grid!important;grid-template-columns:1fr 1fr;gap:10px!important;overflow-x:visible!important;overflow-y:visible!important;scroll-snap-type:none!important;padding:0 4px 4px!important}
+  .h-scroll .pc{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important}
+  .h-scroll .rp{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important;grid-column:span 2}
   /* Cart sidebar full width */
   .cart-sb{width:100%}
   /* View-all overlay padding */
@@ -2525,6 +2530,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <div class="csr" style="border-top:1px solid rgba(255,255,255,.07);padding-top:8px;margin-top:4px">
       <span style="font-weight:700;color:#fff;font-size:14px">Total</span>
       <span class="cs-tot" id="cTot">$0.00</span>
+    </div>
+    <div id="cartLoyaltyBar" style="display:none;margin-bottom:10px;padding:10px 12px;background:rgba(147,51,234,.08);border:1px solid rgba(147,51,234,.2);border-radius:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+        <span id="cartLoyaltyTierLbl" style="font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px"></span>
+        <span id="cartLoyaltyPtsLbl" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.45)"></span>
+      </div>
+      <div id="cartLoyaltyMsg" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.45);line-height:1.4"></div>
     </div>
     <button class="co-btn" id="mainCoBtn" onclick="goToCheckout()" disabled>Proceed to Checkout →</button>
   </div>
@@ -3912,8 +3924,8 @@ const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sal
 const BADGE_LBL = {hot:'🔥 HOT',new:'✨ NEW',myth:'MYTHICAL',leg:'LEGENDARY',sale:'SALE',best:'BEST',oos:'SOLD OUT',rare:'RARE',perm:'PERM',bundle:'BUNDLE',popular:'POPULAR'};
 function bdg(b){return b&&BADGE_CLS[b]?`<div class="pbadge ${BADGE_CLS[b]}">${BADGE_LBL[b]||b.toUpperCase()}</div>`:''}
 function stk(s,game){
-  // Only show stock badge for Blox Fruits and Steal a Brainrot
-  if(game!=='bf'&&game!=='brainrot') return '';
+  // Only show stock badge for Steal a Brainrot (BF removed per request)
+  if(game!=='brainrot') return '';
   if(s===undefined||s===null||s===0) return '';
   if(s>=20) return `<div class="stock-badge stock-ok">✅ 99+ IN STOCK</div>`;
   if(s<=5) return `<div class="stock-badge stock-low">⚠️ ${s} LEFT</div>`;
@@ -4153,7 +4165,8 @@ function mkCard(i,game,gcls){
   <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
-      ${bdg(i.badge)}${stk(i.stock,game)}
+      ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
+      ${i.isSale?'<div class="pc-sale-sticker">SALE</div>':''}
       ${mkFavBtn(i.n)}
     </div>
     <div class="pc-body">
@@ -4173,7 +4186,8 @@ function mkCard(i,game,gcls){
   <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
-      ${bdg(i.badge)}${stk(i.stock,game)}
+      ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
+      ${i.isSale?'<div class="pc-sale-sticker">SALE</div>':''}
       ${mkFavBtn(i.n)}
     </div>
     <div class="pc-body">
@@ -4297,7 +4311,7 @@ const BUNDLES = [
 // Full game array config — used to auto-populate per-game tabs from hot/best badges
 const _bsFullConfig = {
   'Steal a Brainrot': {arr:function(){return BRAINROT;}, game:'brainrot', cls:'g-br'},
-  'Blox Fruits':      {arr:function(){return[...FRUITS.map(function(i){return Object.assign({},i,{p:i.perm!=null?i.perm:i.norm});}), ...FRUIT_SKINS,...BF_GP,...(typeof BF_ACCOUNTS!=='undefined'?BF_ACCOUNTS.map(function(i){return Object.assign({},i,{p:i.norm});}):[])]}, game:'bf', cls:'g-bf'},
+  'Blox Fruits':      {arr:function(){return[...FRUITS.map(function(i){return Object.assign({},i,{p:i.perm!=null?i.perm:i.norm});}), ...FRUIT_SKINS.map(function(i){return Object.assign({},i,{p:i.perm!=null?i.perm:i.norm});}), ...BF_GP.map(function(i){return Object.assign({},i,{p:i.perm!=null?i.perm:i.norm});}), ...(typeof BF_ACCOUNTS!=='undefined'?BF_ACCOUNTS.map(function(i){return Object.assign({},i,{p:i.norm});}):[])]}, game:'bf', cls:'g-bf'},
   'Grow a Garden':    {arr:function(){return typeof GAG!=='undefined'?GAG:[];}, game:'gag', cls:'g-gag'},
   'MM2':              {arr:function(){return MM2;}, game:'mm2', cls:'g-mm2'},
   'Grand Piece Online':{arr:function(){return GPO;}, game:'gpo', cls:'g-gpo'},
@@ -4358,9 +4372,9 @@ function renderBS(){
   if(!_bsActiveGame){grid.innerHTML='';return;}
   var cfg=_bsFullConfig[_bsActiveGame];
   if(!cfg){grid.innerHTML='';return;}
-  var gameItems=cfg.arr().filter(function(i){return i.badge==='hot'||i.badge==='best';});
+  var gameItems=cfg.arr().filter(function(i){return i.badge==='hot'||i.badge==='best'||i.badge==='myth';});
   if(!gameItems.length){grid.innerHTML='<div style="padding:40px 20px;color:rgba(255,255,255,.4);font-family:Rajdhani,sans-serif;font-size:14px;flex-shrink:0">No featured items yet.</div>';return;}
-  grid.innerHTML=gameItems.map(function(i){return mkCard(i,cfg.game,cfg.cls);}).join('');
+  grid.innerHTML=gameItems.map(function(i){return mkCard(Object.assign({},i,{isSale:true}),cfg.game,cfg.cls);}).join('');
   tagOrder('bsGrid');
 }
 
@@ -4824,7 +4838,40 @@ function updateCartUI(){
     </div>`;
   }).join('');
 }
-function openCartSB(){document.getElementById('cartSb').classList.add('open');document.getElementById('cartOv').classList.add('open');document.body.style.overflow='hidden';}
+function updateCartLoyalty(){
+  var email=localStorage.getItem('silv_email');
+  var bar=document.getElementById('cartLoyaltyBar');
+  if(!bar)return;
+  if(!email){bar.style.display='none';return;}
+  var pts=parseInt(localStorage.getItem('silv_tokens_'+email))||0;
+  var tiers=[
+    {name:'Awakened',min:0,     em:'⚡',color:'#a0aec0'},
+    {name:'Advanced',min:1000,  em:'💙',color:'#60a5fa'},
+    {name:'Mythical',min:5000,  em:'💜',color:'#c084fc'},
+    {name:'Ancient', min:25000, em:'✨',color:'#fbbf24'},
+    {name:'Divine',  min:100000,em:'🌸',color:'#f472b6'},
+    {name:'Celestial',min:500000,em:'🌟',color:'#fff'},
+  ];
+  var ti=0;
+  for(var j=0;j<tiers.length;j++){if(pts>=tiers[j].min)ti=j;}
+  var tier=tiers[ti];
+  var next=tiers[ti+1];
+  var tierLbl=document.getElementById('cartLoyaltyTierLbl');
+  var ptsLbl=document.getElementById('cartLoyaltyPtsLbl');
+  var msg=document.getElementById('cartLoyaltyMsg');
+  if(tierLbl)tierLbl.innerHTML='<span style="color:'+tier.color+'">'+tier.em+' '+tier.name+'</span>';
+  if(ptsLbl)ptsLbl.textContent=pts.toLocaleString()+' pts';
+  if(msg){
+    if(next){
+      var diff=(next.min-pts).toLocaleString();
+      msg.textContent=diff+' more pts to reach '+next.em+' '+next.name;
+    }else{
+      msg.textContent='Max tier reached — you\'re Celestial!';
+    }
+  }
+  bar.style.display='';
+}
+function openCartSB(){document.getElementById('cartSb').classList.add('open');document.getElementById('cartOv').classList.add('open');document.body.style.overflow='hidden';updateCartLoyalty();}
 function toggleCart(){const sb=document.getElementById('cartSb'),ov=document.getElementById('cartOv');const o=sb.classList.toggle('open');ov.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
 
 // ── CHECKOUT ──────────────────────────────────────────────────
@@ -7907,6 +7954,7 @@ setTimeout(renderHomeMenu, 0);
   }
   document.querySelectorAll('#discNavLink,#discFootLink').forEach(el=>{if(el)el.href=DISCORD_INVITE;});
 })();
+
 </script>
 <div id="toastStack"></div>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>

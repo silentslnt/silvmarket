@@ -920,6 +920,14 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 .bs-scroll-hint svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;
   stroke-linecap:round;stroke-linejoin:round}
 
+/* ── BEST SELLERS GAME TABS ────────────────────────────────── */
+.bs-tabs-row{display:flex;align-items:center;gap:16px;width:100%;max-width:1240px;padding:0 20px;margin-bottom:18px;box-sizing:border-box;flex-wrap:nowrap}
+.bs-tabs-scroll{display:flex;gap:8px;overflow-x:auto;flex:1;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px}
+.bs-tabs-scroll::-webkit-scrollbar{display:none}
+.bs-tab{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border-radius:20px;padding:6px 14px;font-family:Rajdhani,sans-serif;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.bs-tab:hover{background:rgba(255,16,240,0.12);border-color:rgba(255,16,240,0.35);color:#fff}
+.bs-tab.bs-active{background:linear-gradient(135deg,rgba(255,16,240,0.25),rgba(147,51,234,0.25));border-color:#ff10f0;color:#fff;box-shadow:0 0 12px rgba(255,16,240,0.2)}
+
 /* ── CRYPTO MODAL ──────────────────────────────────────────── */
 .cm-ov{display:none;position:fixed;inset:0;z-index:2000;
   background:rgba(0,0,0,.82);backdrop-filter:blur(10px);
@@ -1299,13 +1307,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 
   <!-- Best Sellers -->
-  <div class="hm-sec-row" style="margin-top:36px">
-    <div class="hm-section-label">Best Sellers</div>
-    <div class="hm-sec-badge">Top Picks</div>
-  </div>
-  <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
-    <div class="h-scroll" id="bsGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
-    <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+  <div style="margin-top:36px;width:100%">
+    <div class="bs-tabs-row">
+      <div class="hm-section-label" style="flex-shrink:0">Best Sellers</div>
+      <div class="bs-tabs-scroll" id="bsTabs"></div>
+    </div>
+    <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box">
+      <div class="h-scroll" id="bsGrid"><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:210px;flex-shrink:0"></div></div>
+      <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>
   </div>
 
   <!-- Bundle Deals -->
@@ -3034,7 +3044,7 @@ const BRAINROT = [
   {n:"Skibidi Toilet",em:"🚽",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Skibidi Toilet.png",speeds:[{label:'Base',p:399},{label:'1B/s',p:459},{label:'6B/s',p:599}]},
   {n:"Hydra Dragon Cannelloni",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/B8qC3fExZA2lD4DDiKX41BQOdf3KAo0X4B5rhTXw.png",speeds:[{label:'350M/s',p:60.99},{label:'1B/s',p:64.99},{label:'2.1B/s',p:199.99},{label:'5.7B/s (many traits)',p:120}]},
   {n:"Dragon Cannelloni",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/r7kpIdN2H2UPLuQ5jieAltRHAdIjHS7pqc89jrBh.png",speeds:[{label:'250M/s',p:39.99},{label:'875M/s Diamond',p:100},{label:'2.6B/s',p:150}]},
-  {n:"Ginger Gerat 75M/s",p:70.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eug5en7U5aBKPPbFXUNnMTldccH9fY3YDiG5atdf.png"},
+  {n:"Ginger Gerat 75M/s",p:68.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eug5en7U5aBKPPbFXUNnMTldccH9fY3YDiG5atdf.png"},
   {n:"CERBERUS  1.3b/s",p:39.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9kSy5Pe1iJnM25KuG3IY7DQXTvIBEVZYvafssMTk.png"},
   {n:"8 traits Spooky and Pumpky $2.6b/s (super rare)",p:44.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mkWlwZfa84goFBWN9Ub1YiaQ4Sgy8lqCJcvblh8Y.png"},
   {n:"Celestial Pegasus",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FvCyWZtjAJQDPA4QEMP2FhAKicT6JVEkAtRaQeI9.png",speeds:[{label:'175M/s',p:20.99},{label:'175-262M/s',p:23.39}]},
@@ -3052,7 +3062,7 @@ const BRAINROT = [
   {n:"CAPITANO MOBBY DIAMOND 560M/S",p:22.49,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/K9PQi8dolMncbfyqo2r3uXbadW44D7tRhyJ1wuMz.png"},
   {n:"La Romantic Grande 1.2b (daimond)",p:22.04,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VXR5uq5uJi200wLGYCJpNpOxfiAq4KMDKDul2BNO.png"},
   {n:"La Food Combination $90M/s",p:8.05,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Jh2MsXQdQrlx518bQsskpOfD4MTFZRjsAsIdvirv.png"},
-  {n:"Capitano Moby $160M/s",p:6.44,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
+  {n:"Capitano Moby $160M/s",p:7.44,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XdAMjnxBYRHHOjyfjpYkhfv2EbMRzG74MSuJ3WA9.png"},
   {n:"Tralaledon",badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WbW6WIFVPXX4EvKzKbCNmYpNlSYDrvbQGhoAVBio.png",speeds:[{label:'27.5M/s',p:7.19},{label:'RANDOM',p:12.29}]},
   {n:"La Ginger Sekolah",p:3.29,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mCwDERm8TyGtOb6iH09YBkieHLC1mRq3m7Np5Q9G.png"},
   {n:"Tacorita Bicicleta",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/thJfn4Ys7ilkZpJ0Z0gHFly9oFkB0lhMoxMIitSq.png",speeds:[{label:'16.5M/s',p:3.19},{label:'RANDOM',p:5.39}]},
@@ -3066,7 +3076,7 @@ const BRAINROT = [
   {n:"La Taco Combinasion GOLD 830M/S",p:9.41,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/AsukhbaugPgsjBeAFXPb26DTY3JzEXkZvCIdhiL3.png"},
   {n:"Tuff Toucan 625m",p:9.0,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QeCmYe3vNez1nKgFG6zMzviJ2bdA474wKLAg0hNj.png"},
   {n:"Chillin Chili (CANDY 312M/S or YINYANG 287M/S)",p:8.99,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/NncQ05Hdyhl7OoZpV8LCU7YsqnnAOs0tW6HhR7da.png"},
-  {n:"Ketchuru And Musturu $42M/s - $170M/s (RANDOM)",p:8.27,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/HGLyTVwUVokAPpTE9ezzFtsM9YQ8BcqPPbje4tDs.png"},
+  {n:"Ketchuru And Musturu $42M/s - $170M/s (RANDOM)",p:4.27,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/HGLyTVwUVokAPpTE9ezzFtsM9YQ8BcqPPbje4tDs.png"},
   {n:"Tictac Sahur GOLD 462M/S",p:8.09,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IoO9qa9vMNBMapzqHuPBNgH14OLGoGlRvJakVDpj.png"},
   {n:"La Extinct Grande",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IlwY0vBKMiDvR6CIJjDVXC4DlngkSN3I4kBSesta.png",speeds:[{label:'23.5M/s',p:5.39},{label:'RANDOM',p:8.09}]},
   {n:"Orcaledon RANDOM 40M/s - 800M/s",p:8.09,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Y1UTEJJp73LZeBWtv5X2Rgf4ECNxyrAb6q3aQuTb.png"},
@@ -3084,23 +3094,23 @@ const BRAINROT = [
   {n:"Rainbow Index Base",p:49.99,oldP:null,badge:"new",stock:99,sub:"index-base",rar:"mythical",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/BbY8HNcJgk6LNXfqtJVGGeoUPJ3nGLNJQjHDO0w9.png"},
 
   // ── RAINBOW ─────────────────────────────
-  {n:"Rainbow Garama and Madundung 500M/s",p:49.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
+  {n:"Rainbow Garama and Madundung 500M/s",p:15.99,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FAUW06OI0QAhjgVQgvNIcQip22EEhPFIyvrFa3Qg.png"},
   {n:"Rainbow Ketchuru and Musturu $935M/s",p:11.65,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://petmart.fun/storage/products/zGm41YlpKydFfuKIMWqVxDrmcepjQfOw03hBDKel.png"},
   {n:"Rainbow Esok Sekolah $300M/s - $390M/s",p:6.65,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/0bzYBcoSygGVu6Qg9MS3r4dbkYzgU5ihmZilfQbp.png"},
   {n:"Rainbow La Grande Combinasion $100M/s - $140M/s",p:3.95,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zfxfQFqhJ77is2V1LnfZdiSLItl8KioYETSAY4jp.png"},
   {n:"Rainbow 67 $75M/s",p:2.87,oldP:null,badge:"",stock:99,sub:"rainbow",rar:"legendary",bg:"r-pink",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/19huvx6UUqEqApXv3EVf6XByNfnpa7nlKDQ9RhPy.png"},
 
   // ── GALAXY ─────────────────────────────
-  {n:"Galaxy Garama & Madundung $350M/s",p:26.36,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/5oME86Kf6sm7yq1ALiZFGoPEDnBghMavs0PNeOtG.png"},
-  {n:"Galaxy Spaghetti Tualetti $420M/s - $720M/s",p:8.27,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/AK9ijsb7cRXXeRGIEktpif6QGLsgZZa89vXqNurf.png"},
-  {n:"Galaxy Los 67 $157M/s - $270M/s",p:6.29,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/s6lmoGpe8cCvJK8SHsArBNcZIfy8raN6EbwvnRJa.png"},
+  {n:"Galaxy Garama & Madundung $350M/s",p:16.36,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/5oME86Kf6sm7yq1ALiZFGoPEDnBghMavs0PNeOtG.png"},
+  {n:"Galaxy Spaghetti Tualetti $420M/s - $720M/s",p:18.27,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/AK9ijsb7cRXXeRGIEktpif6QGLsgZZa89vXqNurf.png"},
+  {n:"Galaxy Los 67 $157M/s - $270M/s",p:5.29,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/s6lmoGpe8cCvJK8SHsArBNcZIfy8raN6EbwvnRJa.png"},
   {n:"Galaxy Esok Sekolah $210M/s - $360M/s",p:2.99,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/vwYda5eS9EJtjewiyrNXruu6ciMWvMrdZpXx3Zlg.png"},
   {n:"Galaxy 67",p:4.49,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/s8AaT28vmtegOC7b7BvPJtxNAxasORjLigMfOZUZ.png"},
   {n:"Galaxy La Grande Combinasion 70M/s – 110M/s",p:3.95,oldP:null,badge:"",stock:99,sub:"galaxy",rar:"legendary",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/hr5olvheKlEljOe6UlYSy7JDPHDSs5bzFrVLbGAU.png"},
 
   // ── YIN-YANG ─────────────────────────────
-  {n:"Yin Yang Chipso and Queso 187.5M/s",p:52.09,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ltu0N2tgzuINc4YfIAMmY5lY91PEfnEQmYwPSgUv.png"},
-  {n:"Yin Yang Evildon $236M/s – $488M/s",p:9.4,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/CMq4NymAEl36Se6HPvtDYcGEBbCyRDRLdvv8ayBe.png"},
+  {n:"Yin Yang Chipso and Queso 187.5M/s",p:7.09,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ltu0N2tgzuINc4YfIAMmY5lY91PEfnEQmYwPSgUv.png"},
+  {n:"Yin Yang Evildon $236M/s – $488M/s",p:16.4,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/CMq4NymAEl36Se6HPvtDYcGEBbCyRDRLdvv8ayBe.png"},
   {n:"Yinyang Esok Sekolah",p:2.99,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zhi1sPLjzG9ObRC3LA6b3lCg2b1jfy9R230YN4xc.png"},
   {n:"YinYang Spaghetti Tualetti $450M/s",p:7.01,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/8lvCvxRro8Gg3t5zB651WuIOj15BWGWgotPxMXAW.png"},
   {n:"Yin Yang La Grande Combinasion",p:6.29,oldP:null,badge:"",stock:99,sub:"yin-yang",rar:"legendary",bg:"r-dark",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fS7IRGXmyn1xr3jkj0JUsfS1a96ggfdUjvtA5ydo.png"},
@@ -3139,7 +3149,7 @@ const BRAINROT = [
   {n:"La Spooky Grande",badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/d379NiLJ6fBV49tjUD2fYs7D3lYZ386FBvKeK1dQ.png",speeds:[{label:'30.6M/s',p:5.4},{label:'RANDOM',p:9.89}]},
   {n:"700m Mieteteira Bicicleteira",p:8.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/86cGvngWMAYE8LaUo3uD1PNWGcbXt51gJTlnxJ1k.png"},
   {n:"Los Planitos $18.5M/s",p:3.09,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/CssbABhj2PvltHUOVGJh3brBmoakVKvEfO30zYtK.png"},
-  {n:"Swag Soda $13M/s",p:8.09,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/MIpDRZGeEeTqQoMetRP1IFgq1O4tRTKr5gTjAen0.png"},
+  {n:"Swag Soda $13M/s",p:6.09,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/MIpDRZGeEeTqQoMetRP1IFgq1O4tRTKr5gTjAen0.png"},
   {n:"Ketupat Kepat $35M/s",p:2.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/kaFQWP5brYUbVCIkWkQ9YbqA7o7siO7S44l6CkVX.png"},
   {n:"Las Sis",p:5.4,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/0eXyuQwVKZoNzMHpQ9Ytm4YVmjqa4AS327PsvYIw.png"},
   {n:"La Secret Combinasion $125M/s",p:5.39,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QZBJliCuapxKCaX6uhZq9Op1aj49OIMrF3TuHF2J.png"},
@@ -4262,8 +4272,44 @@ function _bsLivePrice(item){
   return (isNaN(v)||v<=0)?null:v;
 }
 
+// Game tab config for Best Sellers (order determines tab order)
+const BS_TAB_GAMES = [
+  {game:'Steal a Brainrot', em:'🧠'},
+  {game:'Blox Fruits',      em:'🍎'},
+  {game:'Grow a Garden',    em:'🌱'},
+  {game:'Sailor Piece',     em:'🏴‍☠️'},
+  {game:'Grand Piece Online',em:'⚓'},
+  {game:'Murder Mystery 2', em:'⚔️'},
+  {game:'Adopt Me',         em:'🐾'},
+  {game:'Rivals',           em:'🥊'},
+  {game:'Blade Ball',       em:'⚔️'},
+  {game:'Anime Vanguards',  em:'⚡'},
+  {game:'Robux',            em:'💎'},
+];
+
+var _bsActiveGame = null; // null = All
+
+function renderBSTabs(){
+  var el=document.getElementById('bsTabs');
+  if(!el)return;
+  // Only show tabs for games that have at least 1 bestseller entry
+  var gamesWithItems=new Set(BESTSELLERS.map(i=>i.game));
+  var tabs=BS_TAB_GAMES.filter(t=>gamesWithItems.has(t.game));
+  var allBtn='<button class="bs-tab'+(_bsActiveGame===null?' bs-active':'')+'" onclick="selectBSTab(null,this)">🔥 All</button>';
+  var gameBtns=tabs.map(t=>'<button class="bs-tab'+(t.game===_bsActiveGame?' bs-active':'')+'" onclick="selectBSTab(\''+t.game+'\',this)">'+t.em+' '+t.game+'</button>').join('');
+  el.innerHTML=allBtn+gameBtns;
+}
+
+function selectBSTab(gameKey,btn){
+  _bsActiveGame=gameKey;
+  document.querySelectorAll('#bsTabs .bs-tab').forEach(b=>b.classList.remove('bs-active'));
+  if(btn)btn.classList.add('bs-active');
+  renderBS();
+}
+
 function renderBS(){
-  document.getElementById('bsGrid').innerHTML=BESTSELLERS.map(function(i){
+  var items=_bsActiveGame?BESTSELLERS.filter(i=>i.game===_bsActiveGame):BESTSELLERS;
+  document.getElementById('bsGrid').innerHTML=items.map(function(i){
     var lp=_bsLivePrice(i);
     var p=lp!=null&&lp>0?lp:(parseFloat((i.p||'0').replace('$',''))||0);
     var pStr=p>0?fmtPrice(p):'N/A';
@@ -4275,7 +4321,7 @@ function renderBS(){
     return '<div class="pc" style="cursor:pointer" onclick="if(!event.target.closest(\'.pc-btn\')&&!event.target.closest(\'.fav-btn\'))openItemDetail(\''+iData+'\')">'
       +'<div class="pc-img '+(i.bg||'r-rare')+'">'+imgHtml+bdg(i.badge||'')+stk(i.stock!=null?i.stock:99)+mkFavBtn(i.n)+'</div>'
       +'<div class="pc-body">'
-        +'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>'
+        +(_bsActiveGame?'':'<div class="pc-g" style="color:var(--yellow);font-family:Rajdhani,sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px">'+i.game+'</div>')
         +'<div class="pc-n">'+i.n+'</div>'
         +'<div class="pc-price">'+pStr+'</div>'
         +(p>0?'<button class="pc-btn" onclick="event.stopPropagation();addToCart(\''+safeName+'\',\''+pStr+'\',\''+(i.em||'📦')+'\',\''+i.game+'\',\''+(i.img||'')+'\')">🛒 Add to Cart</button>':'<button class="pc-btn oos" disabled onclick="event.stopPropagation()">Unavailable</button>')
@@ -7414,7 +7460,7 @@ function init(){
   // Update language/currency nav label
   const lcBtn = document.getElementById('langCurrLabel');
   if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;
-  renderRobux();renderBF();renderBS();renderBundles();
+  renderRobux();renderBF();renderBSTabs();renderBS();renderBundles();
   document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');tagOrder('gagGrid');
   document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');tagOrder('amGrid');
   document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');

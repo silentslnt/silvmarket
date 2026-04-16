@@ -62,6 +62,8 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
   mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%)}
 .scan{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px)}
+#sectionBg{position:fixed;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:0;transition:opacity .4s ease}
+#sectionBg::after{content:'';position:absolute;inset:0;background:rgba(7,3,26,.8)}
 
 
 
@@ -1153,17 +1155,23 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     </select>
     <div class="lc-lbl">Currency</div>
     <select id="lcCurrSel" class="lc-sel">
-      <option value="USD">USD - $</option>
-      <option value="EUR">EUR - €</option>
-      <option value="GBP">GBP - £</option>
-      <option value="CAD">CAD - CA$</option>
-      <option value="AUD">AUD - AU$</option>
-      <option value="BRL">BRL - R$</option>
-      <option value="SGD">SGD - S$</option>
-      <option value="CHF">CHF</option>
-      <option value="SEK">SEK - kr</option>
-      <option value="JPY">JPY - ¥</option>
-      <option value="MXN">MXN - MX$</option>
+      <option value="USD">$ USD — US Dollar</option>
+      <option value="EUR">€ EUR — Euro</option>
+      <option value="GBP">£ GBP — British Pound</option>
+      <option value="CAD">CA$ CAD — Canadian Dollar</option>
+      <option value="AUD">AU$ AUD — Australian Dollar</option>
+      <option value="BRL">R$ BRL — Brazilian Real</option>
+      <option value="MXN">MX$ MXN — Mexican Peso</option>
+      <option value="INR">₹ INR — Indian Rupee</option>
+      <option value="PHP">₱ PHP — Philippine Peso</option>
+      <option value="KRW">₩ KRW — South Korean Won</option>
+      <option value="JPY">¥ JPY — Japanese Yen</option>
+      <option value="TRY">₺ TRY — Turkish Lira</option>
+      <option value="PLN">zł PLN — Polish Zloty</option>
+      <option value="SEK">kr SEK — Swedish Krona</option>
+      <option value="AED">د.إ AED — UAE Dirham</option>
+      <option value="SGD">S$ SGD — Singapore Dollar</option>
+      <option value="CHF">CHF — Swiss Franc</option>
     </select>
     <button class="lc-save" onclick="saveLangCurr()">Save</button>
     <button class="lc-cancel" onclick="closeLangCurr()">Cancel</button>
@@ -1337,6 +1345,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 </section>
 
+<div id="sectionBg"></div>
 <div class="bg"></div>
 <div class="bg-grid"></div>
 <div class="scan"></div>
@@ -1941,7 +1950,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <button onclick="sortViewAll('default')" class="va-sort va-sort-active" id="vaSort-default">Default</button>
       <button onclick="sortViewAll('low')"     class="va-sort" id="vaSort-low">Price ↑</button>
       <button onclick="sortViewAll('high')"    class="va-sort" id="vaSort-high">Price ↓</button>
-      <button onclick="sortViewAll('stock')"   class="va-sort" id="vaSort-stock">In Stock First</button>
     </div>
     <!-- Grid -->
     <div id="viewAllGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
@@ -3995,7 +4003,7 @@ function renderBF(filter='all'){
     const iData=encodeURIComponent(JSON.stringify({n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''}));
     const addName=((mode==='perm'&&hasPerm)?'Perm ':'')+f.n;
     return `
-    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" data-price="${dp||0}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
       <div class="pc-img ${bgC}">
         ${mkImgEl(f.n,f.em,img)}
         ${bdg(f.badge)}${stk(f.stock)}${typeEl}
@@ -4108,17 +4116,23 @@ function loadAPFavorites(){
 
 // ── CURRENCY / LANGUAGE ───────────────────────────────────────
 const CURRENCIES = {
-  USD:{sym:'$',   rate:1,    label:'USD - $'},
-  EUR:{sym:'€',   rate:0.92, label:'EUR - €'},
-  GBP:{sym:'£',   rate:0.79, label:'GBP - £'},
-  CAD:{sym:'CA$', rate:1.37, label:'CAD - CA$'},
-  AUD:{sym:'AU$', rate:1.53, label:'AUD - AU$'},
-  BRL:{sym:'R$',  rate:5.20, label:'BRL - R$'},
-  SGD:{sym:'S$',  rate:1.35, label:'SGD - S$'},
-  CHF:{sym:'CHF ',rate:0.90, label:'CHF'},
-  SEK:{sym:'kr',  rate:10.5, label:'SEK - kr'},
-  JPY:{sym:'¥',   rate:150,  label:'JPY - ¥'},
-  MXN:{sym:'MX$', rate:17.2, label:'MXN - MX$'},
+  USD:{sym:'$',   rate:1,     label:'USD - $',    name:'US Dollar'},
+  EUR:{sym:'€',   rate:0.92,  label:'EUR - €',    name:'Euro'},
+  GBP:{sym:'£',   rate:0.79,  label:'GBP - £',    name:'British Pound'},
+  CAD:{sym:'CA$', rate:1.37,  label:'CAD - CA$',  name:'Canadian Dollar'},
+  AUD:{sym:'AU$', rate:1.53,  label:'AUD - AU$',  name:'Australian Dollar'},
+  BRL:{sym:'R$',  rate:5.20,  label:'BRL - R$',   name:'Brazilian Real'},
+  SGD:{sym:'S$',  rate:1.35,  label:'SGD - S$',   name:'Singapore Dollar'},
+  CHF:{sym:'CHF ',rate:0.90,  label:'CHF',         name:'Swiss Franc'},
+  SEK:{sym:'kr',  rate:10.5,  label:'SEK - kr',   name:'Swedish Krona'},
+  JPY:{sym:'¥',   rate:150,   label:'JPY - ¥',    name:'Japanese Yen'},
+  MXN:{sym:'MX$', rate:17.2,  label:'MXN - MX$',  name:'Mexican Peso'},
+  INR:{sym:'₹',   rate:83.5,  label:'INR - ₹',    name:'Indian Rupee'},
+  PHP:{sym:'₱',   rate:56.0,  label:'PHP - ₱',    name:'Philippine Peso'},
+  KRW:{sym:'₩',   rate:1335,  label:'KRW - ₩',    name:'South Korean Won'},
+  TRY:{sym:'₺',   rate:32.5,  label:'TRY - ₺',    name:'Turkish Lira'},
+  PLN:{sym:'zł',  rate:4.0,   label:'PLN - zł',   name:'Polish Zloty'},
+  AED:{sym:'د.إ', rate:3.67,  label:'AED - د.إ',  name:'UAE Dirham'},
 };
 let selectedCurrency = localStorage.getItem('silv_currency')||'USD';
 let selectedLang = localStorage.getItem('silv_lang')||'EN';
@@ -4126,7 +4140,7 @@ function fmtPrice(usd){
   if(!usd||usd<=0) return 'N/A';
   const c=CURRENCIES[selectedCurrency]||CURRENCIES.USD;
   const v=usd*c.rate;
-  if(selectedCurrency==='JPY') return c.sym+Math.round(v).toLocaleString();
+  if(selectedCurrency==='JPY'||selectedCurrency==='KRW') return c.sym+Math.round(v).toLocaleString();
   return c.sym+v.toFixed(2);
 }
 function openLangCurr(){
@@ -4162,7 +4176,7 @@ function mkCard(i,game,gcls){
     const speedBtns=i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setBRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
     const rarCls2=i.rar?`rb-${i.rar}`:"rb-common";
     return `
-  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
@@ -4183,7 +4197,7 @@ function mkCard(i,game,gcls){
   const iData=encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:i.p||i.price||0,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||gameIcon||null,game:gameLbl,sub:i.sub||''}));
   const rarCls=i.rar?`rb-${i.rar}`:'rb-common';
   return `
-  <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+  <div class="pc ${rarCls}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(i.p||i.price||0)}" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
@@ -4341,6 +4355,30 @@ const BS_TAB_GAMES = [
 ];
 
 var _bsActiveGame = null;
+
+// ── Section background wallpaper ──────────────────────────────
+var _secBgMap={
+  brainrot:'https://tr.rbxcdn.com/180DAY-81af62355a65c70eadeece0e274e007c/500/280/Image/Jpeg/noFilter',
+  bf:      'https://tr.rbxcdn.com/180DAY-6e85e925dd676943f02e20d4acded146/500/280/Image/Jpeg/noFilter',
+  gag:     'https://tr.rbxcdn.com/180DAY-58ac6aee17065476c9d28128261b7f89/500/280/Image/Jpeg/noFilter',
+  sp:      'https://tr.rbxcdn.com/180DAY-e9318db1d02c8414ff1b9773cdce9b82/500/280/Image/Jpeg/noFilter',
+  gpo:     'https://tr.rbxcdn.com/180DAY-5dfa86c9bab8fb4f1641f42ce7b55c17/500/280/Image/Jpeg/noFilter',
+  mm2:     'https://tr.rbxcdn.com/180DAY-5ba706807447783862364dfef7a465ff/500/280/Image/Jpeg/noFilter',
+  am:      'https://tr.rbxcdn.com/180DAY-f8e24fd31411b2a73beb4eadc2c68cb5/500/280/Image/Jpeg/noFilter',
+  rivals:  'https://tr.rbxcdn.com/180DAY-95e911d989ab6695547496e422901164/500/280/Image/Jpeg/noFilter',
+  bl:      'https://tr.rbxcdn.com/180DAY-3279db75df02809097530f4f5ea2c116/500/280/Image/Jpeg/noFilter',
+  bb:      'https://tr.rbxcdn.com/180DAY-e596ebf44a1b6bf3e8d1c5771bcfa75b/500/280/Image/Jpeg/noFilter',
+  av:      'https://tr.rbxcdn.com/180DAY-a431b823ab2064797935d736e92eff6e/500/280/Image/Jpeg/noFilter',
+};
+function setSectionBg(key){
+  var el=document.getElementById('sectionBg');if(!el)return;
+  var url=key?_secBgMap[key]:null;
+  el.style.opacity='0';
+  setTimeout(function(){
+    if(url){el.style.backgroundImage='url('+url+')';el.style.opacity='1';}
+    else{el.style.backgroundImage='';}
+  },400);
+}
 
 function renderBSTabs(){
   var el=document.getElementById('bsTabs');
@@ -5489,6 +5527,7 @@ function selectGame(el,name,icon,key){
   if(key!=='all'){const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);}
   // Update page title for current game
   document.title=name+' — Silv Market | Buy Roblox Items';
+  setSectionBg(key);
 }
 
 
@@ -6071,7 +6110,6 @@ function applySortViewAll(){
   const arr = [..._viewAllFiltered];
   if(_viewAllSort === 'low')   arr.sort((a,b)=>(a.p||a.norm||0)-(b.p||b.norm||0));
   if(_viewAllSort === 'high')  arr.sort((a,b)=>(b.p||b.norm||0)-(a.p||a.norm||0));
-  if(_viewAllSort === 'stock') arr.sort((a,b)=>(b.stock??99)-(a.stock??99));
   _viewAllFiltered = arr;
 }
 
@@ -7531,7 +7569,7 @@ function initScrollWraps(){
 }
 
 // ── PER-SECTION SORT ──────────────────────────────────────────
-function sortSection(sel,gridId){const grid=document.getElementById(gridId);if(!grid)return;const order=sel.value;const cards=Array.from(grid.querySelectorAll('.pc'));if(!cards.length)return;if(order===''){cards.sort((a,b)=>Number(a.dataset.oidx||0)-Number(b.dataset.oidx||0));}else{cards.sort((a,b)=>{const pa=parseFloat((a.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;const pb=parseFloat((b.querySelector('.pc-price')?.textContent||'').replace(/[^0-9.]/g,''))||0;return order==='low'?pa-pb:pb-pa;});}cards.forEach(c=>grid.appendChild(c));}
+function sortSection(sel,gridId){const grid=document.getElementById(gridId);if(!grid)return;const order=sel.value;const cards=Array.from(grid.querySelectorAll('.pc'));if(!cards.length)return;if(order===''){cards.sort((a,b)=>Number(a.dataset.oidx||0)-Number(b.dataset.oidx||0));}else{cards.sort((a,b)=>{const pa=parseFloat(a.dataset.price)||0;const pb=parseFloat(b.dataset.price)||0;return order==='low'?pa-pb:pb-pa;});}const sy=window.scrollY;const frag=document.createDocumentFragment();cards.forEach(c=>frag.appendChild(c));grid.appendChild(frag);window.scrollTo({top:sy,behavior:'instant'});}
 function tagOrder(gridId){document.getElementById(gridId)?.querySelectorAll('.pc').forEach((c,i)=>c.dataset.oidx=i);}
 function filterGames(q){const lq=(q||'').toLowerCase().trim();document.querySelectorAll('#gsDrop .gd-item').forEach(item=>{const lbl=(item.querySelector('.gd-label')?.textContent||item.textContent).toLowerCase();item.style.display=(!lq||lbl.includes(lq))?'':'none';});}
 
@@ -7859,6 +7897,7 @@ function goHome(){
   if(document.getElementById('gsName'))document.getElementById('gsName').textContent='All Games';
   if(document.getElementById('gsIcon'))document.getElementById('gsIcon').textContent='🛒';
   document.title='Silv Market — Buy Blox Fruits, Grow a Garden, MM2, Adopt Me & Roblox Items | Best Prices';
+  setSectionBg(null);
 }
 
 function toggleNavSG(){

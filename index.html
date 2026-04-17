@@ -312,7 +312,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   text-transform:uppercase;margin-bottom:3px}
 .g-bf{color:#f59e0b}.g-am{color:#ec4899}.g-mm2{color:#60a5fa}.g-br{color:#c084fc}
 .g-gag{color:#4ade80}.g-rob{color:#fbbf24}.g-riv{color:#f87171}.g-99{color:#a78bfa}.g-tsn{color:#38bdf8}
-.g-bl{color:#ef4444}.g-ps99{color:#06b6d4}
+.g-bl{color:#ef4444}.g-ps99{color:#06b6d4}.g-bw{color:#d97706}
 .pc-n{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.3}
 .pc-rar{font-size:10px;font-weight:600;margin-bottom:7px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .rc-common{color:rgba(255,255,255,.3)}.rc-uncommon{color:#86efac}.rc-rare{color:#60a5fa}
@@ -1419,6 +1419,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="gd-item" onclick="selectGame(this,'Pet Simulator 99','💎','ps99')" data-key="ps99">
         <span class="gd-icon"><img src="https://silvmarket.shop/images/PetSim99%20logo.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Pet Simulator 99</span><span class="gd-dot"></span>
       </div>
+      <div class="gd-item" onclick="selectGame(this,'Bridger: Western','🤠','bw')" data-key="bw">
+        <span class="gd-icon"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp" style="width:26px;height:26px;border-radius:6px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'"></span><span class="gd-label">Bridger: Western</span><span class="gd-dot"></span>
+      </div>
     </div>
   </div>
 </div>
@@ -1876,6 +1879,28 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
   <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Pet Simulator 99…" oninput="secSearch('ps99Grid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'ps99Grid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
   <div class="h-scroll" id="ps99Grid"></div>
+</section>
+
+<div class="div-line"></div>
+
+<section class="S" id="bw">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey" style="color:#d97706">Bridger: Western</div>
+      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bridger: Western</div>
+      <p class="sec-sub">JoJo-inspired western stand game · Stands, Accounts & Items</p>
+    </div>
+    <button class="view-all" onclick="openViewAll('bw')">View All →</button>
+  </div>
+  <div class="jump-row">
+    <span class="jump-label">Jump to:</span>
+    <button class="jt" style="background:rgba(217,119,6,.1);border-color:rgba(217,119,6,.32);color:#d97706" onclick="filterBW(this,'all')">🤠 All</button>
+    <button class="jt" onclick="filterBW(this,'items')">💰 Items</button>
+    <button class="jt" onclick="filterBW(this,'stands')">⭐ Stands</button>
+    <button class="jt" onclick="filterBW(this,'accounts')">🎮 Accounts</button>
+  </div>
+  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bridger: Western…" oninput="secSearch('bwGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bwGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
+  <div class="h-scroll" id="bwGrid"></div>
 </section>
 
 <div class="div-line"></div>
@@ -3586,9 +3611,9 @@ const BLOODLINES = [
   {n:'Shisui MS',                                   em:'🌀',p:25.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Shisui%27s%20Mangekyo.webp'},
   {n:'Pain Rinnegan Eye',                           em:'🔴',p:49.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Pain%27s%20Rinnegan.webp'},
   {n:'Sasuke Rinnegan Eye',                         em:'🔴',p:40.99,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Sasuke%27s%20Rinnegan.webp'},
-  {n:'Rinnegan Eye',                                em:'🔴',p:35.00,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
+  {n:'Rinnegan Eye',                                em:'🔴',p:30.00,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
   {n:'Mangekyou Eye',                               em:'🔴',p:34.56,badge:'',    stock:99,sub:'eyes',       rar:'mythical', bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
-  {n:'Mysterious Eyes',                             em:'👁️',p:12.00,badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
+  {n:'Mysterious Eyes',                             em:'👁️',p:10.00,badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png'},
   {n:'Ketsuryugan Eyes',                            em:'👁️',p:8.00, badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Ketsuryugan.webp'},
   {n:'Sharingan',                                   em:'⚡',p:15.00,badge:'',    stock:99,sub:'eyes',       rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Sharingan.webp'},
   // ── SOULS ─────────────────────────────────────────────────────
@@ -3619,13 +3644,12 @@ const BLOODLINES = [
   {n:'Bloodbite Ring',                              em:'🪨',p:2.99, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Bloodbite%20Ring.webp'},
   {n:'Ring of Remedy',                              em:'🐍',p:3.99, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare',img:'https://silvmarket.shop/images/Ring%20of%20Remedy.webp'},
   {n:'Ring Of Favor',                               em:'❄️',p:4.59, badge:'',    stock:99,sub:'rings',      rar:'rare',     bg:'r-rare'},
-  {n:'Any Ring Fully Upgraded',                     em:'⚡',p:20.00,badge:'',    stock:99,sub:'rings',      rar:'legendary',bg:'r-legendary'},
   // ── ITEMS ─────────────────────────────────────────────────────
   {n:'Surgical Kit',                                em:'⚡',p:13.00,badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical',img:'https://silvmarket.shop/images/Surgical%20kit.webp'},
   {n:'Lava Snake Skin',                             em:'⚡',p:7.00, badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical'},
-  {n:'Torn Senju Arm',                              em:'🪨',p:12.50,badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical',img:'https://silvmarket.shop/images/Torn%20Senju%20Arm.webp'},
+  {n:'Torn Senju Arm',                              em:'🪨',p:10.50,badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical',img:'https://silvmarket.shop/images/Torn%20Senju%20Arm.webp'},
+  {n:'Any arm of choice',                 em:'🪨',p:10.50,badge:'',    stock:99,sub:'items',      rar:'mythical', bg:'r-mythical'},
   {n:'Scalpel',                                     em:'🪨',p:2.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Scalpel.webp'},
-  {n:'3 Life Fruit + 5OOO Ryo',                     em:'⚡',p:15.00,badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
   {n:'Sauna Leaf',                                  em:'🔥',p:5.99, badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary'},
   {n:'Extraction Spoon',                            em:'🐍',p:2.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Extraction%20Spoon.webp'},
   {n:'Evergreen Heart',                             em:'🦷',p:7.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
@@ -3634,10 +3658,10 @@ const BLOODLINES = [
   {n:'Chakra Fruit',                                em:'⭐',p:5.49, badge:'',    stock:99,sub:'items',      rar:'legendary',bg:'r-legendary',img:'https://silvmarket.shop/images/Chakra%20Fruit.webp'},
   {n:'Fruit Of Forgetfulness',                      em:'🪨',p:2.10, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Fruit%20of%20Forgetfulness.webp'},
   // ── SCROLLS ───────────────────────────────────────────────────
-  {n:'Trait Scroll',                                em:'🪨',p:10.00,badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Trait%20Scroll.webp'},
+  {n:'Trait Scroll',                                em:'🪨',p:5.00,badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Trait%20Scroll.webp'},
   {n:'Mastery Scroll',                              em:'🪨',p:2.29, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Mastery%20scroll.webp'},
   {n:'Summoning scroll',                            em:'🪨',p:3.50, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare'},
-  {n:'5000 Ryo',                                    em:'🪨',p:9.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Ryo.webp'},
+  {n:'5000 Ryo',                                    em:'🪨',p:6.99, badge:'',    stock:99,sub:'items',      rar:'rare',     bg:'r-rare',    img:'https://silvmarket.shop/images/Ryo.webp'},
 ];
 
 const FISCH = [
@@ -4033,6 +4057,43 @@ const PS99 = [
   {n:'Anime Card Pack x30',        em:'🎴',p:22.05,badge:'',    stock:99,sub:'other',  rar:'epic',     bg:'r-epic',    img:_ps99Icon},
 ];
 
+const _bwIcon = 'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp';
+const BW = [
+  // ── ITEMS ─────────────────────────────────────────────────────
+  {n:'1k Moola',                    em:'💰',sub:'items',   rar:'uncommon', p:5.49,  badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'x10 Dogbane Herb',            em:'🌿',sub:'items',   rar:'uncommon', p:6.29,  badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'50k Moola',                   em:'💰',sub:'items',   rar:'rare',     p:8.49,  badge:'hot',  stock:99,bg:'r-rare',     img:_bwIcon},
+  // ── STANDS ────────────────────────────────────────────────────
+  {n:'White Snake',                 em:'🐍',sub:'stands',  rar:'uncommon', p:6.49,  badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'Star Platinum',               em:'⭐',sub:'stands',  rar:'uncommon', p:7.49,  badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'TWAU',                        em:'🌍',sub:'stands',  rar:'rare',     p:8.69,  badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'King Crimson',                em:'🔴',sub:'stands',  rar:'rare',     p:10.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'Purple Haze',                 em:'💜',sub:'stands',  rar:'rare',     p:10.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'Magician Red',                em:'🔥',sub:'stands',  rar:'rare',     p:13.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'Hierophant Green',            em:'🟢',sub:'stands',  rar:'legendary',p:14.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Crazy Diamond',               em:'💎',sub:'stands',  rar:'legendary',p:14.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'The World',                   em:'🌏',sub:'stands',  rar:'legendary',p:14.99, badge:'best', stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Star Platinum: The World',    em:'✨',sub:'stands',  rar:'legendary',p:15.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Hay Ya!',                     em:'🎵',sub:'stands',  rar:'mythical', p:33.49, badge:'',     stock:99,bg:'r-mythical', img:_bwIcon},
+  // ── ACCOUNTS ──────────────────────────────────────────────────
+  {n:'Silver Chariot Account',      em:'⚔️',sub:'accounts',rar:'uncommon', p:7.69,  badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'Random Stand Account',        em:'🎯',sub:'accounts',rar:'uncommon', p:10.99, badge:'',     stock:99,bg:'r-uncommon', img:_bwIcon},
+  {n:'Gold Experience Account',     em:'🌟',sub:'accounts',rar:'rare',     p:15.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'Crazy Diamond Account',       em:'💎',sub:'accounts',rar:'rare',     p:15.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'Killer Queen Account',        em:'👑',sub:'accounts',rar:'rare',     p:15.99, badge:'',     stock:99,bg:'r-rare',     img:_bwIcon},
+  {n:'The World Account',           em:'🌏',sub:'accounts',rar:'legendary',p:18.49, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'TWAU Account',                em:'🌍',sub:'accounts',rar:'legendary',p:22.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Star Platinum Account',       em:'⭐',sub:'accounts',rar:'legendary',p:27.49, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Mandon Stand Account',        em:'🎸',sub:'accounts',rar:'legendary',p:27.49, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Hey Ya! Account',             em:'🎵',sub:'accounts',rar:'legendary',p:31.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Hierophant Purple Account',   em:'💜',sub:'accounts',rar:'legendary',p:31.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Star Platinum The World Acc', em:'✨',sub:'accounts',rar:'legendary',p:39.99, badge:'best', stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'Whitesnake Account',          em:'🐍',sub:'accounts',rar:'legendary',p:44.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'King Crimson Account',        em:'🔴',sub:'accounts',rar:'legendary',p:45.99, badge:'',     stock:99,bg:'r-legendary',img:_bwIcon},
+  {n:'D4C Account',                 em:'🃏',sub:'accounts',rar:'mythical', p:169.99,badge:'myth', stock:99,bg:'r-mythical', img:_bwIcon},
+  {n:'Tusk Account',                em:'🦷',sub:'accounts',rar:'mythical', p:189.99,badge:'myth', stock:99,bg:'r-mythical', img:_bwIcon},
+];
+
 const _dcBoostImg = 'https://silvmarket.shop/images/boost.webp';
 const _dcNitroImg = 'https://silvmarket.shop/images/nitro.webp';
 const _dcDecoImg  = 'https://silvmarket.shop/images/discord%20decoration.webp';
@@ -4311,7 +4372,7 @@ function saveLangCurr(){
 // ── GENERIC CARD ──────────────────────────────────────────────
 function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
-  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball',ps99:'Pet Simulator 99'}[game]||game;
+  const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball',ps99:'Pet Simulator 99',bw:'Bridger: Western'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
   if(i.speeds && game==='brainrot'){
     const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
@@ -4402,6 +4463,7 @@ function filterBSS(btn,sub){setJtActive(btn);filterGrid('bssGrid','sub',sub);if(
 function filterVBL(btn,sub){setJtActive(btn);filterGrid('vblGrid','sub',sub);if(sub==='all')document.querySelectorAll('#vblGrid .pc').forEach(c=>c.style.display='');}
 function filterDTH(btn,sub){setJtActive(btn);filterGrid('dthGrid','sub',sub);if(sub==='all')document.querySelectorAll('#dthGrid .pc').forEach(c=>c.style.display='');}
 function filterPS99(btn,sub){setJtActive(btn);filterGrid('ps99Grid','sub',sub);if(sub==='all')document.querySelectorAll('#ps99Grid .pc').forEach(c=>c.style.display='');}
+function filterBW(btn,sub){setJtActive(btn);filterGrid('bwGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bwGrid .pc').forEach(c=>c.style.display='');}
 function setJtActive(btn){
   btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
   btn.className=btn.className+' jtb';
@@ -4454,7 +4516,7 @@ const BESTSELLERS = [
   {n:'Rinnegan Eye',                  em:'🔴',p:'$35.00',game:'Bloodlines',           badge:'',    stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/Bloodlines%20Eyes.png',_ref:'Rinnegan Eye'},
   {n:'Sharingan',                     em:'👁️',p:'$15.00',game:'Bloodlines',           badge:'',    stock:99, bg:'r-legendary',img:'https://silvmarket.shop/images/Sharingan.webp',_ref:'Sharingan'},
   {n:'Torn Senju Arm',                em:'🪨',p:'$12.50',game:'Bloodlines',           badge:'',    stock:99, bg:'r-mythical', img:'https://silvmarket.shop/images/Torn%20Senju%20Arm.webp',_ref:'Torn Senju Arm'},
-  {n:'5000 Ryo',                      em:'🪨',p:'$9.99', game:'Bloodlines',           badge:'',    stock:99, bg:'r-rare',     img:'https://silvmarket.shop/images/Ryo.webp',_ref:'5000 Ryo'},
+  {n:'5000 Ryo',                      em:'🪨',p:'$6.99', game:'Bloodlines',           badge:'',    stock:99, bg:'r-rare',     img:'https://silvmarket.shop/images/Ryo.webp',_ref:'5000 Ryo'},
   {n:'Life Fruit',                    em:'⚡',p:'$2.99', game:'Bloodlines',           badge:'',    stock:99, bg:'r-rare',     img:'https://silvmarket.shop/images/Life%20Fruit.webp',_ref:'Life Fruit'},
   // ── Rivals ───────────────────────────────────────────────────
   {n:'Standard Weapons Bundle!',      em:'⚔️',p:'$6.79', game:'Rivals',              badge:'hot', stock:99, bg:'r-uncommon', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/D2XfpEsls8yUdYCnyYKupbZNpzXtKoekZIzC9SA6.png',_ref:'Standard Weapons Bundle!'},
@@ -4486,6 +4548,7 @@ const _bsFullConfig = {
   'Anime Vanguards':  {arr:function(){return typeof AV!=='undefined'?AV:[];}, game:'av', cls:'g-av'},
   'Bee Swarm Simulator':{arr:function(){return typeof BSS!=='undefined'?BSS:[];}, game:'bss', cls:'g-bss'},
   'Pet Simulator 99':  {arr:function(){return typeof PS99!=='undefined'?PS99:[];}, game:'ps99',cls:'g-ps99'},
+  'Bridger: Western':  {arr:function(){return typeof BW!=='undefined'?BW:[];},    game:'bw',  cls:'g-bw'},
 };
 
 // Game tab config for Best Sellers — game key must match BESTSELLERS[].game values
@@ -5625,7 +5688,7 @@ function copyOrderId(){
 }
 
 // ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth','ps99'];
+const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth','ps99','bw'];
 const GAME_SUBS={
   robux:    [],
   bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
@@ -5646,6 +5709,7 @@ const GAME_SUBS={
   vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'🌀 Spins',fn:'filterVBL',val:'spins'},{label:'💎 Currency',fn:'filterVBL',val:'currency'},{label:'🎰 Slots',fn:'filterVBL',val:'slots'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'}],
   dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Auras',fn:'filterDTH',val:'auras'},{label:'💎 Gems',fn:'filterDTH',val:'gems'},{label:'📦 Bundles',fn:'filterDTH',val:'bundles'}],
   ps99:     [{label:'💎 All',fn:'filterPS99',val:'all'},{label:'✨ Gems',fn:'filterPS99',val:'gems'},{label:'🐾 Huge Pets',fn:'filterPS99',val:'huge'},{label:'👑 Titanic',fn:'filterPS99',val:'titanic'},{label:'🌈 Rainbow',fn:'filterPS99',val:'rainbow'},{label:'🥚 Eggs',fn:'filterPS99',val:'eggs'},{label:'📦 Other',fn:'filterPS99',val:'other'}],
+  bw:       [{label:'🤠 All',fn:'filterBW',val:'all'},{label:'💰 Items',fn:'filterBW',val:'items'},{label:'⭐ Stands',fn:'filterBW',val:'stands'},{label:'🎮 Accounts',fn:'filterBW',val:'accounts'}],
 };
 
 function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
@@ -6172,6 +6236,7 @@ const VIEW_ALL_CONFIG = {
   vbl:      { title:'Volleyball Legends', img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg',     items:()=>VBL,        filters:['all','spins','currency','slots','passes'] },
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all','weapons','auras','gems','bundles'] },
   ps99:     { title:'Pet Simulator 99',  img:'https://silvmarket.shop/images/PetSim99%20logo.webp',                                                  items:()=>PS99,       filters:['all','gems','huge','titanic','rainbow','eggs','other'] },
+  bw:       { title:'Bridger: Western',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp',             items:()=>BW,         filters:['all','items','stands','accounts'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
@@ -7613,6 +7678,7 @@ function buildSearchIndex(){
   push(VBL,       'Volleyball Legends');
   push(DTH,       'Death Ball');
   push(PS99,      'Pet Simulator 99');
+  push(BW,        'Bridger: Western');
   ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'💎', p:r.p, game:'Robux', img:null, rar:'rare', bg:'r-rare', sub:''}));
   // Cache for account page (favourites + orders images)
   try{
@@ -7744,6 +7810,7 @@ function init(){
   document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');tagOrder('vblGrid');
   document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');tagOrder('dthGrid');
   document.getElementById('ps99Grid').innerHTML=PS99.map(i=>mkCard(i,'ps99','g-ps99')).join('');tagOrder('ps99Grid');
+  document.getElementById('bwGrid').innerHTML=BW.map(i=>mkCard(i,'bw','g-bw')).join('');tagOrder('bwGrid');
   buildSearchIndex();
   initScrollWraps();
 }
@@ -7936,6 +8003,7 @@ const HM_GAMES = [
   { key:'bss',         name:'Bee Swarm Simulator',em:'🐝',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp' },
   { key:'vbl',         name:'Volleyball Legends', em:'🏐',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg' },
   { key:'dth',         name:'Death Ball',         em:'💀',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp' },
+  { key:'bw',          name:'Bridger: Western',   em:'🤠',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp' },
   { key:'robux',       name:'Robux & Services',   em:'💎',  img:_rsServicesImg },
   { key:'discord',     name:'Discord',            em:'💜',  img:'https://silvmarket.shop/images/discord.png' },
 ];

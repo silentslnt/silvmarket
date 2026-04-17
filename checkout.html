@@ -659,7 +659,7 @@ async function applyCode(){
     const d=await r.json();
     if(d.valid){
       _refCode=code; _refDiscount=true;
-      showCodeMsg('ok',`✅ Referral applied — 5% off & ${d.name} earns tokens!`);
+      showCodeMsg('ok',`✅ Referral applied — 5% off`);
       updateTotals(); return;
     }
   }catch{}

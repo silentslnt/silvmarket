@@ -733,12 +733,16 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
   const btn=document.getElementById('checkoutBtn');
   btn.disabled=true; btn.textContent='Redirecting…';
   try{
+    const promoCode = promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null;
     const resp=await fetch(BOT_BASE+'/create-checkout',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
       body:JSON.stringify({
-        amount:tot, email, orderId,
+        amount:tot, email, orderId, claimKey, rblxUser,
+        discordUser:discordUser?{...discordUser}:null,
+        cart:JSON.parse(JSON.stringify(cart)),
         description:cart.map(i=>i.name).join(', '),
+        promoCode, referralCode:_refCode||null,
         successUrl: window.location.origin+'/checkout?payment=success&order='+orderId,
         cancelUrl:  window.location.origin+'/checkout',
       }),
@@ -749,17 +753,22 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
         orderId,claimKey,rblxUser,email,tot,
         cart:JSON.parse(JSON.stringify(cart)),
         discordUser:discordUser?{...discordUser}:null,
-        promoApplied, promoCode:promoApplied?(document.getElementById('codeInput').value.trim().toUpperCase()||null):null,
-        referralCode:_refCode||null, tokensUsed:_tokensApplied||0,
+        promoApplied, promoCode, referralCode:_refCode||null, tokensUsed:_tokensApplied||0,
       }));
       location.href=data.url;
       return;
     }
-  }catch(err){ console.warn('Stripe session error:', err); }
-  // Fallback
-  window.open(PAY_STRIPE_LINK+'?prefilled_email='+encodeURIComponent(email),'_blank');
-  btn.disabled=false; btn.textContent='Pay with Card →';
-  showPaymentPendingUI(rblxUser, email, tot, orderId, claimKey, 'Debit Card');
+    // Bot returned an error
+    const errMsg = data.error || 'Could not create checkout session.';
+    btn.disabled=false; btn.textContent='Pay with Card →';
+    alert('Payment error: ' + errMsg + '\nPlease try again or contact support.');
+    return;
+  }catch(err){
+    console.warn('Stripe session error:', err);
+    btn.disabled=false; btn.textContent='Pay with Card →';
+    alert('Could not connect to payment server. Please try again in a moment.');
+    return;
+  }
 }
 
 

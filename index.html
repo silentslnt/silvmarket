@@ -2586,6 +2586,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div class="cart-ft">
     <div class="csr"><span>Subtotal</span><span id="cSub">$0.00</span></div>
     <div class="csr"><span>Processing Fee</span><span id="cFee">$0.00</span></div>
+    <div class="csr" id="cCreditRow" style="display:none"><span style="color:#00e676">💵 Store Credit</span><span id="cCredit" style="color:#00e676">$0.00</span></div>
     <div class="csr" style="border-top:1px solid rgba(255,255,255,.07);padding-top:8px;margin-top:4px">
       <span style="font-weight:700;color:#fff;font-size:14px">Total</span>
       <span class="cs-tot" id="cTot">$0.00</span>
@@ -3003,11 +3004,11 @@ const BF_ACCOUNTS = [
   {n:"Cyborg V4 Full Gear (CDK)",type:"Account",rar:"legendary",norm:4.99,perm:null,badge:"hot",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cyborg%20V4%20Full%20gear%20-%20Max%20Level%20Account%20-%20Cursed%20Dual%20Katana%20(CDK)%20-%20Godly%20Items.png"},
   {n:"Ghoul V4 Full Gear (CDK)",type:"Account",rar:"legendary",norm:4.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ghoul%20V4%20Full%20gear%20-%20Max%20Level%20Account%20-%20Cursed%20Dual%20Katana%20(CDK)%20-%20Godly%20Items.png"},
   {n:"Shark V4 Full Gear (CDK)",type:"Account",rar:"legendary",norm:4.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Shark%20V4%20Full%20gear%20-%20Max%20Level%20Account%20-%20Cursed%20Dual%20Katana%20(CDK)%20-%20Godly%20Items.png"},
-  {n:"Angel V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:9.99,perm:null,badge:"hot",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Angel%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
-  {n:"Cyborg V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:9.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cyborg%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
-  {n:"Ghoul V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:9.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ghoul%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
-  {n:"Human V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:9.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Human%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
-  {n:"Mink V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:9.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Mink%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
+  {n:"Angel V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:7.99,perm:null,badge:"hot",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Angel%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
+  {n:"Cyborg V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:7.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Cyborg%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
+  {n:"Ghoul V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:7.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Ghoul%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
+  {n:"Human V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:7.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Human%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
+  {n:"Mink V4 T10 Sanguine Art",type:"Account",rar:"mythical",norm:7.99,perm:null,badge:"",stock:99,cat:"accounts",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Mink%20V4%20T10%20-%20Max%20Level%20-%20SANGUINE%20ART%20-%20GODLY%20DUAL%20SWORDS%20-TONS%20OF%20ITEMS%20-%20EXTRA%20RANDOM%20FRUIT.png"},
 ];
 
 const GAG = [
@@ -3165,7 +3166,7 @@ const BRAINROT = [
   {n:"Orcaledon RANDOM 40M/s - 800M/s",p:8.09,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Y1UTEJJp73LZeBWtv5X2Rgf4ECNxyrAb6q3aQuTb.png"},
   {n:"Lavadorito Spinito $45M/s",p:8.09,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/3sD5wJjhfuQ3wgrJkH6Xsojf2jGSAbflce01vFbh.png"},
   {n:"Los 67",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/MF6h97ucFmy7jKgfbqPHvUtenJ3QDb2O7cJf7FzG.png",speeds:[{label:'Yin Yang',p:4.09},{label:'Galaxy',p:5.29},{label:'Radioactive',p:3.09},{label:'Cursed',p:3.69}]},
-  {n:"67",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/3fK1O21e5cHPrcLpzev4aXYKU0Vq5aaVH3YjzxPd.png",speeds:[{label:'Rainbow',p:2.87},{label:'Galaxy',p:4.49},{label:'Yin Yang',p:2.87},{label:'Radioactive',p:2.97},{label:'Cursed',p:2.51}]},
+  {n:"67",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/3fK1O21e5cHPrcLpzev4aXYKU0Vq5aaVH3YjzxPd.png",speeds:[{label:'Base',p:1.99},{label:'Rainbow',p:2.87},{label:'Galaxy',p:4.49},{label:'Yin Yang',p:2.87},{label:'Radioactive',p:2.97},{label:'Cursed',p:2.51}]},
   {n:"Fragrama and Chocrama $100M/s",p:7.7,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/S8p0KX2wHVDrXYrtLerookhJsA9pBjEwjBqeegbl.png"},
   {n:"Tang Tang Keletang",p:7.19,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/yCubJjspeIF4HzB7v5tNvYJMPcAokb32KZ0PKeIc.png"},
   {n:"Money Money Puggy",badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/exLKaO2AkKX0dmC2Q1pdK8LLvRIfa3CVbeiQVcAM.png",speeds:[{label:'21M/s',p:4.49},{label:'RANDOM',p:6.29}]},
@@ -3216,7 +3217,6 @@ const BRAINROT = [
   {n:"normal Spaghetti Tualetti 90m/s-300m/s",p:4.49,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/XjuWKOdpulD7a4BuDCIBb8xjoM4W1mmGJDK98BII.png"},
   {n:"los mobilis 165 m/s",p:4.49,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/TyTX59Q2Pg8VPpnXVppsL7kJtKXT3n8DwbXIM0kq.png"},
   {n:"W or L $37.5M/s",p:4.01,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/efg2bpdxLHZXnGmnxtItKl1hSCfQ7sz0qAzr8HaT.png"},
-  {n:"67 $7.5M/s",p:1.99,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/3fK1O21e5cHPrcLpzev4aXYKU0Vq5aaVH3YjzxPd.png"},
   {n:"Chicleteira Bicicleteira",badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/2GtCJ8tpdjMFkuTRJBQHexxSxc3GK5uPTD6boCyg.png",speeds:[{label:'3.5M/s',p:1.79},{label:'RANDOM',p:3.59}]},
   {n:"Chicleteirina Bicicleteirina",badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/i7zrORWnNgko6rWzxHbjmNwttSd9RFlkgSilFYpK.png",speeds:[{label:'4M/s',p:3.59},{label:'RANDOM',p:2.69}]},
   {n:"Pirulitoita Bicicleteira $2.5M/s",p:3.56,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/813eamgoNSNX2kn0r0N4n83NpKGNpq3yB7VlWq7i.png"},
@@ -3228,7 +3228,7 @@ const BRAINROT = [
   {n:"rainbow Nuclearo Dinossauro",p:2.12,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/obvFiXO3A2UMaAmEQtX6TIqHl3jP5kERc2G75jh8.png"},
   {n:"Los Chicleteiras",p:1.79,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/qMQrTgMAepQ2EuArVgGmlEz0pkqbVnHkzoHq6Xti.png"},
   {n:"Los Nooo My Hotspotitos",p:1.25,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/z0dFFQskB1UZQdBTmK3VKOtLTPEOFXXnYIYJKRJA.png"},
-  {n:"Mariachi Corazoni $12M/s",p:0.87,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VIqXMmxgFqpFAfcPk5ww00iAACln3ZLPVo9j76hm.png"}
+  {n:"Mariachi Corazoni $12M/s",p:1.50,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VIqXMmxgFqpFAfcPk5ww00iAACln3ZLPVo9j76hm.png"}
 ];
 
 const RIVALS = [
@@ -5077,8 +5077,22 @@ function changeQty(name,delta){
 }
 function updateCartUI(){
   const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const fee=sub*.08,tot=sub+fee;
+  const fee=sub*.08;
   const cnt=cart.reduce((s,i)=>s+i.qty,0);
+  // Store credit display
+  let credit=0;
+  try{
+    if(currentUser){
+      const u=(JSON.parse(localStorage.getItem('silv_users')||'{}')||{})[currentUser.email];
+      credit=parseFloat(u?.storeCredit||0)||0;
+    }
+  }catch{}
+  const creditApplied=Math.min(credit,sub+fee);
+  const tot=Math.max(0,sub+fee-creditApplied);
+  const creditRow=document.getElementById('cCreditRow');
+  const creditEl=document.getElementById('cCredit');
+  if(creditApplied>0&&creditRow&&creditEl){creditRow.style.display='';creditEl.textContent='-$'+creditApplied.toFixed(2);}
+  else if(creditRow) creditRow.style.display='none';
   document.getElementById('cBadge').textContent=cnt;
   document.getElementById('cartCnt').textContent=cnt+' item'+(cnt!==1?'s':'');
   document.getElementById('cSub').textContent='$'+sub.toFixed(2);

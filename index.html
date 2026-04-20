@@ -5159,6 +5159,16 @@ function goToCheckout(){
   if(!cart.length) return;
   try{ localStorage.setItem('silv_checkout_cart', JSON.stringify(cart)); }catch{}
   if(window._pendingRefCode) try{ localStorage.setItem('silv_checkout_ref', window._pendingRefCode); }catch{}
+  // Pass store credit to checkout
+  try{
+    let credit=0;
+    if(currentUser){
+      const u=(JSON.parse(localStorage.getItem('silv_users')||'{}')||{})[currentUser.email];
+      credit=parseFloat(u?.storeCredit||0)||0;
+    }
+    if(credit>0) localStorage.setItem('silv_checkout_credit', String(credit));
+    else localStorage.removeItem('silv_checkout_credit');
+  }catch{}
   toggleCart();
   window.location.href = '/checkout';
 }

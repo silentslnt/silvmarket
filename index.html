@@ -2109,6 +2109,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .game-bar{position:fixed!important;left:0;right:0;top:var(--nav-h)}
   .content{padding-top:calc(var(--gamebar-h) + 4px)}
   .gs-drop{max-height:60vh;overflow-y:auto}
+  /* Suppress heavy wallpaper on mobile */
+  #sectionBg{display:none!important}
+  /* Bigger tap targets in game-select dropdown */
+  .gd-item{padding:13px 14px;font-size:14px}
+  /* Taller brainrot dropdowns for thumb taps */
+  .br-sel-wrap{height:36px}
+  .br-sel-lbl{line-height:36px}
+  .br-sel{font-size:13px}
+  /* Wider subcategory filter pills */
+  .sf-btn{padding:8px 15px;font-size:13px}
+  /* Back-to-top closer to edge on mobile */
+  #backToTop{bottom:20px;right:16px;width:38px;height:38px;font-size:17px}
 }
 /* ── MOBILE ─────────────────────────────────────────────────── */
 @media(max-width:480px){
@@ -4460,7 +4472,7 @@ function mkCard(i,game,gcls){
     const speedSel=i.speeds?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">M/s</span><select class="br-sel" onchange="setBRS('${safeN}',+this.value)" onclick="event.stopPropagation()">${i.speeds.map((s,j)=>`<option value="${j}"${j===speedIdx?' selected':''}>${s.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
     const mutSel=i.mutations?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">Mutation</span><select class="br-sel" onchange="setBRMut('${safeN}',+this.value)" onclick="event.stopPropagation()"><option value="0"${mutIdx===0?' selected':''}>None</option>${i.mutations.map((m,j)=>`<option value="${j+1}"${(j+1)===mutIdx?' selected':''}>${m.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
     return `
-  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" style="cursor:pointer" onclick="if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" data-brname="${i.n.replace(/"/g,'&quot;')}" style="cursor:pointer" onclick="if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,'')}
       ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
@@ -4522,8 +4534,33 @@ function filterAM(btn,sub){
 function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
 function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');tagOrder('brainrotGrid');}
-function setBRS(name,idx){brSpeeds[name]=idx;if(idx>0)brMuts[name]=0;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);const _brSrch=document.querySelector('#brainrot .sec-search');if(_brSrch&&_brSrch.value.trim())secSearch('brainrotGrid',_brSrch.value);}
-function setBRMut(name,idx){brMuts[name]=idx;if(idx>0)brSpeeds[name]=0;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);const _brSrch=document.querySelector('#brainrot .sec-search');if(_brSrch&&_brSrch.value.trim())secSearch('brainrotGrid',_brSrch.value);}
+function updateBRCard(name){
+  const item=BRAINROT.find(i=>i.n===name);
+  if(!item) return;
+  const card=Array.from(document.querySelectorAll('#brainrotGrid .pc[data-brname]')).find(c=>c.getAttribute('data-brname')===name);
+  if(!card){renderBRGrid();return;}
+  const speedIdx=brSpeeds[name]!==undefined?brSpeeds[name]:0;
+  const mutIdx=brMuts[name]!==undefined?brMuts[name]:0;
+  const activeSp=item.speeds?item.speeds[speedIdx]:null;
+  const activeMut=item.mutations&&mutIdx>0?item.mutations[mutIdx-1]:null;
+  const p=Number(activeMut?activeMut.p:(activeSp?activeSp.p:item.p||0));
+  const ps=fmtPrice(p);
+  const mutPfx=activeMut?activeMut.label+' ':'';
+  const speedSfx=activeMut?'':(activeSp?' '+activeSp.label:'');
+  const addName=`${mutPfx}${name}${speedSfx}`.trim();
+  const iData=encodeURIComponent(JSON.stringify({n:addName,em:item.em||'🧠',p,oldP:null,rar:item.rar||'',badge:item.badge||'',stock:item.stock??99,bg:item.bg||'r-rare',img:item.img||null,game:'Steal a Brainrot',sub:item.sub||''}));
+  card.setAttribute('onclick',`if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')`);
+  card.setAttribute('data-price',String(p));
+  const nameEl=card.querySelector('.pc-n');if(nameEl)nameEl.textContent=addName;
+  const priceEl=card.querySelector('.pc-price');if(priceEl)priceEl.textContent=ps;
+  const btn=card.querySelector('.pc-btn');if(btn)btn.setAttribute('onclick',`event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${item.em||'📦'}','Steal a Brainrot','${(item.img||'').replace(/'/g,"\\'")}')`)
+  // Sync select values
+  const sels=card.querySelectorAll('.br-sel');
+  if(item.speeds&&sels[0])sels[0].value=String(speedIdx);
+  if(item.mutations&&sels[item.speeds?1:0])sels[item.speeds?1:0].value=String(mutIdx);
+}
+function setBRS(name,idx){brSpeeds[name]=idx;if(idx>0)brMuts[name]=0;updateBRCard(name);}
+function setBRMut(name,idx){brMuts[name]=idx;if(idx>0)brSpeeds[name]=0;updateBRCard(name);}
 function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
 function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}

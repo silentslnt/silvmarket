@@ -151,6 +151,14 @@ input{font-family:'Inter',sans-serif}
 .token-use-btn:hover{background:rgba(255,215,0,.18)}
 .token-use-btn.remove{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--muted)}
 .token-status{font-size:10px;color:var(--muted);margin-top:6px}
+.credit-block{background:linear-gradient(135deg,rgba(0,230,118,.05),rgba(0,200,83,.03));border:1px solid rgba(0,230,118,.2);border-radius:10px;padding:12px 14px;margin-bottom:4px;display:none}
+.credit-block-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.credit-lbl{font-size:11px;color:rgba(0,230,118,.85);font-weight:700;display:flex;align-items:center;gap:6px}
+.credit-lbl-badge{background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.25);border-radius:5px;padding:2px 7px;font-size:10px;color:#00e676;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.5px}
+.credit-use-btn{padding:5px 12px;background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);border-radius:7px;color:#00e676;font-size:10px;font-weight:700;transition:all .2s;cursor:pointer}
+.credit-use-btn:hover{background:rgba(0,230,118,.22)}
+.credit-use-btn.remove{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--muted)}
+.credit-status{font-size:10px;color:rgba(0,230,118,.6);margin-top:5px}
 
 /* ── RESPONSIVE ── */
 @media(max-width:640px){
@@ -332,6 +340,7 @@ input{font-family:'Inter',sans-serif}
         <div class="sum-row"><span class="lbl">Subtotal</span><span class="val" id="sumSub">—</span></div>
         <div class="sum-row" id="sumDiscRow" style="display:none"><span class="lbl" id="sumDiscLbl">Discount</span><span class="val" style="color:#00c853" id="sumDisc">—</span></div>
         <div class="sum-row" id="sumTokenRow" style="display:none"><span class="lbl">Tokens</span><span class="val" style="color:var(--yellow)" id="sumToken">—</span></div>
+        <div class="sum-row" id="sumCreditRow" style="display:none"><span class="lbl">Store Credit</span><span class="val" style="color:#00e676" id="sumCredit">—</span></div>
         <div class="sum-row"><span class="lbl">Processing Fee</span><span class="val" id="sumFee">—</span></div>
         <div class="sum-row total"><span class="lbl">Total</span><span class="val" id="sumTotal">—</span></div>
       </div>
@@ -358,6 +367,15 @@ input{font-family:'Inter',sans-serif}
         <button class="token-use-btn" id="tokenBtn" onclick="toggleTokens()">Use</button>
       </div>
       <div class="token-status" id="tokenStatus"></div>
+    </div>
+
+    <!-- Store Credit -->
+    <div class="credit-block" id="creditBlock">
+      <div class="credit-block-row">
+        <span class="credit-lbl">💵 Store Credit&nbsp;<span class="credit-lbl-badge" id="creditBadge">$0.00</span></span>
+        <button class="credit-use-btn" id="creditBtn" onclick="toggleCredit()">Apply</button>
+      </div>
+      <div class="credit-status" id="creditStatus"></div>
     </div>
 
     <!-- CTA -->
@@ -427,6 +445,7 @@ let payMethod   = 'stripe'; // stripe | crypto
 let promoApplied = false, promoPct = 0;
 let _refCode = null, _refDiscount = false;
 let _tokensApplied = 0;
+let _creditApplied = 0, _creditAvailable = 0;
 let _cryptoRates = {};
 let _cryptoCoin  = '';
 let _cryptoAddr  = '';
@@ -453,6 +472,7 @@ function loadCart(){
   }
   renderSummary();
   setupTokenBlock();
+  setupCreditBlock();
   updateBtn();
 
   // Pre-fill from session
@@ -560,13 +580,15 @@ function calcTotals(){
   const discPct = promoApplied ? promoPct : (_refDiscount ? 5 : 0);
   const disc = sub*(discPct/100);
   const tokenDisc = Math.min(_tokensApplied/10, Math.max(0, sub-disc));
-  const after = Math.max(0, sub-disc-tokenDisc);
+  const afterTokens = Math.max(0, sub-disc-tokenDisc);
+  const creditDisc = Math.min(_creditApplied, afterTokens);
+  const after = Math.max(0, afterTokens-creditDisc);
   const fee = after*0.08;
   const tot = after+fee;
-  return {sub, disc, discPct, tokenDisc, fee, tot};
+  return {sub, disc, discPct, tokenDisc, creditDisc, fee, tot};
 }
 function updateTotals(){
-  const {sub,disc,discPct,tokenDisc,fee,tot} = calcTotals();
+  const {sub,disc,discPct,tokenDisc,creditDisc,fee,tot} = calcTotals();
   document.getElementById('sumSub').textContent='$'+sub.toFixed(2);
   const discRow=document.getElementById('sumDiscRow');
   if(disc>0){ discRow.style.display=''; document.getElementById('sumDisc').textContent='-$'+disc.toFixed(2); document.getElementById('sumDiscLbl').textContent='Discount ('+discPct+'%)'; }
@@ -574,6 +596,9 @@ function updateTotals(){
   const tokenRow=document.getElementById('sumTokenRow');
   if(tokenDisc>0){ tokenRow.style.display=''; document.getElementById('sumToken').textContent='-$'+tokenDisc.toFixed(2)+' ('+_tokensApplied+' tokens)'; }
   else tokenRow.style.display='none';
+  const creditRow=document.getElementById('sumCreditRow');
+  if(creditDisc>0){ creditRow.style.display=''; document.getElementById('sumCredit').textContent='-$'+creditDisc.toFixed(2)+' store credit'; }
+  else creditRow.style.display='none';
   document.getElementById('sumFee').textContent='$'+fee.toFixed(2);
   document.getElementById('sumTotal').textContent='$'+tot.toFixed(2);
   // Update crypto amount if visible
@@ -608,6 +633,41 @@ function toggleTokens(){
     _tokensApplied=max;
     btn.textContent='Remove'; btn.classList.add('remove');
     status.textContent=max+' tokens applied';
+  }
+  updateTotals();
+}
+
+// ── STORE CREDIT ───────────────────────────────────────────────
+async function setupCreditBlock(){
+  if(!currentUser) return;
+  try{
+    const r=await fetch(BOT_BASE+'/account-data?email='+encodeURIComponent(currentUser.email)+'&secret='+encodeURIComponent(BOT_WEBHOOK_SECRET),{headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}});
+    if(!r.ok) return;
+    const d=await r.json();
+    if(!d.found) return;
+    const credit=parseFloat(d.storeCredit||0);
+    if(credit<0.01) return;
+    _creditAvailable=credit;
+    const block=document.getElementById('creditBlock');
+    block.style.display='block';
+    document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' available';
+  }catch{}
+}
+function toggleCredit(){
+  const btn=document.getElementById('creditBtn');
+  const status=document.getElementById('creditStatus');
+  if(_creditApplied>0){
+    _creditApplied=0;
+    btn.textContent='Apply'; btn.classList.remove('remove');
+    status.textContent='';
+  } else {
+    if(_creditAvailable<0.01){ status.textContent='No credit available.'; return; }
+    const {sub,disc,tokenDisc}=calcTotals();
+    const afterOthers=Math.max(0,sub-disc-tokenDisc);
+    _creditApplied=parseFloat(Math.min(_creditAvailable,afterOthers).toFixed(2));
+    if(_creditApplied<0.01){ status.textContent='Credit cannot be applied — order already fully discounted.'; return; }
+    btn.textContent='Remove'; btn.classList.add('remove');
+    status.textContent='$'+_creditApplied.toFixed(2)+' will be deducted from your balance';
   }
   updateTotals();
 }
@@ -743,6 +803,7 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
         cart:JSON.parse(JSON.stringify(cart)),
         description:cart.map(i=>i.name).join(', '),
         promoCode, referralCode:_refCode||null,
+        storeCredit:_creditApplied||0,
         successUrl: window.location.origin+'/checkout?payment=success&order='+orderId,
         cancelUrl:  window.location.origin+'/checkout',
       }),
@@ -753,7 +814,7 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
         orderId,claimKey,rblxUser,email,tot,
         cart:JSON.parse(JSON.stringify(cart)),
         discordUser:discordUser?{...discordUser}:null,
-        promoApplied, promoCode, referralCode:_refCode||null, tokensUsed:_tokensApplied||0,
+        promoApplied, promoCode, referralCode:_refCode||null, tokensUsed:_tokensApplied||0, creditUsed:_creditApplied||0,
       }));
       location.href=data.url;
       return;
@@ -809,7 +870,7 @@ async function finalizePendingOrder(orderId, claimKey, rblxUser, tot, method, em
   const botResp = await fireWebhook({
     robloxUsername:rblxUser, email, total:tot, paymentMethod:method,
     paymentStatus:'completed', items:cart, discordUser, orderId, claimKey,
-    promoCode, referralCode:_refCode||null,
+    promoCode, referralCode:_refCode||null, storeCredit:_creditApplied||0,
   });
   const fOrderId=(botResp?.orderId)||orderId;
   const fClaimKey=(botResp?.claimKey)||claimKey;
@@ -827,7 +888,7 @@ async function doCryptoConfirm(rblxUser, email, tot){
   const botResp=await fireWebhook({
     robloxUsername:rblxUser, email, total:tot, paymentMethod:'Crypto ('+_cryptoCoin+')',
     paymentStatus:'pending_verification', items:cart, discordUser, orderId, claimKey,
-    promoCode, referralCode:_refCode||null,
+    promoCode, referralCode:_refCode||null, storeCredit:_creditApplied||0,
   });
   const fOrderId=(botResp?.orderId)||orderId;
   const fClaimKey=(botResp?.claimKey)||claimKey;

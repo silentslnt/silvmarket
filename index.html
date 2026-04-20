@@ -5769,8 +5769,9 @@ function selectGame(el,name,icon,key){
 
   ALL_SECTION_IDS.forEach(id=>{const sec=document.getElementById(id);if(!sec)return;const show=id===key;sec.style.display=show?'':'none';const dl=sec.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
   const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
-  // Update page title for current game
+  // Update page title and URL for current game
   document.title=name+' — Silv Market | Buy Roblox Items';
+  history.pushState(null,'','/'+key);
   setSectionBg(key);
 }
 
@@ -8147,7 +8148,14 @@ function goHome(){
   if(document.getElementById('gsIcon'))document.getElementById('gsIcon').textContent='🛒';
   document.title='Silv Market — Buy Blox Fruits, Grow a Garden, MM2, Adopt Me & Roblox Items | Best Prices';
   setSectionBg(null);
+  history.pushState(null,'','/');
 }
+
+window.addEventListener('popstate',function(){
+  var path=location.pathname.replace(/^\//,'').replace(/\/$/,'');
+  if(!path||path==='index.html'){goHome();}
+  else{goToGame(path);}
+});
 
 function toggleNavSG(){
   const btn  = document.getElementById('navSgBtn');

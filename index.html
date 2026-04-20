@@ -321,7 +321,8 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .tog{flex:1;min-width:0;padding:5px;border-radius:7px;font-size:10px;font-weight:700;
   font-family:'Rajdhani',sans-serif;letter-spacing:.5px;cursor:pointer;
   border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
-  color:rgba(255,255,255,.38);transition:all .2s}
+  color:rgba(255,255,255,.38);transition:all .2s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .tog.sn{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.38);color:var(--blue)}
 .tog.sp{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.32);color:var(--yellow)}
 .pc-price{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;color:var(--yellow);
@@ -723,6 +724,22 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   .swipe-hint{display:flex}
   .scroll-arr{display:none!important}}
 
+@media(max-width:768px){
+  /* Disable expensive GPU effects on mobile */
+  .pc{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  /* No hover transforms on touch devices */
+  .pc:hover{transform:none!important}
+  .pc-btn:hover{transform:none!important}
+  /* Disable card glow animation — kills battery */
+  .pc:has(.b-hot),.pc:has(.b-best){animation:none!important}
+  /* Disable price shimmer on mobile — too many concurrent animations */
+  .pc-price{animation:none!important;background:none!important;-webkit-background-clip:unset!important;background-clip:unset!important;-webkit-text-fill-color:var(--yellow)!important}
+  /* Ensure tog buttons are large enough to tap reliably */
+  .tog{min-height:32px;padding:6px 4px!important}
+  /* Smoother scroll on iOS */
+  .h-scroll{-webkit-overflow-scrolling:touch;scroll-behavior:auto}
+}
+
 /* ── PRICE SHIMMER & FANCY TEXT ────────────────────────────── */
 @keyframes shimmer-move{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes item-glow{0%,100%{box-shadow:0 10px 36px rgba(0,0,0,.18)}50%{box-shadow:0 0 22px rgba(255,16,240,.28),0 0 0 1px rgba(255,16,240,.15)}}
@@ -854,7 +871,7 @@ body{font-family:'Chakra Petch','Inter',sans-serif}
   font-size:9px;letter-spacing:2px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
 
 /* 8. Image — consistent fill */
-.pc-img img{width:100%!important;height:100%!important;object-fit:cover!important;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))!important}
+.pc-img img{width:92%!important;height:92%!important;object-fit:contain!important;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))!important}
 
 /* Language / Currency modal */
 #langCurrModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:10001;align-items:center;justify-content:center;backdrop-filter:blur(6px)}

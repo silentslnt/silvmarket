@@ -151,14 +151,13 @@ input{font-family:'Inter',sans-serif}
 .token-use-btn:hover{background:rgba(255,215,0,.18)}
 .token-use-btn.remove{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--muted)}
 .token-status{font-size:10px;color:var(--muted);margin-top:6px}
-.credit-block{background:linear-gradient(135deg,rgba(0,230,118,.05),rgba(0,200,83,.03));border:1px solid rgba(0,230,118,.2);border-radius:10px;padding:12px 14px;margin-bottom:4px;display:none}
+.credit-block{background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.12);border-radius:10px;padding:12px 14px;margin-bottom:4px;display:none}
 .credit-block-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.credit-lbl{font-size:11px;color:rgba(0,230,118,.85);font-weight:700;display:flex;align-items:center;gap:6px}
-.credit-lbl-badge{background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.25);border-radius:5px;padding:2px 7px;font-size:10px;color:#00e676;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.5px}
-.credit-use-btn{padding:5px 12px;background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);border-radius:7px;color:#00e676;font-size:10px;font-weight:700;transition:all .2s;cursor:pointer}
-.credit-use-btn:hover{background:rgba(0,230,118,.22)}
+.credit-lbl{font-size:11px;color:rgba(0,230,118,.7);font-weight:600;display:flex;align-items:center;gap:5px}
+.credit-use-btn{padding:5px 12px;background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.2);border-radius:7px;color:#00e676;font-size:10px;font-weight:700;transition:all .2s;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.credit-use-btn:hover{background:rgba(0,230,118,.18)}
 .credit-use-btn.remove{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:var(--muted)}
-.credit-status{font-size:10px;color:rgba(0,230,118,.6);margin-top:5px}
+.credit-status{font-size:10px;color:rgba(0,230,118,.55);margin-top:5px}
 
 /* ── RESPONSIVE ── */
 @media(max-width:640px){
@@ -372,7 +371,10 @@ input{font-family:'Inter',sans-serif}
     <!-- Store Credit -->
     <div class="credit-block" id="creditBlock">
       <div class="credit-block-row">
-        <span class="credit-lbl">💵 Store Credit&nbsp;<span class="credit-lbl-badge" id="creditBadge">$0.00</span></span>
+        <span class="credit-lbl">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span id="creditBadge">$0.00 store credit available</span>
+        </span>
         <button class="credit-use-btn" id="creditBtn" onclick="toggleCredit()">Apply</button>
       </div>
       <div class="credit-status" id="creditStatus"></div>
@@ -482,7 +484,7 @@ function loadCart(){
     const _scBtn    = document.getElementById('creditBtn');
     const _scStatus = document.getElementById('creditStatus');
     if(_scBlock)  _scBlock.style.display  = 'block';
-    if(_scBadge)  _scBadge.textContent    = '$'+_scRaw.toFixed(2)+' available';
+    if(_scBadge)  _scBadge.textContent    = '$'+_scRaw.toFixed(2)+' store credit available';
     if(_scBtn)  { _scBtn.textContent      = 'Remove'; _scBtn.classList.add('remove'); }
     if(_scStatus) _scStatus.textContent   = '$'+_scRaw.toFixed(2)+' store credit applied';
     updateTotals();
@@ -537,6 +539,12 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
       localStorage.setItem('silv_tokens_'+currentUser.email, Math.max(0,cur-_tokensApplied));
       fetch(BOT_BASE+'/use-tokens',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,tokens:_tokensApplied})}).catch(()=>{});
     }
+    // Deduct store credit from localStorage so cart reflects new balance immediately
+    if(_creditApplied>0){
+      const newCredit=parseFloat(Math.max(0,(_creditAvailable||0)-_creditApplied).toFixed(2));
+      u.storeCredit=newCredit;
+      localStorage.setItem('silv_checkout_credit', String(newCredit));
+    }
     localStorage.setItem('silv_users', JSON.stringify(users));
     // Sync to bot
     fetch(BOT_BASE+'/account/order',{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({email:currentUser.email,orderId,total,items:items.map(i=>({name:i.name})),paymentMethod:method})}).catch(()=>{});
@@ -580,15 +588,19 @@ function unlinkDiscord(){
 // ── RENDER SUMMARY ─────────────────────────────────────────────
 function renderSummary(){
   const el = document.getElementById('summaryItems');
-  el.innerHTML = cart.map(i=>`
-    <div class="summary-item">
-      <span class="item-emoji">${i.em||'🎮'}</span>
+  el.innerHTML = cart.map(i=>{
+    const thumb = i.img
+      ? `<img class="item-img" src="${i.img}" onerror="this.style.opacity='0'">`
+      : `<div class="item-emoji-fallback"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(147,51,234,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>`;
+    return `<div class="summary-item">
+      ${thumb}
       <div class="item-info">
         <div class="item-name">${i.name}</div>
         <div class="item-sub">${i.game||''} · qty: ${i.qty||1}</div>
       </div>
       <span class="item-price">$${((i.price||0)*(i.qty||1)).toFixed(2)}</span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   updateTotals();
 }
 function calcTotals(){
@@ -668,7 +680,7 @@ function setupCreditBlock(){
       }
       // Update badge with authoritative balance
       _creditAvailable=credit;
-      document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' available';
+      document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' store credit available';
       // Clamp if user had more applied than they actually have
       if(_creditApplied>credit){ _creditApplied=credit; updateTotals(); }
     }).catch(()=>{});

@@ -325,6 +325,13 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .tog.sn{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.38);color:var(--blue)}
 .tog.sp{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.32);color:var(--yellow)}
+.br-sels{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.br-sel-wrap{position:relative;display:flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;height:30px;padding:0 26px 0 0;overflow:hidden;transition:border-color .2s}
+.br-sel-wrap:focus-within{border-color:rgba(255,16,240,.4)}
+.br-sel-lbl{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,16,240,.8);text-transform:uppercase;white-space:nowrap;padding:0 7px;border-right:1px solid rgba(255,255,255,.1);flex-shrink:0;line-height:30px}
+.br-sel{flex:1;background:transparent;border:none;color:rgba(255,255,255,.8);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;padding:0 6px;height:100%;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.br-sel option{background:#0d0a1e;color:rgba(255,255,255,.9)}
+.br-sel-arr{position:absolute;right:7px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.35);flex-shrink:0}
 .pc-price{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;color:var(--yellow);
   margin-bottom:9px;display:flex;align-items:center;gap:6px}
 .pc-old{text-decoration:line-through;color:rgba(255,255,255,.2);font-size:11px;font-family:'Inter',sans-serif}
@@ -4153,7 +4160,7 @@ const DISCORD_NITRO_DESCS = {
 
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0, _storeCreditApplied=0;
-let rblxVerified=false, fruitModes={}, brSpeeds={};
+let rblxVerified=false, fruitModes={}, brSpeeds={}, brMuts={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
 let _authWindow = null;
@@ -4400,18 +4407,23 @@ function mkCard(i,game,gcls){
   const bg=i.bg||'r-rare';
   const gameLbl={gag:'Grow a Garden',mm2:'MM2',am:'Adopt Me',brainrot:'Steal a Brainrot',rivals:'Rivals',nights:'99 Nights',tsunami:'Escape Tsunami',gpo:'Grand Piece Online',sp:'Sailor Piece',bb:'Blade Ball',av:'Anime Vanguards',bl:'Bloodlines',fisch:'Fisch',bss:'Bee Swarm Simulator',vbl:'Volleyball Legends',dth:'Death Ball',ps99:'Pet Simulator 99',bw:'Bridger: Western'}[game]||game;
   const gameIcon=(VIEW_ALL_CONFIG&&VIEW_ALL_CONFIG[game]&&VIEW_ALL_CONFIG[game].img)||'';
-  if(i.speeds && game==='brainrot'){
-    const idx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
-    const sp=i.speeds[idx];
-    const p=sp.p;
+  if((i.speeds||i.mutations)&&game==='brainrot'){
+    const speedIdx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
+    const mutIdx=brMuts[i.n]!==undefined?brMuts[i.n]:0;
+    const activeSp=i.speeds?i.speeds[speedIdx]:null;
+    const activeMut=i.mutations&&mutIdx>0?i.mutations[mutIdx-1]:null;
+    const p=activeMut?activeMut.p:(activeSp?activeSp.p:i.p||0);
     const ps=fmtPrice(Number(p));
-    const addName=`${i.n} ${sp.label}`;
+    const mutPfx=activeMut?activeMut.label+' ':'';
+    const speedSfx=activeSp?' '+activeSp.label:'';
+    const addName=`${mutPfx}${i.n}${speedSfx}`.trim();
     const safeN=i.n.replace(/'/g,"\\'");
     const iData=encodeURIComponent(JSON.stringify({n:addName,em:i.em,p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:gameLbl,sub:i.sub||''}));
-    const speedBtns=i.speeds.map((s,j)=>`<button class="tog${j===idx?' sp':''}" onclick="setBRS('${safeN}',${j});event.stopPropagation()">${s.label}</button>`).join('');
-    const rarCls2=i.rar?`rb-${i.rar}`:"rb-common";
+    const rarCls2=i.rar?`rb-${i.rar}`:'rb-common';
+    const speedSel=i.speeds?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">M/s</span><select class="br-sel" onchange="setBRS('${safeN}',+this.value)" onclick="event.stopPropagation()">${i.speeds.map((s,j)=>`<option value="${j}"${j===speedIdx?' selected':''}>${s.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
+    const mutSel=i.mutations?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">Mutation</span><select class="br-sel" onchange="setBRMut('${safeN}',+this.value)" onclick="event.stopPropagation()"><option value="0"${mutIdx===0?' selected':''}>None</option>${i.mutations.map((m,j)=>`<option value="${j+1}"${(j+1)===mutIdx?' selected':''}>${m.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
     return `
-  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
+  <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" style="cursor:pointer" onclick="if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
       ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
       ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
@@ -4420,9 +4432,9 @@ function mkCard(i,game,gcls){
     </div>
     <div class="pc-body">
       <div class="pc-g ${gcls}">${gameLbl}</div>
-      <div class="pc-n">${i.n}</div>
+      <div class="pc-n">${addName}</div>
       ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
-      <div class="fruit-tog" style="flex-wrap:wrap;gap:3px;margin-bottom:4px">${speedBtns}</div>
+      <div class="br-sels">${speedSel}${mutSel}</div>
       <div class="pc-price">${ps}</div>
       <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
     </div>
@@ -4474,6 +4486,7 @@ function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
 function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');tagOrder('brainrotGrid');}
 function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);const _brSrch=document.querySelector('#brainrot .sec-search');if(_brSrch&&_brSrch.value.trim())secSearch('brainrotGrid',_brSrch.value);}
+function setBRMut(name,idx){brMuts[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);const _brSrch=document.querySelector('#brainrot .sec-search');if(_brSrch&&_brSrch.value.trim())secSearch('brainrotGrid',_brSrch.value);}
 function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
 function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}

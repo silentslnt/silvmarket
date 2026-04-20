@@ -472,6 +472,22 @@ function loadCart(){
   }
   renderSummary();
   setupTokenBlock();
+  // ── Store credit — read synchronously, no async needed ────────
+  const _scRaw = parseFloat(localStorage.getItem('silv_checkout_credit')||'0');
+  if(_scRaw > 0){
+    _creditAvailable = _scRaw;
+    _creditApplied   = _scRaw; // capped to order amount inside calcTotals
+    const _scBlock  = document.getElementById('creditBlock');
+    const _scBadge  = document.getElementById('creditBadge');
+    const _scBtn    = document.getElementById('creditBtn');
+    const _scStatus = document.getElementById('creditStatus');
+    if(_scBlock)  _scBlock.style.display  = 'block';
+    if(_scBadge)  _scBadge.textContent    = '$'+_scRaw.toFixed(2)+' available';
+    if(_scBtn)  { _scBtn.textContent      = 'Remove'; _scBtn.classList.add('remove'); }
+    if(_scStatus) _scStatus.textContent   = '$'+_scRaw.toFixed(2)+' store credit applied';
+    updateTotals();
+  }
+  // Background verify against bot in case balance changed
   setupCreditBlock();
   updateBtn();
 
@@ -638,42 +654,23 @@ function toggleTokens(){
 }
 
 // ── STORE CREDIT ───────────────────────────────────────────────
-function applyCredit(credit){
-  if(credit < 0.01) return;
-  _creditAvailable = credit;
-  document.getElementById('creditBlock').style.display = 'block';
-  document.getElementById('creditBadge').textContent = '$'+credit.toFixed(2)+' available';
-  if(_creditApplied === 0){
-    const {sub,disc,tokenDisc} = calcTotals();
-    const afterOthers = Math.max(0, sub - disc - tokenDisc);
-    _creditApplied = parseFloat(Math.min(credit, afterOthers).toFixed(2));
-    const btn=document.getElementById('creditBtn');
-    const status=document.getElementById('creditStatus');
-    if(btn){ btn.textContent='Remove'; btn.classList.add('remove'); }
-    if(status) status.textContent='$'+_creditApplied.toFixed(2)+' store credit applied';
-    updateTotals();
-  }
-}
 function setupCreditBlock(){
+  // Background bot verify — corrects if balance changed since cart was opened
   if(!currentUser) return;
-  // 1. Synchronous: read the value passed from the cart page
-  const passed = parseFloat(localStorage.getItem('silv_checkout_credit')||'0');
-  if(passed > 0){ applyCredit(passed); }
-  // 2. Async bot verify — corrects balance if it changed since cart was opened
   fetch(BOT_BASE+'/account-data?email='+encodeURIComponent(currentUser.email)+'&secret='+encodeURIComponent(BOT_WEBHOOK_SECRET),{headers:{'x-silv-secret':BOT_WEBHOOK_SECRET},signal:AbortSignal.timeout(8000)})
     .then(r=>r.ok?r.json():null).then(d=>{
       if(!d||!d.found) return;
       const credit=parseFloat(d.storeCredit||0);
       localStorage.setItem('silv_checkout_credit', String(credit));
-      if(credit < 0.01){
+      if(credit<0.01){
         document.getElementById('creditBlock').style.display='none';
         _creditAvailable=0; _creditApplied=0; updateTotals(); return;
       }
-      if(credit < _creditApplied){
-        // User has less credit than applied — clamp it
-        _creditApplied = credit; updateTotals();
-      }
-      applyCredit(credit);
+      // Update badge with authoritative balance
+      _creditAvailable=credit;
+      document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' available';
+      // Clamp if user had more applied than they actually have
+      if(_creditApplied>credit){ _creditApplied=credit; updateTotals(); }
     }).catch(()=>{});
 }
 function toggleCredit(){

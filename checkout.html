@@ -638,19 +638,42 @@ function toggleTokens(){
 }
 
 // ── STORE CREDIT ───────────────────────────────────────────────
+function showCreditBlock(credit){
+  if(credit < 0.01) return;
+  _creditAvailable = credit;
+  document.getElementById('creditBlock').style.display = 'block';
+  document.getElementById('creditBadge').textContent = '$'+credit.toFixed(2)+' available';
+}
 async function setupCreditBlock(){
   if(!currentUser) return;
+  // Fast path: check session data synced from bot
   try{
-    const r=await fetch(BOT_BASE+'/account-data?email='+encodeURIComponent(currentUser.email)+'&secret='+encodeURIComponent(BOT_WEBHOOK_SECRET),{headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}});
+    const users = JSON.parse(localStorage.getItem('silv_users')||'{}');
+    const u = users[currentUser.email];
+    if(u && u.storeCredit > 0) showCreditBlock(parseFloat(u.storeCredit));
+  }catch{}
+  // Authoritative: fetch from bot to get real-time balance
+  try{
+    const r=await fetch(BOT_BASE+'/account-data?email='+encodeURIComponent(currentUser.email)+'&secret='+encodeURIComponent(BOT_WEBHOOK_SECRET),{headers:{'x-silv-secret':BOT_WEBHOOK_SECRET},signal:AbortSignal.timeout(6000)});
     if(!r.ok) return;
     const d=await r.json();
     if(!d.found) return;
     const credit=parseFloat(d.storeCredit||0);
-    if(credit<0.01) return;
-    _creditAvailable=credit;
-    const block=document.getElementById('creditBlock');
-    block.style.display='block';
-    document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' available';
+    // If credit dropped (e.g. already used) and user had it applied, remove it
+    if(_creditApplied > credit){
+      _creditApplied = 0;
+      const btn=document.getElementById('creditBtn');
+      const status=document.getElementById('creditStatus');
+      if(btn){ btn.textContent='Apply'; btn.classList.remove('remove'); }
+      if(status) status.textContent='';
+      updateTotals();
+    }
+    if(credit < 0.01){
+      document.getElementById('creditBlock').style.display='none';
+      _creditAvailable=0; _creditApplied=0;
+      return;
+    }
+    showCreditBlock(credit);
   }catch{}
 }
 function toggleCredit(){

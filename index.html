@@ -2961,7 +2961,7 @@ const FRUIT_SKINS = [
   {n:'Frustration Pain', em:'😤',type:'Skin',rar:'rare',     norm:6,  perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Frustration%20Pain.webp'},
   {n:'Celestial Pain',   em:'✨',type:'Skin',rar:'rare',     norm:6,  perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Celestial%20Pain.webp'},
   {n:'Super Spirit Pain',em:'👻',type:'Skin',rar:'legendary',norm:11, perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Super%20Spirit%20Pain%20Skin.webp'},
-  {n:'Red Lightning',    em:'⚡',type:'Skin',rar:'legendary',norm:12, perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Red%20Lightning.webp'},
+  {n:'Red Lightning',    em:'⚡',type:'Skin',rar:'legendary',norm:11, perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Red%20Lightning.webp'},
   {n:'Yellow Lightning', em:'⚡',type:'Skin',rar:'legendary',norm:11, perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Yellow%20Lightning.webp'},
   {n:'Green Lightning',  em:'⚡',type:'Skin',rar:'rare',     norm:3,  perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Green%20Lightning%20Skin.webp'},
   {n:'Purple Lightning', em:'💜',type:'Skin',rar:'legendary',norm:30, perm:null,badge:'myth',stock:5,cat:'skin',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Purple%20Lightning%20Skin.webp'},
@@ -3141,7 +3141,7 @@ const BRAINROT = [
   {n:"Guest 666 $6.6M/s-$159.9M/s",p:9.86,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/P7JulhoYAJZuvNPn2cGMCcvCcE1TWubhFJVpd7Wf.png"},
   {n:"Popcuru and Fizzuru",badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/1HUDEmHLzfZifYHkuPb6pPkcUnnOfjajs9uA9fYT.png",speeds:[{label:'170M/s',p:7.50},{label:'1-1.4B/s',p:26.09}]},
   {n:"Reinito Sleighito 140M/s-875m/s",p:24.29,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/hSsADlPMZEPZIqSqw6tAQGXbaZWnBfBbCEMnwf74.png"},
-  {n:"La Casa Boo diamond",badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FzRnaF7iQTm7ERHPgFw8DY4xNVbQllDcCu63ZXPl.png",speeds:[{label:'Base',p:30},{label:'Galaxy',p:70}]},
+  {n:"La Casa Boo",badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/FzRnaF7iQTm7ERHPgFw8DY4xNVbQllDcCu63ZXPl.png",speeds:[{label:'Base',p:30},{label:'Galaxy',p:70}]},
   {n:"La Secret Combinasion Radioactiv 1b",p:22.5,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WoZQE3d9I0bUs4jiKvppbnLJPUARNYAsbXaWMMd2.png"},
   {n:"CAPITANO MOBBY DIAMOND 560M/S",p:22.49,oldP:null,badge:"hot",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/K9PQi8dolMncbfyqo2r3uXbadW44D7tRhyJ1wuMz.png"},
   {n:"La Romantic Grande 1.2b (daimond)",p:22.04,oldP:null,badge:"",stock:99,sub:"meta-tier",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VXR5uq5uJi200wLGYCJpNpOxfiAq4KMDKDul2BNO.png"},
@@ -4486,7 +4486,7 @@ function filterAM(btn,sub){
 function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
 function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
 function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');tagOrder('brainrotGrid');}
-function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);}
+function setBRS(name,idx){brSpeeds[name]=idx;renderBRGrid();if(window._brFilter&&window._brFilter!=='all')filterGrid('brainrotGrid','sub',window._brFilter);const _brSrch=document.querySelector('#brainrot .sec-search');if(_brSrch&&_brSrch.value.trim())secSearch('brainrotGrid',_brSrch.value);}
 function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
 function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
 function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}

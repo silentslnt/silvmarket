@@ -643,6 +643,19 @@ function showCreditBlock(credit){
   _creditAvailable = credit;
   document.getElementById('creditBlock').style.display = 'block';
   document.getElementById('creditBadge').textContent = '$'+credit.toFixed(2)+' available';
+  // Auto-apply if not already applied
+  if(_creditApplied === 0){
+    const {sub,disc,tokenDisc} = calcTotals();
+    const afterOthers = Math.max(0, sub-disc-tokenDisc);
+    _creditApplied = parseFloat(Math.min(credit, afterOthers).toFixed(2));
+    if(_creditApplied > 0){
+      const btn=document.getElementById('creditBtn');
+      const status=document.getElementById('creditStatus');
+      if(btn){ btn.textContent='Remove'; btn.classList.add('remove'); }
+      if(status) status.textContent='$'+_creditApplied.toFixed(2)+' store credit applied';
+      updateTotals();
+    }
+  }
 }
 async function setupCreditBlock(){
   if(!currentUser) return;

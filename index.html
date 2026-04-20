@@ -3247,7 +3247,7 @@ const BRAINROT = [
   {n:"Ventoliero Pavonero",p:4,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://petmart.fun/storage/products/Pm6mPsny7fnQoYrp5ZsihZIlz2dFn2Z8ZScZEWj9.webp"},
   {n:"Nuclearo Dinossauro",p:2.2,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/obvFiXO3A2UMaAmEQtX6TIqHl3jP5kERc2G75jh8.png"},
   {n:"Los Chicleteiras",p:1.79,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/qMQrTgMAepQ2EuArVgGmlEz0pkqbVnHkzoHq6Xti.png"},
-  {n:"Los Nooo My Hotspotitos",p:1.35,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/z0dFFQskB1UZQdBTmK3VKOtLTPEOFXXnYIYJKRJA.png"},
+  {n:"Los Nooo My Hotspotitos",p:1.35,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Noo my Eggs.webp"},
   {n:"Mariachi Corazoni",p:1.5,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VIqXMmxgFqpFAfcPk5ww00iAACln3ZLPVo9j76hm.png"},
   {n:"Quesadilla Crocodila",p:1,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Quesadilla Crocodila.webp"},
   {n:"Graipuss Medussi",p:1,oldP:null,badge:"",stock:99,sub:"starter-tier",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Graipuss Medussi.webp"},
@@ -4430,7 +4430,7 @@ function mkCard(i,game,gcls){
     return `
   <div class="pc ${rarCls2}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" data-price="${Number(p)||0}" style="cursor:pointer" onclick="if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
     <div class="pc-img ${bg}">
-      ${mkImgEl(i.n,i.em||'📦',i.img,gameIcon)}
+      ${mkImgEl(i.n,i.em||'📦',i.img,'')}
       ${bdg(i.badge)}${i.isSale?'':stk(i.stock,game)}
       ${i.isSale?'<div class="pc-sale-sticker">SALE</div>':''}
       ${mkFavBtn(i.n)}

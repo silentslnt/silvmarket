@@ -6465,11 +6465,18 @@ function openViewAll(key){
   document.getElementById('viewAllOverlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
   document.getElementById('viewAllOverlay').scrollTop = 0;
+  // Update URL for view-all-only games (no dedicated section)
+  const _vaOnlyKeys = ['discord'];
+  if(_vaOnlyKeys.includes(key)){
+    history.pushState({vaKey:key},'','/'+key);
+  }
 }
 
 function closeViewAll(){
   document.getElementById('viewAllOverlay').style.display = 'none';
   document.body.style.overflow = '';
+  // Restore URL if we pushed a view-all-only route
+  if(history.state?.vaKey){ history.back(); }
 }
 
 function setViewAllFilter(filter, btn){
@@ -8134,9 +8141,9 @@ init();
   const rawPath = location.pathname.replace(/^\/+|\/+$/g,'');
   const game = params.get('game') || window.__SILVGAME || rawPath || '';
   if(!game) return;
+  // Discord has no section — open its View All overlay (URL managed inside openViewAll)
+  if(game.toLowerCase()==='discord'){ history.replaceState({},'','/'); setTimeout(()=>openViewAll('discord'),120); return; }
   history.replaceState({}, '', location.pathname);
-  // Discord has no section — open its View All overlay
-  if(game.toLowerCase()==='discord'){ setTimeout(()=>openViewAll('discord'),120); return; }
   const id = ALL_SECTION_IDS.find(g => g === game.toLowerCase());
   if(!id) return;
   // Show only the target section, hide all others + home menu

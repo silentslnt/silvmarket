@@ -4434,25 +4434,49 @@ function loadAPFavorites(){
 }
 
 // ── CURRENCY / LANGUAGE ───────────────────────────────────────
+// Fallback rates (updated periodically) — live rates fetched on load from exchangerate.host
 const CURRENCIES = {
-  USD:{sym:'$',   rate:1,     label:'USD - $',    name:'US Dollar'},
-  EUR:{sym:'€',   rate:0.92,  label:'EUR - €',    name:'Euro'},
-  GBP:{sym:'£',   rate:0.79,  label:'GBP - £',    name:'British Pound'},
-  CAD:{sym:'CA$', rate:1.37,  label:'CAD - CA$',  name:'Canadian Dollar'},
-  AUD:{sym:'AU$', rate:1.53,  label:'AUD - AU$',  name:'Australian Dollar'},
-  BRL:{sym:'R$',  rate:5.20,  label:'BRL - R$',   name:'Brazilian Real'},
-  SGD:{sym:'S$',  rate:1.35,  label:'SGD - S$',   name:'Singapore Dollar'},
-  CHF:{sym:'CHF ',rate:0.90,  label:'CHF',         name:'Swiss Franc'},
-  SEK:{sym:'kr',  rate:10.5,  label:'SEK - kr',   name:'Swedish Krona'},
-  JPY:{sym:'¥',   rate:150,   label:'JPY - ¥',    name:'Japanese Yen'},
-  MXN:{sym:'MX$', rate:17.2,  label:'MXN - MX$',  name:'Mexican Peso'},
-  INR:{sym:'₹',   rate:83.5,  label:'INR - ₹',    name:'Indian Rupee'},
-  PHP:{sym:'₱',   rate:56.0,  label:'PHP - ₱',    name:'Philippine Peso'},
-  KRW:{sym:'₩',   rate:1335,  label:'KRW - ₩',    name:'South Korean Won'},
-  TRY:{sym:'₺',   rate:32.5,  label:'TRY - ₺',    name:'Turkish Lira'},
-  PLN:{sym:'zł',  rate:4.0,   label:'PLN - zł',   name:'Polish Zloty'},
-  AED:{sym:'د.إ', rate:3.67,  label:'AED - د.إ',  name:'UAE Dirham'},
+  USD:{sym:'$',   rate:1,      label:'USD - $',    name:'US Dollar'},
+  EUR:{sym:'€',   rate:0.91,   label:'EUR - €',    name:'Euro'},
+  GBP:{sym:'£',   rate:0.78,   label:'GBP - £',    name:'British Pound'},
+  CAD:{sym:'CA$', rate:1.42,   label:'CAD - CA$',  name:'Canadian Dollar'},
+  AUD:{sym:'AU$', rate:1.59,   label:'AUD - AU$',  name:'Australian Dollar'},
+  BRL:{sym:'R$',  rate:5.75,   label:'BRL - R$',   name:'Brazilian Real'},
+  SGD:{sym:'S$',  rate:1.35,   label:'SGD - S$',   name:'Singapore Dollar'},
+  CHF:{sym:'CHF ',rate:0.89,   label:'CHF',         name:'Swiss Franc'},
+  SEK:{sym:'kr',  rate:10.55,  label:'SEK - kr',   name:'Swedish Krona'},
+  JPY:{sym:'¥',   rate:145,    label:'JPY - ¥',    name:'Japanese Yen'},
+  MXN:{sym:'MX$', rate:18.5,   label:'MXN - MX$',  name:'Mexican Peso'},
+  INR:{sym:'₹',   rate:84.5,   label:'INR - ₹',    name:'Indian Rupee'},
+  PHP:{sym:'₱',   rate:57.5,   label:'PHP - ₱',    name:'Philippine Peso'},
+  KRW:{sym:'₩',   rate:1385,   label:'KRW - ₩',    name:'South Korean Won'},
+  TRY:{sym:'₺',   rate:38.0,   label:'TRY - ₺',    name:'Turkish Lira'},
+  PLN:{sym:'zł',  rate:3.95,   label:'PLN - zł',   name:'Polish Zloty'},
+  AED:{sym:'د.إ', rate:3.67,   label:'AED - د.إ',  name:'UAE Dirham'},
 };
+// Fetch live rates once per session from a free API
+(function fetchLiveRates(){
+  const CACHE_KEY='silv_fx_rates', CACHE_TS='silv_fx_ts';
+  try {
+    const ts=parseInt(localStorage.getItem(CACHE_TS)||'0');
+    if(Date.now()-ts < 6*3600*1000){ // use cached if under 6h old
+      const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'{}');
+      if(Object.keys(cached).length){ applyRates(cached); return; }
+    }
+  } catch{}
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(r=>r.json()).then(d=>{
+      if(!d||!d.rates) return;
+      applyRates(d.rates);
+      try{ localStorage.setItem(CACHE_KEY,JSON.stringify(d.rates)); localStorage.setItem(CACHE_TS,String(Date.now())); }catch{}
+    }).catch(()=>{}); // silent fail — hardcoded fallbacks stay active
+})();
+function applyRates(rates){
+  const keys=Object.keys(CURRENCIES).filter(k=>k!=='USD');
+  let updated=false;
+  keys.forEach(k=>{ if(rates[k]){ CURRENCIES[k].rate=rates[k]; updated=true; } });
+  if(updated && typeof renderAllPrices==='function') try{ renderAllPrices(); }catch{}
+}
 let selectedCurrency = localStorage.getItem('silv_currency')||'USD';
 let selectedLang = localStorage.getItem('silv_lang')||'EN';
 function fmtPrice(usd){
@@ -8142,7 +8166,7 @@ init();
   const game = params.get('game') || window.__SILVGAME || rawPath || '';
   if(!game) return;
   // Discord has no section — open its View All overlay (URL managed inside openViewAll)
-  if(game.toLowerCase()==='discord'){ history.replaceState({},'','/'); setTimeout(()=>openViewAll('discord'),120); return; }
+  if(game.toLowerCase()==='discord'){ history.replaceState({},'',' /'); setTimeout(()=>openViewAll('discord'),120); return; }
   history.replaceState({}, '', location.pathname);
   const id = ALL_SECTION_IDS.find(g => g === game.toLowerCase());
   if(!id) return;

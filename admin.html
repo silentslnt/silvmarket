@@ -176,6 +176,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 .ic{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;cursor:pointer;transition:all .15s;overflow:hidden}
 .ic:hover{border-color:rgba(147,51,234,.35);background:rgba(147,51,234,.06)}
 .ic.sel{border-color:var(--pu);background:rgba(147,51,234,.12)}
+.ic.drag-over{outline:2px solid #ff10f0;outline-offset:2px;background:rgba(255,16,240,.08)}
 .ic-img{width:100%;aspect-ratio:1;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
 .ic-img img{width:100%;height:100%;object-fit:cover}
 .ic-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:rgba(147,51,234,.4);font-family:Orbitron,sans-serif}
@@ -347,9 +348,10 @@ tr:hover td{background:rgba(255,255,255,.015)}
       </div>
       <div class="shop-tabs">
         <button class="stab active" onclick="shopTab('items',this)">Items</button>
-        <button class="stab" onclick="shopTab('prices',this)">Price Flags</button>
         <button class="stab" onclick="shopTab('add-item',this)">Add Item</button>
         <button class="stab" onclick="shopTab('add-game',this)">Add Game</button>
+        <button class="stab" onclick="shopTab('bulk',this)">Bulk Ops</button>
+        <button class="stab" onclick="shopTab('prices',this)">Price Flags</button>
       </div>
 
       <!-- Items browser + editor -->
@@ -373,6 +375,9 @@ tr:hover td{background:rgba(255,255,255,.015)}
                 <option value="sale">Sale</option>
                 <option value="oos">Out of Stock</option>
               </select>
+              <button class="btn bn" onclick="exportCSV()" title="Export CSV" style="white-space:nowrap;padding:5px 10px;font-size:11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV</button>
+              <button class="btn bn" id="reorderToggleBtn" onclick="toggleReorderMode()" title="Drag to reorder (select one game first)" style="white-space:nowrap;padding:5px 10px;font-size:11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Reorder</button>
+              <button class="btn bc" id="reorderSaveBtn" onclick="saveReorder()" style="display:none;white-space:nowrap;padding:5px 10px;font-size:11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Save Order</button>
             </div>
             <div class="ib-grid" id="itemGrid"><div class="empty" style="padding:48px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Click Refresh Items to load</div></div>
             <div class="ib-pag" id="itemsPag"></div>
@@ -463,6 +468,22 @@ tr:hover td{background:rgba(255,255,255,.015)}
               </button>
             </div>
             <div id="agResult" style="grid-column:1/-1;display:none;font-size:12px;font-family:Rajdhani,sans-serif;padding:8px 12px;border-radius:8px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk Ops -->
+      <div class="shop-pnl" id="spnl-bulk">
+        <div class="card">
+          <div class="ct"><span class="ctd"></span>Bulk Price Adjustment</div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:14px;line-height:1.6">Apply a % price change to all items (or a filtered subset) in a game. Use negative values to lower prices.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="fl"><label>Game *</label><select class="sel inp" id="bpGame" onchange="loadBpFilters()"><option value="">Select game…</option></select></div>
+            <div class="fl"><label>Filter by badge or sub</label><select class="sel inp" id="bpFilter" onchange="updateBpPreview()"><option value="all">All Items</option></select></div>
+            <div class="fl"><label>Price Change %</label><input class="inp" id="bpPct" type="number" step="0.1" placeholder="e.g. -10 to lower, +20 to raise" oninput="updateBpPreview()"/></div>
+            <div class="fl" style="align-items:flex-end"><button class="btn bc" style="width:100%;padding:9px;justify-content:center" onclick="submitBulkPrice()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Apply</button></div>
+            <div id="bpPreview" style="grid-column:1/-1;display:none;font-size:11px;color:var(--muted);font-family:Rajdhani,sans-serif;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px"></div>
+            <div id="bpResult" style="grid-column:1/-1;display:none;font-size:12px;font-family:Rajdhani,sans-serif;padding:8px 12px;border-radius:8px"></div>
           </div>
         </div>
       </div>
@@ -879,13 +900,23 @@ function renderItemPage(){
         <div class="ic-name" title="${(item.n||'').replace(/"/g,'&quot;')}">${item.n||'—'}</div>
         <div style="display:flex;align-items:center"><span class="ic-price">${priceStr}</span>${oos?'<span class="ic-oos">OOS</span>':''}</div>
       </div>`;
-      c.onclick=()=>openEditor(item);
+      if(_reorderMode){
+        c.draggable=true; c.dataset.name=item.n; c.style.cursor='grab';
+        c.addEventListener('dragstart',e=>{ _dragSrc=c; c.style.opacity='0.4'; e.dataTransfer.effectAllowed='move'; });
+        c.addEventListener('dragend',()=>{ c.style.opacity=''; g.querySelectorAll('.ic').forEach(x=>x.classList.remove('drag-over')); });
+        c.addEventListener('dragover',e=>{ e.preventDefault(); e.dataTransfer.dropEffect='move'; });
+        c.addEventListener('dragenter',()=>{ if(c!==_dragSrc) c.classList.add('drag-over'); });
+        c.addEventListener('dragleave',()=>c.classList.remove('drag-over'));
+        c.addEventListener('drop',e=>{ e.preventDefault(); if(_dragSrc&&_dragSrc!==c){ const all=[...g.querySelectorAll('.ic')]; all.indexOf(_dragSrc)<all.indexOf(c)?c.after(_dragSrc):c.before(_dragSrc); } c.classList.remove('drag-over'); });
+      } else {
+        c.onclick=()=>openEditor(item);
+      }
       g.appendChild(c);
     });
     grid.innerHTML=''; grid.appendChild(g);
   }
   renderPagination('itemsPag', _iPage, total, list.length, p=>{ _iPage=p; renderItemPage(); });
-  populateAiGames();
+  populateAiGames(); populateBpGames();
 }
 
 // ── item editor ────────────────────────────────────────────────
@@ -916,7 +947,7 @@ function openEditor(item){
       </div>
       <div class="fl"><label>Emoji</label><input class="inp" id="ef-em" value="${item.em||''}"/></div>
     </div>
-    <div class="fl"><label>Image URL</label><input class="inp" id="ef-img" value="${(item.img||'').replace(/"/g,'&quot;')}" oninput="previewEditorImg(this.value)"/></div>
+    <div class="fl"><label>Image URL</label><div style="display:flex;gap:6px;align-items:center"><input class="inp" id="ef-img" value="${(item.img||'').replace(/"/g,'&quot;')}" oninput="previewEditorImg(this.value)" style="flex:1"/><label class="btn bn" style="cursor:pointer;white-space:nowrap;font-size:11px;padding:5px 10px;margin:0" title="Upload image file"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>Upload<input type="file" accept="image/*" style="display:none" onchange="uploadItemImage(this)"/></label></div></div>
     <div class="frow">
       <div class="fl"><label>Sub / Category</label><input class="inp" id="ef-sub" value="${item.sub||''}"/></div>
       <div class="fl"><label>Rarity</label><input class="inp" id="ef-rar" value="${item.rar||''}"/></div>
@@ -1038,6 +1069,113 @@ async function deleteItem(){
   toast(d.success?`"${_selItem.n}" marked OOS (use !removeitem to fully delete)`:'Delete failed',d.success?'ok':'err');
   if(d.success) clearEditor();
   else { $('ieSaveBtn').disabled=false; $('ieDelBtn').disabled=false; }
+}
+
+// ── csv export ─────────────────────────────────────────────────
+function exportCSV(){
+  if(!_allItems.length){ toast('Load items first','err'); return; }
+  const rows=[['Game','Name','Price','Stock','Badge','Rarity','Sub','Emoji','Image']];
+  _allItems.forEach(i=>rows.push([i.game||'',i.n||'',i.p??'',i.stock??'',i.badge||'',i.rar||'',i.sub||'',i.em||'',i.img||'']));
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='silvmarket-items-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  toast(`Exported ${_allItems.length} items`);
+}
+
+// ── reorder mode ───────────────────────────────────────────────
+let _reorderMode=false, _dragSrc=null;
+function toggleReorderMode(){
+  const game=$('gameFilter').value;
+  if(!_reorderMode&&!game){ toast('Select a single game first to reorder','err'); return; }
+  _reorderMode=!_reorderMode;
+  const btn=$('reorderToggleBtn');
+  btn.style.background=_reorderMode?'rgba(255,16,240,.2)':'';
+  btn.style.borderColor=_reorderMode?'rgba(255,16,240,.5)':'';
+  btn.style.color=_reorderMode?'#ff10f0':'';
+  $('reorderSaveBtn').style.display=_reorderMode?'':'none';
+  renderItemPage();
+  if(_reorderMode) toast('Drag cards to reorder. Click Save Order when done.');
+}
+async function saveReorder(){
+  const game=$('gameFilter').value;
+  if(!game){ toast('Select a game first','err'); return; }
+  const cards=[...(document.querySelector('.item-grid')||document.querySelector('#itemGrid')).querySelectorAll('.ic')];
+  const names=cards.map(c=>c.dataset.name).filter(Boolean);
+  if(!names.length){ toast('No items to reorder','err'); return; }
+  const btn=$('reorderSaveBtn');
+  btn.disabled=true; btn.textContent='Saving…';
+  const r=await api('/admin/reorder',{method:'POST',body:JSON.stringify({game,names})});
+  const d=await r.json();
+  btn.disabled=false;
+  btn.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Save Order';
+  if(d.success){
+    toast(`Order saved for ${d.reordered} items ✅`);
+    _reorderMode=false;
+    $('reorderToggleBtn').style.cssText='';
+    $('reorderSaveBtn').style.display='none';
+    _itemsCache=null;
+  } else toast('Failed: '+d.error,'err');
+}
+
+// ── image upload ───────────────────────────────────────────────
+async function uploadItemImage(input){
+  const file=input.files[0];
+  if(!file) return;
+  if(file.size>4*1024*1024){ toast('Image must be under 4MB','err'); return; }
+  toast('⏳ Uploading…');
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const b64=e.target.result.split(',')[1];
+    const r=await api('/admin/upload-image',{method:'POST',body:JSON.stringify({filename:file.name,base64:b64,mimeType:file.type})});
+    const d=await r.json();
+    if(d.success){
+      const imgEl=document.getElementById('ef-img');
+      if(imgEl){ imgEl.value=d.url; previewEditorImg(d.url); }
+      toast('Image uploaded ✅ — save item to apply');
+    } else toast('Upload failed: '+d.error,'err');
+    input.value='';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── bulk price ─────────────────────────────────────────────────
+function populateBpGames(){
+  const sel=$('bpGame'); if(!sel) return;
+  const games=[...new Set(_allItems.map(i=>i.game))].sort();
+  sel.innerHTML='<option value="">Select game…</option>'+games.map(g=>`<option value="${g}">${g}</option>`).join('');
+}
+async function loadBpFilters(){
+  const game=$('bpGame').value;
+  const sel=$('bpFilter');
+  sel.innerHTML='<option value="all">All Items</option>';
+  if(!game||!_allItems.length) return;
+  const vals=[...new Set(_allItems.filter(i=>i.game===game).flatMap(i=>[i.badge,i.sub]).filter(Boolean))].sort();
+  vals.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+  updateBpPreview();
+}
+function updateBpPreview(){
+  const game=$('bpGame').value, filter=$('bpFilter').value||'all', pct=parseFloat($('bpPct').value);
+  const prev=$('bpPreview');
+  if(!game||isNaN(pct)){ prev.style.display='none'; return; }
+  const items=_allItems.filter(i=>i.game===game&&(filter==='all'||i.badge===filter||i.sub===filter));
+  prev.style.display='block';
+  prev.textContent=`Will update ${items.length} item${items.length!==1?'s':''} in "${game}"${filter!=='all'?` [${filter}]`:''} by ${pct>0?'+':''}${pct}%`;
+}
+async function submitBulkPrice(){
+  const game=$('bpGame').value, filter=$('bpFilter').value||'all', pct=parseFloat($('bpPct').value);
+  const res=$('bpResult');
+  const setRes=(ok,msg)=>{ res.style.background=ok?'rgba(74,222,128,.1)':'rgba(239,68,68,.15)'; res.style.color=ok?'#4ade80':'#f87171'; res.textContent=msg; res.style.display='block'; };
+  if(!game){ setRes(false,'Select a game.'); return; }
+  if(isNaN(pct)||pct===0){ setRes(false,'Enter a non-zero percentage.'); return; }
+  const cnt=_allItems.filter(i=>i.game===game&&(filter==='all'||i.badge===filter||i.sub===filter)).length;
+  if(!confirm(`Apply ${pct>0?'+':''}${pct}% to ${cnt} items in ${game}${filter!=='all'?' ['+filter+']':''}?`)) return;
+  res.style.background='rgba(255,255,255,.05)'; res.style.color='var(--muted)'; res.textContent='⏳ Updating prices…'; res.style.display='block';
+  const r=await api('/admin/bulk-price',{method:'POST',body:JSON.stringify({game,pct,filter})});
+  const d=await r.json();
+  if(d.success){ setRes(true,`✅ Updated ${d.changed} items by ${pct>0?'+':''}${pct}%. Live in ~30s.`); _itemsCache=null; }
+  else setRes(false,'❌ '+d.error);
 }
 
 // ── broadcast ──────────────────────────────────────────────────

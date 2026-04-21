@@ -8440,7 +8440,7 @@ function closeNavSG(){
   document.getElementById('navSgDrop')?.classList.remove('open');
 }
 function goToGame(key){
-  if(key==='discord'){window.open(DISCORD_INVITE,'_blank');return;}
+  if(key==='discord'){openViewAll('discord');return;}
   // Hide home menu + nav selector, show shop + game bar
   const hm=document.getElementById('homeMenu');
   if(hm) hm.classList.add('hm-hidden');

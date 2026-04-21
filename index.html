@@ -5387,25 +5387,31 @@ async function applyCode(){
   promoApplied=false; promoPct=0; _appliedReferralCode=null; _referralDiscount=false;
 
   // ── 1. Try as promo code ─────────────────────────────────
-  // Verify server-side (bot enforces once-per-account)
+  // All codes require a signed-in account
+  if(!currentUser){
+    el.style.display='block';
+    el.innerHTML='❌ Please <a href="#" onclick="event.preventDefault();closeCO();openLoginModal();" style="color:#ff10f0;text-decoration:underline">sign in</a> to use promo codes.';
+    el.style.color='#f87171';
+    return;
+  }
   _showCodeMsg(el,'pending','⏳ Checking…');
   try{
     const base=BOT_WEBHOOK_URL.replace('/order','');
     const ctrl=new AbortController();
     const t=setTimeout(()=>ctrl.abort(),5000);
-    const email=currentUser?.email||null;
     const resp=await fetch(base+'/verify-promo',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
-      body:JSON.stringify({code, email}),
+      body:JSON.stringify({code, email:currentUser.email}),
       signal:ctrl.signal
     });
     clearTimeout(t);
     const data=await resp.json();
     if(data.valid){ _applyPromoCode(code,data.pct,el); return; }
     if(data.requiresLogin){
-      _showCodeMsg(el,'err','❌ Please sign in to use this code.');
-      setTimeout(()=>el.style.display='none',2500);
+      el.style.display='block';
+      el.innerHTML='❌ Please <a href="#" onclick="event.preventDefault();closeCO();openLoginModal();" style="color:#ff10f0;text-decoration:underline">sign in</a> to use promo codes.';
+      el.style.color='#f87171';
       return;
     }
     if(data.alreadyUsed){

@@ -8135,6 +8135,8 @@ init();
   const game = params.get('game') || window.__SILVGAME || rawPath || '';
   if(!game) return;
   history.replaceState({}, '', location.pathname);
+  // Discord has no section — open its View All overlay
+  if(game.toLowerCase()==='discord'){ setTimeout(()=>openViewAll('discord'),120); return; }
   const id = ALL_SECTION_IDS.find(g => g === game.toLowerCase());
   if(!id) return;
   // Show only the target section, hide all others + home menu

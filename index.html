@@ -7919,18 +7919,25 @@ const ALL_PRODUCTS = [];
 
 function buildSearchIndex(){
   ALL_PRODUCTS.length = 0; // clear
+  // Build game name → game icon map from HM_GAMES
+  const _gi={};
+  HM_GAMES.forEach(g=>{ if(g.img) _gi[g.name]=g.img; });
+  _gi['MM2']   = _gi['Murder Mystery 2'];
+  _gi['Robux'] = ROBUX_META?.robux?.img||null;
   // BF fruits
+  const _bfIcon = _gi['Blox Fruits']||null;
   FRUITS.forEach(f => {
-    ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||f.p||0, game:'Blox Fruits', img:f.img||IMGS[f.n]||null, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:f.cat||''});
-    if(f.perm) ALL_PRODUCTS.push({n:'Perm '+f.n, em:f.em, p:f.perm, game:'Blox Fruits', img:f.img||IMGS[f.n]||null, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:f.cat||''});
+    const img=f.img||IMGS[f.n]||_bfIcon;
+    ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||f.p||0, game:'Blox Fruits', img, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:f.cat||''});
+    if(f.perm) ALL_PRODUCTS.push({n:'Perm '+f.n, em:f.em, p:f.perm, game:'Blox Fruits', img, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:f.cat||''});
   });
-  FRUIT_SKINS.forEach(f => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:null, rar:f.rar||'', bg:'r-rare', sub:''}));
-  BF_GP.forEach(f      => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:null, rar:f.rar||'', bg:'r-rare', sub:''}));
-  BF_ACCOUNTS.forEach(f => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:f.img||null, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:'accounts'}));
-  // All other games
+  FRUIT_SKINS.forEach(f => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:f.img||_bfIcon, rar:f.rar||'', bg:'r-rare', sub:''}));
+  BF_GP.forEach(f      => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:f.img||_bfIcon, rar:f.rar||'', bg:'r-rare', sub:''}));
+  BF_ACCOUNTS.forEach(f => ALL_PRODUCTS.push({n:f.n, em:f.em, p:f.norm||0, game:'Blox Fruits', img:f.img||_bfIcon, rar:f.rar||'', bg:RAR_BG[f.rar]||'r-rare', sub:'accounts'}));
+  // All other games — use game icon as fallback when item has no individual image
   const push = (arr, game) => arr.forEach(i => {
     const p = i.p||i.norm||(i.speeds&&i.speeds[0]?.p)||0;
-    ALL_PRODUCTS.push({n:i.n, em:i.em, p, game, img:i.img||null, rar:i.rar||'', bg:i.bg||'r-rare', sub:i.sub||'', oldP:i.oldP||null, badge:i.badge||''});
+    ALL_PRODUCTS.push({n:i.n, em:i.em, p, game, img:i.img||_gi[game]||null, rar:i.rar||'', bg:i.bg||'r-rare', sub:i.sub||'', oldP:i.oldP||null, badge:i.badge||''});
   });
   push(GAG,      'Grow a Garden');
   push(AM,       'Adopt Me');
@@ -7949,7 +7956,8 @@ function buildSearchIndex(){
   push(DTH,       'Death Ball');
   push(PS99,      'Pet Simulator 99');
   push(BW,        'Bridger: Western');
-  ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'💎', p:r.p, game:'Robux', img:null, rar:'rare', bg:'r-rare', sub:''}));
+  const _robuxIcon=_gi['Robux'];
+  ROBUX.forEach(r => ALL_PRODUCTS.push({n:r.a.toLocaleString()+' Robux', em:'', p:r.p, game:'Robux', img:_robuxIcon||null, rar:'rare', bg:'r-rare', sub:''}));
   // Cache for account page (favourites + orders images)
   try{
     const cache = {};
@@ -7981,10 +7989,10 @@ function doSearch(q){
     html += `<div class="sr-game-hd">${g}</div>`;
     html += grouped[g].map(p => {
       const price = Number(p.p||0).toFixed(2);
-      const _srEm = (p.em||'📦').replace(/'/g,'&#39;');
+      const _srFallback = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`;
       const emContent = p.img
-        ? `<img src="${p.img}" style="width:28px;height:28px;object-fit:contain;border-radius:6px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span style="display:none;font-size:20px;align-items:center;justify-content:center;width:100%;height:100%">${_srEm}</span>`
-        : `<span style="font-size:20px;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${_srEm}</span>`;
+        ? `<img src="${p.img}" style="width:28px;height:28px;object-fit:contain;border-radius:6px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span style="display:none;align-items:center;justify-content:center;width:100%;height:100%">${_srFallback}</span>`
+        : `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%">${_srFallback}</span>`;
       const iData=encodeURIComponent(JSON.stringify({n:p.n,em:p.em,p:p.p||0,oldP:p.oldP||null,rar:p.rar||'',badge:p.badge||'',stock:p.stock??99,bg:p.bg||'r-rare',img:p.img||null,game:p.game,sub:p.sub||''}));
       return `<div class="sr-item" onclick="document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open');openItemDetail('${iData}')">
         <div class="sr-em">${emContent}</div>

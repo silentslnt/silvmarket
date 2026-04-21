@@ -962,14 +962,6 @@ async function loadTokensTab(){
     const d = await r.json();
     document.getElementById('tokenBal').textContent = d.silvTokens ?? 0;
     renderAffiliateBlock(d.affiliateStatus||null, d.referralCode||null, d.referralStats||null);
-    const notifEl = document.getElementById('notifList');
-    if(d.notifications?.length){
-      notifEl.innerHTML = d.notifications.slice(0,10).map(n=>`
-        <div class="notif-item">
-          <div class="notif-msg">${n.message}</div>
-          <div class="notif-date">${new Date(n.date).toLocaleDateString()}</div>
-        </div>`).join('');
-    } else { notifEl.innerHTML='<div class="empty-state">No notifications yet.</div>'; }
   }catch(e){
     document.getElementById('affiliateBlock').innerHTML='<div style="font-size:13px;color:var(--muted)">Could not load — check connection.</div>';
   }

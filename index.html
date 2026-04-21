@@ -1224,6 +1224,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span>Orders</span>
     </button>
+    <button class="ud-item" onclick="udOpen('notifications')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>Notifications</span>
+      <span id="udNotifCount" style="display:none;margin-left:auto;min-width:18px;height:18px;background:linear-gradient(135deg,#9333ea,#ff10f0);border-radius:9px;font-size:9px;font-weight:800;color:#fff;padding:0 5px;font-family:'Inter',sans-serif;line-height:18px;text-align:center"></span>
+    </button>
     <button class="ud-item" onclick="udOpen('referral')">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
       <span>Referral &amp; Tokens</span>
@@ -2453,11 +2458,25 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
     <!-- Tab nav -->
     <div style="display:flex;padding:6px 10px;gap:2px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#0a0a18;overflow-x:auto">
-      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">📦 Orders</button>
-      <button onclick="switchAPTab('favorites')" id="apTab-favorites" class="ap-tab">❤️ Saved</button>
-      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">⚙️ Settings</button>
-      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">🔒 Security</button>
-      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">🎁 Referral</button>
+      <button onclick="switchAPTab('overview')" id="apTab-overview" class="ap-tab ap-tab-active">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> Orders
+      </button>
+      <button onclick="switchAPTab('favorites')" id="apTab-favorites" class="ap-tab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Saved
+      </button>
+      <button onclick="switchAPTab('notifications')" id="apTab-notifications" class="ap-tab" style="position:relative">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Alerts
+        <span id="apNotifTabBadge" style="display:none;min-width:15px;height:15px;background:#ff10f0;border-radius:8px;font-size:8px;font-weight:800;color:#fff;padding:0 4px;margin-left:4px;font-family:'Inter',sans-serif;line-height:15px;text-align:center"></span>
+      </button>
+      <button onclick="switchAPTab('settings')" id="apTab-settings" class="ap-tab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings
+      </button>
+      <button onclick="switchAPTab('security')" id="apTab-security" class="ap-tab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Security
+      </button>
+      <button onclick="switchAPTab('referral')" id="apTab-referral" class="ap-tab">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Referral
+      </button>
     </div>
 
     <!-- Scrollable content -->
@@ -2552,6 +2571,17 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     </div>
 
     <!-- REFERRAL TAB -->
+    <!-- NOTIFICATIONS TAB -->
+    <div id="apPanel-notifications" class="ap-tab-panel" style="padding:18px;display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="ap-section-label" style="margin-bottom:0">NOTIFICATIONS</div>
+        <button onclick="clearAllNotifications()" style="display:flex;align-items:center;gap:5px;padding:5px 11px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:7px;color:rgba(255,255,255,.45);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s" onmouseenter="this.style.background='rgba(255,255,255,.1)';this.style.color='#fff'" onmouseleave="this.style.background='rgba(255,255,255,.05)';this.style.color='rgba(255,255,255,.45)'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mark all read
+        </button>
+      </div>
+      <div id="apNotifications" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.38)">Loading…</div>
+    </div>
+
     <div id="apPanel-referral" class="ap-tab-panel" style="padding:18px;display:none">
       <div class="ap-section-label">REFERRAL &amp; TOKENS</div>
 
@@ -2598,8 +2628,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         </div>
       </div>
 
-      <div class="ap-section-label" style="margin-bottom:10px">NOTIFICATIONS</div>
-      <div id="apNotifications" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.38)">Loading…</div>
     </div>
 
     </div><!-- end scrollable content -->
@@ -3120,8 +3148,8 @@ const GAG = [
   {n:'Extinct Dino Bundle',em:'🦕',rar:'mythical',p:6.99,badge:'hot',stock:99,sub:'bundles',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/wPkL5nZyBgswsVkU6sydfHkXmSZp0CioGelzxO5Y.png'},
   {n:'Mutation Spreaders Bundle',em:'🧬',rar:'mythical',p:9.99,badge:'rare',stock:99,sub:'bundles',bg:'r-mythical',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/dxS5eQNXy3qMxtJ6vDyafQW82Xug3qtmCGVLr4gP.png'},
   {n:'Grow Token x1000',p:1.99,oldP:null,badge:'',stock:99,sub:'tokens',rar:'uncommon',bg:'r-uncommon',em:'🪙'},
-  {n:'Grow Token x5000',p:5.99,oldP:null,badge:'hot',stock:99,sub:'tokens',rar:'rare',bg:'r-rare',em:'🪙'},
-  {n:'Grow Token x10000',p:11.99,oldP:null,badge:'hot',stock:99,sub:'tokens',rar:'legendary',bg:'r-legendary',em:'🪙'},
+  {n:'Grow Token x5000',p:6.99,oldP:null,badge:'hot',stock:99,sub:'tokens',rar:'rare',bg:'r-rare',em:'🪙'},
+  {n:'Grow Token x10000',p:12.99,oldP:null,badge:'hot',stock:99,sub:'tokens',rar:'legendary',bg:'r-legendary',em:'🪙'},
 ];
 
 const AM = [
@@ -6918,6 +6946,12 @@ function uploadProfilePic(input){
     const fallbackEl = document.getElementById('apAvatarFallback');
     if(avatarEl){ avatarEl.src=b64; avatarEl.style.display='block'; }
     if(fallbackEl) fallbackEl.style.display='none';
+    // Sync PFP to server so it persists on other devices
+    fetch(BOT_WEBHOOK_URL.replace('/order','/update-pfp'),{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+      body:JSON.stringify({email:currentUser.email, pfpUrl:b64})
+    }).catch(()=>{});
   };
   reader.readAsDataURL(file);
   input.value='';
@@ -6979,15 +7013,16 @@ function closeAccountPanel(){
 
 // ── Account panel tab switcher ────────────────────────────────
 function switchAPTab(tab){
-  ['overview','favorites','settings','security','referral'].forEach(t => {
+  ['overview','favorites','notifications','settings','security','referral'].forEach(t => {
     const panel = document.getElementById('apPanel-'+t);
     const btn   = document.getElementById('apTab-'+t);
     if(panel) panel.style.display = t===tab ? 'block' : 'none';
     if(btn) btn.classList.toggle('ap-tab-active', t===tab);
   });
-  if(tab === 'overview')  loadAPOrders();
-  if(tab === 'favorites') loadAPFavorites();
-  if(tab === 'referral')  loadReferralTab();
+  if(tab === 'overview')       loadAPOrders();
+  if(tab === 'favorites')      loadAPFavorites();
+  if(tab === 'referral')       loadReferralTab();
+  if(tab === 'notifications')  loadNotificationsTab();
 }
 
 // ── Load orders into overview tab ────────────────────────────
@@ -7198,21 +7233,76 @@ async function loadReferralTab(){
 
     // Render affiliate status block
     renderAffiliateBlock(data.affiliateStatus||null, data.referralCode||null, data.referralStats||null);
-
-    const notifEl=document.getElementById('apNotifications');
-    if(data.notifications&&data.notifications.length>0){
-      notifEl.innerHTML=data.notifications.slice(0,10).map(n=>`
-        <div style="padding:10px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.1);border-radius:9px;margin-bottom:8px">
-          <div style="color:#ffd700;margin-bottom:2px">${n.message}</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.25)">${new Date(n.date).toLocaleDateString()}</div>
-        </div>`).join('');
-    } else {
-      notifEl.textContent='No notifications yet.';
-    }
   } catch(e){
-    document.getElementById('apNotifications').textContent='Could not load — try again later.';
     renderAffiliateBlock(null, null, null);
   }
+}
+
+async function loadNotificationsTab(){
+  if(!currentUser) return;
+  const el=document.getElementById('apNotifications');
+  if(!el) return;
+  el.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:12px 0;color:rgba(255,255,255,.3);font-family:'Inter',sans-serif;font-size:13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite;flex-shrink:0"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Loading…</div>`;
+  try{
+    const resp=await fetch(BOT_WEBHOOK_URL.replace('/order','/notifications/'+encodeURIComponent(currentUser.email)),{
+      headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+    const data=await resp.json();
+    const notifs=(data.notifications||[]).slice().reverse(); // newest first
+    if(!notifs.length){
+      el.innerHTML=`<div style="text-align:center;padding:40px 0;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div style="width:48px;height:48px;background:rgba(255,255,255,.04);border-radius:14px;display:flex;align-items:center;justify-content:center;opacity:.4">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.35)">All caught up</div>
+        <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.2)">You have no notifications yet.</div>
+      </div>`;
+      return;
+    }
+    el.innerHTML=notifs.map(n=>{
+      const isUnread=!n.read;
+      const dateStr=n.date?new Date(n.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      return `<div style="position:relative;padding:13px 14px 13px ${isUnread?'36px':'14px'};background:${isUnread?'rgba(147,51,234,.07)':'rgba(255,255,255,.03)'};border:1px solid ${isUnread?'rgba(147,51,234,.22)':'rgba(255,255,255,.06)'};border-radius:12px;margin-bottom:8px;transition:background .2s">
+        ${isUnread?`<span style="position:absolute;left:13px;top:17px;width:7px;height:7px;background:#ff10f0;border-radius:50%;box-shadow:0 0 6px #ff10f0"></span>`:''}
+        <div style="font-family:'Inter',sans-serif;font-size:13px;color:${isUnread?'#e2d4ff':'rgba(255,255,255,.65)'};line-height:1.5;margin-bottom:5px">${n.message||''}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.22);display:flex;align-items:center;gap:5px">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${dateStr}
+        </div>
+      </div>`;
+    }).join('');
+    // Clear badge once the tab is viewed
+    const badge=document.getElementById('navNotifBadge');
+    if(badge){badge.style.display='none';badge.textContent='';}
+    const tabBadge=document.getElementById('apNotifTabBadge');
+    if(tabBadge){tabBadge.style.display='none';}
+    const udCount=document.getElementById('udNotifCount');
+    if(udCount){udCount.style.display='none';}
+  } catch(e){
+    el.innerHTML=`<div style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,16,240,.5);padding:12px 0">Could not load — please try again.</div>`;
+  }
+}
+
+async function clearAllNotifications(){
+  if(!currentUser) return;
+  const el=document.getElementById('apNotifications');
+  try{
+    await fetch(BOT_WEBHOOK_URL.replace('/order','/clear-notifications/'+encodeURIComponent(currentUser.email)),{
+      method:'POST', headers:{'x-silv-secret':BOT_WEBHOOK_SECRET}
+    });
+  }catch{}
+  if(el) el.innerHTML=`<div style="text-align:center;padding:40px 0;display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div style="width:48px;height:48px;background:rgba(255,255,255,.04);border-radius:14px;display:flex;align-items:center;justify-content:center;opacity:.4">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.35)">All caught up</div>
+    <div style="font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.2)">You have no notifications yet.</div>
+  </div>`;
+  const badge=document.getElementById('navNotifBadge');
+  if(badge){badge.style.display='none';badge.textContent='';}
+  const tabBadge=document.getElementById('apNotifTabBadge');
+  if(tabBadge){tabBadge.style.display='none';}
+  const udCount=document.getElementById('udNotifCount');
+  if(udCount){udCount.style.display='none';}
 }
 
 function renderAffiliateBlock(status, code, stats){
@@ -7394,6 +7484,10 @@ async function checkNotificationBadge(){
     const unread=(data.notifications||[]).filter(n=>!n.read).length;
     const badge=document.getElementById('navNotifBadge');
     if(badge){ badge.style.display=unread>0?'flex':'none'; badge.textContent=unread>0?unread:''; }
+    const tabBadge=document.getElementById('apNotifTabBadge');
+    if(tabBadge){ tabBadge.style.display=unread>0?'inline-block':'none'; tabBadge.textContent=unread>0?unread:''; }
+    const udCount=document.getElementById('udNotifCount');
+    if(udCount){ udCount.style.display=unread>0?'inline-block':'none'; udCount.textContent=unread>0?unread:''; }
   } catch(e){}
 }
 let _notifPollInterval=null;
@@ -7516,6 +7610,8 @@ async function doLogin(){
             orders:d.orders||[], silvTokens:d.silvTokens||0, createdAt:d.createdAt||'' };
       users[email] = u;
       saveUsers(users);
+      // Restore custom PFP from server if available
+      if(d.customPfpUrl){ try{localStorage.setItem('silv_pfp_'+email, d.customPfpUrl);}catch{} }
     } catch(e){
       err.textContent='Invalid email or password.'; err.style.color='#ff4466'; err.style.display='block'; return;
     }

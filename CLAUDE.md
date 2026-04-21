@@ -68,7 +68,18 @@ Items live as JS arrays in index.html:
 - `GPO` — Grand Piece Online (sub: fruits/swords/bundles/currency)
 - `SP` — Sailor Piece (sub: fruits/swords/bundles/currency/keys/rerolls)
 - `BB` — Blade Ball, `AV` — Anime Vanguards, `BL` — Bloodlines
+- `FISCH`, `BSS`, `VBL`, `DTH` — Fisch, Bee Swarm Simulator, Volleyball Legends, Death Ball
+- `PS99` — Pet Simulator 99 (sub: gems/huge/titanic/rainbow/eggs/other)
 - `BESTSELLERS` — hardcoded featured items
+
+## PS99 Specifics
+- Game key: `ps99`, CSS class: `g-ps99` (color: `#06b6d4` cyan)
+- Images: `https://silvmarket.shop/images/PetSim99%20logo.webp` (icon, used for all non-gem items), `https://silvmarket.shop/images/ps99gems.webp` (gems)
+- JS constants: `_ps99Icon`, `_ps99Gems` defined just before `_dcBoostImg`
+- Subcategories: gems / huge / titanic / rainbow / eggs / other
+- Gem bulk discount rule: per-gem rate must decrease as quantity increases (1B rate > 5B rate > 10B rate > 20B rate)
+- Current gem prices: 100M=$0.55, 500M=$0.65, 1B=$1.19, 5B=$5.49, 10B=$9.99, 20B=$17.99
+- 404.html routes: `/ps99`, `/pet-simulator`, `/petsim99` → `/?game=ps99`
 
 ## Bot Files (silvreview repo)
 - `bot.js` — main bot + Express webhook server
@@ -144,9 +155,9 @@ Items live as JS arrays in index.html:
 ## Website Features
 - Item detail modal (click any item)
 - View All overlay per category with filters + sort
-- Global search bar (indexes all items across all games)
+- Global search bar (indexes all items across all games via `buildSearchIndex()` / `ALL_PRODUCTS`)
 - Per-section instant search bar in every game section (filters live as you type)
-- Game section URLs: silvmarket.shop/rivals, /mm2, /gag, etc. (via 404.html redirect)
+- Game section URLs: silvmarket.shop/rivals, /mm2, /gag, /ps99, etc. (via 404.html redirect)
 - Login/Signup system (localStorage + cross-device via bot)
 - Account page (/account) — orders, settings, security/2FA, change password, My Favourites
 - Loyalty rewards page (/loyalty) — 6 tiers (Awakened→Celestial), 10pts per $1 spent
@@ -155,10 +166,11 @@ Items live as JS arrays in index.html:
 - Cart + checkout (Stripe / Crypto)
 - Promo codes (server-side verified)
 - Fake receipt mode for testing
-- Language/currency selector (11 currencies, globe button in nav)
+- Language/currency selector (17 currencies, globe button in nav): USD, EUR, GBP, CAD, AUD, BRL, MXN, INR, PHP, KRW, JPY, TRY, PLN, SEK, AED, SGD, CHF
 - Favourites system (heart button on cards, saved to silv_favs localStorage)
 - Dev mode (bypass payment for test orders — account setting)
 - Clicking a favourited item navigates to /?open=<name> which pops the item detail modal
+- Section background wallpaper: `#sectionBg` div fades in Roblox CDN game art when entering a game section (`setSectionBg(key)`, `_secBgMap` maps keys to image URLs, cross-fades on section switch)
 
 ## URL Routing (GitHub Pages)
 - `/account` → `account.html` (file exists)
@@ -174,8 +186,26 @@ Items live as JS arrays in index.html:
 - Fonts: Orbitron (headers), Rajdhani (body), Inter (misc)
 - All CSS inline in index.html — no external stylesheet
 
+## Adding a New Game — Required Checklist
+When adding a new game section, ALL of the following must be done or the game will be broken:
+1. `const GAMENAME = [...]` data array in index.html (with `sub`, `rar`, `bg`, `img` fields)
+2. Section HTML: `<section class="S" id="key">` with jump-row filter buttons, sec-ctrl-row, and `<div class="h-scroll" id="keyGrid">`
+3. `filterKEY(btn,sub)` function
+4. `init()`: add `document.getElementById('keyGrid').innerHTML=GAMENAME.map(i=>mkCard(i,'key','g-key')).join('');tagOrder('keyGrid');`
+5. `ALL_SECTION_IDS`: add `'key'`
+6. `GAME_SUBS`: add `key: [{label,fn,val}...]`
+7. `VIEW_ALL_CONFIG`: add `key: {title, img, items:()=>GAMENAME, filters:[...]}`
+8. `HM_GAMES`: add `{key, name, em, img}` entry
+9. `#gsDrop` HTML: add `.gd-item` with `data-key="key"` and `onclick="selectGame(this,'Name','em','key')"`
+10. `gameLbl` map in `mkCard`: add `key:'Display Name'`
+11. `buildSearchIndex()`: add `push(GAMENAME, 'Display Name')`
+12. `_bsFullConfig`: add entry if items have `badge:'hot'/'best'/'myth'`
+13. `404.html` GAME_MAP: add `'key':'key'` and slug aliases
+14. `shop-editor.js`: add to `GAME_NAMES`, `GAME_ARRAY`, and `ITEM_FACTORY`
+15. CSS: add `.g-key{color:#hexcolor}` to the game badge color block
+
 ## Important Notes
-- index.html is ~7000+ lines — always validate JS before saving
+- index.html is ~8000+ lines — always validate JS before saving
 - BOT_WEBHOOK_SECRET = sltnslntslnt (hardcoded in index.html Easy Edit Zone)
 - Images stored at silvmarket.shop/images/ (GitHub repo images/ folder)
 - OG embed uses logo.png as right-side thumbnail (256x256, twitter:card=summary)
@@ -184,3 +214,5 @@ Items live as JS arrays in index.html:
 - Passwords hashed with PBKDF2 (60k iterations, email salt) client-side before sending to bot
 - Loyalty points stored in localStorage as silv_tokens_<email>
 - Favourites stored in localStorage as silv_favs (array of item name strings)
+- "All Games" endless scroll mode has been removed — never re-add it; `selectGame()` and `goToGame()` always show only the target section
+- KRW and JPY use no-decimal price formatting in `fmtPrice()`

@@ -7919,11 +7919,11 @@ const ALL_PRODUCTS = [];
 
 function buildSearchIndex(){
   ALL_PRODUCTS.length = 0; // clear
-  // Build game name → game icon map from HM_GAMES
+  // Build game display-name → icon URL map from VIEW_ALL_CONFIG (defined before init)
   const _gi={};
-  HM_GAMES.forEach(g=>{ if(g.img) _gi[g.name]=g.img; });
-  _gi['MM2']   = _gi['Murder Mystery 2'];
-  _gi['Robux'] = ROBUX_META?.robux?.img||null;
+  Object.values(VIEW_ALL_CONFIG).forEach(v=>{ if(v.title && v.img) _gi[v.title]=v.img; });
+  _gi['MM2']   = VIEW_ALL_CONFIG.mm2?.img||null;
+  _gi['Robux'] = VIEW_ALL_CONFIG.robux?.img||null;
   // BF fruits
   const _bfIcon = _gi['Blox Fruits']||null;
   FRUITS.forEach(f => {

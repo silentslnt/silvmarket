@@ -5153,8 +5153,9 @@ function showToast(msg, type='info', duration=2400){
 }
 
 function addToCart(name,priceStr,em,game,img){
-  const price=parseFloat((priceStr||'').replace('$',''));
-  if(isNaN(price)) return;
+  // Strip all currency symbols/letters — keep only digits, dots, commas; then remove commas (thousands sep)
+  const price=parseFloat((priceStr||'').replace(/,/g,'').replace(/[^0-9.]/g,''));
+  if(isNaN(price)||!name) return;
   const ex=cart.find(c=>c.name===name);
   if(ex) ex.qty++;
   else cart.push({name,price,em:em||'📦',game,qty:1,img:img||null});
@@ -5206,16 +5207,18 @@ function updateCartUI(){
   try{localStorage.setItem('silv_cart',JSON.stringify(cart));}catch{}
   if(!cart.length){list.innerHTML='<div class="cart-empty"><div class="cart-empty-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:52px;height:52px;opacity:.22"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><p>Your cart is empty!</p></div>';return;}
   list.innerHTML=cart.map(i=>{
-    const safeName=i.name.replace(/'/g,"\\'");
+    const nm=i.name||'';
+    const safeName=nm.replace(/'/g,"\\'");
+    const lineTotal=(Number(i.price)||0)*(Number(i.qty)||1);
     return `<div class="ci">
       <div class="ci-em">${i.img?`<img src="${i.img}" style="width:38px;height:38px;object-fit:contain;border-radius:6px" onerror="this.style.opacity='0'">`:'<img style="opacity:0;width:38px;height:38px">'}</div>
-      <div class="ci-info"><div class="ci-n">${i.name}</div><div class="ci-g">${i.game}</div></div>
+      <div class="ci-info"><div class="ci-n">${nm}</div><div class="ci-g">${i.game||''}</div></div>
       <div class="ci-qty">
         <button class="ci-qb" onclick="changeQty('${safeName}',-1)">−</button>
-        <span class="ci-qn">${i.qty}</span>
+        <span class="ci-qn">${i.qty||1}</span>
         <button class="ci-qb" onclick="changeQty('${safeName}',1)">+</button>
       </div>
-      <div class="ci-p">$${(i.price*i.qty).toFixed(2)}</div>
+      <div class="ci-p">$${lineTotal.toFixed(2)}</div>
       <button class="ci-rm" onclick="removeFromCart('${safeName}')">✕</button>
     </div>`;
   }).join('');
@@ -7968,8 +7971,8 @@ function filterGames(q){const lq=(q||'').toLowerCase().trim();document.querySele
 
 // ── INIT ──────────────────────────────────────────────────────
 function init(){
-  // Restore cart from localStorage
-  try{const sc=localStorage.getItem('silv_cart');if(sc){const cc=JSON.parse(sc);if(Array.isArray(cc)&&cc.length){cart=cc;updateCartUI();}}}catch{}
+  // Restore cart from localStorage — discard any malformed items
+  try{const sc=localStorage.getItem('silv_cart');if(sc){const cc=JSON.parse(sc);if(Array.isArray(cc)){cart=cc.filter(i=>i&&typeof i.name==='string'&&i.name&&typeof i.price==='number'&&!isNaN(i.price));if(cart.length)updateCartUI();}}}catch{}
   // Update language/currency nav label
   const lcBtn = document.getElementById('langCurrLabel');
   if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;

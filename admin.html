@@ -435,6 +435,11 @@ tr:hover td{background:rgba(255,255,255,.015)}
           <div style="display:flex;flex-direction:column;gap:9px">
             <div class="fl"><label>Code</label><input class="inp" id="newPromoCode" placeholder="e.g. SUMMER25" style="text-transform:uppercase"/></div>
             <div class="fl"><label>Discount %</label><input class="inp" id="newPromoDisc" placeholder="e.g. 20" type="number" min="1" max="100"/></div>
+            <div class="fl" style="align-items:center;gap:8px">
+              <label style="margin:0">Multi-use</label>
+              <input type="checkbox" id="newPromoMulti" style="width:16px;height:16px;cursor:pointer;accent-color:#ff10f0"/>
+              <span style="color:var(--muted);font-size:11px">(unlimited uses; 1× per account — requires sign-in)</span>
+            </div>
             <button class="btn bc" style="width:100%;justify-content:center;padding:9px" onclick="addPromo()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Code</button>
           </div>
         </div>
@@ -689,15 +694,20 @@ async function loadPromos(){
 function renderPromos(list){
   const el=$('promosList');
   if(!list.length){ el.innerHTML=`<div class="empty"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>No active codes</div>`; return; }
-  el.innerHTML=list.map(p=>`<div class="pro"><div class="pro-code">${p.code}</div><div class="pro-disc">${p.discount}% OFF</div>
-    <button class="btn bd" onclick="removePromo('${p.code}')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>Delete</button></div>`).join('');
+  el.innerHTML=list.map(p=>`<div class="pro">
+    <div class="pro-code">${p.code}</div>
+    <div class="pro-disc">${p.discount}% OFF</div>
+    <span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600;background:${p.multi?'rgba(255,16,240,.15)':'rgba(147,51,234,.15)'};color:${p.multi?'#ff10f0':'#9333ea'}">${p.multi?'♾ MULTI':'1× SINGLE'}</span>
+    <button class="btn bd" onclick="removePromo('${p.code}')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>Delete</button>
+  </div>`).join('');
 }
 async function addPromo(){
   const code=$('newPromoCode').value.trim().toUpperCase(), disc=parseInt($('newPromoDisc').value);
+  const multi=$('newPromoMulti').checked;
   if(!code||isNaN(disc)||disc<=0||disc>100){ toast('Enter valid code and discount %','err'); return; }
-  const r=await api('/admin/promo',{method:'POST',body:JSON.stringify({code,discount:disc})});
+  const r=await api('/admin/promo',{method:'POST',body:JSON.stringify({code,discount:disc,multi})});
   const d=await r.json();
-  if(d.success){ toast(`Code ${code} added`); $('newPromoCode').value=''; $('newPromoDisc').value=''; loadPromos(); }
+  if(d.success){ toast(`Code ${code} added (${multi?'multi-use':'single-use'})`); $('newPromoCode').value=''; $('newPromoDisc').value=''; $('newPromoMulti').checked=false; loadPromos(); }
   else toast(d.error||'Failed','err');
 }
 async function removePromo(code){

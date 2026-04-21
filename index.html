@@ -5403,6 +5403,11 @@ async function applyCode(){
     clearTimeout(t);
     const data=await resp.json();
     if(data.valid){ _applyPromoCode(code,data.pct,el); return; }
+    if(data.requiresLogin){
+      _showCodeMsg(el,'err','❌ Please sign in to use this code.');
+      setTimeout(()=>el.style.display='none',2500);
+      return;
+    }
     if(data.alreadyUsed){
       _showCodeMsg(el,'err','❌ You\'ve already used this promo code.');
       setTimeout(()=>el.style.display='none',2500);

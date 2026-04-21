@@ -1369,7 +1369,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box;margin-top:28px">
     <button onclick="openViewAll('new')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:linear-gradient(135deg,rgba(255,16,240,.12),rgba(147,51,234,.08));border:1px solid rgba(255,16,240,.28);border-radius:14px;cursor:pointer;transition:all .22s;text-decoration:none" onmouseenter="this.style.background='linear-gradient(135deg,rgba(255,16,240,.2),rgba(147,51,234,.14))';" onmouseleave="this.style.background='linear-gradient(135deg,rgba(255,16,240,.12),rgba(147,51,234,.08))';">
       <div style="display:flex;align-items:center;gap:14px">
-        <span style="font-size:26px">✨</span>
+        <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg,rgba(255,16,240,.18),rgba(147,51,234,.12));border:1px solid rgba(255,16,240,.3);border-radius:11px;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 3L4 6l3-1z" fill="#ff10f0" opacity=".5"/><path d="M20 17l-1 3 3-1z" fill="#ff10f0" opacity=".5"/></svg></span>
         <div style="text-align:left">
           <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px">New Arrivals</div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.45);margin-top:2px">Fresh items just added to the shop</div>
@@ -5228,7 +5228,7 @@ function updateCartUI(){
   document.getElementById('cTot').textContent='$'+tot.toFixed(2);
   document.getElementById('mainCoBtn').disabled=cart.length===0;
   const earnEl=document.getElementById('cartEarnPts');
-  if(earnEl){if(sub>0){const ep=Math.floor(sub*10);earnEl.textContent='✨ You\'ll earn '+ep.toLocaleString()+' loyalty pts with this order';earnEl.style.display='';}else{earnEl.style.display='none';}}
+  if(earnEl){if(sub>0){const ep=Math.floor(sub*10);earnEl.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="#ff10f0" stroke="none" style="margin-right:5px;vertical-align:-1px;flex-shrink:0"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/></svg>You\'ll earn <strong style="color:rgba(255,16,240,.8)">'+ep.toLocaleString()+'</strong> loyalty pts with this order';earnEl.style.display='';}else{earnEl.style.display='none';}}
   const clearBtn=document.getElementById('cartClearBtn');
   if(clearBtn) clearBtn.style.display=cart.length?'':'none';
   const list=document.getElementById('cartList');
@@ -7728,7 +7728,16 @@ function doLogout(){
 // ── Restore session on page load ──────────────────────────────
 (function restoreSession(){
   const s = loadSession();
-  if(s){ currentUser = s; updateNavLogin(); checkNotificationBadge(); startNotifPoll(); }
+  if(s){
+    currentUser = s; updateNavLogin(); checkNotificationBadge(); startNotifPoll();
+    // Passively sync password hash to bot so cross-device login always works
+    try{
+      const _u=loadUsers()[s.email];
+      if(_u?.password && isHashed(_u.password)){
+        fetch(BOT_WEBHOOK_URL.replace('/order','/account'),{method:'POST',headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},body:JSON.stringify({name:_u.name||s.name,email:s.email,password:_u.password})}).catch(()=>{});
+      }
+    }catch{}
+  }
 })();
 
 // ── Admin sign-in via ?admin_token= URL param ─────────────────
@@ -7972,9 +7981,10 @@ function doSearch(q){
     html += `<div class="sr-game-hd">${g}</div>`;
     html += grouped[g].map(p => {
       const price = Number(p.p||0).toFixed(2);
+      const _srEm = (p.em||'📦').replace(/'/g,'&#39;');
       const emContent = p.img
-        ? `<img src="${p.img}" style="width:28px;height:28px;object-fit:contain" onerror="this.outerHTML='${p.em||'📦'}'"/>`
-        : (p.em||'📦');
+        ? `<img src="${p.img}" style="width:28px;height:28px;object-fit:contain;border-radius:6px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span style="display:none;font-size:20px;align-items:center;justify-content:center;width:100%;height:100%">${_srEm}</span>`
+        : `<span style="font-size:20px;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${_srEm}</span>`;
       const iData=encodeURIComponent(JSON.stringify({n:p.n,em:p.em,p:p.p||0,oldP:p.oldP||null,rar:p.rar||'',badge:p.badge||'',stock:p.stock??99,bg:p.bg||'r-rare',img:p.img||null,game:p.game,sub:p.sub||''}));
       return `<div class="sr-item" onclick="document.getElementById('searchInput').value='';document.getElementById('searchResults').classList.remove('open');openItemDetail('${iData}')">
         <div class="sr-em">${emContent}</div>

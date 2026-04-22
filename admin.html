@@ -289,6 +289,73 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
 .om-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
 .om-copy{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--sub2);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
 .om-copy:hover{background:rgba(255,255,255,.09);color:#fff}
+
+/* ── STATUS WIDGET ──────────────────────────────── */
+.status-row{display:flex;gap:10px;flex-wrap:wrap}
+.st-pill{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:11px;font-weight:600;flex:1;min-width:120px}
+.st-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.st-dot.on{background:var(--green);box-shadow:0 0 6px rgba(74,222,128,.5)}
+.st-dot.off{background:var(--red);box-shadow:0 0 6px rgba(248,113,113,.5)}
+.st-lbl{color:var(--sub2);flex:1}.st-val{color:var(--tx);font-weight:700}
+
+/* ── QUICK ACTIONS ──────────────────────────────── */
+.qa-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.qa-btn{display:flex;align-items:center;gap:7px;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--sub2);transition:all .15s;font-family:inherit}
+.qa-btn:hover{background:rgba(255,255,255,.08);color:var(--tx);border-color:rgba(147,51,234,.3)}
+.qa-btn.active{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.3);color:var(--green)}
+
+/* ── CHART CONTROLS ─────────────────────────────── */
+.chart-controls{display:flex;gap:5px;margin-bottom:12px}
+.chart-range{padding:4px 12px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--sub2);background:transparent;font-family:inherit;transition:all .12s;letter-spacing:.5px}
+.chart-range.active{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.35);color:#fff}
+.chart-range:hover{background:rgba(255,255,255,.05);color:var(--tx)}
+.chart-legend{font-size:9px;color:var(--sub);margin-top:6px;display:flex;gap:14px}
+.chart-legend span{display:flex;align-items:center;gap:5px}
+.chart-legend i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+/* ── ACCOUNT DETAIL MODAL ───────────────────────── */
+#acctModal{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(8px)}
+#acctModal.open{display:flex}
+.am{background:var(--card);border:1px solid rgba(147,51,234,.25);border-radius:16px;width:min(800px,96vw);max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
+.am-hd{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.am-title{font-size:14px;font-weight:700;color:#fff;flex:1}
+.am-id{font-family:monospace;font-size:11px;color:var(--pink)}
+.am-body{overflow-y:auto;padding:20px 22px;flex:1;display:flex;flex-direction:column;gap:14px}
+.am-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:4px}
+.am-tab{padding:5px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid transparent;color:var(--sub2);background:transparent;font-family:inherit;transition:all .12s}
+.am-tab.active{background:rgba(147,51,234,.18);border-color:rgba(147,51,234,.3);color:#fff}
+.am-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;justify-content:flex-end}
+
+/* ── AFFILIATE CARDS ────────────────────────────── */
+.aff-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:8px;transition:border-color .15s}
+.aff-card:hover{border-color:rgba(147,51,234,.3)}
+.aff-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.aff-name{font-size:13px;font-weight:700;color:#fff;flex:1}
+.aff-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
+.aff-stat{text-align:center}
+.aff-stat-val{font-size:16px;font-weight:800;color:#fff;font-family:Orbitron,sans-serif}
+.aff-stat-lbl{font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+
+/* ── ACTIVITY LOG ───────────────────────────────── */
+.log-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.log-row:last-child{border-bottom:none}
+.log-dot{width:8px;height:8px;border-radius:50%;background:var(--pu);flex-shrink:0;margin-top:4px}
+.log-content{flex:1}
+.log-action{font-size:12px;font-weight:600;color:var(--tx)}
+.log-detail{font-size:11px;color:var(--sub2);margin-top:2px}
+.log-time{font-size:10px;color:var(--sub);flex-shrink:0;white-space:nowrap}
+
+/* ── TOGGLE SWITCH ──────────────────────────────── */
+.toggle{position:relative;width:38px;height:20px;cursor:pointer;flex-shrink:0}
+.toggle input{display:none}
+.toggle-tr{position:absolute;inset:0;background:rgba(255,255,255,.1);border-radius:20px;transition:background .2s}
+.toggle-th{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+.toggle input:checked+.toggle-tr{background:var(--green)}
+.toggle input:checked+.toggle-tr+.toggle-th{transform:translateX(18px)}
+
+/* ── MUTED TEXT ──────────────────────────────────── */
+.muted{color:var(--sub)}
+.green{color:var(--green)!important}
 </style>
 </head>
 <body>
@@ -339,6 +406,15 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         Broadcast
       </div>
+      <div class="ni" onclick="nav('affiliates',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Affiliates
+        <span class="nb" id="nb-affiliates" style="display:none">0</span>
+      </div>
+      <div class="ni" onclick="nav('activity',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Activity Log
+      </div>
     </nav>
     <div class="sb-ft">
       <a href="/" class="sb-back">
@@ -363,7 +439,50 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
         <div class="sc y"><div class="si y"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="sl">Pending</div><div class="sv" id="sPending">—</div><div class="ss">Awaiting confirm</div></div>
         <div class="sc pk"><div class="si pk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="sl">Accounts</div><div class="sv" id="sAccounts">—</div><div class="ss">Registered</div></div>
       </div>
-      <div class="card"><div class="ct"><span class="ctd"></span>Orders — Last 14 Days</div><div class="chart" id="chartWrap"><div class="empty">Loading…</div></div></div>
+      <!-- Status & Quick Actions -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="ct"><span class="ctd"></span>System Status</div>
+        <div class="status-row" id="statusRow">
+          <div class="st-pill"><div class="st-dot off" id="stBot"></div><div class="st-lbl">Discord Bot</div><div class="st-val" id="stBotVal">—</div></div>
+          <div class="st-pill"><div class="st-dot off" id="stDb"></div><div class="st-lbl">Database</div><div class="st-val" id="stDbVal">—</div></div>
+          <div class="st-pill"><div class="st-dot off" id="stStripe"></div><div class="st-lbl">Stripe</div><div class="st-val" id="stStripeVal">—</div></div>
+          <div class="st-pill"><div class="st-lbl">Uptime</div><div class="st-val" id="stUptime">—</div></div>
+        </div>
+        <div class="qa-row">
+          <button class="qa-btn" onclick="triggerTestOrder()" id="testOrderBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+            Test Order
+          </button>
+          <div class="qa-btn" id="fakeReceiptBtn" onclick="toggleFakeReceipts()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Fake Receipts
+            <label class="toggle" onclick="event.stopPropagation()"><input type="checkbox" id="fakeToggle" onchange="toggleFakeReceipts()"/><div class="toggle-tr"></div><div class="toggle-th"></div></label>
+          </div>
+          <button class="qa-btn" onclick="exportOrdersCSV()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Orders CSV
+          </button>
+          <button class="qa-btn" onclick="exportAccountsCSV()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Accounts CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Revenue Chart with Range Selector -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div class="ct" style="margin-bottom:0;flex:1"><span class="ctd"></span>Revenue</div>
+          <div class="chart-controls">
+            <button class="chart-range active" data-range="14" onclick="setChartRange(14,this)">14d</button>
+            <button class="chart-range" data-range="30" onclick="setChartRange(30,this)">30d</button>
+            <button class="chart-range" data-range="90" onclick="setChartRange(90,this)">90d</button>
+          </div>
+        </div>
+        <div class="chart" id="chartWrap" style="height:150px"><div class="empty">Loading…</div></div>
+        <div class="chart-legend"><span><i style="background:#7c3aed"></i> Orders</span><span><i style="background:var(--green)"></i> Revenue</span></div>
+      </div>
+
       <div class="g2">
         <div class="card"><div class="ct"><span class="ctd"></span>Pending Orders</div><div id="pendingList"><div class="empty"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>No pending orders</div></div></div>
         <div class="card"><div class="ct"><span class="ctd"></span>Top Items</div><div id="topItemsList"><div class="empty">Loading…</div></div></div>
@@ -377,12 +496,25 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
       </div>
       <div class="card">
         <div class="sr">
-          <div class="sw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="si2" id="orderSearch" placeholder="Search order ID, user, item…" oninput="renderOrderPage()"/></div>
+          <div class="sw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="si2" id="orderSearch" placeholder="Search order ID, user, email, item…" oninput="renderOrderPage()"/></div>
           <div class="ftabs">
             <button class="ft active" onclick="setOF('all',this)">All</button>
             <button class="ft" onclick="setOF('pending',this)">Pending</button>
             <button class="ft" onclick="setOF('completed',this)">Completed</button>
+            <button class="ft" onclick="setOF('denied',this)">Denied</button>
           </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+          <label style="font-size:10px;color:var(--sub2);font-weight:600">From</label>
+          <input class="inp inp-sm" type="date" id="orderDateFrom" onchange="renderOrderPage()" style="width:auto"/>
+          <label style="font-size:10px;color:var(--sub2);font-weight:600">To</label>
+          <input class="inp inp-sm" type="date" id="orderDateTo" onchange="renderOrderPage()" style="width:auto"/>
+          <button class="btn bn" style="font-size:10px;padding:5px 10px" onclick="$('orderDateFrom').value='';$('orderDateTo').value='';renderOrderPage()">Clear</button>
+          <div style="flex:1"></div>
+          <button class="btn bn" onclick="exportOrdersCSV()" style="font-size:10px;padding:5px 12px">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            CSV
+          </button>
         </div>
         <div class="tw"><table><thead><tr><th>Order ID</th><th>User</th><th>Items</th><th>Total</th><th>Method</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody id="ordersBody"><tr><td colspan="8" style="text-align:center;padding:24px;color:var(--sub)">Loading…</td></tr></tbody></table></div>
         <div class="pag" id="ordersPag"></div>
@@ -567,11 +699,14 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
     <!-- ══ ACCOUNTS ══════════════════════════════════ -->
     <div class="panel" id="panel-accounts">
       <div class="ph"><div class="pt">Accounts</div><div class="sp"></div>
+        <button class="btn bn" onclick="exportAccountsCSV()" style="font-size:10px;padding:6px 12px;margin-right:6px">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV
+        </button>
         <button class="btn-rf" onclick="loadAccounts()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh</button>
       </div>
       <div class="card">
         <div class="sr">
-          <div class="sw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="si2" id="acctSearch" placeholder="Search name or email…" oninput="renderAcctPage()"/></div>
+          <div class="sw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="si2" id="acctSearch" placeholder="Search name, email or ID…" oninput="renderAcctPage()"/></div>
         </div>
         <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Store Credit</th><th>Spent</th><th>Orders</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="accountsBody"><tr><td colspan="8" style="text-align:center;padding:24px;color:var(--sub)">Loading…</td></tr></tbody></table></div>
         <div class="pag" id="acctsPag"></div>
@@ -658,6 +793,56 @@ tr.clickable:hover td:first-child{border-left:2px solid var(--pu);padding-left:1
       </div>
     </div>
 
+    <!-- ══ AFFILIATES ═══════════════════════════════ -->
+    <div class="panel" id="panel-affiliates">
+      <div class="ph"><div class="pt">Affiliate Manager</div><div class="sp"></div>
+        <button class="btn-rf" onclick="loadAffiliates()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh</button>
+      </div>
+      <div class="sr">
+        <div class="ftabs">
+          <button class="ft active" onclick="setAffFilter('all',this)">All</button>
+          <button class="ft" onclick="setAffFilter('pending',this)">Pending</button>
+          <button class="ft" onclick="setAffFilter('approved',this)">Approved</button>
+          <button class="ft" onclick="setAffFilter('denied',this)">Denied</button>
+        </div>
+      </div>
+      <div id="affList"><div class="empty">Loading…</div></div>
+    </div>
+
+    <!-- ══ ACTIVITY LOG ═════════════════════════════ -->
+    <div class="panel" id="panel-activity">
+      <div class="ph"><div class="pt">Activity Log</div><div class="sp"></div>
+        <button class="btn-rf" onclick="loadActivityLog()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh</button>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="ctd"></span>Recent Admin Actions</div>
+        <div id="activityList"><div class="empty">No activity yet — actions will appear here as you use the admin panel.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ACCOUNT DETAIL MODAL ═══════════════════════ -->
+<div id="acctModal">
+  <div class="am">
+    <div class="am-hd">
+      <div>
+        <div class="am-title" id="amName">—</div>
+        <div class="am-id" id="amId">—</div>
+      </div>
+      <div style="flex:1"></div>
+      <button class="om-close" onclick="closeAcctModal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="am-tabs">
+      <button class="am-tab active" onclick="acctTab('info',this)">Info</button>
+      <button class="am-tab" onclick="acctTab('orders',this)">Orders</button>
+      <button class="am-tab" onclick="acctTab('edit',this)">Edit</button>
+    </div>
+    <div class="am-body" id="amBody"></div>
+    <div class="am-ft" id="amFt"></div>
   </div>
 </div>
 
@@ -746,6 +931,8 @@ function nav(id,el){
   $('panel-'+id).classList.add('active'); el.classList.add('active');
   if(id==='accounts'&&!_allAccounts.length) loadAccounts();
   if(id==='promos') loadPromos();
+  if(id==='affiliates') loadAffiliates();
+  if(id==='activity') loadActivityLog();
 }
 
 // ── load all data ──────────────────────────────────────────────
@@ -758,10 +945,10 @@ async function loadAll(){
   } catch { toast('Refresh failed','err'); }
 }
 function ingestData(d){
-  renderStats(d.stats); renderChart(d.ordersPerDay);
+  renderStats(d.stats); loadRevenueChart(14);
   renderTopItems(d.topItems); renderPending(d.pendingOrders);
   _allOrders=d.recentOrders||[]; renderOrderPage();
-  loadFlags();
+  loadFlags(); loadSystemStatus();
   const pc=d.stats.pendingOrders||0;
   const nb=$('nb-orders'); if(pc>0){nb.textContent=pc;nb.style.display='';}else nb.style.display='none';
 }
@@ -799,9 +986,12 @@ function renderPending(orders){
 // ── orders table + pagination ──────────────────────────────────
 function filteredOrders(){
   const q=($('orderSearch').value||'').toLowerCase();
+  const dfrom=$('orderDateFrom')?.value, dto=$('orderDateTo')?.value;
   let list=_allOrders;
   if(_oFilter!=='all') list=list.filter(o=>o.paymentStatus===_oFilter);
   if(q) list=list.filter(o=>(o.orderId||'').toLowerCase().includes(q)||(o.robloxUser||'').toLowerCase().includes(q)||(o.items||[]).join(' ').toLowerCase().includes(q)||(o.email||'').toLowerCase().includes(q));
+  if(dfrom) list=list.filter(o=>o.createdAt&&o.createdAt.slice(0,10)>=dfrom);
+  if(dto) list=list.filter(o=>o.createdAt&&o.createdAt.slice(0,10)<=dto);
   return list;
 }
 function setOF(f,el){ _oFilter=f; _oPage=1; document.querySelectorAll('#panel-orders .ft').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderOrderPage(); }
@@ -925,7 +1115,7 @@ function renderAcctPage(){
   const slice=list.slice((_aPage-1)*PS,_aPage*PS);
   const body=$('accountsBody');
   if(!slice.length){ body.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--sub)">No accounts found</td></tr>'; }
-  else body.innerHTML=slice.map(a=>`<tr>
+  else body.innerHTML=slice.map(a=>`<tr class="clickable" onclick="openAcctModal(${a.accountId})">
     <td class="mono" style="color:var(--sub2)">#${a.accountId}</td>
     <td style="font-size:12px;font-weight:600">${a.name||'—'}</td>
     <td style="font-size:11px;color:var(--sub2)">${a.email}</td>
@@ -933,7 +1123,7 @@ function renderAcctPage(){
     <td style="font-size:12px;color:var(--sub2)">${fmt(a.totalSpent)}</td>
     <td style="font-size:12px;color:var(--sub2)">${a.orders}</td>
     <td style="font-size:11px;color:var(--sub)">${a.createdAt?fmtDate(a.createdAt):'—'}</td>
-    <td><div style="display:flex;gap:4px">
+    <td onclick="event.stopPropagation()"><div style="display:flex;gap:4px">
       <button class="btn ba" onclick="creditPrompt('${a.email.replace(/'/g,"\\'")}','add')" title="Add credit">${svgCheck()}Add</button>
       <button class="btn by" onclick="creditPrompt('${a.email.replace(/'/g,"\\'")}','remove')" title="Remove credit"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>Remove</button>
     </div></td>
@@ -1575,6 +1765,317 @@ function renderPagination(containerId, page, total, itemCount, pageSize, cbKey){
   html+=`<button class="pag-btn" ${page===total?'disabled':''} onclick="__pagCall('${cbKey}',${page+1})">&rsaquo;</button>`;
   el.innerHTML=html;
 }
+
+// ── revenue chart with range ──────────────────────────────────
+let _chartRange = 14;
+async function loadRevenueChart(days){
+  _chartRange = days;
+  try {
+    const r = await api('/admin/revenue-chart?range='+days);
+    const d = await r.json();
+    renderRevenueChart(d.revenuePerDay, d.ordersPerDay);
+  } catch {
+    // Fallback: use ordersPerDay from initial data
+    $('chartWrap').innerHTML='<div class="empty">Chart data unavailable</div>';
+  }
+}
+function setChartRange(days, el){
+  document.querySelectorAll('.chart-range').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  loadRevenueChart(days);
+}
+function renderRevenueChart(revData, ordData){
+  const days=Object.keys(revData||{}), revVals=Object.values(revData||{}), ordVals=Object.values(ordData||{});
+  const maxRev=Math.max(...revVals,1), maxOrd=Math.max(...ordVals,1);
+  if(!days.length){ $('chartWrap').innerHTML='<div class="empty">No data</div>'; return; }
+  $('chartWrap').innerHTML=days.map((day,i)=>{
+    const revPct=Math.round((revVals[i]/maxRev)*100);
+    const ordPct=Math.round((ordVals[i]/maxOrd)*100);
+    // Show date label less frequently for 90d
+    const showLabel = days.length <= 30 || i % 3 === 0;
+    return `<div class="cc"><div class="cba" style="gap:1px"><div class="cb" style="height:${Math.max(ordPct,2)}%;opacity:.6" title="${ordVals[i]} orders on ${day}"></div><div class="cb" style="height:${Math.max(revPct,2)}%;background:var(--green);opacity:.7" title="$${revVals[i].toFixed(2)} on ${day}"></div></div><div class="cl">${showLabel?day.slice(5):''}</div></div>`;
+  }).join('');
+}
+
+// ── system status ─────────────────────────────────────────────
+async function loadSystemStatus(){
+  try {
+    const r = await api('/admin/status');
+    const s = await r.json();
+    const set = (id, on) => { const el=$(id); el.className='st-dot '+(on?'on':'off'); };
+    set('stBot', s.bot); $('stBotVal').textContent = s.bot ? 'Online' : 'Offline';
+    set('stDb', s.database); $('stDbVal').textContent = s.database ? 'Connected' : 'Down';
+    set('stStripe', s.stripe); $('stStripeVal').textContent = s.stripe ? 'Active' : 'Error';
+    const mins = Math.floor(s.uptime / 60);
+    $('stUptime').textContent = mins >= 60 ? Math.floor(mins/60)+'h '+mins%60+'m' : mins+'m';
+    $('fakeToggle').checked = !!s.fakeReceiptsOn;
+    const btn = $('fakeReceiptBtn');
+    if(s.fakeReceiptsOn){ btn.classList.add('active'); } else { btn.classList.remove('active'); }
+  } catch {}
+}
+
+// ── test order ────────────────────────────────────────────────
+async function triggerTestOrder(){
+  const btn=$('testOrderBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg></span> Firing…';
+  try {
+    const r=await api('/admin/test-order',{method:'POST'});
+    const d=await r.json();
+    if(d.success) toast(`Test order ${d.orderId} created — check Discord`);
+    else toast(d.error||'Failed','err');
+  } catch { toast('Request failed','err'); }
+  finally {
+    btn.disabled=false;
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>Test Order';
+  }
+}
+
+// ── fake receipts toggle ──────────────────────────────────────
+async function toggleFakeReceipts(){
+  const enabled = $('fakeToggle').checked;
+  try {
+    const r=await api('/admin/fake-receipts',{method:'POST',body:JSON.stringify({enabled})});
+    const d=await r.json();
+    if(d.success){
+      toast(d.fakeReceiptsOn ? 'Fake receipts ON — posting every 1-25 min' : 'Fake receipts OFF');
+      $('fakeToggle').checked = d.fakeReceiptsOn;
+      const btn = $('fakeReceiptBtn');
+      if(d.fakeReceiptsOn) btn.classList.add('active'); else btn.classList.remove('active');
+    }
+  } catch { toast('Toggle failed','err'); $('fakeToggle').checked = !enabled; }
+}
+
+// ── CSV exports ───────────────────────────────────────────────
+function exportOrdersCSV(){
+  window.open(BOT+'/admin/orders/export?secret='+encodeURIComponent(_secret),'_blank');
+  toast('Downloading orders CSV…');
+}
+function exportAccountsCSV(){
+  window.open(BOT+'/admin/accounts/export?secret='+encodeURIComponent(_secret),'_blank');
+  toast('Downloading accounts CSV…');
+}
+
+// ── account detail modal ──────────────────────────────────────
+let _currentAcct = null;
+async function openAcctModal(accountId){
+  try {
+    const r=await api('/admin/account/'+accountId);
+    if(!r.ok){ toast('Account not found','err'); return; }
+    const d=await r.json();
+    _currentAcct = d.account;
+    $('amName').textContent = _currentAcct.name || 'Unnamed';
+    $('amId').textContent = '#'+_currentAcct.accountId+' · '+(_currentAcct.email||'');
+    acctTab('info', document.querySelector('.am-tab'));
+    $('acctModal').classList.add('open');
+    document.body.style.overflow='hidden';
+  } catch { toast('Failed to load account','err'); }
+}
+function closeAcctModal(){
+  $('acctModal').classList.remove('open');
+  document.body.style.overflow='';
+  _currentAcct=null;
+}
+$('acctModal').addEventListener('click',e=>{ if(e.target===$('acctModal')) closeAcctModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&$('acctModal').classList.contains('open')) closeAcctModal(); });
+
+function acctTab(tab, el){
+  document.querySelectorAll('.am-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(!_currentAcct) return;
+  const a=_currentAcct;
+  if(tab==='info'){
+    $('amBody').innerHTML=`
+      <div class="om-sect">
+        <div class="om-sect-title"><span class="ctd"></span>Account Info</div>
+        <div class="om-row"><span class="om-lbl">Name</span><span class="om-val">${a.name||'—'}</span></div>
+        <div class="om-row"><span class="om-lbl">Email</span><span class="om-val">${a.email||'—'}</span></div>
+        <div class="om-row"><span class="om-lbl">Discord</span><span class="om-val">${a.discordUsername||a.discordId||'—'}</span></div>
+        <div class="om-row"><span class="om-lbl">Created</span><span class="om-val">${a.createdAt?fmtDate(a.createdAt):'—'}</span></div>
+        <div class="om-row"><span class="om-lbl">2FA</span><span class="om-val" style="color:${a.twofa?'var(--green)':'var(--sub)'}">${a.twofa?'Enabled':'Disabled'}</span></div>
+        <div class="om-row"><span class="om-lbl">Dev Mode</span><span class="om-val" style="color:${a.devMode?'var(--yellow)':'var(--sub)'}">${a.devMode?'ON':'OFF'}</span></div>
+      </div>
+      <div class="om-sect">
+        <div class="om-sect-title"><span class="ctd"></span>Financials</div>
+        <div class="om-row"><span class="om-lbl">Total Spent</span><span class="om-val green">${fmt(a.totalSpent)}</span></div>
+        <div class="om-row"><span class="om-lbl">Store Credit</span><span class="om-val" style="color:var(--cyan)">${fmt(a.storeCredit)}</span></div>
+        <div class="om-row"><span class="om-lbl">Loyalty Points</span><span class="om-val">${a.loyaltyPoints||0}</span></div>
+        <div class="om-row"><span class="om-lbl">Silv Tokens</span><span class="om-val">${a.silvTokens||0}</span></div>
+      </div>
+      <div class="om-sect">
+        <div class="om-sect-title"><span class="ctd"></span>Affiliate</div>
+        <div class="om-row"><span class="om-lbl">Status</span><span class="om-val"><span class="badge ${a.affiliateStatus==='approved'?'b-ok':a.affiliateStatus==='pending'?'b-pend':a.affiliateStatus==='denied'?'b-deny':'b-dev'}">${a.affiliateStatus||'none'}</span></span></div>
+        <div class="om-row"><span class="om-lbl">Referral Code</span><span class="om-val mono">${a.referralCode||'—'}</span></div>
+        ${a.referralStats?`<div class="om-row"><span class="om-lbl">Referrals</span><span class="om-val">${a.referralStats.totalReferrals||0}</span></div>
+        <div class="om-row"><span class="om-lbl">Earnings</span><span class="om-val green">${fmt(a.referralStats.totalEarnings||0)}</span></div>`:''}
+      </div>
+      ${a.notifications&&a.notifications.length?`<div class="om-sect">
+        <div class="om-sect-title"><span class="ctd"></span>Recent Notifications (${a.notifications.length})</div>
+        ${a.notifications.slice(0,5).map(n=>`<div style="font-size:11px;color:var(--sub2);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)">${n.message} <span style="color:var(--sub);font-size:10px">${fmtDate(n.date)}</span></div>`).join('')}
+      </div>`:''}`;
+    $('amFt').innerHTML='';
+  } else if(tab==='orders'){
+    const orders = a.orders || [];
+    $('amBody').innerHTML=orders.length
+      ? `<div class="tw"><table><thead><tr><th>Order ID</th><th>Total</th><th>Method</th><th>Status</th><th>Date</th></tr></thead><tbody>${orders.map(o=>{
+          const sc=o.paymentStatus==='completed'?'b-ok':o.paymentStatus==='pending'?'b-pend':'b-deny';
+          return `<tr><td class="mono">${o.orderId}</td><td class="green" style="font-weight:700;font-family:monospace">${o.total?fmt(o.total):'—'}</td><td style="color:var(--sub2);font-size:11px">${o.payMethod||'—'}</td><td><span class="badge ${sc}">${o.paymentStatus}</span></td><td style="color:var(--sub);font-size:11px">${fmtDate(o.createdAt)}</td></tr>`;
+        }).join('')}</tbody></table></div>`
+      : '<div class="empty">No orders for this account</div>';
+    $('amFt').innerHTML='';
+  } else if(tab==='edit'){
+    $('amBody').innerHTML=`
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="fl"><label>Display Name</label><input class="inp" id="aeN" value="${(a.name||'').replace(/"/g,'&quot;')}"/></div>
+        <div class="frow">
+          <div class="fl"><label>Store Credit ($)</label><input class="inp" id="aeSC" type="number" step="0.01" min="0" value="${a.storeCredit||0}"/></div>
+          <div class="fl"><label>Loyalty Points</label><input class="inp" id="aeLP" type="number" min="0" value="${a.loyaltyPoints||0}"/></div>
+        </div>
+        <div class="frow">
+          <div class="fl"><label>Affiliate Status</label>
+            <select class="sel" id="aeAff">
+              <option value="">None</option>
+              <option value="pending"${a.affiliateStatus==='pending'?' selected':''}>Pending</option>
+              <option value="approved"${a.affiliateStatus==='approved'?' selected':''}>Approved</option>
+              <option value="denied"${a.affiliateStatus==='denied'?' selected':''}>Denied</option>
+            </select>
+          </div>
+          <div class="fl"><label>Referral Code</label><input class="inp" id="aeRC" value="${a.referralCode||''}" style="text-transform:uppercase"/></div>
+        </div>
+        <div class="fl" style="flex-direction:row;align-items:center;gap:10px">
+          <label class="toggle"><input type="checkbox" id="aeDM" ${a.devMode?'checked':''}/><div class="toggle-tr"></div><div class="toggle-th"></div></label>
+          <label style="font-size:11px;color:var(--sub2);font-weight:600;cursor:pointer" onclick="$('aeDM').click()">Dev Mode</label>
+        </div>
+      </div>`;
+    $('amFt').innerHTML=`<button class="btn bpri" onclick="saveAcctEdit()" style="padding:10px 24px">Save Changes</button>`;
+  }
+}
+async function saveAcctEdit(){
+  if(!_currentAcct) return;
+  const body = {
+    name: $('aeN').value.trim(),
+    storeCredit: parseFloat($('aeSC').value) || 0,
+    loyaltyPoints: parseInt($('aeLP').value) || 0,
+    affiliateStatus: $('aeAff').value || null,
+    referralCode: $('aeRC').value.trim().toUpperCase() || null,
+    devMode: $('aeDM').checked,
+  };
+  try {
+    const r=await api('/admin/account/'+_currentAcct.accountId+'/update',{method:'POST',body:JSON.stringify(body)});
+    const d=await r.json();
+    if(d.success){ toast('Account updated'); closeAcctModal(); loadAccounts(); }
+    else toast(d.error||'Update failed','err');
+  } catch { toast('Request failed','err'); }
+}
+
+// ── affiliate manager ─────────────────────────────────────────
+let _affFilter = 'all';
+let _affiliates = [];
+function setAffFilter(f, el){
+  _affFilter=f;
+  document.querySelectorAll('#panel-affiliates .ft').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderAffiliates();
+}
+async function loadAffiliates(){
+  try {
+    const r=await api('/admin/affiliates');
+    const d=await r.json();
+    _affiliates = d.affiliates || [];
+    renderAffiliates();
+    // badge count
+    const pending = _affiliates.filter(a=>a.affiliateStatus==='pending').length;
+    const nb=$('nb-affiliates');
+    if(pending>0){nb.textContent=pending;nb.style.display='';}else nb.style.display='none';
+  } catch { toast('Failed to load affiliates','err'); }
+}
+function renderAffiliates(){
+  const list = _affFilter==='all' ? _affiliates : _affiliates.filter(a=>a.affiliateStatus===_affFilter);
+  const el=$('affList');
+  if(!list.length){ el.innerHTML='<div class="empty">No affiliates found</div>'; return; }
+  el.innerHTML=list.map(a=>{
+    const stats=a.referralStats||{};
+    const sc=a.affiliateStatus==='approved'?'b-ok':a.affiliateStatus==='pending'?'b-pend':'b-deny';
+    return `<div class="aff-card">
+      <div class="aff-hd">
+        <div class="aff-name">${a.name||'Unnamed'} <span style="font-size:10px;color:var(--sub);font-weight:400">${a.email}</span></div>
+        <span class="badge ${sc}" style="font-size:9px">${a.affiliateStatus}</span>
+      </div>
+      <div class="aff-stats">
+        <div class="aff-stat"><div class="aff-stat-val">${stats.totalReferrals||0}</div><div class="aff-stat-lbl">Referrals</div></div>
+        <div class="aff-stat"><div class="aff-stat-val green">${fmt(stats.totalEarnings||0)}</div><div class="aff-stat-lbl">Earnings</div></div>
+        <div class="aff-stat"><div class="aff-stat-val">${fmt(a.totalSpent)}</div><div class="aff-stat-lbl">Spent</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:10px;color:var(--sub)">Code:</span>
+        <span class="mono" style="font-size:12px">${a.referralCode||'—'}</span>
+        <span style="font-size:10px;color:var(--sub);margin-left:8px">ID: #${a.accountId}</span>
+        <div style="flex:1"></div>
+        ${a.affiliateStatus==='pending'?`
+          <button class="btn bc" onclick="affAction(${a.accountId},'approve')">${svgCheck()}Approve</button>
+          <button class="btn bd" onclick="affAction(${a.accountId},'deny')">${svgX()}Deny</button>
+        `:''}
+        ${a.affiliateStatus==='approved'?`
+          <button class="btn ba" onclick="affPayout(${a.accountId})"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Payout</button>
+        `:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+async function affAction(accountId, action){
+  const r=await api('/admin/affiliate/action',{method:'POST',body:JSON.stringify({accountId,action})});
+  const d=await r.json();
+  if(d.success){ toast(`Affiliate ${action==='approve'?'approved':'denied'}`); loadAffiliates(); }
+  else toast(d.error||'Failed','err');
+}
+function affPayout(accountId){
+  const amt=parseFloat(prompt('Enter payout amount ($):'));
+  if(isNaN(amt)||amt<=0) return;
+  affDoPayment(accountId, amt);
+}
+async function affDoPayment(accountId, amount){
+  const r=await api('/admin/affiliate/action',{method:'POST',body:JSON.stringify({accountId,action:'payout',amount})});
+  const d=await r.json();
+  if(d.success){ toast(`Payout of ${fmt(amount)} processed`); loadAffiliates(); }
+  else toast(d.error||'Failed','err');
+}
+
+// ── activity log ──────────────────────────────────────────────
+async function loadActivityLog(){
+  try {
+    const r=await api('/admin/activity-log');
+    const d=await r.json();
+    renderActivityLog(d.log||[]);
+  } catch { toast('Failed to load activity log','err'); }
+}
+function renderActivityLog(log){
+  const el=$('activityList');
+  if(!log.length){ el.innerHTML='<div class="empty">No activity yet — actions will appear here as you use the admin panel.</div>'; return; }
+  const actionLabels={
+    order_confirm:'Order Confirmed', order_deny:'Order Denied',
+    credit_add:'Credit Added', credit_remove:'Credit Removed',
+    broadcast:'Broadcast Sent', account_edit:'Account Edited',
+    affiliate_approve:'Affiliate Approved', affiliate_deny:'Affiliate Denied',
+    affiliate_payout:'Affiliate Payout', test_order:'Test Order',
+    fake_receipts:'Fake Receipts Toggle',
+  };
+  const actionColors={
+    order_confirm:'var(--green)', order_deny:'var(--red)',
+    credit_add:'var(--cyan)', credit_remove:'var(--yellow)',
+    broadcast:'var(--pink)', account_edit:'var(--pu)',
+    affiliate_approve:'var(--green)', affiliate_deny:'var(--red)',
+    affiliate_payout:'var(--cyan)', test_order:'var(--yellow)',
+    fake_receipts:'var(--pink)',
+  };
+  el.innerHTML=log.map(e=>`<div class="log-row">
+    <div class="log-dot" style="background:${actionColors[e.action]||'var(--pu)'}"></div>
+    <div class="log-content">
+      <div class="log-action">${actionLabels[e.action]||e.action}</div>
+      <div class="log-detail">${e.detail||''}</div>
+    </div>
+    <div class="log-time">${fmtDate(e.ts)}</div>
+  </div>`).join('');
+}
+
 </script>
 </body>
 </html>

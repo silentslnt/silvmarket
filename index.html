@@ -3226,12 +3226,12 @@ const BRAINROT = [
   {n:"Hydra Dragon Cannelloni",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/B8qC3fExZA2lD4DDiKX41BQOdf3KAo0X4B5rhTXw.png",speeds:[{label:"250-499 M/s",p:55},{label:"1-4.99 B/s",p:69.99},{label:"5-9.99 B/s",p:150},{label:"10-19.99 B/s",p:400}],mutations:[{label:"Rainbow",p:170}]},
   {n:"Dragon Cannelloni",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Dragon Cannelloni.webp",speeds:[{label:"Base",p:40},{label:"1-4.99 B/s",p:120},{label:"5-9.99 B/s",p:150}],mutations:[{label:"Rainbow",p:129.99},{label:"Gold",p:60}]},
   {n:"Ginger Gerat",p:68.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eug5en7U5aBKPPbFXUNnMTldccH9fY3YDiG5atdf.png"},
-  {n:"CERBERUS",p:25.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9kSy5Pe1iJnM25KuG3IY7DQXTvIBEVZYvafssMTk.png",mutations:[{label:"Rainbow",p:42.99}]},
+  {n:"CERBERUS",p:11.99,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9kSy5Pe1iJnM25KuG3IY7DQXTvIBEVZYvafssMTk.png",mutations:[{label:"Rainbow",p:42.99}]},
   {n:"8 traits Spooky and Pumpky",p:14,oldP:null,badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/mkWlwZfa84goFBWN9Ub1YiaQ4Sgy8lqCJcvblh8Y.png"},
   {n:"Celestial Pegasus",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Celestial Pegasus.webp",speeds:[{label:"Base",p:11},{label:"100-249 M/s",p:13},{label:"250-499 M/s",p:15.99}]},
   {n:"Nacho Spyder",badge:"hot",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/uwTjHfon97F3rysWXS89CXTmw2xSpq3FRWqzR4T1.png",speeds:[{label:"Base",p:5},{label:"500-749 M/s",p:6}]},
   {n:"Dragon Gingerini",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Dragon Gingerini.webp",speeds:[{label:"Base",p:160},{label:"1-4.99 B/s",p:220},{label:"5-9.99 B/s",p:350}],mutations:[{label:"Rainbow",p:300}]},
-  {n:"Foxini Lanternini",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Foxini_Lanternini.webp",speeds:[{label:"Base",p:25},{label:"1-4.99 B/s",p:85}],mutations:[{label:"Rainbow",p:70}]},
+  {n:"Foxini Lanternini",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Foxini_Lanternini.webp",speeds:[{label:"Base",p:20},{label:"1-4.99 B/s",p:85}],mutations:[{label:"Rainbow",p:70}]},
   {n:"Griffin",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Griffin.webp",speeds:[{label:"Base",p:210},{label:"5-9.99 B/s",p:520},{label:"10-19.99 B/s",p:920}]},
   {n:"Headless Horseman",badge:"new",stock:99,sub:"god-tier",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Headless Horseman.webp",speeds:[{label:"Base",p:6999},{label:"10-19.99 B/s",p:8599}]},
 
@@ -5316,15 +5316,17 @@ function goToCheckout(){
   if(!cart.length) return;
   try{ localStorage.setItem('silv_checkout_cart', JSON.stringify(cart)); }catch{}
   if(window._pendingRefCode) try{ localStorage.setItem('silv_checkout_ref', window._pendingRefCode); }catch{}
-  // Pass store credit to checkout
+  // Pass store credit hint to checkout (checkout always re-verifies live from server)
   try{
     let credit=0;
     if(currentUser){
       const u=(JSON.parse(localStorage.getItem('silv_users')||'{}')||{})[currentUser.email];
       credit=parseFloat(u?.storeCredit||0)||0;
     }
+    // Only write if we have a positive stale value — checkout.html will always
+    // overwrite with the authoritative server value via setupCreditBlock()
     if(credit>0) localStorage.setItem('silv_checkout_credit', String(credit));
-    else localStorage.removeItem('silv_checkout_credit');
+    // Don't remove — a previously saved server-side value may still be there
   }catch{}
   toggleCart();
   window.location.href = '/checkout';

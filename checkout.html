@@ -444,7 +444,7 @@ let cart        = [];
 let currentUser = null;
 let discordUser = null;
 let payMethod   = 'stripe'; // stripe | crypto
-let promoApplied = false, promoPct = 0;
+let promoApplied = false, promoPct = 0, promoFlat = 0;
 let _refCode = null, _refDiscount = false;
 let _tokensApplied = 0;
 let _creditApplied = 0, _creditAvailable = 0;
@@ -605,8 +605,9 @@ function renderSummary(){
 }
 function calcTotals(){
   const sub = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
-  const discPct = promoApplied ? promoPct : (_refDiscount ? 5 : 0);
-  const disc = sub*(discPct/100);
+  const discPct = promoApplied && promoPct ? promoPct : (_refDiscount ? 5 : 0);
+  const discFlat = promoApplied && promoFlat ? Math.min(promoFlat, sub) : 0;
+  const disc = discFlat > 0 ? discFlat : sub*(discPct/100);
   const tokenDisc = Math.min(_tokensApplied/10, Math.max(0, sub-disc));
   const afterTokens = Math.max(0, sub-disc-tokenDisc);
   const creditDisc = Math.min(_creditApplied, afterTokens);
@@ -674,15 +675,29 @@ function setupCreditBlock(){
       if(!d||!d.found) return;
       const credit=parseFloat(d.storeCredit||0);
       localStorage.setItem('silv_checkout_credit', String(credit));
+      const blk=document.getElementById('creditBlock');
       if(credit<0.01){
-        document.getElementById('creditBlock').style.display='none';
+        if(blk) blk.style.display='none';
         _creditAvailable=0; _creditApplied=0; updateTotals(); return;
       }
-      // Update badge with authoritative balance
+      // Show block (may have been hidden if no stale credit in localStorage)
+      if(blk) blk.style.display='block';
       _creditAvailable=credit;
-      document.getElementById('creditBadge').textContent='$'+credit.toFixed(2)+' store credit available';
-      // Clamp if user had more applied than they actually have
-      if(_creditApplied>credit){ _creditApplied=credit; updateTotals(); }
+      const badge=document.getElementById('creditBadge');
+      const btn=document.getElementById('creditBtn');
+      const status=document.getElementById('creditStatus');
+      if(badge) badge.textContent='$'+credit.toFixed(2)+' store credit available';
+      // Auto-apply if not yet applied (block was hidden on load)
+      if(_creditApplied<=0){
+        _creditApplied=credit;
+        if(btn){ btn.textContent='Remove'; btn.classList.add('remove'); }
+        if(status) status.textContent='$'+credit.toFixed(2)+' store credit applied';
+        updateTotals();
+      } else if(_creditApplied>credit){
+        // Clamp if stale localStorage had more than actual balance
+        _creditApplied=credit;
+        updateTotals();
+      }
     }).catch(()=>{});
 }
 function toggleCredit(){
@@ -709,32 +724,37 @@ async function applyCode(){
   const el=document.getElementById('codeMsg');
   const code=document.getElementById('codeInput').value.trim().toUpperCase();
   if(!code) return;
-  promoApplied=false; promoPct=0; _refCode=null; _refDiscount=false;
+  promoApplied=false; promoPct=0; promoFlat=0; _refCode=null; _refDiscount=false;
   updateTotals();
 
-  // Check promo
-  if(PROMOS[code]){
-    if(!currentUser){ showCodeMsg('warn','⚠️ Sign in to use promo codes.'); return; }
-    try{
-      const users=JSON.parse(localStorage.getItem('silv_users')||'{}');
-      const u=users[currentUser.email];
-      if(u?.usedPromos?.includes(code)){ showCodeMsg('err','❌ Already used this promo.'); return; }
-    }catch{}
-    promoApplied=true; promoPct=PROMOS[code];
-    showCodeMsg('ok',`✅ "${code}" — ${PROMOS[code]}% off!`);
-    updateTotals(); return;
-  }
-  // Try live promos from bot
-  if(currentUser){
+  // Verify promo via server (handles % and flat $ codes)
+  if(!currentUser){ showCodeMsg('pending','⏳ Checking…'); }
+  else {
     showCodeMsg('pending','⏳ Checking…');
     try{
-      const r=await fetch(BOT_BASE+'/promos',{signal:AbortSignal.timeout(5000)});
-      const live=await r.json();
-      if(live[code]){
-        promoApplied=true; promoPct=live[code];
-        showCodeMsg('ok',`✅ "${code}" — ${live[code]}% off!`);
+      const r=await fetch(BOT_BASE+'/verify-promo',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-silv-secret':BOT_WEBHOOK_SECRET},
+        body:JSON.stringify({code,email:currentUser.email}),
+        signal:AbortSignal.timeout(5000)
+      });
+      const d=await r.json();
+      if(d.valid){
+        promoApplied=true;
+        if(d.flat && d.flat>0){
+          promoFlat=d.flat;
+          showCodeMsg('ok',`✅ "${code}" — $${d.flat.toFixed(2)} off!`);
+        } else {
+          promoPct=d.pct||0;
+          showCodeMsg('ok',`✅ "${code}" — ${d.pct}% off!`);
+        }
         updateTotals(); return;
+      } else if(d.requiresLogin){
+        showCodeMsg('warn','⚠️ Sign in to use promo codes.'); return;
+      } else if(d.alreadyUsed){
+        showCodeMsg('err','❌ Already used this promo.'); return;
       }
+      // Code not valid as promo — fall through to referral check
     }catch{}
   }
   // Try referral

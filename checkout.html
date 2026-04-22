@@ -1017,6 +1017,7 @@ async function fireWebhook(data){
         promoCode:data.promoCode||null,
         referralCode:data.referralCode||null,
         paymentStatus:data.paymentStatus||'completed',
+        storeCredit:data.storeCredit||0,
         timestamp:new Date().toISOString(),
       }),
     });

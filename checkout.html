@@ -754,9 +754,12 @@ async function applyCode(){
         showCodeMsg('warn','⚠️ Sign in to use promo codes.'); return;
       } else if(d.alreadyUsed){
         showCodeMsg('err','❌ Already used this promo.'); return;
+      } else if(!d.notFound){
+        // Code exists in promos but is invalid for another reason — don't try referral
+        showCodeMsg('err','❌ Invalid or expired code.'); return;
       }
-      // Code not valid as promo — fall through to referral check
-    }catch{}
+      // notFound=true: code not in promos — fall through to referral check
+    }catch{} // network error — fall through to referral
   }
   // Try referral
   if(currentUser){

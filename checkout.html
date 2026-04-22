@@ -436,7 +436,7 @@ const CRYPTO_WALLETS    = {
   LTC:  'MHMQYBFNUb4SX9RwLaBm1Km7z3erQb9KKZ',
 };
 const PAY_STRIPE_LINK   = 'https://buy.stripe.com/8x2cN5ejac47arZgN95gc0f';
-const PROMOS            = {SILVISTHEBEST:10,WSILV:10};
+// Promo codes are verified server-side via /verify-promo — no client-side list
 const COIN_IDS          = {BTC:'bitcoin',ETH:'ethereum',SOL:'solana',USDT:'tether',LTC:'litecoin'};
 
 // ── STATE ──────────────────────────────────────────────────────
@@ -530,7 +530,8 @@ function saveOrderToUser(orderId, claimKey, items, total, method, promoCode){
     if(!u) return;
     if(!u.orders) u.orders=[];
     u.orders.unshift({orderId,claimKey,items:items.map(i=>i.name),total,method,date:new Date().toISOString()});
-    if(promoCode && PROMOS[promoCode]){
+    // Track locally which promos were used (server is authoritative for multi-use checks)
+    if(promoCode){
       if(!u.usedPromos) u.usedPromos=[];
       if(!u.usedPromos.includes(promoCode)) u.usedPromos.push(promoCode);
     }
@@ -866,7 +867,7 @@ async function doStripeCheckout(rblxUser, email, tot, orderId, claimKey){
         orderId,claimKey,rblxUser,email,tot,
         cart:JSON.parse(JSON.stringify(cart)),
         discordUser:discordUser?{...discordUser}:null,
-        promoApplied, promoCode, referralCode:_refCode||null, tokensUsed:_tokensApplied||0, creditUsed:_creditApplied||0,
+        promoApplied, promoCode, promoPct, promoFlat, referralCode:_refCode||null, tokensUsed:_tokensApplied||0, creditUsed:_creditApplied||0,
       }));
       location.href=data.url;
       return;
@@ -964,7 +965,8 @@ function handleStripeReturn(){
     cart=pending.cart||[];
     discordUser=pending.discordUser||null;
     promoApplied=pending.promoApplied||false;
-    promoPct=0;
+    promoPct=pending.promoPct||0;
+    promoFlat=pending.promoFlat||0;
     _refCode=pending.referralCode||null;
     _refDiscount=!!_refCode;
     _tokensApplied=pending.tokensUsed||0;

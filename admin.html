@@ -1063,6 +1063,11 @@ function openOrderModal(orderId){
       <div class="om-row"><span class="om-lbl">Order ID</span><span class="om-val mono">${orderId}</span></div>
       <div class="om-row"><span class="om-lbl">Claim Key</span><span class="om-val mono" style="font-size:10px">${o.claimKey||'—'}</span></div>
       <div class="om-row"><span class="om-lbl">Claimed</span><span class="om-val" style="color:${o.claimed?'#00e676':'#fbbf24'}">${o.claimed?'Yes':'No'}</span></div>
+      <div class="om-row"><span class="om-lbl">Ticket</span><span class="om-val">${
+        o.ticketFailed?'<span style="color:var(--red)">Failed</span>'
+        :o.ticketCreated?'<span style="color:var(--green)">Created</span>'
+        :'<span style="color:var(--yellow)">Not created</span>'
+      }${(!o.ticketCreated||o.ticketFailed)?` <button onclick="createTicket('${orderId}')" style="margin-left:8px;padding:3px 10px;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.5);color:#c084fc;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;letter-spacing:.5px">Create Ticket</button>`:''}</span></div>
     </div>`;
   $('omBody').innerHTML=html;
   // Actions for pending
@@ -1097,6 +1102,16 @@ async function orderAction(orderId,action){
     const d=await r.json();
     if(d.success){ toast(`Order ${action==='confirm'?'confirmed':'denied'}`); loadAll(); }
     else toast(d.error||'Action failed','err');
+  } catch { toast('Request failed','err'); }
+}
+
+async function createTicket(orderId){
+  try {
+    toast('Creating ticket…');
+    const r=await api('/create-ticket',{method:'POST',body:JSON.stringify({orderId})});
+    const d=await r.json();
+    if(d.success){ toast('Ticket created successfully!'); loadAll(); closeOrderModal(); }
+    else toast(d.error||'Ticket creation failed','err');
   } catch { toast('Request failed','err'); }
 }
 

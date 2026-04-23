@@ -2963,9 +2963,8 @@ const SITE_FAVICON   = 'https://silvmarket.shop/images/silvmarket%20logo.png';
 const SITE_NAME      = 'SILV MARKET';
 const DISCORD_INVITE = 'https://discord.gg/brianrots';
 
-// Vaultcord client_id — redirect_uri is built dynamically at runtime
-// pointing to /auth-callback.html on this domain
-const VAULTCORD_CLIENT_ID = '1481122330041258141';
+// Discord OAuth — handled server-side by bot (guilds.join + identify)
+const DISCORD_AUTH_URL = 'https://silvreview-production.up.railway.app/auth/discord';
 
 // Bot webhook — POST /order when purchase complete
 const BOT_WEBHOOK_URL = 'https://silvreview-production.up.railway.app/order';
@@ -4876,22 +4875,20 @@ function doRblx(val){
   },600);
 }
 
-// ── DISCORD OAUTH (VAULTCORD) ─────────────────────────────────
+// ── DISCORD OAUTH (server-side via bot) ───────────────────────
 // HOW THIS WORKS:
-// 1. User clicks "Link Discord" → popup opens to Vaultcord auth URL
-// 2. Vaultcord redirects to silvmarket.shop/auth-callback.html after auth
-// 3. auth-callback.html writes user data to localStorage key "silv_discord_auth"
-// 4. This page polls localStorage every 600ms while popup is open
-// 5. On data found → setDiscordLinked() fires, button unlocks, popup closes
+// 1. User clicks "Link Discord" → popup opens to bot /auth/discord
+// 2. Bot redirects to Discord consent screen (response_type=code)
+// 3. Discord redirects back to bot /auth/discord/callback
+// 4. Bot exchanges code for token, fetches user, force-joins guild, links account
+// 5. Bot redirects to silvmarket.shop/auth-callback.html?discord_id=...&username=...
+// 6. auth-callback.html writes to localStorage → this page picks it up
 // ──────────────────────────────────────────────────────────────
 
-// Build the auth URL so redirect_uri points to OUR callback page
-function buildVaultcordURL(){
-  const base = 'https://discord.com/oauth2/authorize';
-  const redirectUri = encodeURIComponent(window.location.origin + '/auth-callback.html');
-  // response_type=token gives access_token directly in the redirect hash
-  // This means auth-callback.html can call Discord API for real avatar/username
-  return `${base}?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
+function buildDiscordAuthURL(){
+  // Pass logged-in email so bot can link Discord to account
+  const email = localStorage.getItem('silv_email') || '';
+  return `${DISCORD_AUTH_URL}?email=${encodeURIComponent(email)}`;
 }
 
 function startDiscordAuth(e){
@@ -4908,7 +4905,7 @@ function startDiscordAuth(e){
   btn.innerHTML = '<span style="animation:spin .7s linear infinite;display:inline-block">⏳</span>&nbsp; Waiting for Discord…';
 
   // Open the auth window — use new tab on mobile (popup specs navigate current tab on mobile)
-  const authURL = buildVaultcordURL();
+  const authURL = buildDiscordAuthURL();
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
   if(isMobile){
@@ -4964,7 +4961,7 @@ function startLocalStoragePolling(btn, popup){
           return;
         }
 
-        // "awaitingConfirm" — user completed Vaultcord flow but no params returned
+        // "awaitingConfirm" — user completed Discord flow but no params returned
         if(age < 300000 && data.awaitingConfirm){
           clearInterval(_authCheckInterval);
           if(popup && !popup.closed){ try{ popup.close(); }catch(ex){} }
@@ -5002,7 +4999,7 @@ function startLocalStoragePolling(btn, popup){
 }
 
 function showVerifyConfirmPrompt(btn){
-  // Popup closed, Vaultcord ran, but no user data params — show inline confirm
+  // Popup closed, auth ran, but no user data params — show inline confirm
   resetAuthBtn(btn);
   const inner = document.getElementById('discVerifyBox').querySelector('.disc-verify-inner');
   // Remove any existing confirm prompt
@@ -5036,9 +5033,7 @@ function resetAuthBtn(btn){
 // ── postMessage listener (same-origin: auth-callback.html → this page) ──
 window.addEventListener('message', function(event){
   // Accept from our own origin (auth-callback.html is same domain)
-  if(event.origin !== window.location.origin &&
-     !event.origin.includes('vaultcord') &&
-     !event.origin.includes('discord.com')) return;
+  if(event.origin !== window.location.origin) return;
 
   const data = event.data;
   if(data && (data.type === 'DISCORD_AUTH' || data.verified)){

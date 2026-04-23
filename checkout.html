@@ -424,7 +424,7 @@ input{font-family:'Inter',sans-serif}
 <script>
 // ── CONSTANTS ─────────────────────────────────────────────────
 const DISCORD_INVITE    = 'https://discord.gg/brianrots';
-const VAULTCORD_CLIENT_ID = '1481122330041258141';
+const DISCORD_AUTH_URL   = 'https://silvreview-production.up.railway.app/auth/discord';
 const BOT_BASE          = 'https://silvreview-production.up.railway.app';
 const BOT_WEBHOOK_URL   = BOT_BASE + '/order';
 const BOT_WEBHOOK_SECRET= 'sltnslntslnt';
@@ -565,8 +565,8 @@ function restoreDiscordSession(){
 }
 function startDiscordAuth(e){
   if(e) e.preventDefault();
-  const redirect = encodeURIComponent(window.location.origin+'/auth-callback.html');
-  const url = `https://discord.com/oauth2/authorize?client_id=${VAULTCORD_CLIENT_ID}&redirect_uri=${redirect}&response_type=token&scope=identify+guilds.join&state=silvmarket&prompt=none`;
+  const email = localStorage.getItem('silv_email') || '';
+  const url = `${DISCORD_AUTH_URL}?email=${encodeURIComponent(email)}`;
   const w=560,h=680,l=Math.round(screen.width/2-w/2),t=Math.round(screen.height/2-h/2);
   window.open(url,'discordAuth',`width=${w},height=${h},left=${l},top=${t},resizable=yes,scrollbars=yes`);
 }

@@ -27,7 +27,7 @@ const SITE_LOGO_URL       = 'https://silvmarket.shop/images/logo.png'
 const SITE_FAVICON        = 'https://silvmarket.shop/images/logo.png'
 const SITE_NAME           = 'SILV MARKET'
 const DISCORD_INVITE      = 'https://discord.gg/brianrots'
-const VAULTCORD_CLIENT_ID = '1481122330041258141'
+const DISCORD_AUTH_URL = 'https://silvreview-production.up.railway.app/auth/discord'
 const BOT_WEBHOOK_URL     = 'https://silvreview-production.up.railway.app/order'
 const BOT_WEBHOOK_SECRET  = 'sltnslntslnt'
 const CRYPTO_WALLETS      = { BTC, ETH, SOL, USDT, LTC }
@@ -53,6 +53,7 @@ GITHUB_REPO=silvmarket
 GITHUB_BRANCH=main
 GITHUB_FILE=index.html
 STRIPE_SECRET_KEY
+DISCORD_CLIENT_SECRET
 RESEND_API_KEY
 ```
 
@@ -101,6 +102,9 @@ Items live as JS arrays in index.html:
 - `POST /verify-promo` — verify single promo code (requires webhook secret, never exposes full list)
 - `GET /promos` — list all promos (requires webhook secret — internal/admin only)
 - `POST /login` — cross-device login (rate limited: 15/min per IP)
+- `GET /auth/discord` — start Discord OAuth (redirects to Discord consent, pass ?email= to link account)
+- `GET /auth/discord/callback` — Discord OAuth callback (exchanges code, guilds.join, links account, redirects to auth-callback.html)
+- `POST /create-ticket` — manually create ticket for an order (admin only)
 
 ## Bot Security
 - In-memory rate limiter on `/order` (20/min), `/login` (15/min), `/forgot-password` (5/min), `/verify-promo` (30/min)
@@ -162,7 +166,7 @@ Items live as JS arrays in index.html:
 - Account page (/account) — orders, settings, security/2FA, change password, My Favourites
 - Loyalty rewards page (/loyalty) — 6 tiers (Awakened→Celestial), 10pts per $1 spent
 - Forgot password (Resend email with 6-digit code)
-- Discord OAuth via Vaultcord
+- Discord OAuth (server-side via bot — guilds.join + identify, replaces Vaultcord)
 - Cart + checkout (Stripe / Crypto)
 - Promo codes (server-side verified)
 - Fake receipt mode for testing

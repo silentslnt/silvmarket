@@ -4773,7 +4773,7 @@ const BS_TAB_GAMES = [
   {game:'Bloodlines',       label:'Bloodlines',       img:'https://tr.rbxcdn.com/180DAY-3279db75df02809097530f4f5ea2c116/500/280/Image/Jpeg/noFilter'},
   {game:'Blade Ball',       label:'Blade Ball',       img:'https://tr.rbxcdn.com/180DAY-e596ebf44a1b6bf3e8d1c5771bcfa75b/500/280/Image/Jpeg/noFilter'},
   {game:'Anime Vanguards',  label:'Anime Vanguards',  img:'https://tr.rbxcdn.com/180DAY-a431b823ab2064797935d736e92eff6e/500/280/Image/Jpeg/noFilter'},
-  {game:'Robux',            label:'Robux',            img:'https://silvmarket.shop/images/logo.png'},
+  {game:'Robux',            label:'Robux',            img:'https://silvmarket.shop/images/silvmarket%20logo.png'},
 ];
 
 var _bsActiveGame = null;
@@ -5980,24 +5980,8 @@ function toggleGS(){
 
 function selectGame(el,name,icon,key){
   if(key==='all'){goHome();return;}
-  var gb=document.getElementById('gameBar');if(gb)gb.style.display='';
-  var nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='none';
-  document.getElementById('gsName').textContent=name;
-  const gsIconEl=document.getElementById('gsIcon');
-  const imgUrl=el.querySelector('.gd-icon img');
-  if(imgUrl){gsIconEl.innerHTML='<img src="'+imgUrl.src+'" style="width:22px;height:22px;border-radius:5px;object-fit:cover">';}
-  else{gsIconEl.textContent=icon;}
-  document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));
-  el.classList.add('gd-active');
-  document.getElementById('gsBtn').classList.remove('open');
-  document.getElementById('gsDrop').classList.remove('open');
-
-  ALL_SECTION_IDS.forEach(id=>{const sec=document.getElementById(id);if(!sec)return;const show=id===key;sec.style.display=show?'':'none';const dl=sec.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
-  const sec=document.getElementById(key);if(sec)setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
-  // Update page title and URL for current game
-  document.title=name+' — Silv Market | Buy Roblox Items';
-  history.pushState(null,'','/'+key);
-  setSectionBg(key);
+  // Navigate to dedicated game page
+  window.location.href='/game?g='+key;
 }
 
 
@@ -6497,7 +6481,7 @@ const VIEW_ALL_CONFIG = {
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all','weapons','auras','gems','bundles'] },
   ps99:     { title:'Pet Simulator 99',  img:'https://silvmarket.shop/images/PetSim99%20logo.webp',                                                  items:()=>PS99,       filters:['all','gems','huge','titanic','rainbow','eggs','other'] },
   bw:       { title:'Bridger: Western',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp',             items:()=>BW,         filters:['all','items','stands','accounts'] },
-  new:      { title:'New Arrivals',    img:'https://silvmarket.shop/images/logo.png',    items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...GAG,...AM,...MM2,...BRAINROT,...RIVALS,...NIGHTS,...TSUNAMI,...GPO,...SP,...BB,...AV,...BLOODLINES,...FISCH,...BSS,...VBL,...DTH,...PS99,...BW].filter(i=>i.badge==='new'), filters:['all'] },
+  new:      { title:'New Arrivals',    img:'https://silvmarket.shop/images/silvmarket%20logo.png',    items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...GAG,...AM,...MM2,...BRAINROT,...RIVALS,...NIGHTS,...TSUNAMI,...GPO,...SP,...BB,...AV,...BLOODLINES,...FISCH,...BSS,...VBL,...DTH,...PS99,...BW].filter(i=>i.badge==='new'), filters:['all'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
@@ -8220,29 +8204,16 @@ init();
   if(gb)gb.style.display='none';
 })();
 
-// ── SCROLL TO GAME SECTION FROM URL PARAM (?game=rivals etc) ──
-// Also supports window.__SILVGAME (set by Cloudflare Pages Function for /mm2, /bf etc.)
+// ── REDIRECT TO GAME PAGE FROM URL PARAM (?game=rivals etc) ──
 (function checkGameParam(){
   const params = new URLSearchParams(location.search);
-  const rawPath = location.pathname.replace(/^\/+|\/+$/g,'');
-  const game = params.get('game') || window.__SILVGAME || rawPath || '';
+  const game = params.get('game') || '';
   if(!game) return;
-  // Discord has no section — open its View All overlay (URL managed inside openViewAll)
   if(game.toLowerCase()==='discord'){ history.replaceState({},'',' /'); setTimeout(()=>openViewAll('discord'),120); return; }
-  history.replaceState({}, '', location.pathname);
   const id = ALL_SECTION_IDS.find(g => g === game.toLowerCase());
   if(!id) return;
-  // Show only the target section, hide all others + home menu
-  var hm=document.getElementById('homeMenu');if(hm)hm.classList.add('hm-hidden');
-  var gb=document.getElementById('gameBar');if(gb)gb.style.display='';
-  var nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='none';
-  ALL_SECTION_IDS.forEach(function(sid){var s=document.getElementById(sid);if(!s)return;var show=sid===id;s.style.display=show?'':'none';var dl=s.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
-  const gdi=document.querySelector('.gd-item[data-key="'+id+'"]');
-  if(gdi){document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));gdi.classList.add('gd-active');const lbl=gdi.querySelector('.gd-label');if(lbl)document.getElementById('gsName').textContent=lbl.textContent;const img=gdi.querySelector('.gd-icon img');const gsIconEl=document.getElementById('gsIcon');if(img&&gsIconEl)gsIconEl.innerHTML='<img src="'+img.src+'" style="width:22px;height:22px;border-radius:5px;object-fit:cover">';}
-  const el=document.getElementById(id);if(!el)return;
-  function doScroll(){el.scrollIntoView({behavior:'smooth',block:'start'});}
-  setTimeout(doScroll, 200);
-  setSectionBg(id);
+  // Redirect to dedicated game page
+  window.location.replace('/game?g='+id);
 })();
 
 // ── OPEN ITEM FROM URL PARAM (?open=<name>) ───────────────────
@@ -8536,23 +8507,8 @@ function closeNavSG(){
 }
 function goToGame(key){
   if(key==='discord'){openViewAll('discord');return;}
-  // Hide home menu + nav selector, show shop + game bar
-  const hm=document.getElementById('homeMenu');
-  if(hm) hm.classList.add('hm-hidden');
-  const gb=document.getElementById('gameBar');if(gb)gb.style.display='';
-  const nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='none';
-  const el=document.querySelector('.gd-item[data-key="'+key+'"]');
-  if(el){
-    const name=el.querySelector('.gd-label')?.textContent||key;
-    const icon=el.querySelector('.gd-icon')?.textContent||'';
-    selectGame(el,name,icon,key);
-  } else {
-    // Fallback: show only the target section (never show all)
-    ALL_SECTION_IDS.forEach(function(id){const s=document.getElementById(id);if(!s)return;const show=id===key;s.style.display=show?'':'none';const dl=s.nextElementSibling;if(dl&&dl.classList.contains('div-line'))dl.style.display=show?'':'none';});
-    const sec=document.getElementById(key);
-    if(sec)setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);
-    setSectionBg(key);
-  }
+  // Navigate to dedicated game page
+  window.location.href='/game?g='+key;
 }
 document.addEventListener('click', e => {
   if(!document.getElementById('navSgWrap')?.contains(e.target)) closeNavSG();
@@ -8666,7 +8622,7 @@ setTimeout(renderHomeMenu, 0);
 <div id="chatWidget">
   <div id="chatWindow">
     <div class="cw-hd">
-      <div class="cw-avatar"><img src="https://silvmarket.shop/images/logo.png" alt="Silv"/></div>
+      <div class="cw-avatar"><img src="https://silvmarket.shop/images/silvmarket%20logo.png" alt="Silv"/></div>
       <div class="cw-hd-info">
         <h4>Silv Assistant</h4>
         <p>Always online</p>
@@ -8778,35 +8734,35 @@ const KB = [
 
 // ── SPECIFIC GAMES ─────────────────────────────────────────────
 {keys:[['blox fruit','blox fruits','bf','perm','permanent']],
- a:`We have a huge selection of <b>Blox Fruits</b> items:\n• Permanent fruits (Dragon, Leopard, etc.)\n• Normal fruits\n• Gamepasses\n• Accounts\n• Fruit skins\n\nBrowse our full BF collection: <a href="/?game=bf">Blox Fruits section</a>\n\nWe offer both normal and permanent pricing — toggle between them on each item card!`},
+ a:`We have a huge selection of <b>Blox Fruits</b> items:\n• Permanent fruits (Dragon, Leopard, etc.)\n• Normal fruits\n• Gamepasses\n• Accounts\n• Fruit skins\n\nBrowse our full BF collection: <a href="/game?g=bf">Blox Fruits section</a>\n\nWe offer both normal and permanent pricing — toggle between them on each item card!`},
 {keys:[['grow a garden','gag','garden','seeds','seed','pet','pets']],
- a:`Our <b>Grow a Garden</b> section includes:\n• Seeds (common to mythical)\n• Pets\n• Tools\n• Tokens\n\n<a href="/?game=gag">Browse Grow a Garden →</a>`},
+ a:`Our <b>Grow a Garden</b> section includes:\n• Seeds (common to mythical)\n• Pets\n• Tools\n• Tokens\n\n<a href="/game?g=gag">Browse Grow a Garden →</a>`},
 {keys:[['mm2','murder mystery','godly','godlies','chroma','chromas']],
- a:`We sell <b>Murder Mystery 2</b> items:\n• Godly weapons\n• Chroma weapons\n• Bundles at discounted prices\n\n<a href="/?game=mm2">Browse MM2 →</a>`},
+ a:`We sell <b>Murder Mystery 2</b> items:\n• Godly weapons\n• Chroma weapons\n• Bundles at discounted prices\n\n<a href="/game?g=mm2">Browse MM2 →</a>`},
 {keys:[['adopt me','am','legendary','neon','mega']],
- a:`Our <b>Adopt Me</b> collection includes:\n• Legendary pets\n• Neon pets\n• Mega neon pets\n\n<a href="/?game=am">Browse Adopt Me →</a>`},
+ a:`Our <b>Adopt Me</b> collection includes:\n• Legendary pets\n• Neon pets\n• Mega neon pets\n\n<a href="/game?g=am">Browse Adopt Me →</a>`},
 {keys:[['brainrot','steal a brainrot','sab']],
- a:`We have a massive <b>Steal a Brainrot</b> inventory with speed tiers and mutations! Use the dropdown selectors on each item to pick your speed/mutation variant.\n\n<a href="/?game=brainrot">Browse Steal a Brainrot →</a>`},
+ a:`We have a massive <b>Steal a Brainrot</b> inventory with speed tiers and mutations! Use the dropdown selectors on each item to pick your speed/mutation variant.\n\n<a href="/game?g=brainrot">Browse Steal a Brainrot →</a>`},
 {keys:[['rival','rivals']],
- a:`Our <b>Rivals</b> section has:\n• Skin cases and bundles\n• Season passes\n• Legendary keys\n• Limited edition items\n\n<a href="/?game=rivals">Browse Rivals →</a>`},
+ a:`Our <b>Rivals</b> section has:\n• Skin cases and bundles\n• Season passes\n• Legendary keys\n• Limited edition items\n\n<a href="/game?g=rivals">Browse Rivals →</a>`},
 {keys:[['gpo','grand piece','grand piece online']],
- a:`We sell <b>Grand Piece Online</b> items:\n• Devil fruits\n• Swords\n• Bundles\n• Currency\n\n<a href="/?game=gpo">Browse GPO →</a>`},
+ a:`We sell <b>Grand Piece Online</b> items:\n• Devil fruits\n• Swords\n• Bundles\n• Currency\n\n<a href="/game?g=gpo">Browse GPO →</a>`},
 {keys:[['sailor','sailor piece','sp']],
- a:`Our <b>Sailor Piece</b> section includes fruits, swords, bundles, currency, keys, and rerolls.\n\n<a href="/?game=sp">Browse Sailor Piece →</a>`},
+ a:`Our <b>Sailor Piece</b> section includes fruits, swords, bundles, currency, keys, and rerolls.\n\n<a href="/game?g=sp">Browse Sailor Piece →</a>`},
 {keys:[['ps99','pet sim','pet simulator','petsim']],
- a:`We have <b>Pet Simulator 99</b> items:\n• Gems (bulk discounts available!)\n• Huge pets\n• Titanic pets\n• Rainbow pets\n• Eggs & more\n\n<a href="/?game=ps99">Browse PS99 →</a>`},
+ a:`We have <b>Pet Simulator 99</b> items:\n• Gems (bulk discounts available!)\n• Huge pets\n• Titanic pets\n• Rainbow pets\n• Eggs & more\n\n<a href="/game?g=ps99">Browse PS99 →</a>`},
 {keys:[['robux','rbx','r$']],
- a:`We sell <b>Robux</b> at competitive prices! Delivered directly to your Roblox account — fast and secure.\n\nCheck our rates at the top of the shop or <a href="/?game=robux">click here</a>.`},
-{keys:[['fisch','fishing']],a:`Browse our <b>Fisch</b> items: <a href="/?game=fisch">Fisch section →</a>`},
-{keys:[['blade ball','bb']],a:`Check out our <b>Blade Ball</b> tokens and items: <a href="/?game=bb">Blade Ball →</a>`},
-{keys:[['anime vanguard','av','vanguards']],a:`Browse <b>Anime Vanguards</b> units: <a href="/?game=av">Anime Vanguards →</a>`},
-{keys:[['bloodline','bloodlines','bl','eyes','race']],a:`Our <b>Bloodlines</b> section has eyes, races, and more: <a href="/?game=bl">Bloodlines →</a>`},
-{keys:[['tsunami','escape tsunami']],a:`Browse <b>Escape Tsunami</b> items: <a href="/?game=tsunami">Tsunami →</a>`},
-{keys:[['99 nights','nights']],a:`Check out our <b>99 Nights</b> currency and items: <a href="/?game=nights">99 Nights →</a>`},
-{keys:[['bee swarm','bss']],a:`Browse <b>Bee Swarm Simulator</b> items: <a href="/?game=bss">BSS →</a>`},
-{keys:[['death ball','dth']],a:`Check out <b>Death Ball</b> items: <a href="/?game=dth">Death Ball →</a>`},
-{keys:[['volleyball','vbl']],a:`Browse <b>Volleyball Legends</b> items: <a href="/?game=vbl">VBL →</a>`},
-{keys:[['bridger','bw','western']],a:`Browse <b>Bridger: Western</b> items: <a href="/?game=bw">Bridger →</a>`},
+ a:`We sell <b>Robux</b> at competitive prices! Delivered directly to your Roblox account — fast and secure.\n\nCheck our rates at the top of the shop or <a href="/game?g=robux">click here</a>.`},
+{keys:[['fisch','fishing']],a:`Browse our <b>Fisch</b> items: <a href="/game?g=fisch">Fisch section →</a>`},
+{keys:[['blade ball','bb']],a:`Check out our <b>Blade Ball</b> tokens and items: <a href="/game?g=bb">Blade Ball →</a>`},
+{keys:[['anime vanguard','av','vanguards']],a:`Browse <b>Anime Vanguards</b> units: <a href="/game?g=av">Anime Vanguards →</a>`},
+{keys:[['bloodline','bloodlines','bl','eyes','race']],a:`Our <b>Bloodlines</b> section has eyes, races, and more: <a href="/game?g=bl">Bloodlines →</a>`},
+{keys:[['tsunami','escape tsunami']],a:`Browse <b>Escape Tsunami</b> items: <a href="/game?g=tsunami">Tsunami →</a>`},
+{keys:[['99 nights','nights']],a:`Check out our <b>99 Nights</b> currency and items: <a href="/game?g=nights">99 Nights →</a>`},
+{keys:[['bee swarm','bss']],a:`Browse <b>Bee Swarm Simulator</b> items: <a href="/game?g=bss">BSS →</a>`},
+{keys:[['death ball','dth']],a:`Check out <b>Death Ball</b> items: <a href="/game?g=dth">Death Ball →</a>`},
+{keys:[['volleyball','vbl']],a:`Browse <b>Volleyball Legends</b> items: <a href="/game?g=vbl">VBL →</a>`},
+{keys:[['bridger','bw','western']],a:`Browse <b>Bridger: Western</b> items: <a href="/game?g=bw">Bridger →</a>`},
 
 // ── STOCK / AVAILABILITY ───────────────────────────────────────
 {keys:[['stock','out of stock','oos','available','availability','restock','back in stock']],

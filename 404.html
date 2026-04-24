@@ -47,7 +47,7 @@ var PAGE_MAP = {
   'guide':        '/tutorial',
 };
 if (GAME_MAP[path]) {
-  window.location.replace('/?game=' + GAME_MAP[path]);
+  window.location.replace('/game?g=' + GAME_MAP[path]);
 } else if (PAGE_MAP[path]) {
   window.location.replace(PAGE_MAP[path]);
 } else {

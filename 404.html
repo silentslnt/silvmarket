@@ -42,8 +42,14 @@ var GAME_MAP = {
   'dth':           'dth',
   'death-ball':    'dth'
 };
+var PAGE_MAP = {
+  'how-to-order': '/tutorial',
+  'guide':        '/tutorial',
+};
 if (GAME_MAP[path]) {
   window.location.replace('/?game=' + GAME_MAP[path]);
+} else if (PAGE_MAP[path]) {
+  window.location.replace(PAGE_MAP[path]);
 } else {
   window.location.replace('/');
 }

@@ -39,7 +39,7 @@
   --red:#ff0040;--red2:#ff3366;
   --green:#00e676;
   --white:#fff;
-  --dim:rgba(255,255,255,0.55);
+  --dim:rgba(255,255,255,0.7);
   --faint:rgba(255,255,255,0.07);
   --border:rgba(255,255,255,0.08);
   --nav-h:64px;
@@ -110,7 +110,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .sr-em img{width:100%;height:100%;object-fit:contain;border-radius:9px}
 .sr-info{flex:1;min-width:0}
 .sr-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .12s}
-.sr-game{font-size:10px;color:rgba(255,255,255,.32);font-family:'Rajdhani',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.sr-game{font-size:10px;color:rgba(255,255,255,.45);font-family:'Rajdhani',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
 .sr-price{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--yellow);flex-shrink:0;background:rgba(255,215,0,.06);padding:3px 8px;border-radius:6px}
 .sr-none{padding:22px;text-align:center;color:rgba(255,255,255,.28);font-size:13px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .sr-header{padding:8px 14px 4px;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);text-transform:uppercase}
@@ -118,10 +118,10 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .sr-game-hd:first-child{border-top:none}
 
 .nav-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.nav-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.nav-right{display:flex;gap:14px;align-items:center;flex-shrink:0}
 .nav-sg-wrap{position:relative;flex-shrink:0}
-.nav-sg-btn{display:flex;align-items:center;gap:7px;padding:0 13px;height:34px;background:rgba(147,51,234,.18);border:1px solid rgba(147,51,234,.45);border-radius:8px;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.3px}
-.nav-sg-btn:hover{background:rgba(147,51,234,.32);border-color:rgba(255,16,240,.6)}
+.nav-sg-btn{display:flex;align-items:center;gap:6px;padding:0;height:34px;background:none;border:none;color:rgba(255,255,255,.6);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:color .15s;white-space:nowrap;letter-spacing:.3px}
+.nav-sg-btn:hover{color:#fff}
 .nav-sg-arrow{transition:transform .2s;flex-shrink:0}
 .nav-sg-btn.open .nav-sg-arrow{transform:rotate(180deg)}
 .nav-sg-drop{display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:500;background:linear-gradient(160deg,#110828,#09041f);border:1px solid rgba(147,51,234,.4);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.8);padding:10px;width:320px;display:none;grid-template-columns:1fr 1fr;gap:6px;max-height:80vh;overflow-y:auto}
@@ -136,23 +136,34 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .tp-nav-wrap:hover{background:rgba(0,182,122,.22);box-shadow:0 0 18px rgba(0,182,122,.45);transform:translateY(-1px);animation:none}
 @keyframes tpPulse{0%,100%{box-shadow:0 0 0 rgba(0,182,122,0)}50%{box-shadow:0 0 10px rgba(0,182,122,.3)}}
 .tp-label{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#fff;white-space:nowrap;letter-spacing:.3px}
-.disc-link{display:flex;align-items:center;gap:6px;background:#5865f2;color:#fff;
-  height:34px;padding:0 13px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-weight:700;
-  font-size:12px;text-decoration:none;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
-.disc-link:hover{background:#4752c4;box-shadow:0 0 14px rgba(88,101,242,.4)}
-.cart-btn{background:rgba(255,16,240,.08);border:1px solid rgba(255,16,240,.28);
-  color:var(--pink);height:34px;padding:0 13px;border-radius:8px;
+.nav-link{display:flex;align-items:center;gap:5px;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:.3px;
+  color:rgba(255,255,255,.6);cursor:pointer;transition:color .15s;white-space:nowrap;
+  text-decoration:none;background:none;border:none;padding:0}
+.nav-link:hover{color:#fff}
+.nav-link svg{flex-shrink:0;opacity:.5;transition:opacity .15s}
+.nav-link:hover svg{opacity:.85}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0}
+.disc-link{display:flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,.6);font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:13px;text-decoration:none;transition:color .15s;letter-spacing:.3px;white-space:nowrap;
+  background:none;border:none;padding:0}
+.disc-link:hover{color:#fff}
+.disc-link svg{flex-shrink:0;fill:#5865f2;color:#5865f2;transition:opacity .15s}
+.disc-link:hover svg{opacity:.85}
+.cart-btn{background:rgba(255,16,240,.08);border:1px solid rgba(255,16,240,.22);
+  color:var(--pink);height:32px;padding:0 12px;border-radius:8px;
   font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
   cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap}
-.cart-btn:hover{background:rgba(255,16,240,.15);box-shadow:0 0 14px rgba(255,16,240,.28)}
+.cart-btn:hover{background:rgba(255,16,240,.15);border-color:rgba(255,16,240,.35)}
 .cbadge{background:var(--red);color:#fff;border-radius:50%;min-width:17px;height:17px;
   font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;
   box-shadow:0 0 6px rgba(255,0,64,.6);padding:0 2px}
-.nav-util-btn{display:flex;align-items:center;gap:5px;height:34px;padding:0 11px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;
-  color:rgba(255,255,255,.7);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
-  cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.3px}
-.nav-util-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}
+.nav-util-btn{display:flex;align-items:center;gap:5px;height:32px;padding:0 12px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;
+  color:rgba(255,255,255,.65);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
+  cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.3px;text-decoration:none}
+.nav-util-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff}
 
 .game-bar{position:sticky;top:var(--nav-h);z-index:98;
   background:rgba(4,1,14,.97);backdrop-filter:blur(20px);
@@ -185,7 +196,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
 .sec-title{font-family:'Orbitron',monospace;font-size:clamp(20px,3.5vw,34px);
   font-weight:800;letter-spacing:1px;margin-bottom:5px}
-.sec-sub{color:rgba(255,255,255,.36);font-size:13px;line-height:1.6;margin-bottom:28px;max-width:65ch}
+.sec-sub{color:rgba(255,255,255,.55);font-size:13px;line-height:1.6;margin-bottom:28px;max-width:65ch}
 .sec-hd{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:24px}
 .view-all{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;
   background:linear-gradient(135deg,#ff6d00,var(--red2));color:#fff;
@@ -236,7 +247,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .feat-g{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;
   text-transform:uppercase;color:var(--pink);margin-bottom:5px}
 .feat-n{font-family:'Orbitron',monospace;font-size:28px;font-weight:800;letter-spacing:1px;margin-bottom:7px}
-.feat-d{color:rgba(255,255,255,.42);font-size:13px;line-height:1.6;max-width:340px}
+.feat-d{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6;max-width:340px}
 .feat-r{text-align:right;flex-shrink:0;margin-left:auto}
 .feat-old{text-decoration:line-through;color:rgba(255,255,255,.2);font-size:13px;margin-bottom:3px}
 .feat-p{font-family:'Orbitron',monospace;font-size:36px;font-weight:800;color:var(--yellow);
@@ -299,7 +310,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .stock-ok{color:var(--green);border-color:rgba(0,230,118,.3)}
 .pc-save-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg,#ff6b35,#ff10f0);color:#fff;font-family:Orbitron,sans-serif;font-size:9px;font-weight:700;padding:3px 7px;border-radius:8px;z-index:5;letter-spacing:.5px;pointer-events:none}
 .pc-bundle-items{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:5px;line-height:1.5;white-space:normal}
-.pc-orig{font-size:11px;color:rgba(255,255,255,.35);text-decoration:line-through;margin-bottom:1px}
+.pc-orig{font-size:11px;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:1px}
 
 .type-pill{position:absolute;bottom:10px;left:9px;z-index:3;
   font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;
@@ -323,7 +334,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .tog{flex:1;min-width:0;padding:5px;border-radius:7px;font-size:10px;font-weight:700;
   font-family:'Rajdhani',sans-serif;letter-spacing:.5px;cursor:pointer;
   border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
-  color:rgba(255,255,255,.38);transition:all .2s;
+  color:rgba(255,255,255,.55);transition:all .2s;
   touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .tog.sn{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.38);color:var(--blue)}
 .tog.sp{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.32);color:var(--yellow)}
@@ -333,7 +344,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .br-sel-lbl{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;color:rgba(255,16,240,.8);text-transform:uppercase;white-space:nowrap;padding:0 7px;border-right:1px solid rgba(255,255,255,.1);flex-shrink:0;line-height:30px}
 .br-sel{flex:1;background:transparent;border:none;color:rgba(255,255,255,.8);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;padding:0 6px;height:100%;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .br-sel option{background:#0d0a1e;color:rgba(255,255,255,.9)}
-.br-sel-arr{position:absolute;right:7px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.35);flex-shrink:0}
+.br-sel-arr{position:absolute;right:7px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.5);flex-shrink:0}
 .pc-price{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;color:var(--yellow);
   margin-bottom:9px;display:flex;align-items:center;gap:6px}
 .pc-old{text-decoration:line-through;color:rgba(255,255,255,.2);font-size:11px;font-family:'Inter',sans-serif}
@@ -363,7 +374,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   padding:2px 6px;border-radius:4px}
 .rp-ico{font-size:38px;margin-bottom:9px;filter:drop-shadow(0 0 10px rgba(255,215,0,.4))}
 .rp-amt{font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:var(--yellow);margin-bottom:3px}
-.rp-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:12px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
+.rp-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:12px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .rp-price{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px}
 .rp-btn{width:100%;padding:9px;border-radius:8px;
   background:linear-gradient(135deg,#a16207,var(--yellow));color:#000;
@@ -383,7 +394,7 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   display:flex;align-items:center;justify-content:center;margin:0 auto 13px;
   box-shadow:0 0 18px rgba(255,16,240,.22)}
 .hc h3{font-size:14px;font-weight:700;margin-bottom:6px}
-.hc p{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6}
+.hc p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6}
 
 .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
 .rv{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
@@ -414,7 +425,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .fb p{color:rgba(255,255,255,.28);font-size:13px;line-height:1.7;margin-top:10px}
 .fc h4{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;
   text-transform:uppercase;color:var(--pink);margin-bottom:13px}
-.fc a{display:block;text-decoration:none;color:rgba(255,255,255,.35);font-size:13px;margin-bottom:8px;transition:color .2s}
+.fc a{display:block;text-decoration:none;color:rgba(255,255,255,.5);font-size:13px;margin-bottom:8px;transition:color .2s}
 .fc a:hover{color:#ff10f0}
 .fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(147,51,234,.15);
   padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
@@ -432,7 +443,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   display:flex;align-items:center;justify-content:space-between}
 .cart-hd h2{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
 .xb{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);
   font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .xb:hover{background:rgba(255,0,64,.14);color:var(--red2)}
 .cart-list{flex:1;overflow-y:auto;padding:16px}
@@ -450,7 +461,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .cart-empty{text-align:center;padding:50px 20px;color:rgba(255,255,255,.2)}
 .cart-empty-i{font-size:52px;opacity:.22;margin-bottom:12px}
 .cart-ft{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.22)}
-.csr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:13px;color:rgba(255,255,255,.42)}
+.csr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:13px;color:rgba(255,255,255,.6)}
 .cs-tot{font-family:'Orbitron',monospace;font-size:19px;font-weight:700;color:var(--yellow)}
 .co-btn{width:100%;padding:13px;border-radius:11px;
   background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
@@ -489,7 +500,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .co-l::-webkit-scrollbar-thumb{background:rgba(147,51,234,.4);border-radius:2px}
 .co-r{padding:26px;background:rgba(0,0,0,.17)}
 .co-lbl{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;
-  text-transform:uppercase;color:rgba(255,255,255,.33);margin-bottom:6px}
+  text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
 .co-inp{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
   border-radius:10px;padding:12px 42px 12px 14px;color:#fff;font-size:13px;
   font-family:'Inter',sans-serif;transition:all .2s;outline:none}
@@ -544,7 +555,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .duc-av img{width:100%;height:100%;object-fit:cover}
 .duc-info{flex:1}
 .duc-name{font-size:13px;font-weight:700}
-.duc-id{font-size:10px;color:rgba(255,255,255,.32);margin-top:1px;font-family:'Rajdhani',sans-serif}
+.duc-id{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px;font-family:'Rajdhani',sans-serif}
 .duc-check{color:#00c853;font-size:18px;margin-left:auto}
 .disc-link-btn{width:100%;padding:11px;border-radius:10px;
   background:linear-gradient(135deg,#3f1d8f,#5865f2);color:#fff;
@@ -566,7 +577,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   border-radius:13px;padding:16px;margin-bottom:16px}
 .sum-box h3{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;margin-bottom:12px}
 .sum-r{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;font-size:12px}
-.sum-lbl{color:rgba(255,255,255,.36)}.sum-val{font-weight:600}
+.sum-lbl{color:rgba(255,255,255,.55)}.sum-val{font-weight:600}
 .sum-disc{color:var(--red2)}
 .sum-hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:10px 0}
 .sum-tot{font-family:'Orbitron',monospace;font-size:21px;font-weight:800;color:var(--yellow)}
@@ -601,7 +612,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 .succ-ic{font-size:70px;margin-bottom:18px;animation:spi .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes spi{0%{transform:scale(0)}100%{transform:scale(1)}}
 .succ-t{font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:var(--yellow);margin-bottom:7px}
-.succ-s{color:rgba(255,255,255,.42);font-size:13px;max-width:360px;line-height:1.7}
+.succ-s{color:rgba(255,255,255,.6);font-size:13px;max-width:360px;line-height:1.7}
 
 /* GAME SELECTOR */
 .gs-wrap{position:relative;flex-shrink:0}
@@ -724,7 +735,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
   margin-top:8px;padding:5px 0;user-select:none}
 .swipe-hint-label{
   font-family:'Orbitron',monospace;font-size:9px;font-weight:700;
-  letter-spacing:3px;color:rgba(255,255,255,.32);text-transform:uppercase;
+  letter-spacing:3px;color:rgba(255,255,255,.5);text-transform:uppercase;
   padding:0 8px}
 .swipe-hint-arr{
   display:flex;align-items:center;gap:3px}
@@ -975,7 +986,7 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
   border-radius:50%;cursor:pointer;font-size:16px;
   display:flex;align-items:center;justify-content:center}
 .cm-title{font-family:'Orbitron',monospace;font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;display:flex;align-items:center;gap:8px}
-.cm-sub{font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);margin-bottom:16px;letter-spacing:1.5px}
+.cm-sub{font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.5);margin-bottom:16px;letter-spacing:1.5px}
 .cm-timer-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
 .cm-timer-lbl{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px;display:flex;align-items:center;gap:6px}
 .cm-timer-val{font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#ffd700}
@@ -1002,7 +1013,7 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 .cm-copy-addr-full{width:100%;padding:12px;background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(255,16,240,.2));border:1px solid rgba(255,16,240,.35);border-radius:9px;color:#fff;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;margin-bottom:14px;letter-spacing:.5px}
 .cm-copy-addr-full:hover{background:linear-gradient(135deg,rgba(147,51,234,.45),rgba(255,16,240,.3));box-shadow:0 0 16px rgba(255,16,240,.2)}
 .cm-status-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;margin-bottom:12px;text-align:center}
-.cm-status-txt{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:6px}
+.cm-status-txt{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:6px}
 .cm-dots{display:none;margin-top:6px}
 .cm-sent-btn{width:100%;padding:13px;border-radius:11px;
   background:linear-gradient(135deg,#9333ea,#ff10f0);color:#fff;
@@ -1098,7 +1109,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       SILV&nbsp;<span style="background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">MARKET</span>
     </div>
     <div style="font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;
-      color:rgba(255,255,255,.32);text-transform:uppercase;margin-top:10px">Premium Roblox Shop</div>
+      color:rgba(255,255,255,.5);text-transform:uppercase;margin-top:10px">Premium Roblox Shop</div>
     <div style="margin-top:24px;width:180px;height:2px;background:rgba(255,255,255,.07);
       border-radius:2px;overflow:hidden;margin-left:auto;margin-right:auto">
       <div style="height:100%;border-radius:2px;
@@ -1120,7 +1131,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <span style="font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#ff10f0,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">MARKET</span>
     </span>
   </a>
-  <div style="width:1px;height:22px;background:rgba(255,255,255,.1);flex-shrink:0"></div>
   <!-- Select Games nav dropdown -->
   <div class="nav-sg-wrap" id="navSgWrap">
     <button class="nav-sg-btn" id="navSgBtn" onclick="toggleNavSG()">
@@ -1142,10 +1152,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="nav-right">
+    <a href="/tutorial" class="nav-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+      <span class="tut-label">Tutorial</span>
+    </a>
+    <div class="nav-sep"></div>
     <a id="discNavLink" href="https://discord.gg/brianrots" class="disc-link" target="_blank">
       <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg>
       <span class="disc-label">Discord</span>
     </a>
+    <div class="nav-sep"></div>
     <button id="langCurrBtn" onclick="openLangCurr()" title="Language &amp; Currency" class="nav-util-btn">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span id="langCurrLabel">EN | USD</span>
@@ -1214,7 +1230,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     </div>
     <div style="min-width:0">
       <div id="udName" style="font-family:'Orbitron',monospace;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-      <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
+      <div id="udEmail" style="font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px"></div>
       <div id="udTokens" style="margin-top:5px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:2px 8px;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:#ffd700"><img src="https://silvmarket.shop/images/silv token.png" alt="" style="width:13px;height:13px;object-fit:contain" onerror="this.remove()"/> <span id="udTokenVal">0</span> Tokens</div>
     </div>
   </div>
@@ -1256,6 +1272,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 <!-- Mobile menu panel (slides down below nav on mobile) -->
 <div id="mobMenuPanel">
+  <a class="mob-mi" href="/tutorial" onclick="closeMobMenu()">
+    <span class="mob-mi-icon" style="background:rgba(147,51,234,.15)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>How to Order
+  </a>
   <a class="mob-mi" id="mobDiscLink" href="https://discord.gg/brianrots" target="_blank">
     <span class="mob-mi-icon" style="background:rgba(88,101,242,.2)"><svg width="15" height="13" viewBox="0 0 71 55" fill="#5865f2"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.5.4a.2.2 0 0 0-.2.1 40.8 40.8 0 0 0-1.8 3.6 54 54 0 0 0-16.2 0 36.9 36.9 0 0 0-1.8-3.6.2.2 0 0 0-.2-.1A58.4 58.4 0 0 0 10.9 4.9a.2.2 0 0 0-.1.1C1.6 18.1-.9 31 .3 43.7a.2.2 0 0 0 .1.2 58.8 58.8 0 0 0 17.7 8.9.2.2 0 0 0 .2-.1 42 42 0 0 0 3.6-5.9.2.2 0 0 0-.1-.3 38.7 38.7 0 0 1-5.5-2.6.2.2 0 0 1 0-.4l1.1-.8a.2.2 0 0 1 .2 0c11.5 5.3 24 5.3 35.4 0a.2.2 0 0 1 .2 0l1.1.8a.2.2 0 0 1 0 .4 36.2 36.2 0 0 1-5.5 2.6.2.2 0 0 0-.1.3 47.1 47.1 0 0 0 3.6 5.9.2.2 0 0 0 .2.1 58.7 58.7 0 0 0 17.7-8.9.2.2 0 0 0 .1-.2c1.5-15-2.5-28-10.5-39.5a.2.2 0 0 0-.1-.1z"/></svg></span>Join Discord
   </a>
@@ -1372,7 +1391,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg,rgba(255,16,240,.18),rgba(147,51,234,.12));border:1px solid rgba(255,16,240,.3);border-radius:11px;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 3L4 6l3-1z" fill="#ff10f0" opacity=".5"/><path d="M20 17l-1 3 3-1z" fill="#ff10f0" opacity=".5"/></svg></span>
         <div style="text-align:left">
           <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px">New Arrivals</div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.45);margin-top:2px">Fresh items just added to the shop</div>
+          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.6);margin-top:2px">Fresh items just added to the shop</div>
         </div>
       </div>
       <span style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:rgba(255,16,240,.8);letter-spacing:.5px">View All →</span>
@@ -1526,7 +1545,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div class="feat-old">$44.99</div>
       <div class="feat-p">$31.52</div>
       <div class="feat-save">YOU SAVE $12.50</div>
-      <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon','$32.49','🐉','Blox Fruits')">🛒 Add to Cart</button>
+      <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon',32.49,'🐉','Blox Fruits')">🛒 Add to Cart</button>
     </div>
   </div>
   <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blox Fruits…" oninput="secSearch('bfGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bfGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
@@ -2033,7 +2052,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
         </div>
         <div style="flex:1;min-width:0">
           <div id="viewAllTitle" style="font-family:'Orbitron',monospace;font-size:21px;font-weight:800;color:#fff;letter-spacing:.5px;line-height:1.2"></div>
-          <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.38);margin-top:5px;letter-spacing:.5px"></div>
+          <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-top:5px;letter-spacing:.5px"></div>
         </div>
       </div>
     </div>
@@ -2136,7 +2155,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
   .nav-right{gap:5px}
   /* Hide desktop nav items, show hamburger */
-  .disc-link{display:none!important}
+  .disc-link,.nav-sep{display:none!important}
+  .tut-label{display:none}
   .tp-nav-wrap{display:none!important}
   #mobMenuBtn{display:flex!important}
   .cart-label{display:none}
@@ -2200,7 +2220,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 .hm-stat{background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.22);border-radius:14px;padding:16px 22px;text-align:center;min-width:110px;transition:border-color .25s,box-shadow .25s,background .25s;cursor:default}
 .hm-stat:hover{border-color:rgba(255,16,240,.4);background:rgba(255,16,240,.06);box-shadow:0 0 20px rgba(255,16,240,.12)}
 .hm-stat-n{font-family:'Orbitron',monospace;font-size:20px;font-weight:800;background:linear-gradient(135deg,#fff,#ff10f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hm-stat-l{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;margin-top:4px}
+.hm-stat-l{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1px;margin-top:4px}
 #homeMenu{position:relative;min-height:calc(100vh - 56px);overflow:hidden;background:#07031a;display:flex;flex-direction:column;align-items:center;padding:0 0 60px}
 #homeMenu.hm-hidden{display:none}
 
@@ -2230,7 +2250,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 
 /* Recently Viewed */
 .hm-rv-section{position:relative;z-index:2;width:100%;max-width:900px;padding:0 24px;margin-bottom:36px}
-.hm-rv-title{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:14px}
+.hm-rv-title{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:14px}
 .hm-rv-row{display:flex;gap:14px;flex-wrap:wrap}
 .hm-rv-card{flex:1;min-width:200px;max-width:280px;background:rgba(255,255,255,.04);border:1px solid rgba(147,51,234,.25);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
 .hm-rv-card:hover{background:rgba(147,51,234,.12);border-color:rgba(255,16,240,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(147,51,234,.2)}
@@ -2243,7 +2263,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 .hm-sec-row{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1240px;padding:0 20px;margin-bottom:20px;box-sizing:border-box}
 .hm-section-label{display:flex;align-items:center;gap:10px;font-family:'Orbitron',monospace;font-size:13px;font-weight:800;letter-spacing:2px;color:#fff;text-transform:uppercase}
 .hm-section-label::before{content:'';width:3px;height:18px;border-radius:2px;background:linear-gradient(180deg,#ff10f0,#9333ea);flex-shrink:0}
-.hm-sec-badge{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.35);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:4px 12px}
+.hm-sec-badge{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:4px 12px}
 
 /* Game carousel */
 .hm-carousel-wrap{position:relative;z-index:2;width:100%;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -2331,7 +2351,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <!-- Login Form -->
     <div id="loginForm">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Welcome Back</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Sign in to view your orders and profile</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px">Sign in to view your orders and profile</div>
       <input id="liEmail" type="email" placeholder="Email address" autocorrect="off" autocapitalize="none" spellcheck="false" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
       <input id="liPass" type="password" placeholder="Password" autocorrect="off" autocapitalize="none" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
       <div style="text-align:right;margin-bottom:12px">
@@ -2344,7 +2364,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <!-- ── 2FA Login Challenge ── -->
     <div id="li2faStep" style="display:none">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">🔐 Verify It's You</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px;line-height:1.6">A 6-digit code was sent to your email. Enter it below to continue.</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px;line-height:1.6">A 6-digit code was sent to your email. Enter it below to continue.</div>
       <input id="li2faCode" type="text" maxlength="6" placeholder="6-digit code" onkeydown="if(event.key==='Enter')verify2FALogin()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:20px;font-weight:800;letter-spacing:8px;margin-bottom:14px;outline:none;box-sizing:border-box;text-align:center"/>
       <div id="li2faErr" style="display:none;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
       <button onclick="verify2FALogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer;margin-bottom:10px">VERIFY</button>
@@ -2357,7 +2377,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <div id="fpStep1">
         <button onclick="closeForgotPassword()" style="background:none;border:none;color:rgba(255,255,255,.4);font-family:'Rajdhani',sans-serif;font-size:12px;cursor:pointer;padding:0;margin-bottom:18px;display:flex;align-items:center;gap:5px">← Back to Login</button>
         <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Reset Password</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Enter your email and we'll send you a 6-digit reset code.</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px">Enter your email and we'll send you a 6-digit reset code.</div>
         <input id="fpEmail" type="email" placeholder="Your account email" onkeydown="if(event.key==='Enter')fpSendCode()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:14px;outline:none;box-sizing:border-box"/>
         <div id="fpErr1" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
         <button onclick="fpSendCode()" id="fpSendBtn" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer">SEND RESET CODE</button>
@@ -2365,7 +2385,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <!-- Step 2: Enter code -->
       <div id="fpStep2" style="display:none">
         <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Check Your Email</div>
-        <div id="fpCodeHint" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px;line-height:1.6"></div>
+        <div id="fpCodeHint" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px;line-height:1.6"></div>
         <input id="fpCode" type="text" maxlength="6" placeholder="6-digit code" onkeydown="if(event.key==='Enter')fpVerifyCode()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:20px;font-weight:800;letter-spacing:8px;margin-bottom:14px;outline:none;box-sizing:border-box;text-align:center"/>
         <div id="fpErr2" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
         <button onclick="fpVerifyCode()" style="width:100%;padding:13px;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;border-radius:11px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:800;cursor:pointer;margin-bottom:10px">VERIFY CODE</button>
@@ -2374,7 +2394,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
       <!-- Step 3: New password -->
       <div id="fpStep3" style="display:none">
         <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">New Password</div>
-        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Choose a strong new password for your account.</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px">Choose a strong new password for your account.</div>
         <input id="fpNewPass" type="password" placeholder="New password (min 6 chars)" onkeydown="if(event.key==='Enter')fpSetPassword()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
         <input id="fpNewPass2" type="password" placeholder="Confirm new password" onkeydown="if(event.key==='Enter')fpSetPassword()" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:14px;outline:none;box-sizing:border-box"/>
         <div id="fpErr3" style="display:none;color:#ff4466;font-family:'Rajdhani',sans-serif;font-size:12px;margin-bottom:10px"></div>
@@ -2391,7 +2411,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <!-- Signup Form -->
     <div id="signupForm" style="display:none">
       <div style="font-family:'Orbitron',monospace;font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Create Account</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.35);margin-bottom:20px">Save your orders and checkout faster</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px">Save your orders and checkout faster</div>
       <input id="suName" type="text" placeholder="Display name" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
       <input id="suEmail" type="email" placeholder="Email address" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:10px;outline:none;box-sizing:border-box"/>
       <input id="suPass" type="password" placeholder="Password (min 6 chars)" style="width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;margin-bottom:16px;outline:none;box-sizing:border-box"/>
@@ -2558,7 +2578,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
             <div id="ap2faThumb" style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>
           </div>
         </div>
-        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.38);line-height:1.6">Sends a verification code to your email on every sign in.</div>
+        <div style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6">Sends a verification code to your email on every sign in.</div>
         <div id="ap2faVerifySection" style="display:none;margin-top:12px">
           <input id="ap2faCode" type="text" placeholder="Enter 6-digit code" class="ap-input" style="width:100%;margin-bottom:8px"/>
           <button onclick="verify2FACode()" style="width:100%;padding:11px;background:#9333ea;border:none;border-radius:9px;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer">Verify &amp; Enable</button>
@@ -2579,7 +2599,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mark all read
         </button>
       </div>
-      <div id="apNotifications" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.38)">Loading…</div>
+      <div id="apNotifications" style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.55)">Loading…</div>
     </div>
 
     <div id="apPanel-referral" class="ap-tab-panel" style="padding:18px;display:none">
@@ -4290,7 +4310,7 @@ function renderRobux(cat='robux'){
   const rIco=meta.img?`<img src="${meta.img}" style="width:44px;height:44px;border-radius:10px;object-fit:cover" onerror="this.outerHTML='${meta.ico}'">`:(meta.ico);
   const rImg=meta.img||'';
   document.getElementById('robuxGrid').innerHTML=data.map(r=>`
-    <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}','$${r.p.toFixed(2)}','${meta.ico}','${meta.game}','${rImg}')">
+    <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}',${r.p},'${meta.ico}','${meta.game}','${rImg}')">
       <div class="rp-ico">${rIco}</div>
       <div class="rp-amt">${r.a.toLocaleString()}</div>
       <div class="rp-lbl">${meta.lbl}</div>
@@ -4336,7 +4356,7 @@ function renderBF(filter='all'){
           <button class="tog${mode==='perm'?' sp':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','perm');event.stopPropagation()">⭐ Perm</button>
         </div>`:''}
         <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">${fmtPrice(dp)}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${fmtPrice(dp)}','${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${dp},'${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
       </div>
     </div>`;
   }).join('');tagOrder('bfGrid');
@@ -4536,7 +4556,7 @@ function mkCard(i,game,gcls){
       ${i.rar?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}</div>`:''}
       <div class="br-sels">${speedSel}${mutSel}</div>
       <div class="pc-price">${ps}</div>
-      <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+      <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${Number(p)},'${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
     </div>
   </div>`;
   }
@@ -4558,7 +4578,7 @@ function mkCard(i,game,gcls){
       ${i.oldP?`<div class="pc-price">${fmtPrice(Number(i.p))} <span class="pc-old">${fmtPrice(Number(i.oldP))}</span></div>`:`<div class="pc-price">${ps}</div>`}
       ${i.oos
         ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
+        :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}',${Number(i.p||i.price||0)},'${i.em||'📦'}','${gameLbl}','${(i.img||gameIcon).replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
       }
     </div>
   </div>`;
@@ -4604,7 +4624,7 @@ function updateBRCard(name){
   card.setAttribute('data-price',String(p));
   const nameEl=card.querySelector('.pc-n');if(nameEl)nameEl.textContent=addName;
   const priceEl=card.querySelector('.pc-price');if(priceEl)priceEl.textContent=ps;
-  const btn=card.querySelector('.pc-btn');if(btn)btn.setAttribute('onclick',`event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${item.em||'📦'}','Steal a Brainrot','${(item.img||'').replace(/'/g,"\\'")}')`)
+  const btn=card.querySelector('.pc-btn');if(btn)btn.setAttribute('onclick',`event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${p},'${item.em||'📦'}','Steal a Brainrot','${(item.img||'').replace(/'/g,"\\'")}')`)
   // Sync select values
   const sels=card.querySelectorAll('.br-sel');
   if(item.speeds&&sels[0])sels[0].value=String(speedIdx);
@@ -4825,7 +4845,7 @@ function renderBundles(){
 function addBundleToCart(name){
   var b=BUNDLES.find(function(x){return x.n===name;});
   if(!b)return;
-  addToCart(b.n,fmtPrice(b.p),b.em||'🎁',b.game,b.img||'');
+  addToCart(b.n,b.p,b.em||'🎁',b.game,b.img||'');
 }
 
 document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))document.getElementById('searchResults').classList.remove('open');});
@@ -5199,10 +5219,10 @@ function showToast(msg, type='info', duration=2400){
   t.addEventListener('click', remove);
 }
 
-function addToCart(name,priceStr,em,game,img){
-  // Strip all currency symbols/letters — keep only digits, dots, commas; then remove commas (thousands sep)
-  const price=parseFloat((priceStr||'').replace(/,/g,'').replace(/[^0-9.]/g,''));
-  if(isNaN(price)||!name) return;
+function addToCart(name,priceArg,em,game,img){
+  // Accept raw USD number or formatted string; always store USD internally
+  const price=typeof priceArg==='number'?priceArg:parseFloat((priceArg||'').replace(/,/g,'').replace(/[^0-9.]/g,''));
+  if(isNaN(price)||price<=0||!name) return;
   const ex=cart.find(c=>c.name===name);
   if(ex) ex.qty++;
   else cart.push({name,price,em:em||'📦',game,qty:1,img:img||null});
@@ -5242,9 +5262,11 @@ function updateCartUI(){
   else if(creditRow) creditRow.style.display='none';
   document.getElementById('cBadge').textContent=cnt;
   document.getElementById('cartCnt').textContent=cnt+' item'+(cnt!==1?'s':'');
-  document.getElementById('cSub').textContent='$'+sub.toFixed(2);
-  document.getElementById('cFee').textContent='$'+fee.toFixed(2);
-  document.getElementById('cTot').textContent='$'+tot.toFixed(2);
+  const c=CURRENCIES[selectedCurrency]||CURRENCIES.USD;
+  const fmtCart=v=>{const cv=v*c.rate;if(selectedCurrency==='JPY'||selectedCurrency==='KRW')return c.sym+Math.round(cv).toLocaleString();return c.sym+cv.toFixed(2);};
+  document.getElementById('cSub').textContent=fmtCart(sub);
+  document.getElementById('cFee').textContent=fmtCart(fee);
+  document.getElementById('cTot').textContent=fmtCart(tot);
   document.getElementById('mainCoBtn').disabled=cart.length===0;
   const earnEl=document.getElementById('cartEarnPts');
   if(earnEl){if(sub>0){const ep=Math.floor(sub*10);earnEl.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="#ff10f0" stroke="none" style="margin-right:5px;vertical-align:-1px;flex-shrink:0"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/></svg>You\'ll earn <strong style="color:rgba(255,16,240,.8)">'+ep.toLocaleString()+'</strong> loyalty pts with this order';earnEl.style.display='';}else{earnEl.style.display='none';}}
@@ -5265,7 +5287,7 @@ function updateCartUI(){
         <span class="ci-qn">${i.qty||1}</span>
         <button class="ci-qb" onclick="changeQty('${safeName}',1)">+</button>
       </div>
-      <div class="ci-p">$${lineTotal.toFixed(2)}</div>
+      <div class="ci-p">${fmtPrice(lineTotal)}</div>
       <button class="ci-rm" onclick="removeFromCart('${safeName}')">✕</button>
     </div>`;
   }).join('');
@@ -5389,6 +5411,12 @@ async function applyCode(){
     el.style.display='block';
     el.innerHTML='❌ Please <a href="#" onclick="event.preventDefault();closeCO();openLoginModal();" style="color:#ff10f0;text-decoration:underline">sign in</a> to use promo codes.';
     el.style.color='#f87171';
+    return;
+  }
+  // Minimum $10 order to use promo/referral codes
+  const _cartSub=cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+  if(_cartSub<10){
+    _showCodeMsg(el,'err','❌ Promo codes require a minimum order of $10.');
     return;
   }
   _showCodeMsg(el,'pending','⏳ Checking…');
@@ -6406,9 +6434,8 @@ function changeDetailQty(delta){
 function addToCartFromDetail(){
   if(!_detailItem) return;
   const i = _detailItem;
-  const ps = `$${Number(i.p||0).toFixed(2)}`;
   for(let q=0; q<_detailQty; q++){
-    addToCart(i.n, ps, i.em||'📦', i.game, i.img||null);
+    addToCart(i.n, Number(i.p||0), i.em||'📦', i.game, i.img||null);
   }
   closeItemDetail();
 }
@@ -6596,7 +6623,7 @@ function renderViewAllGrid(){
             <button class="tog${mode==='perm'?' sp':''}" onclick="setVAFM('${safeName}','perm');event.stopPropagation()">⭐ Perm</button>
           </div>
           <div class="pc-price">${fmtPrice(dp)}</div>
-          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${fmtPrice(dp)}','${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${dp},'${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
         </div>
       </div>`;
     }
@@ -6628,7 +6655,7 @@ function renderViewAllGrid(){
         ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
         <div class="br-sels">${speedSel}${mutSel}</div>
         <div class="pc-price">${ps}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}','${ps}','${i.em||'🧠'}','Steal a Brainrot','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${p},'${i.em||'🧠'}','Steal a Brainrot','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
       </div>
     </div>`;
     }
@@ -6654,7 +6681,7 @@ function renderViewAllGrid(){
         ${i.oldP?`<div class="pc-price">${fmtPrice(p)} <span class="pc-old">${fmtPrice(Number(i.oldP))}</span></div>`:`<div class="pc-price">${ps}</div>`}
         ${i.oos||i.stock===0
           ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}','${ps}','${i.em||'📦'}','${game}','${vaImg.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
+          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}',${p},'${i.em||'📦'}','${game}','${vaImg.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
         }
       </div>
     </div>`;
@@ -8561,5 +8588,357 @@ setTimeout(renderHomeMenu, 0);
 </script>
 <div id="toastStack"></div>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
+
+<!-- ══ SMART CHAT ASSISTANT ═══════════════════════════════════ -->
+<style>
+#chatWidget{position:fixed;bottom:20px;right:20px;z-index:9998}
+#chatBubble{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#7c3aed);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 14px rgba(147,51,234,.4);transition:transform .2s,box-shadow .2s}
+#chatBubble:hover{transform:scale(1.06);box-shadow:0 4px 20px rgba(147,51,234,.5)}
+#chatBubble .cb-open{width:22px;height:22px;fill:#fff}
+#chatBubble .cb-close{display:none;width:18px;height:18px;fill:#fff}
+#chatBubble.open .cb-open{display:none}
+#chatBubble.open .cb-close{display:block}
+#chatWindow{display:none;position:fixed;bottom:78px;right:20px;width:340px;max-width:calc(100vw - 24px);height:440px;max-height:calc(100vh - 100px);background:#0a0616;border:1px solid rgba(147,51,234,.22);border-radius:14px;overflow:hidden;flex-direction:column;box-shadow:0 8px 36px rgba(0,0,0,.6);z-index:9997;animation:chatSlide .2s ease}
+@keyframes chatSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#chatWindow.open{display:flex}
+.cw-hd{padding:12px 16px;background:rgba(147,51,234,.08);border-bottom:1px solid rgba(147,51,234,.15);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.cw-avatar{width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid rgba(147,51,234,.4)}
+.cw-avatar img{width:100%;height:100%;object-fit:cover}
+.cw-hd-info h4{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin:0;letter-spacing:.3px}
+.cw-hd-info p{font-size:10px;color:rgba(255,255,255,.4);margin:0;display:flex;align-items:center;gap:4px}
+.cw-hd-info p::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;display:inline-block}
+.cw-hd-close{margin-left:auto;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.3);padding:4px;display:flex;transition:color .15s}
+.cw-hd-close:hover{color:rgba(255,255,255,.6)}
+.cw-hd-close svg{width:14px;height:14px}
+.cw-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.cw-msgs::-webkit-scrollbar{width:3px}
+.cw-msgs::-webkit-scrollbar-thumb{background:rgba(147,51,234,.25);border-radius:3px}
+.cm{max-width:82%;padding:8px 12px;border-radius:10px;font-size:12px;line-height:1.6;word-wrap:break-word}
+.cm-bot{align-self:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.8);border-bottom-left-radius:3px}
+.cm-user{align-self:flex-end;background:rgba(147,51,234,.25);border:1px solid rgba(147,51,234,.2);color:#fff;border-bottom-right-radius:3px}
+.cm-bot a{color:#c084fc;text-decoration:underline}
+.cm-bot .cm-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.cm-bot .cm-chip{padding:4px 10px;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);border-radius:16px;font-size:10px;font-weight:600;color:#c084fc;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cm-bot .cm-chip:hover{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.35)}
+.cw-input{display:flex;gap:6px;padding:10px 12px;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2);flex-shrink:0}
+.cw-input input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-family:inherit;outline:none}
+.cw-input input:focus{border-color:rgba(147,51,234,.35)}
+.cw-input input::placeholder{color:rgba(255,255,255,.2)}
+.cw-input button{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#9333ea,#7c3aed);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.cw-input button:hover{opacity:.85}
+.cw-input button svg{width:13px;height:13px;fill:#fff}
+.cm-typing{align-self:flex-start;padding:8px 14px}
+.cm-typing span{display:inline-block;width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);animation:typeDot 1.2s infinite;margin-right:3px}
+.cm-typing span:nth-child(2){animation-delay:.2s}
+.cm-typing span:nth-child(3){animation-delay:.4s;margin-right:0}
+@keyframes typeDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@media(max-width:500px){
+  #chatWindow{bottom:0;right:0;width:100%;max-width:100%;height:100vh;max-height:100vh;border-radius:0;border:none}
+  #chatWidget{bottom:14px;right:14px}
+}
+</style>
+
+<div id="chatWidget">
+  <div id="chatWindow">
+    <div class="cw-hd">
+      <div class="cw-avatar"><img src="https://silvmarket.shop/images/logo.png" alt="Silv"/></div>
+      <div class="cw-hd-info">
+        <h4>Silv Assistant</h4>
+        <p>Always online</p>
+      </div>
+      <button class="cw-hd-close" onclick="toggleChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cw-msgs" id="chatMsgs"></div>
+    <div class="cw-input">
+      <input type="text" id="chatIn" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button onclick="sendChat()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+  </div>
+  <button id="chatBubble" onclick="toggleChat()">
+    <svg class="cb-open" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+    <svg class="cb-close" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+  </button>
+</div>
+
+<script>
+(function(){
+// ── KNOWLEDGE BASE ─────────────────────────────────────────────
+// Each entry: { keys: [...], answer: '...' }
+// keys = array of keyword groups. Each group is an array of synonyms.
+// A message scores higher the more groups it matches.
+// First match with score >= 1 wins. Entries listed first win ties.
+const KB = [
+
+// ── DELIVERY ───────────────────────────────────────────────────
+{keys:[['deliver','delivery','delivered','shipping','ship','sent','send'],['how','when','long','time','fast','quick','eta','wait','take','takes']],
+ a:`Delivery is handled through our Discord server. After payment, a private ticket is created automatically where staff will coordinate your in-game delivery.\n\nMost orders are delivered within <b>15 minutes to a few hours</b> depending on the current queue. During peak times it may take a bit longer — staff will keep you updated in your ticket.`},
+{keys:[['deliver','delivery'],['process','work','works','how','step','steps']],
+ a:`Here's how delivery works:\n1. You pay via Stripe or crypto\n2. A ticket is automatically created in our <a href="https://discord.gg/brianrots" target="_blank">Discord server</a>\n3. Staff will message you in the ticket\n4. Join the private server they provide\n5. Staff trades you the items in-game\n\nMake sure your Discord is linked and you've joined our server!`},
+{keys:[['deliver','delivery','order'],['track','tracking','status','check','where']],
+ a:`You can track your order through your Discord ticket — that's where all updates are posted. You can also check your order history in your <a href="/account">Account page</a> if you're signed in.\n\nLost your ticket? Contact staff in our <a href="https://discord.gg/brianrots" target="_blank">Discord server</a>.`},
+{keys:[['deliver','delivery'],['slow','taking','forever','late','waiting','waited','hours','hour']],
+ a:`We're sorry for the wait! Delivery times vary based on staff availability and order volume. If it's been over 2 hours, please message in your Discord ticket or open a new support ticket.\n\n<a href="https://discord.gg/brianrots" target="_blank">Join our Discord for support</a>`},
+
+// ── PAYMENT METHODS ────────────────────────────────────────────
+{keys:[['pay','payment','paying','purchase','buy','buying','checkout'],['method','methods','option','options','way','ways','accept','accepted','how']],
+ a:`We accept the following payment methods:\n\n<b>Stripe</b> — Credit/debit cards (Visa, Mastercard, etc.)\n<b>Crypto</b> — Bitcoin, Ethereum, Solana, USDT, Litecoin\n\nAll payments are processed securely. Select your preferred method at checkout.`},
+{keys:[['stripe','card','credit','debit','visa','mastercard']],
+ a:`We accept all major credit and debit cards through <b>Stripe</b> — Visa, Mastercard, American Express, and more. It's fast, secure, and your card details never touch our servers.\n\nJust select "Pay with Card" at checkout.`},
+{keys:[['crypto','bitcoin','btc','eth','ethereum','sol','solana','usdt','tether','litecoin','ltc']],
+ a:`We accept crypto payments including:\n• <b>Bitcoin (BTC)</b>\n• <b>Ethereum (ETH)</b>\n• <b>Solana (SOL)</b>\n• <b>USDT (Tether)</b>\n• <b>Litecoin (LTC)</b>\n\nAt checkout, select crypto, choose your coin, send the exact amount to the wallet shown, and confirm. Rates are pulled live from CoinGecko.`},
+{keys:[['paypal']],
+ a:`We don't currently accept PayPal. Our supported payment methods are:\n• Stripe (credit/debit cards)\n• Crypto (BTC, ETH, SOL, USDT, LTC)\n\nThese are more secure and have lower fees.`},
+{keys:[['payment','pay'],['fail','failed','error','declined','rejected','issue','problem','not working','broken']],
+ a:`If your payment failed, here are some common fixes:\n• Make sure your card has sufficient funds\n• Check that your bank isn't blocking online transactions\n• Try a different card or switch to crypto\n• Clear your browser cache and try again\n\nIf the issue persists, reach out in our <a href="https://discord.gg/brianrots" target="_blank">Discord</a> for help.`},
+
+// ── PROMO / DISCOUNT / REFERRAL ────────────────────────────────
+{keys:[['promo','coupon','discount','code','voucher','promotion']],
+ a:`To use a promo code:\n1. Add items to your cart (minimum <b>$10 order</b> required)\n2. Open checkout and enter your code in the discount field\n3. Click "Apply" — the discount will be reflected in your total\n\nPromo codes are announced in our <a href="https://discord.gg/brianrots" target="_blank">Discord server</a>. Follow us there to never miss one!`},
+{keys:[['promo','code','coupon'],['not working','invalid','expired','error','doesnt work','doesn\'t work','won\'t work']],
+ a:`If your promo code isn't working:\n• Make sure your order is at least <b>$10</b> — codes don't work on smaller orders\n• Check for typos — codes are case-insensitive but must be exact\n• The code may have expired or already been used on your account\n• You need to be <b>signed in</b> to use promo codes\n\nStill having issues? Ask in our <a href="https://discord.gg/brianrots" target="_blank">Discord</a>.`},
+{keys:[['referral','refer','friend','invite','share']],
+ a:`You can earn money by referring friends!\n1. Go to your <a href="/account">Account page</a>\n2. Find your unique referral code\n3. Share it with friends — they get <b>5% off</b> their order\n4. You earn commission on every purchase they make\n\nReferral codes also require a minimum $10 order.`},
+{keys:[['minimum','min'],['order','amount','spend','dollar','$10','ten']],
+ a:`Promo codes and referral codes require a minimum order of <b>$10</b>. This applies to the cart subtotal before any discounts. Add more items to reach the minimum!`},
+
+// ── ACCOUNT / LOGIN ────────────────────────────────────────────
+{keys:[['account','sign up','signup','register','registration','create account']],
+ a:`Creating an account is free and gives you access to:\n• Order history and tracking\n• Loyalty rewards (earn points on every purchase)\n• Promo codes and referral program\n• Saved favourites\n• Store credit\n\nClick the user icon in the top navigation bar to sign up!`},
+{keys:[['login','log in','sign in','signin','can\'t login','cant login','password','forgot']],
+ a:`To log in, click the user icon in the navigation bar.\n\n<b>Forgot your password?</b> Use the "Forgot Password" link on the login screen. We'll send a 6-digit reset code to your email.\n\nMake sure to check your spam folder if you don't see the email!`},
+{keys:[['password','reset','change','forgot'],['password','reset','change','forgot']],
+ a:`To reset your password:\n1. Click the user icon → "Forgot Password"\n2. Enter your account email\n3. Check your email for a 6-digit code\n4. Enter the code and set your new password\n\nCodes expire after a few minutes. If you don't receive the email, check spam or try again.`},
+
+// ── DISCORD ────────────────────────────────────────────────────
+{keys:[['discord','server','join','community']],
+ a:`Join our Discord server for:\n• Order support and delivery coordination\n• Promo code announcements\n• Giveaways and community events\n• Direct chat with staff\n\n<a href="https://discord.gg/brianrots" target="_blank">discord.gg/brianrots</a>`},
+{keys:[['discord'],['link','connect','verify','verification','oauth','auth']],
+ a:`To link your Discord:\n1. Click "Link Discord" during checkout or in your account settings\n2. You'll be redirected to authorize with Discord\n3. Once authorized, you'll automatically join our server\n4. Your Discord is now linked for ticket creation!\n\nThis is required so we can create your delivery ticket automatically.`},
+{keys:[['discord'],['not working','error','failed','issue','can\'t join','cant join','won\'t link']],
+ a:`If Discord linking isn't working:\n• Make sure you're logged into Discord in your browser\n• Try opening the link in a new tab\n• Clear your browser cookies and try again\n• Make sure you haven't been banned from the server\n\nStill stuck? Join manually: <a href="https://discord.gg/brianrots" target="_blank">discord.gg/brianrots</a> and ask staff for help.`},
+{keys:[['ticket','support ticket','order ticket'],['create','open','make','where','find','how']],
+ a:`Support tickets are created <b>automatically</b> after payment. The bot creates a private channel in our Discord server where you can chat with delivery staff.\n\nIf your ticket wasn't created, staff can create one manually. Just ask in the server!`},
+
+// ── LOYALTY / REWARDS ──────────────────────────────────────────
+{keys:[['loyalty','rewards','reward','points','tokens','tier','tiers']],
+ a:`Our Loyalty Rewards program lets you earn points on every purchase.\n\nEarn <b>10 points per $1</b> spent and redeem points for discounts on future orders.\n\n<b>6 Tiers:</b> Awakened → Advanced → Mythical → Ancient → Divine → Celestial\n\nCheck your tier and points on the <a href="/loyalty">Loyalty page</a>.`},
+{keys:[['loyalty','points','tokens'],['redeem','use','spend','how','apply']],
+ a:`To redeem loyalty points:\n1. Add items to your cart\n2. Go to checkout — you'll see a "Use Tokens" section\n3. Enter how many tokens to apply (10 tokens = $1 off)\n4. The discount is applied to your total\n\nYou need at least 10 tokens to redeem.`},
+{keys:[['store credit','credit','balance']],
+ a:`Store credit works like a wallet balance on your account. When you have credit, it's automatically shown at checkout and you can apply it to reduce your order total.\n\nStore credit is applied <b>before</b> the processing fee. Check your balance in your <a href="/account">Account page</a>.`},
+
+// ── TRUST / SAFETY / LEGIT ─────────────────────────────────────
+{keys:[['legit','legitimate','safe','scam','trust','trusted','real','fake','reliable','secure']],
+ a:`Silv Market is a trusted Roblox marketplace with hundreds of completed orders. Here's why you can trust us:\n\n• Secure Stripe payments (PCI compliant)\n• Verified delivery staff\n• Active Discord community with real reviews\n• Automatic ticket system for every order\n• Transparent pricing — no hidden fees\n\nCheck out reviews from real buyers in our <a href="https://discord.gg/brianrots" target="_blank">Discord</a>.`},
+{keys:[['refund','refundable','money back','chargeback','dispute','cancel','cancelled']],
+ a:`Our refund policy:\n• <b>Before delivery:</b> If your order hasn't been delivered yet, contact staff for a full refund\n• <b>After delivery:</b> All sales are final once items are traded in-game\n• <b>Wrong items:</b> If you received the wrong items, contact staff immediately and we'll fix it\n\nFor refund requests, open a ticket in <a href="https://discord.gg/brianrots" target="_blank">Discord</a>.`},
+{keys:[['ban','banned','risk','dangerous','against','tos','terms of service','rules']],
+ a:`Trading items between Roblox accounts is a common practice. We use safe trading methods to minimize any risk. Our staff are experienced and handle thousands of trades.\n\nThat said, always use your own judgment. We deliver through in-game trading which is the safest method available.`},
+
+// ── PRICING / CURRENCY ─────────────────────────────────────────
+{keys:[['price','pricing','cost','costs','expensive','cheap','cheapest','how much']],
+ a:`We offer some of the best prices in the Roblox market! Prices are shown on each item card.\n\nWe support <b>17 currencies</b> — click the globe icon in the navigation to switch. All transactions are processed in USD.\n\nBulk buyers: check our bundles for even better deals, or use a promo code for extra savings!`},
+{keys:[['currency','currencies','convert','conversion','usd','euro','eur','gbp','pound','php','peso','inr','rupee','brl','real','jpy','yen','krw','won']],
+ a:`We display prices in 17 currencies: USD, EUR, GBP, CAD, AUD, BRL, MXN, INR, PHP, KRW, JPY, TRY, PLN, SEK, AED, SGD, CHF.\n\nClick the <b>globe icon</b> (🌐) in the top navigation to switch currency. Note: all payments are processed in <b>USD</b> — the displayed price is an estimate based on current exchange rates.`},
+{keys:[['fee','fees','processing','surcharge','extra','additional','service fee']],
+ a:`We charge a small <b>8% processing fee</b> on all orders. This covers payment processing and platform costs. The fee is shown clearly at checkout before you pay — no hidden charges!`},
+
+// ── HOW TO ORDER ───────────────────────────────────────────────
+{keys:[['how','tutorial','guide'],['order','buy','purchase','shop','get','start']],
+ a:`Check out our step-by-step guide: <a href="/tutorial">How to Order</a>\n\nQuick version:\n1. Browse games and add items to cart\n2. Click cart → Proceed to Checkout\n3. Enter your Roblox username & link Discord\n4. Apply any promo code\n5. Pay via Stripe or crypto\n6. A Discord ticket is created automatically\n7. Staff delivers your items in-game!`},
+{keys:[['first','new','never','beginner','noob'],['order','buy','time','here','customer','user']],
+ a:`Welcome to Silv Market! Here's how to get started:\n\n1. <b>Browse</b> — Pick a game from the menu and find your items\n2. <b>Cart</b> — Add items and open checkout\n3. <b>Discord</b> — Link your Discord account (required for delivery)\n4. <b>Pay</b> — Use card or crypto\n5. <b>Receive</b> — Staff delivers via Discord ticket\n\nWant a full walkthrough? Check our <a href="/tutorial">tutorial page</a>.`},
+{keys:[['cart','add to cart','add items','shopping cart']],
+ a:`To add items to your cart:\n1. Browse any game section\n2. Click "Add to Cart" on the item you want\n3. The cart sidebar opens — adjust quantities there\n4. When ready, click "Proceed to Checkout"\n\nYou can mix items from different games in one order.`},
+
+// ── SPECIFIC GAMES ─────────────────────────────────────────────
+{keys:[['blox fruit','blox fruits','bf','perm','permanent']],
+ a:`We have a huge selection of <b>Blox Fruits</b> items:\n• Permanent fruits (Dragon, Leopard, etc.)\n• Normal fruits\n• Gamepasses\n• Accounts\n• Fruit skins\n\nBrowse our full BF collection: <a href="/?game=bf">Blox Fruits section</a>\n\nWe offer both normal and permanent pricing — toggle between them on each item card!`},
+{keys:[['grow a garden','gag','garden','seeds','seed','pet','pets']],
+ a:`Our <b>Grow a Garden</b> section includes:\n• Seeds (common to mythical)\n• Pets\n• Tools\n• Tokens\n\n<a href="/?game=gag">Browse Grow a Garden →</a>`},
+{keys:[['mm2','murder mystery','godly','godlies','chroma','chromas']],
+ a:`We sell <b>Murder Mystery 2</b> items:\n• Godly weapons\n• Chroma weapons\n• Bundles at discounted prices\n\n<a href="/?game=mm2">Browse MM2 →</a>`},
+{keys:[['adopt me','am','legendary','neon','mega']],
+ a:`Our <b>Adopt Me</b> collection includes:\n• Legendary pets\n• Neon pets\n• Mega neon pets\n\n<a href="/?game=am">Browse Adopt Me →</a>`},
+{keys:[['brainrot','steal a brainrot','sab']],
+ a:`We have a massive <b>Steal a Brainrot</b> inventory with speed tiers and mutations! Use the dropdown selectors on each item to pick your speed/mutation variant.\n\n<a href="/?game=brainrot">Browse Steal a Brainrot →</a>`},
+{keys:[['rival','rivals']],
+ a:`Our <b>Rivals</b> section has:\n• Skin cases and bundles\n• Season passes\n• Legendary keys\n• Limited edition items\n\n<a href="/?game=rivals">Browse Rivals →</a>`},
+{keys:[['gpo','grand piece','grand piece online']],
+ a:`We sell <b>Grand Piece Online</b> items:\n• Devil fruits\n• Swords\n• Bundles\n• Currency\n\n<a href="/?game=gpo">Browse GPO →</a>`},
+{keys:[['sailor','sailor piece','sp']],
+ a:`Our <b>Sailor Piece</b> section includes fruits, swords, bundles, currency, keys, and rerolls.\n\n<a href="/?game=sp">Browse Sailor Piece →</a>`},
+{keys:[['ps99','pet sim','pet simulator','petsim']],
+ a:`We have <b>Pet Simulator 99</b> items:\n• Gems (bulk discounts available!)\n• Huge pets\n• Titanic pets\n• Rainbow pets\n• Eggs & more\n\n<a href="/?game=ps99">Browse PS99 →</a>`},
+{keys:[['robux','rbx','r$']],
+ a:`We sell <b>Robux</b> at competitive prices! Delivered directly to your Roblox account — fast and secure.\n\nCheck our rates at the top of the shop or <a href="/?game=robux">click here</a>.`},
+{keys:[['fisch','fishing']],a:`Browse our <b>Fisch</b> items: <a href="/?game=fisch">Fisch section →</a>`},
+{keys:[['blade ball','bb']],a:`Check out our <b>Blade Ball</b> tokens and items: <a href="/?game=bb">Blade Ball →</a>`},
+{keys:[['anime vanguard','av','vanguards']],a:`Browse <b>Anime Vanguards</b> units: <a href="/?game=av">Anime Vanguards →</a>`},
+{keys:[['bloodline','bloodlines','bl','eyes','race']],a:`Our <b>Bloodlines</b> section has eyes, races, and more: <a href="/?game=bl">Bloodlines →</a>`},
+{keys:[['tsunami','escape tsunami']],a:`Browse <b>Escape Tsunami</b> items: <a href="/?game=tsunami">Tsunami →</a>`},
+{keys:[['99 nights','nights']],a:`Check out our <b>99 Nights</b> currency and items: <a href="/?game=nights">99 Nights →</a>`},
+{keys:[['bee swarm','bss']],a:`Browse <b>Bee Swarm Simulator</b> items: <a href="/?game=bss">BSS →</a>`},
+{keys:[['death ball','dth']],a:`Check out <b>Death Ball</b> items: <a href="/?game=dth">Death Ball →</a>`},
+{keys:[['volleyball','vbl']],a:`Browse <b>Volleyball Legends</b> items: <a href="/?game=vbl">VBL →</a>`},
+{keys:[['bridger','bw','western']],a:`Browse <b>Bridger: Western</b> items: <a href="/?game=bw">Bridger →</a>`},
+
+// ── STOCK / AVAILABILITY ───────────────────────────────────────
+{keys:[['stock','out of stock','oos','available','availability','restock','back in stock']],
+ a:`If an item shows "Out of Stock", it means we're currently restocking it. Items are usually restocked within 24-48 hours.\n\nWant to be notified? Join our <a href="https://discord.gg/brianrots" target="_blank">Discord</a> — we announce restocks there!`},
+
+// ── FAVOURITES ─────────────────────────────────────────────────
+{keys:[['favourite','favorite','favourites','favorites','heart','save','saved','wishlist']],
+ a:`You can save items to your favourites by clicking the heart icon on any item card. Access your saved items from "My Favourites" in your <a href="/account">Account page</a>.\n\nFavourites are saved locally on your device.`},
+
+// ── BUNDLES / DEALS ────────────────────────────────────────────
+{keys:[['bundle','bundles','deal','deals','pack','packs','bulk','wholesale','combo']],
+ a:`We offer bundles and bulk deals across many games for the best savings! Bundle prices are significantly cheaper than buying items individually.\n\nLook for items with the "Bundle" tag, or check the Bestsellers section at the top of the shop for our hottest deals.`},
+
+// ── CONTACT / SUPPORT ──────────────────────────────────────────
+{keys:[['contact','support','help','staff','admin','owner','talk','speak','human','real person','agent']],
+ a:`Need help from a real person? Here's how to reach us:\n\n<b>Discord</b> — Fastest way. Open a ticket in <a href="https://discord.gg/brianrots" target="_blank">discord.gg/brianrots</a>\n<b>Email</b> — Reach out through your account\n\nOur staff typically responds within minutes during active hours.`},
+
+// ── MISC ───────────────────────────────────────────────────────
+{keys:[['roblox','username','user','rblx'],['wrong','change','update','edit','mistake','typo']],
+ a:`If you entered the wrong Roblox username at checkout, contact staff immediately through your Discord ticket before delivery. They can update it for you.\n\nAlways double-check your username before paying!`},
+{keys:[['mobile','phone','ipad','tablet','ios','android','app']],
+ a:`Silv Market works fully on mobile browsers! Just visit <b>silvmarket.shop</b> on your phone or tablet. The checkout, Discord linking, and all features work on mobile.\n\nFor the best experience, use Chrome or Safari.`},
+{keys:[['hello','hi','hey','sup','yo','wassup','whats up','good morning','good evening','good afternoon']],
+ a:`Hey there, welcome to Silv Market! How can I help you today?\n\nHere are some popular questions:`,chips:['How to order','Payment methods','Delivery time','Promo codes']},
+{keys:[['thanks','thank you','thx','ty','appreciate','helpful','cool','nice','great','awesome']],
+ a:`You're welcome! Glad I could help. If you have any other questions, just ask.`},
+{keys:[['bye','goodbye','see you','later','cya','peace','done']],
+ a:`See you later! If you need help again, I'm always here.`},
+{keys:[['what','who'],['are you','is this','bot','assistant','ai','chatbot']],
+ a:`I'm <b>Silv Assistant</b> — a smart helper built into Silv Market. I can answer questions about our shop, games, payment methods, delivery, and more!\n\nI'm not an AI language model — I'm a keyword-based assistant tuned specifically for this shop. For complex issues, reach out to staff in <a href="https://discord.gg/brianrots" target="_blank">Discord</a>.`},
+{keys:[['game','games','what do you sell','what games','which games','catalog','catalogue','all games','everything']],
+ a:`We sell items for <b>15+ Roblox games</b> including:\n\nBlox Fruits · Grow a Garden · MM2 · Adopt Me · Steal a Brainrot · Rivals · GPO · Sailor Piece · Blade Ball · Anime Vanguards · Bloodlines · BSS · Fisch · Tsunami · 99 Nights · PS99 · VBL · Death Ball · Bridger\n\nPlus <b>Robux</b>. Use the game selector at the top to browse.`},
+];
+
+// ── MATCHING ENGINE ────────────────────────────────────────────
+function normalize(s){ return s.toLowerCase().replace(/[^a-z0-9\s']/g,' ').replace(/\s+/g,' ').trim(); }
+
+function findBest(input){
+  const q = normalize(input);
+  const words = q.split(' ');
+  let bestScore = 0, bestEntry = null;
+
+  for(const entry of KB){
+    let score = 0;
+    let allGroupsMatched = true;
+    for(const group of entry.keys){
+      const groupHit = group.some(kw => {
+        if(kw.includes(' ')) return q.includes(kw); // multi-word phrase
+        return words.some(w => w === kw || (w.length > 3 && kw.length > 3 && (w.startsWith(kw.slice(0,3)) || kw.startsWith(w.slice(0,3)))) || levenClose(w, kw));
+      });
+      if(groupHit) score += 1;
+      else allGroupsMatched = false;
+    }
+    // Bonus for all groups matched
+    if(allGroupsMatched && entry.keys.length > 1) score += 0.5;
+    // Bonus for exact keyword in query
+    entry.keys.flat().forEach(kw => { if(q.includes(kw) && kw.length > 4) score += 0.2; });
+
+    if(score > bestScore){ bestScore = score; bestEntry = entry; }
+  }
+  return bestScore >= 0.8 ? bestEntry : null;
+}
+
+function levenClose(a, b){
+  if(Math.abs(a.length - b.length) > 2) return false;
+  if(a.length < 3 || b.length < 3) return false;
+  let dist = 0;
+  const len = Math.max(a.length, b.length);
+  for(let i = 0; i < len; i++){
+    if(a[i] !== b[i]) dist++;
+    if(dist > 1) return false;
+  }
+  return dist <= 1;
+}
+
+// ── UI ─────────────────────────────────────────────────────────
+let chatOpen = false;
+const WELCOME = `Hey, I'm <b>Silv Assistant</b>. I can help with ordering, payments, delivery, and more.\n\nWhat can I help you with?`;
+const WELCOME_CHIPS = ['How to order','Payment methods','Delivery time','What games do you sell?','Promo codes'];
+const FALLBACK = `I'm not sure I understand that question. Here are some things I can help with:`;
+const FALLBACK_CHIPS = ['How to order','Payment methods','Delivery info','Promo codes','Discord support','What games?'];
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  document.getElementById('chatBubble').classList.toggle('open', chatOpen);
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+  if(chatOpen && !document.getElementById('chatMsgs').children.length){
+    addBot(WELCOME, WELCOME_CHIPS);
+  }
+  if(chatOpen) setTimeout(()=>document.getElementById('chatIn').focus(), 200);
+}
+
+function addBot(html, chips){
+  const msgs = document.getElementById('chatMsgs');
+  const div = document.createElement('div');
+  div.className = 'cm cm-bot';
+  let content = html.replace(/\n/g,'<br>');
+  if(chips && chips.length){
+    content += '<div class="cm-chips">' + chips.map(c => `<span class="cm-chip" onclick="chipClick('${c.replace(/'/g,"\\'")}')">${c}</span>`).join('') + '</div>';
+  }
+  div.innerHTML = content;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addUser(text){
+  const msgs = document.getElementById('chatMsgs');
+  const div = document.createElement('div');
+  div.className = 'cm cm-user';
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs = document.getElementById('chatMsgs');
+  const div = document.createElement('div');
+  div.className = 'cm cm-bot cm-typing';
+  div.id = 'chatTyping';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping(){
+  const el = document.getElementById('chatTyping');
+  if(el) el.remove();
+}
+
+function sendChat(){
+  const input = document.getElementById('chatIn');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  addUser(text);
+  showTyping();
+  // Simulate slight delay for natural feel
+  const delay = 400 + Math.random() * 600;
+  setTimeout(()=>{
+    removeTyping();
+    const match = findBest(text);
+    if(match){
+      addBot(match.a, match.chips || null);
+    } else {
+      addBot(FALLBACK, FALLBACK_CHIPS);
+    }
+  }, delay);
+}
+
+window.chipClick = function(text){
+  document.getElementById('chatIn').value = text;
+  sendChat();
+};
+window.toggleChat = toggleChat;
+window.sendChat = sendChat;
+})();
+</script>
+
 </body>
 </html>

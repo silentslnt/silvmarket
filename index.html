@@ -2153,62 +2153,89 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   /* Nav: stack search below logo+buttons row */
   nav{flex-wrap:wrap;height:auto;padding:8px 12px 6px;gap:0;row-gap:6px}
   .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
-  .nav-right{gap:5px}
+  .nav-search input{font-size:14px;padding:10px 4px 10px 0}
+  .nav-right{gap:6px}
   /* Hide desktop nav items, show hamburger */
   .disc-link,.nav-sep{display:none!important}
   .tut-label{display:none}
   .tp-nav-wrap{display:none!important}
   #mobMenuBtn{display:flex!important}
   .cart-label{display:none}
-  .cart-btn{padding:8px 10px}
+  .cart-btn{padding:0 10px;height:34px;border-radius:8px}
   #navLoginLabel{display:none}
-  #navLoginBtn{padding:8px 10px}
+  #navLoginBtn{padding:0 10px;height:34px}
   /* Compact Select Games — icon only on mobile */
   .nav-sg-btn span{display:none}
   .nav-sg-arrow{display:none}
   .nav-sg-btn{padding:0 10px;height:34px;gap:0}
   /* Shrink logo */
-  #navLogoImg{height:26px!important;width:26px!important}
-  #navLogoText span:last-child{display:none} /* hide SHOP badge */
-  #navLogoText span{font-size:14px!important;letter-spacing:1px!important}
+  #navLogoImg{height:28px!important;width:28px!important}
+  #navLogoText span:last-child{display:none}
+  #navLogoText span{font-size:15px!important;letter-spacing:1.5px!important}
   .nav-left{gap:8px}
-  /* Sections */
-  .S{padding:32px 14px}
-  /* Game bar */
+
+  /* ── SECTIONS ── */
+  .S{padding:28px 12px 20px}
+  .sec-title{font-size:clamp(16px,5vw,26px);margin-bottom:6px}
+  .sec-sub{font-size:12px;margin-bottom:16px}
+  /* Section dividers */
+  .S+.S{border-top:1px solid rgba(147,51,234,.1)}
+
+  /* ── GAME BAR ── */
   .game-bar{padding:0 8px}
   .gb-btn{padding:6px 10px;font-size:11px;gap:4px}
-  /* Jump-row filter tabs */
+
+  /* ── FILTER TABS ── */
   .jump-row{padding:8px 10px;gap:6px}
-  .jt{padding:5px 10px;font-size:11px}
-  /* Reviews: single column */
+  .jt{padding:6px 12px;font-size:11px}
+  .sf-btn{padding:6px 12px;font-size:11px}
+
+  /* ── REVIEWS ── */
   .rv-col:nth-child(2){display:none!important}
-  /* Hero / feat */
+
+  /* ── HERO / FEATURED ── */
   .feat-r{margin-top:0!important}
-  /* Horizontal scroll grids: switch to 2-column on mobile */
-  .h-scroll{display:grid!important;grid-template-columns:1fr 1fr;gap:10px!important;overflow-x:visible!important;overflow-y:visible!important;scroll-snap-type:none!important;padding:0 4px 4px!important}
+  .feat-d{font-size:12px}
+
+  /* ── CARDS: 2-column grid ── */
+  .h-scroll{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important;overflow-x:visible!important;overflow-y:visible!important;scroll-snap-type:none!important;padding:0!important}
   .h-scroll .pc{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important}
   .h-scroll .rp{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important;grid-column:span 2}
-  /* Cart sidebar full width */
+  /* Card tweaks for mobile grid */
+  .pc{border-radius:12px}
+  .pc-body{padding:10px 10px 8px}
+  .pc-name{font-size:12px}
+  .pc-price{font-size:14px}
+  .pc-btn{padding:8px;font-size:11px;border-radius:8px}
+  .pc-img .em{font-size:44px}
+  .pbadge{top:6px;right:6px;font-size:9px;padding:2px 6px}
+  /* Scroll hints off in grid mode */
+  .swipe-hint{display:none!important}
+  .scroll-wrap::after,.scroll-wrap::before{display:none}
+
+  /* ── CART SIDEBAR ── */
   .cart-sb{width:100%}
-  /* View-all overlay padding */
-  #viewAllOverlay .S{padding:16px 12px}
-  /* Account panel inner */
-  #accountPanel>div{padding:14px!important;margin:10px 6px!important;border-radius:14px!important}
-  /* Item detail modal */
-  #itemDetailModal{padding:10px!important}
-  /* Section title */
-  .sec-title{font-size:clamp(17px,5vw,28px)}
-  /* Intro splash */
-  #introSplash h1{font-size:clamp(22px,8vw,52px)!important;letter-spacing:4px!important}
-  /* Cart: prevent price overflow on small screens */
-  .ci{gap:6px;padding:9px}
-  .ci-em{font-size:24px;width:32px}
+  .ci{gap:8px;padding:10px}
+  .ci-em{font-size:22px;width:30px}
   .ci-p{font-size:11px;white-space:nowrap}
-  .ci-qb{width:20px;height:20px;font-size:12px}
-  .ci-qn{font-size:10px;min-width:14px}
-  /* View-all grid: tighter columns */
-  #viewAllGrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important;gap:12px!important}
-  /* Game dropdown scrollable */
+  .ci-qb{width:22px;height:22px;font-size:13px}
+  .ci-qn{font-size:11px;min-width:16px}
+
+  /* ── OVERLAYS & MODALS ── */
+  #viewAllOverlay .S{padding:14px 10px}
+  #viewAllGrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important;gap:8px!important}
+  #accountPanel>div{padding:14px!important;margin:10px 6px!important;border-radius:12px!important}
+  #itemDetailModal{padding:8px!important}
+
+  /* ── FOOTER ── */
+  .fg{grid-template-columns:1fr!important;gap:20px!important;text-align:center}
+  .fc h4{margin-bottom:8px}
+  footer{padding:28px 16px 20px}
+
+  /* ── INTRO SPLASH ── */
+  #introSplash h1{font-size:clamp(22px,8vw,52px)!important;letter-spacing:4px!important}
+
+  /* ── GAME DROPDOWN ── */
   .gd-drop{max-height:60vh;overflow-y:auto}
 }
 
@@ -2294,38 +2321,36 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 .hm-ic-price{font-family:'Orbitron',monospace;font-size:10px;color:#ff10f0;font-weight:700}
 
 @media(max-width:480px){
+  /* Home menu */
   #homeMenu{min-height:calc(100vh - 56px);padding-bottom:40px}
   .hm-hero{padding:28px 14px 20px}
-  .hm-hero-logo{width:60px;height:60px}
-  .hm-hero-title{font-size:28px;letter-spacing:3px}
+  .hm-hero-logo{width:56px;height:56px}
+  .hm-hero-title{font-size:26px;letter-spacing:2px}
+  .hm-hero-sub{font-size:11px;letter-spacing:2px}
   .hm-hero-desc{font-size:13px}
   .hm-stats{gap:8px;padding:0 12px}
-  .hm-stat{padding:12px 14px;min-width:80px}
-  .hm-stat-n{font-size:15px}
-  .hm-gc{width:148px;margin:0 7px}
-  .hm-gc-img,.hm-gc-em{height:90px}
-  .hm-gc-em{font-size:38px}
-  .hm-gc-name{font-size:13px;padding:9px 11px 6px}
-  .hm-gc-badge{margin:0 9px 11px;padding:5px 10px}
-  .hm-rv-card{min-width:140px}
+  .hm-stat{padding:10px 12px;min-width:70px;border-radius:10px}
+  .hm-stat-n{font-size:14px}
+  .hm-stat-l{font-size:10px}
+  .hm-gc{width:140px;margin:0 6px;border-radius:14px}
+  .hm-gc-img,.hm-gc-em{height:85px}
+  .hm-gc-em{font-size:34px}
+  .hm-gc-name{font-size:13px;padding:8px 10px 6px}
+  .hm-gc-badge{margin:0 8px 10px;padding:5px 9px;font-size:8px}
+  .hm-rv-card{min-width:140px;padding:10px 12px;border-radius:10px}
   .hm-rv-section{padding:0 12px}
-  .hm-section-label{font-size:11px}
-  .hm-sec-row{padding:0 12px}
-
-  /* Game section grids: 2-column layout instead of horizontal scroll */
-  .S .h-scroll{display:grid!important;grid-template-columns:repeat(2,1fr);gap:10px;overflow-x:unset!important;padding-bottom:0}
+  .hm-section-label{font-size:10px;letter-spacing:1.5px}
+  .hm-sec-row{padding:0 12px;margin-bottom:14px}
+  .hm-ic{width:110px;margin:0 5px;padding:10px 8px;border-radius:10px}
+  .hm-ic-img,.hm-ic-em{width:44px;height:44px}
+  .hm-ic-name{font-size:10px}
+  /* Home carousel keep horizontal */
+  #homeMenu .h-scroll{display:flex!important;overflow-x:auto!important;overflow-y:visible!important}
+  #homeMenu .h-scroll .pc{min-width:150px!important;max-width:150px!important;flex-shrink:0!important;width:auto!important}
+  /* Game section grids: 2-column */
+  .S .h-scroll{display:grid!important;grid-template-columns:repeat(2,1fr);gap:8px;overflow-x:unset!important;padding-bottom:0}
   .S .h-scroll .pc{min-width:unset!important;max-width:unset!important;width:100%}
   .S .h-scroll .sk{min-width:unset!important;width:100%}
-  /* Keep h-scroll horizontal in homeMenu (best sellers / bundles) */
-  #homeMenu .h-scroll{display:flex!important;overflow-x:auto!important;overflow-y:visible!important}
-  #homeMenu .h-scroll .pc{min-width:160px!important;max-width:160px!important;flex-shrink:0!important;width:auto!important}
-  /* Slightly larger cards in 2-col grid */
-  .S .h-scroll .pc-img{height:130px}
-  .S .h-scroll .pc-n{font-size:12px}
-  .S .h-scroll .pc-price{font-size:14px}
-  /* Section padding tighter */
-  .S{padding:24px 10px}
-  .sec-hd{padding:0 10px 14px}
 }
 </style>
 
@@ -8633,7 +8658,7 @@ setTimeout(renderHomeMenu, 0);
 .cm-typing span:nth-child(3){animation-delay:.4s;margin-right:0}
 @keyframes typeDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
 @media(max-width:500px){
-  #chatWindow{bottom:0;right:0;width:100%;max-width:100%;height:100vh;max-height:100vh;border-radius:0;border:none}
+  #chatWindow{bottom:60px;right:8px;left:8px;width:auto;max-width:none;height:auto;max-height:calc(100vh - 140px);border-radius:14px;border:1px solid rgba(147,51,234,.22)}
   #chatWidget{bottom:16px;right:14px}
 }
 </style>

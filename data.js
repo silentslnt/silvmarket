@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   Silv Market — Shared Item Data
-   Auto-extracted from index.html. Do NOT edit manually.
-   Use bot commands (!additem, !edititem, etc.) to manage.
-   ═══════════════════════════════════════════════════════ */
+/* Silv Market — Shared Item Data (auto-extracted from index.html) */
 // ── GAME IMAGE URLS ──────────────────────────────────────────
 // Using Fandom CDN for Blox Fruits
 const BF_CDN = 'https://blox-fruits.fandom.com/wiki/Special:FilePath/';
@@ -370,37 +366,38 @@ const TSUNAMI = [
 ];
 
 const GPO = [
-  {n:"Prestige Fruit Bag",p:150.99,oldP:null,badge:"hot",stock:99,sub:"accessories",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/jmQk9ptHNv7hC4ztcNhrZW0iWYq8jw66ZRUBJ1BT.png"},
-  {n:"Candy Cane",p:89.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/JZRgmGeyQg1Qkyh6Nu0A33d5YzK0gI9BHZEbMaxJ.png"},
-  {n:"Chromatic All Seeing Eye",p:143.99,oldP:null,badge:"hot",stock:99,sub:"accessories",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VFDCrH9Iu8MuQCmCLdvAA7z7aNsnm9RtG8zzMeXm.png"},
-  {n:"All Seeing Egg",p:40.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bc3ww77MqEe32yi3XcNptJorpwYMP9Y85WkCeA6a.png"},
-  {n:"All Seeing Eye",p:28.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eflcsZ3ERgBxUBMhAiyGyoUihYK4KVbqzlgGiHiI.png"},
-  {n:"Dragon Fruit",p:15.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QYbY9Ll5efm82HkXKCBn1xIGWlox5MUp2hmfjlO9.png"},
-  {n:"Soul Fruit",p:6.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QSXeLBmogXGMz8tmif5YLteSS2Mv5jpRMRYPizhq.png"},
-  {n:"Devil Fruit Rod",p:16.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aJxM19lkMLnla4WyYWFcKohENSP7c784K28FgSRB.png"},
-  {n:"Mochi",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/iAzw7XvPVMGpsJtSx3TfTWm8hXKxebDQfrner4Gj.png"},
-  {n:"Venom",p:5.49,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/cjujwm8NdaWpEygFrYu4gM9OsnDrS4N9ll1itORo.png"},
-  {n:"Tori",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/0gbOibbFau3sGg9Ybh1cnTLz46mYLoE67hpIRPGH.png"},
-  {n:"Pika",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ZJKI0ZQTKzwVmZUXrMpalAi1cpCzSt9ZRtDEIajN.png"},
-  {n:"Pteradon",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fN6gPrHcuEeVBwoBTh3nVAKFozh4K7u5Arz4CURU.png"},
-  {n:"Buddha",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WNqggI2g8TpADEHWY3L1LSwjd9nct3jbsvluwr75.png"},
-  {n:"Ope",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/o6WNS7RYpCFmFSWg8L3s1X6K9K1N8XORVKXfEWSN.png"},
-  {n:"All Seeing Holly",p:34.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9zEMVYyo14DSwnYr9lNZP7dbKB6l3C6V6D45pyiA.png"},
-  {n:"Prestige Candy Cane",p:659.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
-  {n:"All Seeing Ba'al",p:39.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png"},
-  {n:"Jesters Outfit",p:85.99,oldP:null,badge:"rare",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/roA95BZk4Smsj7b9gzadHuSSnWd9vb3xlAVx0IL7.png"},
-  {n:"Prestige Firework Lancer",p:400.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zcDWmjrlCIK3eKT3Fo0i0ZK8DH8OK5ahsVPbMIUz.png"},
-  {n:"Prestige World Ender",p:389.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/OO9a2meMDsCUtyjdunmyLa2g5F7bBzVhO8QtfIld.png"},
-  {n:"Prestige Inferno Rocket Blade",p:329.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/bbziqXuf3oUqqBGbVN3703EFpNDtnK3Ife7oSvnp.png"},
-  {n:"Prestige Firework Daggers",p:149.99,oldP:null,badge:"rare",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/v2hmam6STlyB5VYJVQgwpThmWCYNS6iaOyEO326s.png"},
-  {n:"Prestige Firework Rocket Launcher",p:55.99,oldP:null,badge:"rare",stock:99,sub:"weapons",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fczu2w86lBvWEk37upEgdwyqadBLDq2hUlfBj9Ec.png"},
-  {n:"Soul King Scarf",p:34.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/s99iyYLonDu3xUS0tYWeORsrvHgDeyv4hmldItsj.png"},
-  {n:"Mythical Fruit Chest",p:5.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/UjRTSykyQTm28gHRVMRPvqmkgN6ff84PL7wDBKv8.png"},
-  {n:"Level 675 GPO Account",p:5.99,oldP:null,badge:"",stock:99,sub:"bundles",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sf7Q60hzWSkJdA28gih0RsmhOd8zQLR30a24wfUB.png"},
-  {n:"World Ender",p:18.99,oldP:null,badge:"",stock:99,sub:"weapons",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/B6lLfdEpOgtKzibLOfbwrhHAXg9ihTC2fYYlQ5f2.png"},
-  {n:"Iceborn Candy Cane",p:199.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SWVipU8uYuBaDRwvX57SYJeYSBdCqhYSNFK8NpUv.png"},
-  {n:"10x Mythical Fruit Chest",p:49.99,oldP:null,badge:"rare",stock:99,sub:"fruits",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/npWzd6aZiXwy2sUNv3yFQ2UUBckPiUe8BJYGSeGC.png"},
-  {n:"Cupid's All Seeing Eye",p:34.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Uympip37RcXouP2pWd0BIWsqgGZ5zTVyGXB5aydj.png"}
+{n:"Prestige Fruit Bag",p:124.99,oldP:null,badge:'hot',stock:99,sub:'accessories',rar:'mythical',bg:"r-mythical",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/jmQk9ptHNv7hC4ztcNhrZW0iWYq8jw66ZRUBJ1BT.png',oos:false,em:undefined},
+{n:"Candy Cane",p:79.99,oldP:null,badge:'hot',stock:99,sub:'weapons',rar:'mythical',bg:"r-mythical",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/JZRgmGeyQg1Qkyh6Nu0A33d5YzK0gI9BHZEbMaxJ.png',oos:false,em:undefined},
+{n:"Chromatic All Seeing Eye",p:143.99,oldP:null,badge:"hot",stock:99,sub:"accessories",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/VFDCrH9Iu8MuQCmCLdvAA7z7aNsnm9RtG8zzMeXm.png"},
+{n:"All Seeing Egg",p:38.99,oldP:null,badge:undefined,stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bc3ww77MqEe32yi3XcNptJorpwYMP9Y85WkCeA6a.png',oos:false,em:'undefined'},
+{n:"All Seeing Eye",p:28.99,oldP:null,badge:"",stock:99,sub:"accessories",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/eflcsZ3ERgBxUBMhAiyGyoUihYK4KVbqzlgGiHiI.png"},
+{n:"Dragon Fruit",p:15.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QYbY9Ll5efm82HkXKCBn1xIGWlox5MUp2hmfjlO9.png"},
+{n:"Soul Fruit",p:6.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QSXeLBmogXGMz8tmif5YLteSS2Mv5jpRMRYPizhq.png"},
+{n:"Devil Fruit Rod",p:16.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/aJxM19lkMLnla4WyYWFcKohENSP7c784K28FgSRB.png"},
+{n:"Mochi",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/iAzw7XvPVMGpsJtSx3TfTWm8hXKxebDQfrner4Gj.png"},
+{n:"Venom",p:5.49,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/cjujwm8NdaWpEygFrYu4gM9OsnDrS4N9ll1itORo.png"},
+{n:"Tori",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/0gbOibbFau3sGg9Ybh1cnTLz46mYLoE67hpIRPGH.png"},
+{n:"Pika",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/ZJKI0ZQTKzwVmZUXrMpalAi1cpCzSt9ZRtDEIajN.png"},
+{n:"Pteradon",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/fN6gPrHcuEeVBwoBTh3nVAKFozh4K7u5Arz4CURU.png"},
+{n:"Buddha",p:4.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/WNqggI2g8TpADEHWY3L1LSwjd9nct3jbsvluwr75.png"},
+{n:"Ope",p:3.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/o6WNS7RYpCFmFSWg8L3s1X6K9K1N8XORVKXfEWSN.png"},
+{n:"All Seeing Holly",p:22.99,oldP:null,badge:undefined,stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/9zEMVYyo14DSwnYr9lNZP7dbKB6l3C6V6D45pyiA.png',oos:false,em:undefined},
+{n:"Prestige Candy Cane",p:659.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/IjuwOa5MPLKtfsEBxSClqSFwI9dna6cnVAWFgHFv.png"},
+{n:"All Seeing Ba'al",p:27.99,oldP:null,badge:undefined,stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/tTMV8qHEi68tByoNKaUKFmiDNyzvRdIzA5MfjyDh.png',oos:false,em:undefined},
+{n:"Jesters Outfit",p:49.99,oldP:null,badge:'rare',stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/roA95BZk4Smsj7b9gzadHuSSnWd9vb3xlAVx0IL7.png',oos:false,em:'undefined'},
+{n:"Prestige Firework Lancer",p:400.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/zcDWmjrlCIK3eKT3Fo0i0ZK8DH8OK5ahsVPbMIUz.png"},
+{n:"Prestige World Ender",p:389.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/OO9a2meMDsCUtyjdunmyLa2g5F7bBzVhO8QtfIld.png"},
+{n:"Prestige Inferno Rocket Blade",p:329.99,oldP:null,badge:"hot",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/bbziqXuf3oUqqBGbVN3703EFpNDtnK3Ife7oSvnp.png"},
+{n:"Prestige Firework Daggers",p:149.99,oldP:null,badge:"rare",stock:99,sub:"weapons",rar:"mythical",bg:"r-mythical",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/v2hmam6STlyB5VYJVQgwpThmWCYNS6iaOyEO326s.png"},
+{n:"Prestige Firework Rocket Launcher",p:55.99,oldP:null,badge:"rare",stock:99,sub:"weapons",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fczu2w86lBvWEk37upEgdwyqadBLDq2hUlfBj9Ec.png"},
+{n:"Soul King Scarf",p:26.99,oldP:null,badge:undefined,stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/s99iyYLonDu3xUS0tYWeORsrvHgDeyv4hmldItsj.png',oos:false,em:undefined},
+{n:"Mythical Fruit Chest",p:5.99,oldP:null,badge:"",stock:99,sub:"fruits",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/UjRTSykyQTm28gHRVMRPvqmkgN6ff84PL7wDBKv8.png"},
+{n:"Level 675 GPO Account",p:5.99,oldP:null,badge:"",stock:99,sub:"bundles",rar:"uncommon",bg:"r-uncommon",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sf7Q60hzWSkJdA28gih0RsmhOd8zQLR30a24wfUB.png"},
+{n:"World Ender",p:18.99,oldP:null,badge:"",stock:99,sub:"weapons",rar:"rare",bg:"r-rare",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/B6lLfdEpOgtKzibLOfbwrhHAXg9ihTC2fYYlQ5f2.png"},
+{n:"Iceborn Candy Cane",p:129.99,oldP:null,badge:'hot',stock:99,sub:'weapons',rar:'mythical',bg:"r-mythical",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/SWVipU8uYuBaDRwvX57SYJeYSBdCqhYSNFK8NpUv.png',oos:false,em:undefined},
+{n:"10x Mythical Fruit Chest",p:49.99,oldP:null,badge:"rare",stock:99,sub:"fruits",rar:"legendary",bg:"r-legendary",img:"https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/npWzd6aZiXwy2sUNv3yFQ2UUBckPiUe8BJYGSeGC.png"},
+{n:"Cupid's All Seeing Eye",p:23.99,oldP:null,badge:undefined,stock:99,sub:'accessories',rar:'legendary',bg:"r-legendary",img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Uympip37RcXouP2pWd0BIWsqgGZ5zTVyGXB5aydj.png',oos:false,em:undefined},
+  {n:'All Seeing Shamrock',em:'',rar:'legendary',p:27.99,badge:'new',stock:99,sub:'swords',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/All%20Seeing%20Shamrock.webp'},
 ];
 
 const SP = [
@@ -1242,3 +1239,4 @@ const DISCORD_NITRO_DESCS = {
   'prem-month':  `After your purchase, you'll receive <strong>1 Month Premium Nitro</strong> (not Basic). ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Premium Nitro experience for 1 month!`,
   'prem-year':   `After your purchase, you'll receive <strong>1 Year Premium Nitro with 2 Boosts</strong> (not Basic). ✨🎮<br><br>${_NITRO_DESC_BASE}<br><br>🔥 Enjoy the full Premium Nitro experience for 1 whole year!`,
 };
+

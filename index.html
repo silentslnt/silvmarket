@@ -62,8 +62,6 @@ body{font-family:'Inter',sans-serif;background:var(--void);color:#fff;overflow-x
   mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%)}
 .scan{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.055) 2px,rgba(0,0,0,.055) 4px)}
-#sectionBg{position:fixed;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:0;transition:opacity .4s ease}
-#sectionBg::after{content:'';position:absolute;inset:0;background:rgba(7,3,26,.8)}
 
 
 
@@ -204,31 +202,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .view-all:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,51,102,.3)}
 
-.sec-search-wrap{position:relative;margin-bottom:18px;display:inline-flex;align-items:center}.sec-search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(255,255,255,.45)}.sec-search{width:260px;padding:9px 13px 9px 34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;outline:none;transition:border-color .15s,background .15s}.sec-search::placeholder{color:rgba(255,255,255,.4)}.sec-search:focus{border-color:rgba(147,51,234,.6);background:rgba(255,255,255,.1);box-shadow:0 0 0 3px rgba(147,51,234,.15)}.sec-no-results{display:none;color:rgba(255,255,255,.4);font-size:13px;font-family:'Rajdhani',sans-serif;padding:10px 2px;font-weight:600}
-.sec-sort{height:34px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:0 26px 0 10px;color:rgba(255,255,255,.55);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;cursor:pointer;outline:none;transition:all .2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;flex-shrink:0}
-.sec-sort:focus,.sec-sort:hover{border-color:rgba(147,51,234,.5);color:#fff;background-color:rgba(147,51,234,.08)}
-.sec-sort option{background:#0d0a1e;color:#fff}
-.sec-ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.sec-ctrl-row .sec-search-wrap{margin-bottom:0;flex:0 0 auto;min-width:160px}
-.sec-ctrl-row .sec-no-results{display:none;color:rgba(255,255,255,.4);font-size:13px;font-family:'Rajdhani',sans-serif;padding:0;font-weight:600;margin:0}
-.jump-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px;
-  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
-  border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px 12px;margin-bottom:12px}
-.jump-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;margin-right:4px;white-space:nowrap}
-.jt{padding:6px 14px;border-radius:7px;border:1px solid rgba(255,255,255,.07);
-  background:transparent;color:rgba(255,255,255,.4);
-  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;letter-spacing:.3px;
-  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
-.jt:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.2)}
-.jt.jta{background:rgba(255,16,240,.1);border-color:rgba(255,16,240,.35);color:var(--pink)}
-.jt.jtb{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.35);color:var(--yellow)}
-.jt.jtc{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.35);color:var(--blue)}
-.jt.jtd{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.35);color:var(--green)}
-.jt.jte{background:rgba(255,0,64,.1);border-color:rgba(255,0,64,.25);color:var(--red2)}
-
-.div-line{height:1px;background:linear-gradient(90deg,transparent,rgba(147,51,234,.35),rgba(255,16,240,.3),transparent)}
-
 .feat{position:relative;overflow:hidden;
   background:linear-gradient(135deg,rgba(26,5,51,.92),rgba(5,11,46,.92));
   border:1px solid rgba(147,51,234,.28);border-radius:20px;padding:32px;
@@ -312,14 +285,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-bundle-items{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:5px;line-height:1.5;white-space:normal}
 .pc-orig{font-size:11px;color:rgba(255,255,255,.5);text-decoration:line-through;margin-bottom:1px}
 
-.type-pill{position:absolute;bottom:10px;left:9px;z-index:3;
-  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;
-  padding:2px 6px;border-radius:4px;text-transform:uppercase;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.1)}
-.t-nat{color:#86efac;border-color:rgba(134,239,172,.25)}
-.t-log{color:#7dd3fc;border-color:rgba(125,211,252,.25)}
-.t-bst{color:#fca5a5;border-color:rgba(252,165,165,.25)}
-
 .pc-body{padding:13px}
 .pc-g{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;
   text-transform:uppercase;margin-bottom:3px}
@@ -330,14 +295,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
 .pc-rar{font-size:10px;font-weight:600;margin-bottom:7px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
 .rc-common{color:rgba(255,255,255,.3)}.rc-uncommon{color:#86efac}.rc-rare{color:#60a5fa}
 .rc-legendary{color:#fbbf24}.rc-mythical{color:#f0abfc}
-.fruit-tog{display:flex;gap:5px;margin-bottom:8px}
-.tog{flex:1;min-width:0;padding:5px;border-radius:7px;font-size:10px;font-weight:700;
-  font-family:'Rajdhani',sans-serif;letter-spacing:.5px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);
-  color:rgba(255,255,255,.55);transition:all .2s;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.tog.sn{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.38);color:var(--blue)}
-.tog.sp{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.32);color:var(--yellow)}
 .br-sels{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
 .br-sel-wrap{position:relative;display:flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;height:30px;padding:0 26px 0 0;overflow:hidden;transition:border-color .2s}
 .br-sel-wrap:focus-within{border-color:rgba(255,16,240,.4)}
@@ -357,30 +314,6 @@ nav{position:sticky;top:0;z-index:100;height:var(--nav-h);
   box-shadow:0 0 16px rgba(255,16,240,.25)}
 .pc-btn.oos{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);
   color:rgba(255,255,255,.18);cursor:not-allowed}
-
-.rob-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
-.rp{position:relative;border-radius:16px;overflow:hidden;
-  border:1px solid rgba(255,215,0,.18);
-  background:linear-gradient(150deg,rgba(42,26,0,.9),rgba(20,12,0,.9));
-  padding:22px 18px;text-align:center;transition:all .3s;cursor:pointer}
-.rp:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.45);
-  box-shadow:0 8px 28px rgba(255,215,0,.12)}
-.rp::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--yellow),transparent)}
-.rp-best{border-color:rgba(255,16,240,.35)}
-.rp-best::after{content:'BEST VALUE';position:absolute;top:10px;right:10px;
-  font-family:'Rajdhani',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;
-  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
-  padding:2px 6px;border-radius:4px}
-.rp-ico{font-size:38px;margin-bottom:9px;filter:drop-shadow(0 0 10px rgba(255,215,0,.4))}
-.rp-amt{font-family:'Orbitron',monospace;font-size:24px;font-weight:800;color:var(--yellow);margin-bottom:3px}
-.rp-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:12px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
-.rp-price{font-family:'Orbitron',monospace;font-size:20px;font-weight:700;color:#fff;margin-bottom:10px}
-.rp-btn{width:100%;padding:9px;border-radius:8px;
-  background:linear-gradient(135deg,#a16207,var(--yellow));color:#000;
-  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;
-  border:none;cursor:pointer;transition:all .2s}
-.rp-btn:hover{box-shadow:0 0 14px rgba(255,215,0,.35);transform:scale(1.02)}
 
 .bs-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:15px}
 
@@ -1409,7 +1342,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 </section>
 
-<div id="sectionBg"></div>
 <div class="bg"></div>
 <div class="bg-grid"></div>
 <div class="scan"></div>
@@ -1493,481 +1425,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
 <div class="content">
 
 
-<section class="S" id="robux">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:var(--yellow)">Roblox Services</div>
-      <div class="sec-title">Robux &amp; More</div>
-      <p class="sec-sub" id="robuxSubtitle">Delivered directly to your Roblox account — fast and secure.</p>
-    </div>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Category:</span>
-    <button class="jt jtb" id="rcat-robux"    onclick="filterRobuxCat(this,'robux')"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Robux</button>
-    <button class="jt"     id="rcat-services" onclick="filterRobuxCat(this,'services')"><img src="https://silvmarket.shop/images/Roblox%20services.png" style="width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:4px"> Followers / Members / Likes</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Robux…" oninput="secSearch('robuxGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'robuxGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="robuxGrid"><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div><div class="sk sk-rp" style="flex-shrink:0"></div></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="bf">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:var(--yellow)">Blox Fruits</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/bloxfruits.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Blox Fruits</div>
-      <p class="sec-sub">All top-tier fruits with Normal / ⭐ Permanent toggle · Skins · Gamepasses</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('bf')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtb" onclick="filterBF(this,'all')">🍎 All Fruits</button>
-    <button class="jt" onclick="filterBF(this,'mythical')">💜 Mythical</button>
-    <button class="jt" onclick="filterBF(this,'legendary')">⭐ Legendary</button>
-    <button class="jt" onclick="filterBF(this,'rare')">💎 Rare</button>
-    <button class="jt" onclick="filterBF(this,'logia')">🌊 Logia</button>
-    <button class="jt" onclick="filterBF(this,'beast')">🦁 Beast</button>
-    <button class="jt" onclick="filterBF(this,'skin')">🎨 Skins</button>
-    <button class="jt" onclick="filterBF(this,'gamepass')">🎮 Gamepasses</button>
-    <button class="jt" onclick="filterBF(this,'accounts')">👤 Accounts</button>
-  </div>
-  <div class="feat">
-    <div class="feat-badge">BEST SELLER</div>
-    <div class="feat-em">🐉</div>
-    <div class="feat-info">
-      <div class="feat-g">Blox Fruits · Mythical Beast</div>
-      <div class="feat-n">PERMANENT DRAGON</div>
-      <div class="feat-d">The #1 PvP fruit in the game. Full Dragon transformation, insane AoE damage, elite mobility. Permanent — yours forever.</div>
-    </div>
-    <div class="feat-r">
-      <div class="feat-old">$44.99</div>
-      <div class="feat-p">$31.52</div>
-      <div class="feat-save">YOU SAVE $12.50</div>
-      <button class="co-btn" style="width:auto;padding:12px 22px;font-size:14px;box-shadow:none" onclick="addToCart('Permanent Dragon',32.49,'🐉','Blox Fruits')">🛒 Add to Cart</button>
-    </div>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blox Fruits…" oninput="secSearch('bfGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bfGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="bfGrid"><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div><div class="sk sk-card" style="min-width:196px;flex-shrink:0"></div></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="brainrot">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#c084fc;text-shadow:0 0 16px rgba(192,132,252,.65)">Steal a Brainrot</div>
-      <div class="sec-title sec-title-shiny" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/QzqIX4MR8v121KKTB8gj8WqzqrBpCI3QsN2OfWad.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Brainrots</div>
-      <p class="sec-sub">High-value bases — God Tier · Meta · Starter · Radioactive · Rainbow · Galaxy · Yin Yang</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('brainrot')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Tier:</span>
-    <button class="jt jta" onclick="filterBR(this,'all')">🧠 All</button>
-    <button class="jt" style="color:#ffd700;border-color:rgba(255,215,0,.3)" onclick="filterBR(this,'god-tier')">👑 God</button>
-    <button class="jt" style="color:#f97316;border-color:rgba(249,115,22,.3)" onclick="filterBR(this,'meta-tier')">⚡ Meta</button>
-    <button class="jt" style="color:#3b82f6;border-color:rgba(59,130,246,.3)" onclick="filterBR(this,'starter-tier')">🌱 Starter</button>
-    <button class="jt" style="color:#06b6d4;border-color:rgba(6,182,212,.3)" onclick="filterBR(this,'index-base')">📍 Index</button>
-    <button class="jt" style="color:#00e676;border-color:rgba(0,230,118,.3)" onclick="filterBR(this,'radioactive')">☢️ Radioactive</button>
-    <button class="jt" style="color:#f472b6;border-color:rgba(244,114,182,.3)" onclick="filterBR(this,'rainbow')">🌈 Rainbow</button>
-    <button class="jt" style="color:#a78bfa;border-color:rgba(167,139,250,.3)" onclick="filterBR(this,'galaxy')">🌌 Galaxy</button>
-    <button class="jt" style="color:#e5e7eb;border-color:rgba(229,231,235,.25)" onclick="filterBR(this,'yin-yang')">☯️ Yin Yang</button>
-    <button class="jt" style="color:#a855f7;border-color:rgba(168,85,247,.3)" onclick="filterBR(this,'cursed')">💀 Cursed</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Brainrots…" oninput="secSearch('brainrotGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'brainrotGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="brainrotGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="rivals">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#f87171">Rivals</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/Rivals.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Rivals</div>
-      <p class="sec-sub">Bundles, skin cases and season pass items · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('rivals')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.32);color:#f87171" onclick="filterRIV(this,'all')">🥊 All</button>
-    <button class="jt" onclick="filterRIV(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterRIV(this,'cases')">📫 Cases</button>
-    <button class="jt" onclick="filterRIV(this,'season-pass')">🎫 Season Pass</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Rivals…" oninput="secSearch('rivalsGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'rivalsGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="rivalsGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="mm2">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#60a5fa">Murder Mystery 2</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/mm2.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">MM2</div>
-      <p class="sec-sub">Godly knives, chroma weapons, rare limited items</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('mm2')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtc" onclick="filterMM2(this,'all')">⚔️ All</button>
-    <button class="jt" onclick="filterMM2(this,'chroma')">✨ Chroma</button>
-    <button class="jt" onclick="filterMM2(this,'godly')">⚡ Godly</button>
-    <button class="jt" onclick="filterMM2(this,'set')">🗡️ Sets</button>
-    <button class="jt" onclick="filterMM2(this,'bundle')">🎁 Bundles</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search MM2…" oninput="secSearch('mm2Grid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'mm2Grid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="mm2Grid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="tsunami">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#38bdf8">Escape Tsunami</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/escape_tsunami.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Escape Tsunami</div>
-      <p class="sec-sub">Exclusive items from Escape Tsunami · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('tsunami')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtc" onclick="filterTS(this,'all')">🌊 All</button>
-    <button class="jt" onclick="filterTS(this,'items')">💎 Items</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Tsunami…" oninput="secSearch('tsunamiGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'tsunamiGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="tsunamiGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="sp">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#06b6d4">Sailor Piece</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Sailor Piece.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Sailor Piece</div>
-    </div>
-    <button class="view-all" onclick="openViewAll('sp')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterSP(this,'all')">🏴‍☠️ All</button>
-    <button class="jt" onclick="filterSP(this,'gamepasses')">🎮 Gamepasses</button>
-    <button class="jt" onclick="filterSP(this,'keys')">🗝️ Keys</button>
-    <button class="jt" onclick="filterSP(this,'rerolls')">🔄 Rerolls</button>
-    <button class="jt" onclick="filterSP(this,'items')">⚔️ Items</button>
-    <button class="jt" onclick="filterSP(this,'sets')">🧥 Sets</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Sailor Piece…" oninput="secSearch('spGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'spGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="spGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="am">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#ec4899">Adopt Me</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/adopt_me.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Adopt Me</div>
-      <p class="sec-sub">Pets from low tier to high tier — all Fly/Ride enabled · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('am')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jta" onclick="filterAM(this,'all')">🐾 All</button>
-    <button class="jt" onclick="filterAM(this,'low-tier')">⭐ Low Tier</button>
-    <button class="jt" onclick="filterAM(this,'mid-tier')">💎 Mid Tier</button>
-    <button class="jt" onclick="filterAM(this,'high-tier')">👑 High Tier</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Adopt Me…" oninput="secSearch('amGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'amGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="amGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="gag">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#4ade80">Grow a Garden</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/grow a garden.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Grow a Garden</div>
-      <p class="sec-sub">Seeds, tools, pets, tokens and exclusive items for GAG.</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('gag')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt jtd" onclick="filterGAG(this,'all')">🌱 All</button>
-    <button class="jt" onclick="filterGAG(this,'pets')">🐝 Pets</button>
-    <button class="jt" onclick="filterGAG(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterGAG(this,'tokens')">🪙 Tokens</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grow a Garden…" oninput="secSearch('gagGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'gagGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="gagGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="nights">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#a78bfa">99 Nights</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/99_nights.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">99 Nights</div>
-      <p class="sec-sub">In-game gems and currency for 99 Nights</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('nights')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.32);color:#a78bfa" onclick="filterNT(this,'all')">🌙 All</button>
-    <button class="jt" onclick="filterNT(this,'pets')">🐺 Pets</button>
-    <button class="jt" onclick="filterNT(this,'bundles')">📦 Bundles</button>
-    <button class="jt" onclick="filterNT(this,'currency')">🪙 Currency</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search 99 Nights…" oninput="secSearch('nightsGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'nightsGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="nightsGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="gpo">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#f97316">Grand Piece Online</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/gpo.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Grand Piece Online</div>
-      <p class="sec-sub">Fruits, weapons, accessories and bundles · Real petmart prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('gpo')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.32);color:#f97316" onclick="filterGPO(this,'all')">⚓ All</button>
-    <button class="jt" onclick="filterGPO(this,'fruits')">🍎 Fruits</button>
-    <button class="jt" onclick="filterGPO(this,'weapons')">⚔️ Weapons</button>
-    <button class="jt" onclick="filterGPO(this,'accessories')">💍 Accessories</button>
-    <button class="jt" onclick="filterGPO(this,'bundles')">📦 Bundles</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Grand Piece Online…" oninput="secSearch('gpoGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'gpoGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="gpoGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="bb">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#3b82f6">Blade Ball</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/blade%20ball.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Blade Ball</div>
-      <p class="sec-sub">Crates, passes, and items for Blade Ball</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('bb')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.32);color:#3b82f6" onclick="filterBB(this,'all')">⚔️ All</button>
-    <button class="jt" onclick="filterBB(this,'swords')">⚔️ Swords</button>
-    <button class="jt" onclick="filterBB(this,'sets')">🎯 Sets</button>
-    <button class="jt" onclick="filterBB(this,'spins')">🌀 Spins</button>
-    <button class="jt" onclick="filterBB(this,'tokens')">🪙 Tokens</button>
-    <button class="jt" onclick="filterBB(this,'passes')">🎟️ Passes</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Blade Ball…" oninput="secSearch('bbGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bbGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="bbGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="av">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#a78bfa">Anime Vanguards</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/anime%20vangaurds.png" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Anime Vanguards</div>
-      <p class="sec-sub">Units, shiny variants and exclusive characters · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('av')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.32);color:#a78bfa" onclick="filterAV(this,'all')">⚡ All</button>
-    <button class="jt" onclick="filterAV(this,'units')">🗡️ Units</button>
-    <button class="jt" onclick="filterAV(this,'shiny')">✨ Shiny</button>
-    <button class="jt" onclick="filterAV(this,'exclusive')">👑 Exclusive</button>
-    <button class="jt" onclick="filterAV(this,'gamepass')">🎮 Gamepass</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Anime Vanguards…" oninput="secSearch('avGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'avGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="avGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="bl">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#ef4444">Bloodlines</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bloodlines.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bloodlines</div>
-      <p class="sec-sub">Rare, legendary and mythical bloodlines · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('bl')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.32);color:#ef4444" onclick="filterBL(this,'all')">🩸 All</button>
-    <button class="jt" onclick="filterBL(this,'races')">🧬 Races</button>
-    <button class="jt" onclick="filterBL(this,'eyes')">👁️ Eyes</button>
-    <button class="jt" onclick="filterBL(this,'souls')">🌀 Souls</button>
-    <button class="jt" onclick="filterBL(this,'schematics')">📜 Schematics</button>
-    <button class="jt" onclick="filterBL(this,'rings')">💍 Rings</button>
-    <button class="jt" onclick="filterBL(this,'items')">🗡️ Items</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bloodlines…" oninput="secSearch('blGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'blGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="blGrid"></div>
-</section>
-
-<section class="S sec-alt" id="fisch">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#38bdf8">Fisch</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Fisch.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Fisch</div>
-      <p class="sec-sub">Rods, rare fish, enchants and Fishcoins · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('fisch')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.32);color:#38bdf8" onclick="filterFISCH(this,'all')">🎣 All</button>
-    <button class="jt" onclick="filterFISCH(this,'rods')">🎣 Rods</button>
-    <button class="jt" onclick="filterFISCH(this,'fish')">🐟 Fish</button>
-    <button class="jt" onclick="filterFISCH(this,'boats')">⛵ Boats</button>
-    <button class="jt" onclick="filterFISCH(this,'items')">📦 Items</button>
-    <button class="jt" onclick="filterFISCH(this,'currency')">💵 Currency</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Fisch…" oninput="secSearch('fischGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'fischGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="fischGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="bss">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#fbbf24">Bee Swarm Simulator</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bee%20Swarm%20Simulator.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bee Swarm Simulator</div>
-      <p class="sec-sub">Royal jellies, star jellies, eggs and gamepasses · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('bss')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.32);color:#fbbf24" onclick="filterBSS(this,'all')">🐝 All</button>
-    <button class="jt" onclick="filterBSS(this,'skins')">🐻 Skins</button>
-    <button class="jt" onclick="filterBSS(this,'vouchers')">🎁 Vouchers</button>
-    <button class="jt" onclick="filterBSS(this,'beequips')">💍 Beequips</button>
-    <button class="jt" onclick="filterBSS(this,'stickers')">🪧 Stickers</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bee Swarm Simulator…" oninput="secSearch('bssGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bssGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="bssGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="vbl">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#a3e635">Volleyball Legends</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Volleyball%20Legends.jpg" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Volleyball Legends</div>
-      <p class="sec-sub">Rare styles, spins, gamepasses and match coins · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('vbl')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.32);color:#a3e635" onclick="filterVBL(this,'all')">🏐 All</button>
-    <button class="jt" onclick="filterVBL(this,'spins')">🌀 Spins</button>
-    <button class="jt" onclick="filterVBL(this,'currency')">💎 Currency</button>
-    <button class="jt" onclick="filterVBL(this,'slots')">🎰 Slots</button>
-    <button class="jt" onclick="filterVBL(this,'passes')">🎟️ Passes</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Volleyball Legends…" oninput="secSearch('vblGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'vblGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="vblGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="dth">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#e879f9">Death Ball</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Death Ball</div>
-      <p class="sec-sub">Weapons, cosmetics, auras and gems · Delivered via Discord</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('dth')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(232,121,249,.1);border-color:rgba(232,121,249,.32);color:#e879f9" onclick="filterDTH(this,'all')">💀 All</button>
-    <button class="jt" onclick="filterDTH(this,'weapons')">⚔️ Weapons</button>
-    <button class="jt" onclick="filterDTH(this,'auras')">✨ Auras</button>
-    <button class="jt" onclick="filterDTH(this,'gems')">💎 Gems</button>
-    <button class="jt" onclick="filterDTH(this,'bundles')">📦 Bundles</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Death Ball…" oninput="secSearch('dthGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'dthGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="dthGrid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S sec-alt" id="ps99">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#06b6d4">Pet Simulator 99</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://silvmarket.shop/images/PetSim99%20logo.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Pet Simulator 99</div>
-      <p class="sec-sub">Gems, Huge Pets, Titanic Pets, Rainbow Pets & Eggs · Best PS99 prices</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('ps99')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.32);color:#06b6d4" onclick="filterPS99(this,'all')">💎 All</button>
-    <button class="jt" onclick="filterPS99(this,'gems')">✨ Gems</button>
-    <button class="jt" onclick="filterPS99(this,'huge')">🐾 Huge Pets</button>
-    <button class="jt" onclick="filterPS99(this,'titanic')">👑 Titanic</button>
-    <button class="jt" onclick="filterPS99(this,'rainbow')">🌈 Rainbow</button>
-    <button class="jt" onclick="filterPS99(this,'eggs')">🥚 Eggs</button>
-    <button class="jt" onclick="filterPS99(this,'other')">📦 Other</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Pet Simulator 99…" oninput="secSearch('ps99Grid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'ps99Grid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="ps99Grid"></div>
-</section>
-
-<div class="div-line"></div>
-
-<section class="S" id="bw">
-  <div class="sec-hd">
-    <div>
-      <div class="sec-ey" style="color:#d97706">Bridger: Western</div>
-      <div class="sec-title" style="display:flex;align-items:center;gap:10px"><img src="https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp" style="width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0" loading=lazy onerror="this.style.display='none'">Bridger: Western</div>
-      <p class="sec-sub">JoJo-inspired western stand game · Stands, Accounts & Items</p>
-    </div>
-    <button class="view-all" onclick="openViewAll('bw')">View All →</button>
-  </div>
-  <div class="jump-row">
-    <span class="jump-label">Jump to:</span>
-    <button class="jt" style="background:rgba(217,119,6,.1);border-color:rgba(217,119,6,.32);color:#d97706" onclick="filterBW(this,'all')">🤠 All</button>
-    <button class="jt" onclick="filterBW(this,'items')">💰 Items</button>
-    <button class="jt" onclick="filterBW(this,'stands')">⭐ Stands</button>
-    <button class="jt" onclick="filterBW(this,'accounts')">🎮 Accounts</button>
-  </div>
-  <div class="sec-ctrl-row"><div class="sec-search-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sec-search" placeholder="Search Bridger: Western…" oninput="secSearch('bwGrid',this.value)"/></div><select class="sec-sort" onchange="sortSection(this,'bwGrid')"><option value="">Sort</option><option value="low">Price ↑</option><option value="high">Price ↓</option></select><div class="sec-no-results">No items match your search.</div></div>
-  <div class="h-scroll" id="bwGrid"></div>
-</section>
-
-<div class="div-line"></div>
 
 
 <footer>
@@ -2036,47 +1493,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     VIEW ALL OVERLAY
-     ═══════════════════════════════════════════════ -->
-<div id="viewAllOverlay" style="display:none;position:fixed;inset:0;z-index:5000;background:linear-gradient(160deg,#0d0520,#07031a);overflow-y:auto">
-  <div style="max-width:1400px;margin:0 auto;padding:24px 20px">
-    <!-- Game banner header -->
-    <div id="vaGameHeader" style="position:relative;border-radius:18px;margin-bottom:18px;background:rgba(12,5,28,0.95);border:1px solid rgba(147,51,234,.3);overflow:hidden">
-      <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(147,51,234,.18) 0%,rgba(255,16,240,.08) 60%,transparent 100%);pointer-events:none"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,16,240,.4),transparent)"></div>
-      <div style="position:relative;display:flex;align-items:center;gap:18px;padding:18px 22px">
-        <button onclick="closeViewAll()" style="display:flex;align-items:center;gap:5px;padding:9px 15px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.65);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;cursor:pointer;flex-shrink:0;transition:all .2s;letter-spacing:.3px" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.06)'">← Back</button>
-        <div id="vaGameIconBox" style="width:54px;height:54px;border-radius:13px;background:linear-gradient(135deg,rgba(147,51,234,.25),rgba(255,16,240,.15));border:2px solid rgba(147,51,234,.4);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(147,51,234,.2)">
-          <img id="vaGameIconImg" style="width:100%;height:100%;object-fit:cover;border-radius:11px" src="" alt="" onerror="this.style.display='none'"/>
-        </div>
-        <div style="flex:1;min-width:0">
-          <div id="viewAllTitle" style="font-family:'Orbitron',monospace;font-size:21px;font-weight:800;color:#fff;letter-spacing:.5px;line-height:1.2"></div>
-          <div id="viewAllCount" style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.55);margin-top:5px;letter-spacing:.5px"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Search -->
-    <div style="position:relative;margin-bottom:14px">
-      <input id="vaSearchInput" type="text" placeholder="Search items…" autocomplete="off"
-        oninput="searchViewAll(this.value)"
-        style="width:100%;box-sizing:border-box;padding:10px 14px 10px 38px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:11px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;outline:none;transition:border-color .2s"
-        onfocus="this.style.borderColor='rgba(147,51,234,.55)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'"/>
-      <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.35" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </div>
-    <!-- Filter pills -->
-    <div id="viewAllFilters" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"></div>
-    <!-- Sort bar -->
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-      <span style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1.5px">SORT BY</span>
-      <button onclick="sortViewAll('default')" class="va-sort va-sort-active" id="vaSort-default">Default</button>
-      <button onclick="sortViewAll('low')"     class="va-sort" id="vaSort-low">Price ↑</button>
-      <button onclick="sortViewAll('high')"    class="va-sort" id="vaSort-high">Price ↓</button>
-    </div>
-    <!-- Grid -->
-    <div id="viewAllGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px"></div>
-  </div>
-</div>
 
 <!-- BACK TO TOP -->
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
@@ -2090,16 +1506,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   #itemDetailName{font-size:18px!important}
   #itemDetailPrice{font-size:26px!important}
 }
-/* View all sort buttons */
-.va-sort{padding:6px 13px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.4);cursor:pointer;transition:all .2s;letter-spacing:.3px}
-.va-sort:hover{background:rgba(147,51,234,.15);border-color:rgba(147,51,234,.35);color:rgba(255,255,255,.8)}
-.va-sort-active{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.45);color:#fff}
-/* View all filter pills */
-.va-filter{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:40px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.3px;position:relative}
-.va-filter:hover{background:rgba(147,51,234,.18);border-color:rgba(147,51,234,.45);color:#fff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(147,51,234,.18)}
-.va-filter-active{background:linear-gradient(135deg,rgba(147,51,234,.35),rgba(255,16,240,.2));border-color:rgba(255,16,240,.55);color:#fff;box-shadow:0 0 16px rgba(255,16,240,.2)}
-.va-filter-active:hover{transform:none}
-.va-fi{width:16px;height:16px;border-radius:5px;object-fit:cover;flex-shrink:0}
 /* Back to top */
 #backToTop{position:fixed;bottom:80px;right:23px;z-index:4999;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ff10f0);border:none;color:#fff;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(147,51,234,.45);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s;pointer-events:none;display:flex;align-items:center;justify-content:center;line-height:1}
 #backToTop.visible{opacity:1;transform:translateY(0);pointer-events:auto}
@@ -2128,28 +1534,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   justify-content:center;font-size:16px;flex-shrink:0}
 .mob-mi-sep{height:1px;background:rgba(255,255,255,.06);margin:6px 20px}
 
-/* ── GAME BAR: fixed on all phones/tablets (prevents disappearing on scroll) ── */
 @media(max-width:768px){
-  .game-bar{position:fixed!important;left:0;right:0;top:var(--nav-h)}
-  .content{padding-top:calc(var(--gamebar-h) + 4px)}
-  .gs-drop{max-height:60vh;overflow-y:auto}
-  /* Suppress heavy wallpaper on mobile */
-  #sectionBg{display:none!important}
-  /* Bigger tap targets in game-select dropdown */
-  .gd-item{padding:13px 14px;font-size:14px}
-  /* Taller brainrot dropdowns for thumb taps */
-  .br-sel-wrap{height:36px}
-  .br-sel-lbl{line-height:36px}
-  .br-sel{font-size:13px}
-  /* Wider subcategory filter pills */
-  .sf-btn{padding:8px 15px;font-size:13px}
   /* Back-to-top closer to edge on mobile */
   #backToTop{bottom:74px;right:16px;width:38px;height:38px;font-size:17px}
 }
 /* ── MOBILE ─────────────────────────────────────────────────── */
 @media(max-width:480px){
-  .game-bar{position:fixed!important;left:0;right:0;top:var(--nav-h)}
-  .content{padding-top:calc(var(--gamebar-h) + 4px)}
   /* Nav: stack search below logo+buttons row */
   nav{flex-wrap:wrap;height:auto;padding:8px 12px 6px;gap:0;row-gap:6px}
   .nav-search{order:3;flex:0 0 100%;max-width:100%;margin:0}
@@ -2181,15 +1571,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   /* Section dividers */
   .S+.S{border-top:1px solid rgba(147,51,234,.1)}
 
-  /* ── GAME BAR ── */
-  .game-bar{padding:0 8px}
-  .gb-btn{padding:6px 10px;font-size:11px;gap:4px}
-
-  /* ── FILTER TABS ── */
-  .jump-row{padding:8px 10px;gap:6px}
-  .jt{padding:6px 12px;font-size:11px}
-  .sf-btn{padding:6px 12px;font-size:11px}
-
   /* ── REVIEWS ── */
   .rv-col:nth-child(2){display:none!important}
 
@@ -2200,7 +1581,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   /* ── CARDS: 2-column grid ── */
   .h-scroll{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important;overflow-x:visible!important;overflow-y:visible!important;scroll-snap-type:none!important;padding:0!important}
   .h-scroll .pc{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important}
-  .h-scroll .rp{min-width:0!important;max-width:100%!important;width:100%!important;flex-shrink:unset!important;grid-column:span 2}
   /* Card tweaks for mobile grid */
   .pc{border-radius:12px}
   .pc-body{padding:10px 10px 8px}
@@ -2222,8 +1602,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
   .ci-qn{font-size:11px;min-width:16px}
 
   /* ── OVERLAYS & MODALS ── */
-  #viewAllOverlay .S{padding:14px 10px}
-  #viewAllGrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important;gap:8px!important}
   #accountPanel>div{padding:14px!important;margin:10px 6px!important;border-radius:12px!important}
   #itemDetailModal{padding:8px!important}
 
@@ -3046,7 +2424,7 @@ const PROMOS = {}; // codes verified server-side via /verify-promo
 
 // ── STATE ────────────────────────────────────────────────────
 let cart = [], selectedPayMethod='dc', promoApplied=false, promoPct=0, _referralDiscount=false, _tokensApplied=0, _storeCreditApplied=0;
-let rblxVerified=false, fruitModes={}, brSpeeds={}, brMuts={};
+let rblxVerified=false, brSpeeds={}, brMuts={};
 let discordLinked=false;
 let discordUser = { id:'', username:'', avatar:'', discriminator:'' };
 let _authWindow = null;
@@ -3080,109 +2458,6 @@ function mkImgEl(name,em,img,fallback){
     ? `this.onerror=null;this.src='${esc(fallback)}'`
     : `this.style.opacity='0'`;
   return `<img src="${src}" alt="${name}" loading="lazy" onerror="${errHandler}">`;
-}
-
-// ── RENDER ROBUX / SOCIAL ─────────────────────────────────────
-const ROBUX_META={
-  robux:    {ico:'💎',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',lbl:'ROBUX',game:'Robux',sub:'Delivered directly to your Roblox account'},
-  services: {ico:'⭐',img:_rsServicesImg,lbl:'Followers / Members / Likes',game:'Roblox Services',sub:'$5 per 1,000 · Covers Followers, Group Members & Game Likes/Favorites · Send your link in Discord after purchase'},
-};
-function filterRobuxCat(btn,cat){
-  document.querySelectorAll('[id^="rcat-"]').forEach(b=>b.classList.remove('jtb','jtd','jta','jtc'));
-  btn.classList.add('jtb');
-  renderRobux(cat);
-}
-function renderRobux(cat='robux'){
-  const meta=ROBUX_META[cat]||ROBUX_META.robux;
-  const sub=document.getElementById('robuxSubtitle');
-  if(sub) sub.textContent=meta.sub;
-  const data=cat==='robux'?ROBUX:SOCIAL_TIERS;
-  const rIco=meta.img?`<img src="${meta.img}" style="width:44px;height:44px;border-radius:10px;object-fit:cover" onerror="this.outerHTML='${meta.ico}'">`:(meta.ico);
-  const rImg=meta.img||'';
-  document.getElementById('robuxGrid').innerHTML=data.map(r=>`
-    <div class="rp${r.best?' rp-best':''}" onclick="addToCart('${r.a.toLocaleString()} ${meta.lbl}',${r.p},'${meta.ico}','${meta.game}','${rImg}')">
-      <div class="rp-ico">${rIco}</div>
-      <div class="rp-amt">${r.a.toLocaleString()}</div>
-      <div class="rp-lbl">${meta.lbl}</div>
-      <div class="rp-price">$${r.p.toFixed(2)}</div>
-      <button class="rp-btn">🛒 Buy Now</button>
-    </div>`).join('');tagOrder('robuxGrid');
-}
-
-// ── RENDER BLOX FRUITS ────────────────────────────────────────
-function renderBF(filter='all'){
-  const allItems=[...FRUITS,...FRUIT_SKINS,...BF_GP,...BF_ACCOUNTS];
-  let items;
-  if(filter==='all') items=allItems;
-  else if(filter==='logia') items=FRUITS.filter(f=>f.type==='Logia');
-  else if(filter==='beast') items=FRUITS.filter(f=>f.type==='Beast');
-  else if(filter==='skin') items=FRUIT_SKINS;
-  else if(filter==='gamepass') items=BF_GP;
-  else if(filter==='accounts') items=BF_ACCOUNTS;
-  else items=allItems.filter(f=>f.rar===filter||f.cat===filter);
-
-  document.getElementById('bfGrid').innerHTML=items.map(f=>{
-    const key=f.n, mode=fruitModes[key]||'perm';
-    const hasPerm=f.perm!==null&&f.perm!==undefined;
-    const dp=hasPerm&&mode==='perm'?f.perm:f.norm;
-    const bgC=RAR_BG[f.rar]||'r-rare';
-    const img=f.img||IMGS[f.n]||'';
-    const typeEl=f.type&&f.type!=='Skin'&&f.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[f.type]||'t-nat'}">${f.type}</div>`:'';
-    const iData=encodeURIComponent(JSON.stringify({n:f.n,em:f.em,p:dp,oldP:null,rar:f.rar,badge:f.badge||'',stock:f.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:f.cat||''}));
-    const addName=((mode==='perm'&&hasPerm)?'Perm ':'')+f.n;
-    return `
-    <div class="pc" data-bf="${f.cat||f.rar}" data-bf-type="${f.type}" data-price="${dp||0}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${bgC}">
-        ${mkImgEl(f.n,f.em,img)}
-        ${bdg(f.badge)}${stk(f.stock)}${typeEl}
-        ${mkFavBtn(f.n)}
-      </div>
-      <div class="pc-body">
-        <div class="pc-g g-bf">Blox Fruits${f.type==='Skin'?' · Skin':f.type==='Gamepass'?' · Gamepass':''}</div>
-        <div class="pc-n">${f.n}</div>
-        <div class="pc-rar ${RAR_COL[f.rar]||'rc-rare'}">${RAR_LBL[f.rar]||''}${f.type&&f.type!=='Skin'&&f.type!=='Gamepass'?' · '+f.type:''}</div>
-        ${hasPerm?`<div class="fruit-tog">
-          <button class="tog${mode==='norm'?' sn':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','norm');event.stopPropagation()">Normal</button>
-          <button class="tog${mode==='perm'?' sp':''}" onclick="setFM('${key.replace(/'/g,"\\'")}','perm');event.stopPropagation()">⭐ Perm</button>
-        </div>`:''}
-        <div class="pc-price" id="fp_${key.replace(/\W/g,'_')}">${fmtPrice(dp)}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${dp},'${f.em||'📦'}','Blox Fruits','${(f.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
-      </div>
-    </div>`;
-  }).join('');tagOrder('bfGrid');
-}
-
-function setFM(name,mode){
-  fruitModes[name]=mode;
-  renderBF(window._bfFilter||'all');
-  setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
-}
-// ── SECTION INLINE SEARCH ─────────────────────────────────────
-function secSearch(gridId, q){
-  const grid = document.getElementById(gridId);
-  if(!grid) return;
-  const ql = q.trim().toLowerCase();
-  let visible = 0;
-  // Support both .pc cards (most games) and .rp cards (Robux)
-  const cards = grid.querySelectorAll('.pc, .rp');
-  cards.forEach(card => {
-    const nameEl = card.querySelector('.pc-n, .rp-amt, .rp-lbl');
-    const name = (nameEl?.textContent || '').toLowerCase();
-    const show = !ql || name.includes(ql);
-    card.style.display = show ? '' : 'none';
-    if(show) visible++;
-  });
-  const noRes = grid.closest('section')?.querySelector('.sec-no-results');
-  if(noRes) noRes.style.display = (ql && visible===0) ? 'block' : 'none';
-}
-
-function filterBF(btn,cat){
-  window._bfFilter=cat;
-  btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
-  btn.className='jt jtb';
-  btn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
-  renderBF(cat);
-  setTimeout(()=>{const el=document.getElementById('bfGrid');if(el)el.dispatchEvent(new Event('scroll'))},60);
 }
 
 // ── FAVOURITES ────────────────────────────────────────────────
@@ -3374,32 +2649,12 @@ function mkCard(i,game,gcls){
   </div>`;
 }
 
-function filterGrid(gridId,attr,val){
-  document.querySelectorAll(`#${gridId} .pc`).forEach(c=>{
-    c.style.display=(val==='all'||c.dataset[attr]===val)?'':'none';
-  });
-}
-function filterAM(btn,sub){
-  setJtActive(btn);
-  if(sub==='all'||sub==='oos'){
-    document.querySelectorAll('#amGrid .pc').forEach(c=>{
-      const isOos=c.querySelector('.b-oos')!==null;
-      c.style.display=(sub==='all'||(sub==='oos'&&isOos))?'':'none';
-    });
-  } else {
-    document.querySelectorAll('#amGrid .pc').forEach(c=>{
-      c.style.display=(c.dataset.sub===sub||c.dataset.rar===sub)?'':'none';
-    });
-  }
-}
-function filterMM2(btn,sub){setJtActive(btn);filterGrid('mm2Grid','sub',sub);if(sub==='all')document.querySelectorAll('#mm2Grid .pc').forEach(c=>c.style.display='');}
-function filterGAG(btn,cat){setJtActive(btn);document.querySelectorAll('#gagGrid .pc').forEach(c=>{c.style.display=(cat==='all'||c.dataset.sub===cat)?'':'none';});}
-function renderBRGrid(){document.getElementById('brainrotGrid').innerHTML=BRAINROT.map(i=>mkCard(i,'brainrot','g-br')).join('');tagOrder('brainrotGrid');}
+// ── BRAINROT CARD HELPERS (used by bestsellers mkCard) ────────
 function updateBRCard(name){
   const item=BRAINROT.find(i=>i.n===name);
   if(!item) return;
-  const card=Array.from(document.querySelectorAll('#brainrotGrid .pc[data-brname]')).find(c=>c.getAttribute('data-brname')===name);
-  if(!card){renderBRGrid();return;}
+  const card=document.querySelector('.pc[data-brname="'+name.replace(/"/g,'&quot;')+'"]');
+  if(!card) return;
   const speedIdx=brSpeeds[name]!==undefined?brSpeeds[name]:0;
   const mutIdx=brMuts[name]!==undefined?brMuts[name]:0;
   const activeSp=item.speeds?item.speeds[speedIdx]:null;
@@ -3415,34 +2670,12 @@ function updateBRCard(name){
   const nameEl=card.querySelector('.pc-n');if(nameEl)nameEl.textContent=addName;
   const priceEl=card.querySelector('.pc-price');if(priceEl)priceEl.textContent=ps;
   const btn=card.querySelector('.pc-btn');if(btn)btn.setAttribute('onclick',`event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${p},'${item.em||'📦'}','Steal a Brainrot','${(item.img||'').replace(/'/g,"\\'")}')`)
-  // Sync select values
   const sels=card.querySelectorAll('.br-sel');
   if(item.speeds&&sels[0])sels[0].value=String(speedIdx);
   if(item.mutations&&sels[item.speeds?1:0])sels[item.speeds?1:0].value=String(mutIdx);
 }
 function setBRS(name,idx){brSpeeds[name]=idx;if(idx>0)brMuts[name]=0;updateBRCard(name);}
 function setBRMut(name,idx){brMuts[name]=idx;if(idx>0)brSpeeds[name]=0;updateBRCard(name);}
-function setVABRS(name,idx){brSpeeds[name]=idx;renderViewAllGrid();}
-function filterBR(btn,sub){window._brFilter=sub;setJtActive(btn);filterGrid('brainrotGrid','sub',sub);if(sub==='all')document.querySelectorAll('#brainrotGrid .pc').forEach(c=>c.style.display='');}
-function filterRIV(btn,sub){setJtActive(btn);filterGrid('rivalsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#rivalsGrid .pc').forEach(c=>c.style.display='');}
-function filterNT(btn,sub){setJtActive(btn);filterGrid('nightsGrid','sub',sub);if(sub==='all')document.querySelectorAll('#nightsGrid .pc').forEach(c=>c.style.display='');}
-function filterTS(btn,sub){setJtActive(btn);filterGrid('tsunamiGrid','sub',sub);if(sub==='all')document.querySelectorAll('#tsunamiGrid .pc').forEach(c=>c.style.display='');}
-function filterGPO(btn,sub){setJtActive(btn);filterGrid('gpoGrid','sub',sub);if(sub==='all')document.querySelectorAll('#gpoGrid .pc').forEach(c=>c.style.display='');}
-function filterSP(btn,sub){setJtActive(btn);filterGrid('spGrid','sub',sub);if(sub==='all')document.querySelectorAll('#spGrid .pc').forEach(c=>c.style.display='');}
-function filterBB(btn,sub){setJtActive(btn);filterGrid('bbGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bbGrid .pc').forEach(c=>c.style.display='');}
-function filterAV(btn,sub){setJtActive(btn);filterGrid('avGrid','sub',sub);if(sub==='all')document.querySelectorAll('#avGrid .pc').forEach(c=>c.style.display='');}
-function filterBL(btn,sub){setJtActive(btn);filterGrid('blGrid','sub',sub);if(sub==='all')document.querySelectorAll('#blGrid .pc').forEach(c=>c.style.display='');}
-function filterFISCH(btn,sub){setJtActive(btn);filterGrid('fischGrid','sub',sub);if(sub==='all')document.querySelectorAll('#fischGrid .pc').forEach(c=>c.style.display='');}
-function filterBSS(btn,sub){setJtActive(btn);filterGrid('bssGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bssGrid .pc').forEach(c=>c.style.display='');}
-function filterVBL(btn,sub){setJtActive(btn);filterGrid('vblGrid','sub',sub);if(sub==='all')document.querySelectorAll('#vblGrid .pc').forEach(c=>c.style.display='');}
-function filterDTH(btn,sub){setJtActive(btn);filterGrid('dthGrid','sub',sub);if(sub==='all')document.querySelectorAll('#dthGrid .pc').forEach(c=>c.style.display='');}
-function filterPS99(btn,sub){setJtActive(btn);filterGrid('ps99Grid','sub',sub);if(sub==='all')document.querySelectorAll('#ps99Grid .pc').forEach(c=>c.style.display='');}
-function filterBW(btn,sub){setJtActive(btn);filterGrid('bwGrid','sub',sub);if(sub==='all')document.querySelectorAll('#bwGrid .pc').forEach(c=>c.style.display='');}
-function setJtActive(btn){
-  btn.closest('.jump-row').querySelectorAll('.jt').forEach(t=>t.className='jt');
-  btn.className=btn.className+' jtb';
-  btn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
-}
 
 // ── BEST SELLERS ─────────────────────────────────────────────
 const BESTSELLERS = [
@@ -3542,31 +2775,6 @@ const BS_TAB_GAMES = [
 ];
 
 var _bsActiveGame = null;
-
-// ── Section background wallpaper ──────────────────────────────
-var _secBgMap={
-  brainrot:'https://tr.rbxcdn.com/180DAY-81af62355a65c70eadeece0e274e007c/500/280/Image/Jpeg/noFilter',
-  bf:      'https://tr.rbxcdn.com/180DAY-6e85e925dd676943f02e20d4acded146/500/280/Image/Jpeg/noFilter',
-  gag:     'https://tr.rbxcdn.com/180DAY-58ac6aee17065476c9d28128261b7f89/500/280/Image/Jpeg/noFilter',
-  sp:      'https://tr.rbxcdn.com/180DAY-e9318db1d02c8414ff1b9773cdce9b82/500/280/Image/Jpeg/noFilter',
-  gpo:     'https://tr.rbxcdn.com/180DAY-5dfa86c9bab8fb4f1641f42ce7b55c17/500/280/Image/Jpeg/noFilter',
-  mm2:     'https://tr.rbxcdn.com/180DAY-5ba706807447783862364dfef7a465ff/500/280/Image/Jpeg/noFilter',
-  am:      'https://tr.rbxcdn.com/180DAY-f8e24fd31411b2a73beb4eadc2c68cb5/500/280/Image/Jpeg/noFilter',
-  rivals:  'https://tr.rbxcdn.com/180DAY-95e911d989ab6695547496e422901164/500/280/Image/Jpeg/noFilter',
-  bl:      'https://tr.rbxcdn.com/180DAY-3279db75df02809097530f4f5ea2c116/500/280/Image/Jpeg/noFilter',
-  bb:      'https://tr.rbxcdn.com/180DAY-e596ebf44a1b6bf3e8d1c5771bcfa75b/500/280/Image/Jpeg/noFilter',
-  av:      'https://tr.rbxcdn.com/180DAY-a431b823ab2064797935d736e92eff6e/500/280/Image/Jpeg/noFilter',
-  bw:      'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp',
-};
-function setSectionBg(key){
-  var el=document.getElementById('sectionBg');if(!el)return;
-  var url=key?_secBgMap[key]:null;
-  el.style.opacity='0';
-  setTimeout(function(){
-    if(url){el.style.backgroundImage='url('+url+')';el.style.opacity='1';}
-    else{el.style.backgroundImage='';}
-  },400);
-}
 
 function renderBSTabs(){
   var el=document.getElementById('bsTabs');
@@ -4711,33 +3919,6 @@ function copyOrderId(){
   });
 }
 
-// ── GAME SELECTOR ─────────────────────────────────────────────
-const ALL_SECTION_IDS=['robux','bf','brainrot','rivals','mm2','tsunami','sp','am','gag','nights','gpo','bb','av','bl','fisch','bss','vbl','dth','ps99','bw'];
-const GAME_SUBS={
-  robux:    [],
-  bf:       [{label:'🍎 All',fn:'filterBF',val:'all'},{label:'💜 Mythical',fn:'filterBF',val:'mythical'},{label:'⭐ Legendary',fn:'filterBF',val:'legendary'},{label:'💎 Rare',fn:'filterBF',val:'rare'},{label:'🌊 Logia',fn:'filterBF',val:'logia'},{label:'🦁 Beast',fn:'filterBF',val:'beast'},{label:'🎨 Skins',fn:'filterBF',val:'skin'},{label:'🎮 Gamepasses',fn:'filterBF',val:'gamepass'}],
-  gag:      [{label:'🌱 All',fn:'filterGAG',val:'all'},{label:'🐝 Pets',fn:'filterGAG',val:'pets'},{label:'📦 Bundles',fn:'filterGAG',val:'bundles'},{label:'🪙 Tokens',fn:'filterGAG',val:'tokens'}],
-  am:       [{label:'🐾 All',fn:'filterAM2',val:'all'},{label:'👑 Legendary',fn:'filterAM2',val:'legendary'},{label:'✨ Neon',fn:'filterAM2',val:'neon'},{label:'🌈 Mega Neon',fn:'filterAM2',val:'mega'}],
-  mm2:      [{label:'⚔️ All',fn:'filterMM2',val:'all'},{label:'💀 Godly',fn:'filterMM2',val:'godly'},{label:'🔮 Chroma',fn:'filterMM2',val:'chroma'},{label:'🗡️ Sets',fn:'filterMM2',val:'set'},{label:'🎁 Bundles',fn:'filterMM2',val:'bundle'}],
-  brainrot: [{label:'🧠 All',fn:'filterBR',val:'all'},{label:'🏠 Bases',fn:'filterBR',val:'bases'}],
-  rivals:   [{label:'🥊 All',fn:'filterRIV',val:'all'},{label:'🏆 Boosts',fn:'filterRIV',val:'boost'},{label:'🎭 Skins',fn:'filterRIV',val:'skin'},{label:'💎 Bundles',fn:'filterRIV',val:'bundle'},{label:'🪙 Currency',fn:'filterRIV',val:'currency'}],
-  nights:   [{label:'🌙 All',fn:'filterNT',val:'all'},{label:'🐾 Pets',fn:'filterNT',val:'pets'},{label:'📦 Bundles',fn:'filterNT',val:'bundles'},{label:'🪙 Currency',fn:'filterNT',val:'currency'}],
-  tsunami:  [{label:'🌊 All',fn:'filterTS',val:'all'},{label:'🐾 Pets',fn:'filterTS',val:'pets'},{label:'📦 Bundles',fn:'filterTS',val:'bundles'},{label:'🪙 Currency',fn:'filterTS',val:'currency'}],
-  gpo:      [{label:'⚓ All',fn:'filterGPO',val:'all'},{label:'🍎 Fruits',fn:'filterGPO',val:'fruits'},{label:'⚔️ Swords',fn:'filterGPO',val:'swords'},{label:'📦 Bundles',fn:'filterGPO',val:'bundles'},{label:'🪙 Currency',fn:'filterGPO',val:'currency'}],
-  sp:       [{label:'🏴‍☠️ All',fn:'filterSP',val:'all'},{label:'🎮 Gamepasses',fn:'filterSP',val:'gamepasses'},{label:'🗝️ Keys',fn:'filterSP',val:'keys'},{label:'🔄 Rerolls',fn:'filterSP',val:'rerolls'},{label:'⚔️ Items',fn:'filterSP',val:'items'},{label:'🧥 Sets',fn:'filterSP',val:'sets'}],
-  bb:       [{label:'⚔️ All',fn:'filterBB',val:'all'},{label:'⚔️ Swords',fn:'filterBB',val:'swords'},{label:'🎯 Sets',fn:'filterBB',val:'sets'},{label:'🌀 Spins',fn:'filterBB',val:'spins'},{label:'🪙 Tokens',fn:'filterBB',val:'tokens'},{label:'🎟️ Passes',fn:'filterBB',val:'passes'}],
-  av:       [{label:'⚡ All',fn:'filterAV',val:'all'},{label:'🗡️ Units',fn:'filterAV',val:'units'},{label:'✨ Shiny',fn:'filterAV',val:'shiny'},{label:'👑 Exclusive',fn:'filterAV',val:'exclusive'}],
-  bl:       [{label:'🩸 All',fn:'filterBL',val:'all'},{label:'🧬 Races',fn:'filterBL',val:'races'},{label:'👁️ Eyes',fn:'filterBL',val:'eyes'},{label:'🌀 Souls',fn:'filterBL',val:'souls'},{label:'📜 Schematics',fn:'filterBL',val:'schematics'},{label:'💍 Rings',fn:'filterBL',val:'rings'},{label:'🗡️ Items',fn:'filterBL',val:'items'}],
-  fisch:    [{label:'🎣 All',fn:'filterFISCH',val:'all'},{label:'🎣 Rods',fn:'filterFISCH',val:'rods'},{label:'🐟 Fish',fn:'filterFISCH',val:'fish'},{label:'⛵ Boats',fn:'filterFISCH',val:'boats'},{label:'📦 Items',fn:'filterFISCH',val:'items'},{label:'💵 Currency',fn:'filterFISCH',val:'currency'}],
-  bss:      [{label:'🐝 All',fn:'filterBSS',val:'all'},{label:'🐻 Skins',fn:'filterBSS',val:'skins'},{label:'🎁 Vouchers',fn:'filterBSS',val:'vouchers'},{label:'💍 Beequips',fn:'filterBSS',val:'beequips'},{label:'🪧 Stickers',fn:'filterBSS',val:'stickers'}],
-  vbl:      [{label:'🏐 All',fn:'filterVBL',val:'all'},{label:'🌀 Spins',fn:'filterVBL',val:'spins'},{label:'💎 Currency',fn:'filterVBL',val:'currency'},{label:'🎰 Slots',fn:'filterVBL',val:'slots'},{label:'🎟️ Passes',fn:'filterVBL',val:'passes'}],
-  dth:      [{label:'💀 All',fn:'filterDTH',val:'all'},{label:'⚔️ Weapons',fn:'filterDTH',val:'weapons'},{label:'✨ Auras',fn:'filterDTH',val:'auras'},{label:'💎 Gems',fn:'filterDTH',val:'gems'},{label:'📦 Bundles',fn:'filterDTH',val:'bundles'}],
-  ps99:     [{label:'💎 All',fn:'filterPS99',val:'all'},{label:'✨ Gems',fn:'filterPS99',val:'gems'},{label:'🐾 Huge Pets',fn:'filterPS99',val:'huge'},{label:'👑 Titanic',fn:'filterPS99',val:'titanic'},{label:'🌈 Rainbow',fn:'filterPS99',val:'rainbow'},{label:'🥚 Eggs',fn:'filterPS99',val:'eggs'},{label:'📦 Other',fn:'filterPS99',val:'other'}],
-  bw:       [{label:'🤠 All',fn:'filterBW',val:'all'},{label:'💰 Items',fn:'filterBW',val:'items'},{label:'⭐ Stands',fn:'filterBW',val:'stands'},{label:'🎮 Accounts',fn:'filterBW',val:'accounts'}],
-};
-
-function filterAM2(btn,val){setJtActive(btn);filterGrid('amGrid','sub',val);if(val==='all')document.querySelectorAll('#amGrid .pc').forEach(c=>c.style.display='');}
-
 function toggleGS(){
   const gs=document.getElementById('gdSearch');if(gs){gs.value='';filterGames('');}
   document.getElementById('gsBtn').classList.toggle('open');document.getElementById('gsDrop').classList.toggle('open');}
@@ -5218,13 +4399,9 @@ document.getElementById('itemDetailModal').addEventListener('click', function(e)
   if(e.target === this) closeItemDetail();
 });
 
-// ── VIEW ALL OVERLAY ───────────────────────────────────────────
-let _viewAllItems    = [];
-let _viewAllFiltered = [];
-let _viewAllFilter   = 'all';
-let _viewAllSort     = 'default';
-let _viewAllKey      = '';
-let _viewAllSearch   = '';
+// ── VIEW ALL (redirects to game page) ─────────────────────────
+function openViewAll(key){ window.location.href='/game?g='+key; }
+function closeViewAll(){}
 
 const VIEW_ALL_CONFIG = {
   bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...BF_ACCOUNTS], filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass','accounts'] },
@@ -5255,212 +4432,6 @@ const VIEW_ALL_CONFIG = {
     ]
   },
 };
-
-function openViewAll(key){
-  const cfg = VIEW_ALL_CONFIG[key];
-  if(!cfg) return;
-
-  _viewAllKey    = key;
-  _viewAllItems  = cfg.items();
-  _viewAllFilter = 'all';
-  _viewAllSort   = 'default';
-  _viewAllSearch = '';
-  const _vaInp = document.getElementById('vaSearchInput');
-  if(_vaInp) _vaInp.value = '';
-  _viewAllFiltered = [..._viewAllItems];
-
-  // Set game icon + title in banner header
-  const _vaTitleEl = document.getElementById('viewAllTitle');
-  _vaTitleEl.textContent = cfg.title;
-  const vaIconEl = document.getElementById('vaGameIconImg');
-  if(cfg.img){ vaIconEl.src = cfg.img; vaIconEl.style.display = ''; }
-  else { vaIconEl.src = ''; vaIconEl.style.display = 'none'; }
-
-  // Build filter pills with icon
-  const filtersEl = document.getElementById('viewAllFilters');
-  if(cfg.filters.length > 0){
-    filtersEl.innerHTML = cfg.filters.map(f => {
-      const label = f === 'all' ? 'All Items' : f.charAt(0).toUpperCase() + f.slice(1);
-      const iconHtml = cfg.img
-        ? `<img class="va-fi" src="${cfg.img.replace(/"/g,'&quot;')}" onerror="this.style.display='none'">`
-        : '';
-      return `<button class="va-filter${f==='all'?' va-filter-active':''}" onclick="setViewAllFilter('${f}',this)">${iconHtml}${label}</button>`;
-    }).join('');
-    filtersEl.style.display = 'flex';
-  } else {
-    filtersEl.innerHTML = '';
-    filtersEl.style.display = 'none';
-  }
-
-  // Reset sort buttons
-  document.querySelectorAll('.va-sort').forEach(b=>b.classList.remove('va-sort-active'));
-  document.getElementById('vaSort-default')?.classList.add('va-sort-active');
-
-  renderViewAllGrid();
-  document.getElementById('viewAllOverlay').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  document.getElementById('viewAllOverlay').scrollTop = 0;
-  // Update URL for view-all-only games (no dedicated section)
-  const _vaOnlyKeys = ['discord'];
-  if(_vaOnlyKeys.includes(key)){
-    history.pushState({vaKey:key},'','/'+key);
-  }
-}
-
-function closeViewAll(){
-  document.getElementById('viewAllOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-  // Restore URL if we pushed a view-all-only route
-  if(history.state?.vaKey){ history.back(); }
-}
-
-function setViewAllFilter(filter, btn){
-  _viewAllFilter = filter;
-  document.querySelectorAll('.va-filter').forEach(b=>b.classList.remove('va-filter-active'));
-  btn.classList.add('va-filter-active');
-
-  if(filter === 'all'){
-    _viewAllFiltered = [..._viewAllItems];
-  } else {
-    _viewAllFiltered = _viewAllItems.filter(i =>
-      (i.cat||i.sub||i.rar||'').toLowerCase() === filter.toLowerCase()
-    );
-  }
-  applySortViewAll();
-  renderViewAllGrid();
-}
-
-function sortViewAll(type){
-  _viewAllSort = type;
-  document.querySelectorAll('.va-sort').forEach(b=>b.classList.remove('va-sort-active'));
-  document.getElementById(`vaSort-${type}`)?.classList.add('va-sort-active');
-  applySortViewAll();
-  renderViewAllGrid();
-}
-
-function applySortViewAll(){
-  const arr = [..._viewAllFiltered];
-  if(_viewAllSort === 'low')   arr.sort((a,b)=>(a.p||a.norm||0)-(b.p||b.norm||0));
-  if(_viewAllSort === 'high')  arr.sort((a,b)=>(b.p||b.norm||0)-(a.p||a.norm||0));
-  _viewAllFiltered = arr;
-}
-
-function searchViewAll(q){
-  _viewAllSearch = q.trim().toLowerCase();
-  renderViewAllGrid();
-}
-
-function setVAFM(name,mode){
-  fruitModes[name]=mode;
-  renderViewAllGrid();
-}
-function setVABRS(name,idx){brSpeeds[name]=idx;if(idx>0)brMuts[name]=0;renderViewAllGrid();}
-function setVABRMut(name,idx){brMuts[name]=idx;if(idx>0)brSpeeds[name]=0;renderViewAllGrid();}
-
-function renderViewAllGrid(){
-  const grid = document.getElementById('viewAllGrid');
-  const count = document.getElementById('viewAllCount');
-  const display = _viewAllSearch
-    ? _viewAllFiltered.filter(i => (i.n||'').toLowerCase().includes(_viewAllSearch))
-    : _viewAllFiltered;
-  count.textContent = `${display.length} item${display.length!==1?'s':''}`;
-
-  if(!display.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;display:flex;flex-direction:column;align-items:center;gap:14px"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg><div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1px">No items found</div><div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.18)">Try a different filter or check back later</div></div>`;
-    return;
-  }
-
-  grid.innerHTML = display.map(i => {
-    // BF fruit with perm/norm toggle
-    if(i.perm != null && i.norm != null){
-      const key = i.n;
-      const safeName = key.replace(/'/g,"\\'");
-      const bgC = RAR_BG[i.rar]||'r-rare';
-      const img = i.img||'';
-      const mode = fruitModes[key]||'perm';
-      const dp = mode==='perm' ? i.perm : i.norm;
-      const addName = (mode==='perm'?'Perm ':'')+key;
-      const typeEl = i.type&&i.type!=='Skin'&&i.type!=='Gamepass'?`<div class="type-pill ${TYPE_CLS[i.type]||'t-nat'}">${i.type}</div>`:'';
-      const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p:dp,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:bgC,img:img||null,game:'Blox Fruits',sub:i.cat||''}));
-      return `
-      <div class="pc" data-bf="${i.cat||i.rar}" style="cursor:pointer" onclick="if(!event.target.closest('.tog')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-        <div class="pc-img ${bgC}">
-          ${img?`<img src="${img}" alt="${key}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
-          ${bdg(i.badge||'')}${stk(i.stock??99)}${typeEl}
-          ${mkFavBtn(i.n)}
-        </div>
-        <div class="pc-body">
-          <div class="pc-n">${key}</div>
-          ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]||''}${i.type?' · '+i.type:''}</div>`:''}
-          <div class="fruit-tog">
-            <button class="tog${mode==='norm'?' sn':''}" onclick="setVAFM('${safeName}','norm');event.stopPropagation()">Normal</button>
-            <button class="tog${mode==='perm'?' sp':''}" onclick="setVAFM('${safeName}','perm');event.stopPropagation()">⭐ Perm</button>
-          </div>
-          <div class="pc-price">${fmtPrice(dp)}</div>
-          <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${dp},'${i.em||'📦'}','Blox Fruits','${img.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
-        </div>
-      </div>`;
-    }
-    // Brainrot item with speeds and/or mutations — use dropdown selectors
-    if((i.speeds&&i.speeds.length)||i.mutations){
-      const speedIdx=brSpeeds[i.n]!==undefined?brSpeeds[i.n]:0;
-      const mutIdx=brMuts[i.n]!==undefined?brMuts[i.n]:0;
-      const activeSp=i.speeds?i.speeds[speedIdx]:null;
-      const activeMut=i.mutations&&mutIdx>0?i.mutations[mutIdx-1]:null;
-      const p=Number(activeMut?activeMut.p:(activeSp?activeSp.p:i.p||0));
-      const ps=fmtPrice(p);
-      const safeN=i.n.replace(/'/g,"\\'");
-      const mutPfx=activeMut?activeMut.label+' ':'';
-      const speedSfx=activeMut?'':(activeSp?' '+activeSp.label:'');
-      const addName=`${mutPfx}${i.n}${speedSfx}`.trim();
-      const iData=encodeURIComponent(JSON.stringify({n:addName,em:i.em||'🧠',p,oldP:null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:i.img||null,game:'Steal a Brainrot',sub:i.sub||''}));
-      const speedSel=i.speeds?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">M/s</span><select class="br-sel" onchange="setVABRS('${safeN}',+this.value)" onclick="event.stopPropagation()">${i.speeds.map((s,j)=>`<option value="${j}"${j===speedIdx?' selected':''}>${s.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
-      const mutSel=i.mutations?`<div class="br-sel-wrap" onclick="event.stopPropagation()"><span class="br-sel-lbl">Mutation</span><select class="br-sel" onchange="setVABRMut('${safeN}',+this.value)" onclick="event.stopPropagation()"><option value="0"${mutIdx===0?' selected':''}>None</option>${i.mutations.map((m,j)=>`<option value="${j+1}"${(j+1)===mutIdx?' selected':''}>${m.label}</option>`).join('')}</select><svg class="br-sel-arr" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>`:'';
-      const rarCls3=i.rar?`rb-${i.rar}`:'rb-common';
-      return `
-    <div class="pc ${rarCls3}" data-sub="${i.sub||''}" data-rar="${i.rar||''}" style="cursor:pointer" onclick="if(!event.target.closest('.br-sel-wrap')&&!event.target.closest('.pc-btn')&&!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}">
-        ${i.img?`<img src="${i.img}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="em" style="display:none">${i.em||'🧠'}</span>`:`<span class="em">${i.em||'🧠'}</span>`}
-        ${bdg(i.badge||'')}${stk(i.stock??99)}
-        ${mkFavBtn(i.n)}
-      </div>
-      <div class="pc-body">
-        <div class="pc-n">${addName}</div>
-        ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
-        <div class="br-sels">${speedSel}${mutSel}</div>
-        <div class="pc-price">${ps}</div>
-        <button class="pc-btn" onclick="event.stopPropagation();addToCart('${addName.replace(/'/g,"\\'")}',${p},'${i.em||'🧠'}','Steal a Brainrot','${(i.img||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
-      </div>
-    </div>`;
-    }
-    const p = Number(i.p||i.norm||i.price||0);
-    const ps = fmtPrice(p);
-    const game = i.game||'';
-    const vaGameIcon = (VIEW_ALL_CONFIG[_viewAllKey]&&VIEW_ALL_CONFIG[_viewAllKey].img)||'';
-    const vaImg = i.img || vaGameIcon || '';
-    const iData = encodeURIComponent(JSON.stringify({n:i.n,em:i.em,p,oldP:i.oldP||null,rar:i.rar||'',badge:i.badge||'',stock:i.stock??99,bg:i.bg||'r-rare',img:vaImg||null,game,sub:i.sub||'',_nitro:i._nitro||null}));
-    const vaImgErr = (i.img&&vaGameIcon)
-      ? `this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='block'};this.src='${vaGameIcon.replace(/'/g,"\\'")}'`
-      : `this.style.display='none';this.nextElementSibling.style.display='block'`;
-    return `
-    <div class="pc" style="cursor:pointer" onclick="if(!event.target.closest('.fav-btn'))openItemDetail('${iData}')">
-      <div class="pc-img ${i.bg||'r-rare'}">
-        ${vaImg?`<img src="${vaImg}" alt="${i.n}" style="width:80%;height:80%;object-fit:contain;position:relative;z-index:1" onerror="${vaImgErr}"/><span class="em" style="display:none">${i.em||'📦'}</span>`:`<span class="em">${i.em||'📦'}</span>`}
-        ${bdg(i.badge||'')}${stk(i.stock??99)}
-        ${mkFavBtn(i.n)}
-      </div>
-      <div class="pc-body">
-        <div class="pc-n">${i.n}</div>
-        ${i.rar&&RAR_LBL[i.rar]?`<div class="pc-rar ${RAR_COL[i.rar]||'rc-rare'}">${RAR_LBL[i.rar]}</div>`:''}
-        ${i.oldP?`<div class="pc-price">${fmtPrice(p)} <span class="pc-old">${fmtPrice(Number(i.oldP))}</span></div>`:`<div class="pc-price">${ps}</div>`}
-        ${i.oos||i.stock===0
-          ?`<button class="pc-btn oos" disabled onclick="event.stopPropagation()">⏳ Out of Stock</button>`
-          :`<button class="pc-btn" onclick="event.stopPropagation();addToCart('${i.n.replace(/'/g,"\\'")}',${p},'${i.em||'📦'}','${game}','${vaImg.replace(/'/g,"\\'")}')">🛒 Add to Cart</button>`
-        }
-      </div>
-    </div>`;
-  }).join('');
-}
 
 // ── PAGE MODALS (About, FAQ, Legal, Affiliate) ─────────────────
 function getPageContent(key){
@@ -6932,65 +5903,18 @@ function init(){
   // Update language/currency nav label
   const lcBtn = document.getElementById('langCurrLabel');
   if(lcBtn) lcBtn.textContent = selectedLang+' | '+selectedCurrency;
-  renderRobux();renderBF();renderBSTabs();renderBS();renderBundles();
-  document.getElementById('gagGrid').innerHTML=GAG.map(i=>mkCard(i,'gag','g-gag')).join('');tagOrder('gagGrid');
-  document.getElementById('amGrid').innerHTML=AM.map(i=>mkCard(i,'am','g-am')).join('');tagOrder('amGrid');
-  document.getElementById('mm2Grid').innerHTML=MM2.map(i=>mkCard(i,'mm2','g-mm2')).join('');
-  renderBRGrid();
-  document.getElementById('rivalsGrid').innerHTML=RIVALS.map(i=>mkCard(i,'rivals','g-riv')).join('');tagOrder('rivalsGrid');
-  document.getElementById('nightsGrid').innerHTML=NIGHTS.map(i=>mkCard(i,'nights','g-99')).join('');tagOrder('nightsGrid');
-  document.getElementById('tsunamiGrid').innerHTML=TSUNAMI.map(i=>mkCard(i,'tsunami','g-tsn')).join('');tagOrder('tsunamiGrid');
-  document.getElementById('gpoGrid').innerHTML=GPO.map(i=>mkCard(i,'gpo','g-gpo')).join('');tagOrder('gpoGrid');
-  document.getElementById('spGrid').innerHTML=SP.map(i=>mkCard(i,'sp','g-sp')).join('');tagOrder('spGrid');
-  document.getElementById('bbGrid').innerHTML=BB.map(i=>mkCard(i,'bb','g-bb')).join('');tagOrder('bbGrid');
-  document.getElementById('avGrid').innerHTML=AV.map(i=>mkCard(i,'av','g-av')).join('');tagOrder('avGrid');
-  document.getElementById('blGrid').innerHTML=BLOODLINES.map(i=>mkCard(i,'bl','g-bl')).join('');tagOrder('blGrid');
-  document.getElementById('fischGrid').innerHTML=FISCH.map(i=>mkCard(i,'fisch','g-fisch')).join('');tagOrder('fischGrid');
-  document.getElementById('bssGrid').innerHTML=BSS.map(i=>mkCard(i,'bss','g-bss')).join('');tagOrder('bssGrid');
-  document.getElementById('vblGrid').innerHTML=VBL.map(i=>mkCard(i,'vbl','g-vbl')).join('');tagOrder('vblGrid');
-  document.getElementById('dthGrid').innerHTML=DTH.map(i=>mkCard(i,'dth','g-dth')).join('');tagOrder('dthGrid');
-  document.getElementById('ps99Grid').innerHTML=PS99.map(i=>mkCard(i,'ps99','g-ps99')).join('');tagOrder('ps99Grid');
-  document.getElementById('bwGrid').innerHTML=BW.map(i=>mkCard(i,'bw','g-bw')).join('');tagOrder('bwGrid');
+  renderBSTabs();renderBS();renderBundles();
   buildSearchIndex();
   initScrollWraps();
 }
 init();
-
-// ── HIDE ALL GAME SECTIONS ON LOAD (show home menu first) ────────
-(function initHideSections(){
-  if(new URLSearchParams(location.search).get('game')) return; // let checkGameParam handle
-  ALL_SECTION_IDS.forEach(function(id){
-    var s=document.getElementById(id);if(!s)return;
-    s.style.display='none';
-    var dl=s.nextElementSibling;
-    if(dl&&dl.classList.contains('div-line'))dl.style.display='none';
-  });
-  var gb=document.getElementById('gameBar');
-  if(gb)gb.style.display='none';
-})();
 
 // ── REDIRECT TO GAME PAGE FROM URL PARAM (?game=rivals etc) ──
 (function checkGameParam(){
   const params = new URLSearchParams(location.search);
   const game = params.get('game') || '';
   if(!game) return;
-  if(game.toLowerCase()==='discord'){ history.replaceState({},'',' /'); setTimeout(()=>openViewAll('discord'),120); return; }
-  const id = ALL_SECTION_IDS.find(g => g === game.toLowerCase());
-  if(!id) return;
-  // Redirect to dedicated game page
-  window.location.replace('/game?g='+id);
-})();
-
-// ── OPEN ITEM FROM URL PARAM (?open=<name>) ───────────────────
-(function checkOpenParam(){
-  const params = new URLSearchParams(location.search);
-  const name = params.get('open');
-  if(!name) return;
-  history.replaceState({}, '', location.pathname);
-  const item = ALL_PRODUCTS.find(p => p.n === name);
-  if(!item) return;
-  // Small delay so the page has rendered
-  setTimeout(() => openItemDetail(encodeURIComponent(JSON.stringify(item))), 150);
+  window.location.replace('/game?g='+game.toLowerCase());
 })();
 
 // ── STRIPE RETURN AUTO-CONFIRM ────────────────────────────────
@@ -7100,7 +6024,6 @@ document.addEventListener('mousemove',function(e){
 
 // Horizontal scroll with mouse wheel when hovering over a card (.pc) in a section
 document.addEventListener('wheel',function(e){
-  if(e.target.closest('.va-overlay')) return; // not in view-all
   const card=e.target.closest('.pc');
   if(!card) return;
   const scroll=card.closest('.h-scroll');
@@ -7226,22 +6149,7 @@ function goHome(){
   window.scrollTo({top:0,behavior:'smooth'});
   const hm=document.getElementById('homeMenu');
   if(hm) hm.classList.remove('hm-hidden');
-  // Hide all game sections + game bar
-  ALL_SECTION_IDS.forEach(function(id){
-    var s=document.getElementById(id);if(!s)return;
-    s.style.display='none';
-    var dl=s.nextElementSibling;
-    if(dl&&dl.classList.contains('div-line'))dl.style.display='none';
-  });
-  var gb=document.getElementById('gameBar');if(gb)gb.style.display='none';
-  // Restore nav Select Games button, reset sidebar label
-  var nsw=document.getElementById('navSgWrap');if(nsw)nsw.style.display='';
-  document.querySelectorAll('.gd-item').forEach(i=>i.classList.remove('gd-active'));
-  document.querySelector('.gd-item[data-key="all"]')?.classList.add('gd-active');
-  if(document.getElementById('gsName'))document.getElementById('gsName').textContent='All Games';
-  if(document.getElementById('gsIcon'))document.getElementById('gsIcon').textContent='🛒';
   document.title='Silv Market — Buy Blox Fruits, Grow a Garden, MM2, Adopt Me & Roblox Items | Best Prices';
-  setSectionBg(null);
   history.pushState(null,'','/');
 }
 
@@ -7271,8 +6179,6 @@ function closeNavSG(){
   document.getElementById('navSgDrop')?.classList.remove('open');
 }
 function goToGame(key){
-  if(key==='discord'){openViewAll('discord');return;}
-  // Navigate to dedicated game page
   window.location.href='/game?g='+key;
 }
 document.addEventListener('click', e => {

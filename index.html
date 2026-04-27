@@ -527,7 +527,7 @@ footer{position:relative;z-index:2;background:rgba(3,1,10,.85);
 
 
 
-.sort-drop{left:auto;right:0;min-width:180px}
+
 
 
 
@@ -925,13 +925,13 @@ nav{border-bottom:1px solid rgba(255,16,240,.18)!important;
 /* ── FOCUS-VISIBLE — keyboard navigation ───────────────────── */
 :focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:4px}
 button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
-.gb-btn:focus-visible,.jt:focus-visible,.pc:focus-visible,.sf-btn:focus-visible{outline:2px solid rgba(255,16,240,.7);outline-offset:2px}
+.pc:focus-visible{outline:2px solid rgba(255,16,240,.7);outline-offset:2px}
 
 /* ── SKELETON LOADING ──────────────────────────────────────── */
 @keyframes sk-shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
 .sk{border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.09) 50%,rgba(255,255,255,.04) 75%);background-size:200% auto;animation:sk-shimmer 1.6s linear infinite}
 .sk-card{height:260px;border-radius:17px}
-.sk-rp{height:200px;border-radius:16px;min-width:155px}
+
 
 /* ── REDUCED MOTION — accessibility ────────────────────────── */
 @media(prefers-reduced-motion:reduce){
@@ -3191,21 +3191,7 @@ function goToCheckout(){
   toggleCart();
   window.location.href = '/checkout';
 }
-function openCO(){
-  toggleCart();
-  setTimeout(()=>{
-    populateCO();
-    document.getElementById('coOv').classList.add('open');
-    document.body.style.overflow='hidden';
-    _setupTokenRedeemUI();
-    if(window._pendingRefCode){
-      const pIn=document.getElementById('promoIn');
-      if(pIn) pIn.value=window._pendingRefCode;
-      window._pendingRefCode=null;
-      setTimeout(()=>applyCode(),300);
-    }
-  },300);
-}
+
 function closeCO(){document.getElementById('coOv').classList.remove('open');document.body.style.overflow='';_appliedReferralCode=null;_referralDiscount=false;promoApplied=false;promoPct=0;_tokensApplied=0;_storeCreditApplied=0;const pOk=document.getElementById('promoOk');if(pOk){pOk.textContent='';pOk.style.display='none';}const pIn=document.getElementById('promoIn');if(pIn)pIn.value='';}
 
 function populateCO(){
@@ -4603,49 +4589,7 @@ function openAccountPanel(tab){
   // Navigate to dedicated account page
   window.location.href = '/account' + (tab && tab!=='overview' ? '?tab='+tab : '');
 }
-function _openAccountPanelInline(tab){
-  const panel = document.getElementById('accountPanel');
-  if(!panel) return;
-  const inner = panel.querySelector('.ap-panel-inner');
-  if(inner){ inner.classList.remove('ap-panel-inner'); void inner.offsetWidth; inner.classList.add('ap-panel-inner'); }
-  document.getElementById('apName').textContent  = currentUser.name;
-  document.getElementById('apEmail').textContent = currentUser.email;
-  // Avatar: custom upload > Discord pfp > fallback
-  const avatarEl   = document.getElementById('apAvatar');
-  const fallbackEl = document.getElementById('apAvatarFallback');
-  const customPfp  = localStorage.getItem('silv_pfp_' + currentUser.email);
-  const discordAvatar = discordUser?.id && discordUser?.avatar
-    ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
-    : null;
-  const pfpSrc = customPfp || discordAvatar;
-  if(pfpSrc && avatarEl){
-    avatarEl.src = pfpSrc;
-    avatarEl.style.display = 'block';
-    if(fallbackEl) fallbackEl.style.display = 'none';
-  } else {
-    if(avatarEl) avatarEl.style.display = 'none';
-    if(fallbackEl) fallbackEl.style.display = 'flex';
-  }
-  // 2FA status badge
-  const users = loadUsers();
-  const u = users[currentUser.email];
-  const twofa = u?.twofa || false;
-  const badge = document.getElementById('ap2faStatus');
-  if(badge){
-    badge.textContent   = twofa ? '🔒 2FA Enabled' : '⚠️ 2FA Disabled';
-    badge.style.background  = twofa ? 'rgba(0,200,83,.15)' : 'rgba(255,100,0,.15)';
-    badge.style.color       = twofa ? '#00c853' : '#ff6600';
-    badge.style.border      = twofa ? '1px solid rgba(0,200,83,.3)' : '1px solid rgba(255,100,0,.3)';
-  }
-  // 2FA toggle visual
-  update2FAToggle(twofa);
-  // Dev panel visibility
-  updateDevPanel();
-  // Switch to requested or default tab
-  switchAPTab(tab||'overview');
-  panel.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
+
 function closeAccountPanel(){
   const panel = document.getElementById('accountPanel');
   if(panel) panel.style.display = 'none';

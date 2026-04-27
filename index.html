@@ -1237,20 +1237,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offse
     <div class="bs-scroll-hint">SCROLL FOR MORE <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
   </div>
 
-  <!-- New Arrivals banner -->
-  <div style="width:100%;max-width:1240px;padding:0 20px;box-sizing:border-box;margin-top:28px">
-    <button onclick="openViewAll('new')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:linear-gradient(135deg,rgba(255,16,240,.12),rgba(147,51,234,.08));border:1px solid rgba(255,16,240,.28);border-radius:14px;cursor:pointer;transition:all .22s;text-decoration:none" onmouseenter="this.style.background='linear-gradient(135deg,rgba(255,16,240,.2),rgba(147,51,234,.14))';" onmouseleave="this.style.background='linear-gradient(135deg,rgba(255,16,240,.12),rgba(147,51,234,.08))';">
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:linear-gradient(135deg,rgba(255,16,240,.18),rgba(147,51,234,.12));border:1px solid rgba(255,16,240,.3);border-radius:11px;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff10f0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/><path d="M5 3L4 6l3-1z" fill="#ff10f0" opacity=".5"/><path d="M20 17l-1 3 3-1z" fill="#ff10f0" opacity=".5"/></svg></span>
-        <div style="text-align:left">
-          <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px">New Arrivals</div>
-          <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:rgba(255,255,255,.6);margin-top:2px">Fresh items just added to the shop</div>
-        </div>
-      </div>
-      <span style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:rgba(255,16,240,.8);letter-spacing:.5px">View All →</span>
-    </button>
-  </div>
-
   <!-- Bundle Deals -->
   <div class="hm-sec-row" style="margin-top:36px">
     <div class="hm-section-label">Bundle Deals</div>
@@ -4214,8 +4200,6 @@ document.getElementById('itemDetailModal').addEventListener('click', function(e)
 });
 
 // ── VIEW ALL (redirects to game page) ─────────────────────────
-function openViewAll(key){ window.location.href='/game?g='+key; }
-function closeViewAll(){}
 
 const VIEW_ALL_CONFIG = {
   bf:       { title:'Blox Fruits',   img:'https://silvmarket.shop/images/bloxfruits.png', items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...BF_ACCOUNTS], filters:['all','mythical','legendary','rare','logia','beast','skin','gamepass','accounts'] },
@@ -4237,7 +4221,6 @@ const VIEW_ALL_CONFIG = {
   dth:      { title:'Death Ball',         img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Death%20Ball.webp',             items:()=>DTH,        filters:['all','weapons','auras','gems','bundles'] },
   ps99:     { title:'Pet Simulator 99',  img:'https://silvmarket.shop/images/PetSim99%20logo.webp',                                                  items:()=>PS99,       filters:['all','gems','huge','titanic','rainbow','eggs','other'] },
   bw:       { title:'Bridger: Western',  img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/Bridger%20Western.webp',             items:()=>BW,         filters:['all','items','stands','accounts'] },
-  new:      { title:'New Arrivals',    img:'https://silvmarket.shop/images/silvmarket%20logo.png',    items:()=>[...FRUITS,...FRUIT_SKINS,...BF_GP,...GAG,...AM,...MM2,...BRAINROT,...RIVALS,...NIGHTS,...TSUNAMI,...GPO,...SP,...BB,...AV,...BLOODLINES,...FISCH,...BSS,...VBL,...DTH,...PS99,...BW].filter(i=>i.badge==='new'), filters:['all'] },
   discord:  { title:'Discord',        img:'https://silvmarket.shop/images/discord.png', items:()=>DISCORD_ITEMS, filters:['all','boosts','nitro','decorations'] },
   robux:    { title:'Robux & Services', img:_rsServicesImg, filters:['all','robux','services'],
     items:()=>[
@@ -5739,7 +5722,7 @@ checkStripeReturn();
   window._pendingRefCode=ref.toUpperCase();
 })();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeViewAll();closeMobMenu();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCO();closeCryptoModal();closePageModal();closeLoginModal();closeItemDetail();closeMobMenu();}});
 
 // ── MOBILE NAV HEIGHT FIX ─────────────────────────────────────
 // On mobile the nav wraps to 2 rows — update --nav-h to match

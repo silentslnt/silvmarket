@@ -188,7 +188,7 @@ a{color:inherit;text-decoration:none}
 .g-gpo{color:#f59e0b}.g-sp{color:#60a5fa}.g-bb{color:#f87171}.g-av{color:#818cf8}.g-bl{color:#ef4444}
 .g-fisch{color:#38bdf8}.g-bss{color:#fbbf24}.g-vbl{color:#a78bfa}.g-dth{color:#ef4444}
 .g-ps99{color:#06b6d4}.g-bw{color:#d97706}.g-brainrot{color:#c084fc}
-.g-robux{color:#fbbf24}.g-discord{color:#5865f2}.g-new{color:#ff10f0}
+.g-robux{color:#fbbf24}.g-discord{color:#5865f2}
 
 /* Animated glow for hot/best */
 @keyframes item-glow{0%,100%{box-shadow:0 0 0 transparent}50%{box-shadow:0 0 18px rgba(255,16,240,.18)}}
@@ -556,7 +556,6 @@ function getGameItems(key){
     case 'bw':       return typeof BW!=='undefined'?BW:[];
     case 'robux':    return [].concat(typeof ROBUX!=='undefined'?ROBUX.map(function(r){return{n:r.a.toLocaleString()+' Robux',p:r.p,badge:r.best?'best':'',stock:99,sub:'robux',rar:'uncommon',bg:'r-robux',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',game:'Robux'}}):[],typeof SOCIAL_TIERS!=='undefined'?SOCIAL_TIERS.map(function(r){return{n:r.a.toLocaleString()+' Followers / Members / Likes',em:'⭐',p:r.p,badge:r.best?'best':'',stock:99,sub:'services',rar:'uncommon',bg:'r-uncommon',img:typeof _rsServicesImg!=='undefined'?_rsServicesImg:'',game:'Roblox Services'}}):[]);
     case 'discord':  return typeof DISCORD_ITEMS!=='undefined'?DISCORD_ITEMS:[];
-    case 'new':      return [].concat(typeof FRUITS!=='undefined'?FRUITS:[],typeof FRUIT_SKINS!=='undefined'?FRUIT_SKINS:[],typeof BF_GP!=='undefined'?BF_GP:[],typeof GAG!=='undefined'?GAG:[],typeof AM!=='undefined'?AM:[],typeof MM2!=='undefined'?MM2:[],typeof BRAINROT!=='undefined'?BRAINROT:[],typeof RIVALS!=='undefined'?RIVALS:[],typeof NIGHTS!=='undefined'?NIGHTS:[],typeof TSUNAMI!=='undefined'?TSUNAMI:[],typeof GPO!=='undefined'?GPO:[],typeof SP!=='undefined'?SP:[],typeof BB!=='undefined'?BB:[],typeof AV!=='undefined'?AV:[],typeof BLOODLINES!=='undefined'?BLOODLINES:[],typeof FISCH!=='undefined'?FISCH:[],typeof BSS!=='undefined'?BSS:[],typeof VBL!=='undefined'?VBL:[],typeof DTH!=='undefined'?DTH:[],typeof PS99!=='undefined'?PS99:[],typeof BW!=='undefined'?BW:[]).filter(function(i){return i.badge==='new';});
     default: return [];
   }
 }
@@ -647,10 +646,6 @@ const GAMES = {
               wall:null,
               filters:['all','boosts','nitro','decorations'],
               desc:'Discord Nitro, boosts, and decorations at the best prices.' },
-  new:      { name:'New Arrivals',      cls:'g-new',      img:'https://silvmarket.shop/images/silvmarket%20logo.png',
-              wall:null,
-              filters:['all'],
-              desc:'The latest items added across all games. Fresh drops and new stock.' },
 };
 
 const BADGE_CLS = {hot:'b-hot',new:'b-new',myth:'b-myth',leg:'b-leg',sale:'b-sale',best:'b-best',oos:'b-oos',rare:'b-rare',perm:'b-perm',bundle:'b-new',popular:'b-hot'};

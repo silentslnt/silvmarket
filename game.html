@@ -554,7 +554,7 @@ function getGameItems(key){
     case 'dth':      return typeof DTH!=='undefined'?DTH:[];
     case 'ps99':     return typeof PS99!=='undefined'?PS99:[];
     case 'bw':       return typeof BW!=='undefined'?BW:[];
-    case 'robux':    return typeof ROBUX!=='undefined'?ROBUX.map(function(r){return{n:r.a.toLocaleString()+' Robux',p:r.p,badge:r.best?'best':'',stock:99,sub:'robux',rar:'uncommon',bg:'r-robux',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',game:'Robux'}}):[];
+    case 'robux':    return [].concat(typeof ROBUX!=='undefined'?ROBUX.map(function(r){return{n:r.a.toLocaleString()+' Robux',p:r.p,badge:r.best?'best':'',stock:99,sub:'robux',rar:'uncommon',bg:'r-robux',img:'https://raw.githubusercontent.com/silentslnt/silvmarket/main/images/robux.png',game:'Robux'}}):[],typeof SOCIAL_TIERS!=='undefined'?SOCIAL_TIERS.map(function(r){return{n:r.a.toLocaleString()+' Followers / Members / Likes',em:'⭐',p:r.p,badge:r.best?'best':'',stock:99,sub:'services',rar:'uncommon',bg:'r-uncommon',img:typeof _rsServicesImg!=='undefined'?_rsServicesImg:'',game:'Roblox Services'}}):[]);
     case 'discord':  return typeof DISCORD_ITEMS!=='undefined'?DISCORD_ITEMS:[];
     default: return [];
   }

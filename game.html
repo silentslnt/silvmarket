@@ -5,12 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Silv Market</title>
 <link rel="icon" href="https://silvmarket.shop/images/silvmarket%20logo.png"/>
+<meta name="description" content="Buy premium Roblox items at the best prices. Instant delivery via Discord. Blox Fruits, Grow a Garden, MM2, Adopt Me & more."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Silv Market"/>
-<meta property="og:title" content="Silv Market"/>
+<meta property="og:title" content="Silv Market — Buy Roblox Items"/>
 <meta property="og:description" content="Premium Roblox items at the best prices. Instant delivery via Discord."/>
 <meta property="og:image" content="https://silvmarket.shop/images/silvmarket%20logo.png?v=2"/>
 <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Silv Market — Buy Roblox Items"/>
+<meta name="twitter:description" content="Premium Roblox items at the best prices. Instant delivery via Discord."/>
+<meta name="twitter:image" content="https://silvmarket.shop/images/silvmarket%20logo.png?v=2"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -777,8 +781,13 @@ function renderGamesPanel(){
 
   // Update page meta
   document.title = cfg.name + ' — Silv Market | Buy Roblox Items';
+  document.querySelector('meta[name="description"]').content = cfg.desc;
   document.querySelector('meta[property="og:title"]').content = cfg.name + ' — Silv Market';
   document.querySelector('meta[property="og:description"]').content = cfg.desc;
+  if(cfg.img) document.querySelector('meta[property="og:image"]').content = cfg.img;
+  document.querySelector('meta[name="twitter:title"]').content = cfg.name + ' — Silv Market';
+  document.querySelector('meta[name="twitter:description"]').content = cfg.desc;
+  if(cfg.img) document.querySelector('meta[name="twitter:image"]').content = cfg.img;
 
   // Hero
   var heroBg = document.getElementById('heroBg');
